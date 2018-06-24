@@ -25,7 +25,7 @@ The reason for doing so is primarily because of its high degree of accuracy.
 - Use PHP 7.1 features and make it fully type-hinted.
 - Add `Json` template.
 - Add character-level diff for HTML templates.
-- Add class `DiffHelper` for simple usage.
+- Add classes `DiffHelper` and `RendererFactory` for simple usage.
 - Add multi-language support (English, Chinese, etc...) for templates.
 
 
@@ -70,6 +70,7 @@ $diffOptions = [
 
 $templateOptions = [
     // template language: eng, cht, chs, jpn, ...
+    // or an array which has the same keys with a language file
     'language' => 'eng',
     // HTML template tab width
     'tabSize' => 4,

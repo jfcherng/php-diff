@@ -242,6 +242,11 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * Renderer the changed extent at char level.
      *
+     * @todo This method looks like could be rewritten with
+     *       Jfcherng\Diff\Utility\SequenceMatcher::getOpcodes and
+     *       Jfcherng\Utility\MbString::toArrayRaw.
+     *       Don't know how's the performance improvement though.
+     *
      * @param MbString $mbFromLine the megabytes from line
      * @param MbString $mbToLine   the megabytes to line
      *

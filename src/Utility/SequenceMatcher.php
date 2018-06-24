@@ -334,9 +334,7 @@ class SequenceMatcher
             return $aCount <=> $bCount;
         });
 
-        $i1 = 0;
-        $j1 = 0;
-        $k1 = 0;
+        $i1 = $j1 = $k1 = 0;
         $nonAdjacent = [];
         foreach ($matchingBlocks as $block) {
             [$i2, $j2, $k2] = $block;
@@ -392,8 +390,7 @@ class SequenceMatcher
             return $this->opcodes;
         }
 
-        $i = 0;
-        $j = 0;
+        $i = $j = 0;
         $this->opcodes = [];
 
         $blocks = $this->getMatchingBlocks();
@@ -471,8 +468,7 @@ class SequenceMatcher
         }
 
         $maxRange = $context * 2;
-        $groups = [];
-        $group = [];
+        $groups = $group = [];
         foreach ($opcodes as $code) {
             [$tag, $i1, $i2, $j1, $j2] = $code;
             if ($tag === static::OPCODE_EQUAL && $i2 - $i1 > $maxRange) {
