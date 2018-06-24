@@ -1,0 +1,11 @@
+language: php
+
+php:
+  - 7.1
+  - 7.2
+
+install:
+  - composer install --prefer-dist --no-progress
+
+script:
+  - composer test
