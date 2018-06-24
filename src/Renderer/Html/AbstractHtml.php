@@ -173,11 +173,19 @@ abstract class AbstractHtml extends AbstractRenderer
             return $lines;
         }
 
-        $lines = array_map([$this, 'htmlSafe'], $lines);
-        $lines = array_map([$this, 'expandTabs'], $lines);
-        $lines = array_map([$this, 'fixSpaces'], $lines);
+        // this delimiter contains chars from the Unicode reserved area
+        // hopefully, it won't appear in our lines
+        static $delimiter = "\u{ff2fa}\u{fcffc}\u{fff42}";
 
-        return $lines;
+        // glue all lines into a single string to get rid of multiple function calls later
+        $string = implode($delimiter, $lines);
+
+        $string = $this->htmlSafe($string);
+        $string = $this->expandTabs($string);
+        $string = $this->fixSpaces($string);
+
+        // split the string back to lines
+        return explode($delimiter, $string);
     }
 
     /**
@@ -345,15 +353,15 @@ abstract class AbstractHtml extends AbstractRenderer
     }
 
     /**
-     * Replace tabs in a single line with a number of spaces as defined by the tabSize option.
+     * Replace tabs in a string with a number of spaces as defined by the tabSize option.
      *
-     * @param string $line the containing tabs to convert
+     * @param string $string the containing tabs to convert
      *
-     * @return string the line with the tabs converted to spaces
+     * @return string the string with the tabs converted to spaces
      */
-    protected function expandTabs(string $line): string
+    protected function expandTabs(string $string): string
     {
-        return str_replace("\t", str_repeat(' ', $this->options['tabSize']), $line);
+        return str_replace("\t", str_repeat(' ', $this->options['tabSize']), $string);
     }
 
     /**
@@ -378,7 +386,7 @@ abstract class AbstractHtml extends AbstractRenderer
     protected function fixSpaces(string $string): string
     {
         return preg_replace_callback(
-            '# ++#S',
+            '# {2,}#S', // only fix for more than 1 space
             function (array $matches): string {
                 $count = strlen($matches[0]);
 
