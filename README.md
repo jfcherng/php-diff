@@ -64,8 +64,6 @@ $diffOptions = [
     'ignoreCase' => false,
     // ignore whitespace difference
     'ignoreWhitespace' => false,
-    // insert <br /> before \n?
-    'returnHtml' => false,
     // show "..." row in HTML templates
     'separateBlock' => true,
 ];

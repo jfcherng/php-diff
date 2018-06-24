@@ -24,11 +24,6 @@ class Diff
     public $options = [];
 
     /**
-     * @var string[] information of all available templates
-     */
-    protected static $templatesInfo;
-
-    /**
      * @var string[] the "old" sequence to use as the basis for the comparison
      */
     protected $a;
@@ -52,7 +47,6 @@ class Diff
         'ignoreWhitespace' => false,
         'ignoreCase' => false,
         'separateBlock' => true,
-        'returnHtml' => false,
     ];
 
     /**
@@ -162,15 +156,9 @@ class Diff
 
         // the "no difference" situation may happen frequently
         // let's save some calculation if possible
-        $rendered = $this->a !== $this->b
+        return $this->a !== $this->b
             ? $renderer->render()
             : $renderer::IDENTICAL_RESULT;
-
-        if ($this->options['returnHtml'] && $renderer::IS_HTML_TEMPLATE) {
-            $rendered = nl2br(htmlspecialchars($rendered));
-        }
-
-        return $rendered;
     }
 
     /**
