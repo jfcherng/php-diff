@@ -110,8 +110,7 @@ class SequenceMatcher
      */
     public function setSequences(array $a, array $b): self
     {
-        $this->setSeq1($a);
-        $this->setSeq2($b);
+        $this->setSeq1($a)->setSeq2($b);
 
         return $this;
     }
