@@ -1,93 +1,143 @@
-body {
-	background: #fff;
-	font-family: Arial;
-	font-size: 12px;
-}
+@charset "UTF-8";
 .Differences {
-	width: 100%;
-	border-collapse: collapse;
-	border-spacing: 0;
-	empty-cells: show;
+    border-collapse: collapse;
+    border-spacing: 0;
+    border: 1px solid #000;
+    color: #000;
+    empty-cells: show;
+    font-family: consolas;
+    font-size: 13px;
+    width: 100%;
+    word-break: break-all;
+}
+
+.Differences th {
+    font-weight: 700;
+}
+
+.Differences td,
+.Differences th {
+    border-collapse: separate;
+    border: none;
+    padding: 1px 2px;
+    background: #FFF;
+}
+
+.Differences td a,
+.Differences th a {
+    color: #000;
+    cursor: inherit;
+    pointer-events: none;
 }
 
 .Differences thead th {
-	text-align: left;
-	border-bottom: 1px solid #000;
-	background: #aaa;
-	color: #000;
-	padding: 4px;
+    background: #AAA;
+    border-bottom: 1px solid #000;
+    padding: 4px;
+    text-align: left;
 }
+
 .Differences tbody th {
-	text-align: right;
-	background: #ccc;
-	width: 4em;
-	padding: 1px 2px;
-	border-right: 1px solid #000;
-	vertical-align: top;
-	font-size: 13px;
+    background: #CCC;
+    border-right: 1px solid #000;
+    text-align: right;
+    vertical-align: top;
+    width: 4em;
 }
 
-.Differences td {
-	padding: 1px 2px;
-	font-family: Consolas, monospace;
-	font-size: 13px;
+.Differences tbody th.Sign {
+    background: #FFF;
+    border-right: none;
+    padding: 1px 0;
+    text-align: center;
+    width: 1em;
 }
 
-.DifferencesSideBySide .ChangeInsert td.Left {
-	background: #dfd;
+.Differences tbody th.Sign.del {
+    background: #fbe1e1;
 }
 
-.DifferencesSideBySide .ChangeInsert td.Right {
-	background: #cfc;
+.Differences tbody th.Sign.ins {
+    background: #e1fbe1;
 }
 
-.DifferencesSideBySide .ChangeDelete td.Left {
-	background: #f88;
+.Differences.no-word-break {
+    word-break: inherit;
 }
 
-.DifferencesSideBySide .ChangeDelete td.Right {
-	background: #faa;
+.Differences.DifferencesSideBySide,
+.Differences.DifferencesInline {
+    white-space: pre-wrap;
 }
 
-.DifferencesSideBySide .ChangeReplace .Left {
-	background: #fe9;
+.Differences.DifferencesSideBySide .ChangeReplace .Left,
+.Differences.DifferencesSideBySide .ChangeInsert .Left,
+.Differences.DifferencesSideBySide .ChangeDelete .Left,
+.Differences.DifferencesInline .ChangeReplace .Left,
+.Differences.DifferencesInline .ChangeInsert .Left,
+.Differences.DifferencesInline .ChangeDelete .Left {
+    background: #fbe1e1;
 }
 
-.DifferencesSideBySide .ChangeReplace .Right {
-	background: #fd8;
+.Differences.DifferencesSideBySide .ChangeReplace .Right,
+.Differences.DifferencesSideBySide .ChangeInsert .Right,
+.Differences.DifferencesSideBySide .ChangeDelete .Right,
+.Differences.DifferencesInline .ChangeReplace .Right,
+.Differences.DifferencesInline .ChangeInsert .Right,
+.Differences.DifferencesInline .ChangeDelete .Right {
+    background: #e1fbe1;
 }
 
-.Differences ins, .Differences del {
-	text-decoration: none;
+.Differences.DifferencesSideBySide .ChangeReplace ins,
+.Differences.DifferencesSideBySide .ChangeReplace del,
+.Differences.DifferencesSideBySide .ChangeInsert ins,
+.Differences.DifferencesSideBySide .ChangeInsert del,
+.Differences.DifferencesSideBySide .ChangeDelete ins,
+.Differences.DifferencesSideBySide .ChangeDelete del,
+.Differences.DifferencesInline .ChangeReplace ins,
+.Differences.DifferencesInline .ChangeReplace del,
+.Differences.DifferencesInline .ChangeInsert ins,
+.Differences.DifferencesInline .ChangeInsert del,
+.Differences.DifferencesInline .ChangeDelete ins,
+.Differences.DifferencesInline .ChangeDelete del {
+    font-weight: 700;
+    text-decoration: none;
 }
 
-.DifferencesSideBySide .ChangeReplace ins, .DifferencesSideBySide .ChangeReplace del {
-	background: #fc0;
+.Differences.DifferencesSideBySide .ChangeReplace ins,
+.Differences.DifferencesSideBySide .ChangeInsert ins,
+.Differences.DifferencesSideBySide .ChangeDelete ins,
+.Differences.DifferencesInline .ChangeReplace ins,
+.Differences.DifferencesInline .ChangeInsert ins,
+.Differences.DifferencesInline .ChangeDelete ins {
+    background: #8E8;
 }
 
-.Differences .Skipped {
-	background: #f7f7f7;
+.Differences.DifferencesSideBySide .ChangeReplace del,
+.Differences.DifferencesSideBySide .ChangeInsert del,
+.Differences.DifferencesSideBySide .ChangeDelete del,
+.Differences.DifferencesInline .ChangeReplace del,
+.Differences.DifferencesInline .ChangeInsert del,
+.Differences.DifferencesInline .ChangeDelete del {
+    background: #E88;
 }
 
-.DifferencesInline .ChangeReplace .Left,
-.DifferencesInline .ChangeDelete .Left {
-	background: #fdd;
+.Differences.DifferencesSideBySide .editDiffContainer:hover,
+.Differences.DifferencesInline .editDiffContainer:hover {
+    -webkit-box-shadow: 0 0 8px 2px #888;
+    -moz-box-shadow: 0 0 8px 2px #888;
+    box-shadow: 0 0 8px 2px #888;
+    position: relative;
+    z-index: 5;
 }
 
-.DifferencesInline .ChangeReplace .Right,
-.DifferencesInline .ChangeInsert .Right {
-	background: #dfd;
+.Differences.DifferencesSideBySide .editDiffContainer.edited,
+.Differences.DifferencesInline .editDiffContainer.edited {
+    background: #e1e1fb;
 }
 
-.DifferencesInline .ChangeReplace ins {
-	background: #9e9;
-}
-
-.DifferencesInline .ChangeReplace del {
-	background: #e99;
-}
-
-pre {
-	width: 100%;
-	overflow: auto;
+.Differences.DifferencesSideBySide .editDiff,
+.Differences.DifferencesInline .editDiff {
+    display: block;
+    outline: none;
 }

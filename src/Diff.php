@@ -1,0 +1,199 @@
+<?php
+
+declare(strict_types=1);
+
+namespace Jfcherng\Diff;
+
+use Jfcherng\Diff\Renderer\AbstractRenderer;
+use Jfcherng\Diff\Utility\SequenceMatcher;
+
+/**
+ * A comprehensive library for generating differences between two strings
+ * in multiple formats (unified, side by side HTML etc).
+ *
+ * @author Jack Cherng <jfcherng@gmail.com>
+ * @author Chris Boulton <chris.boulton@interspire.com>
+ *
+ * @see http://github.com/chrisboulton/php-diff
+ */
+class Diff
+{
+    /**
+     * @var array array of the options that have been applied for generating the diff
+     */
+    public $options = [];
+
+    /**
+     * @var string[] information of all available templates
+     */
+    protected static $templatesInfo;
+
+    /**
+     * @var string[] the "old" sequence to use as the basis for the comparison
+     */
+    protected $a;
+
+    /**
+     * @var string[] the "new" sequence to generate the changes for
+     */
+    protected $b;
+
+    /**
+     * @var null|array array containing the generated opcodes for the differences between the two items
+     */
+    protected $groupedCodes;
+
+    /**
+     * @var array associative array of the default options available for the diff class and their default value
+     */
+    protected $defaultOptions = [
+        'context' => 3,
+        'charLevelDiff' => false,
+        'ignoreWhitespace' => false,
+        'ignoreCase' => false,
+        'separateBlock' => true,
+        'returnHtml' => false,
+    ];
+
+    /**
+     * The constructor.
+     *
+     * @param string[] $a       array containing the lines of the first string to compare
+     * @param string[] $b       array containing the lines for the second string to compare
+     * @param array    $options
+     */
+    public function __construct(array $a, array $b, array $options = [])
+    {
+        $this->setA($a)->setB($b);
+        $this->options = $options + $this->defaultOptions;
+    }
+
+    /**
+     * Set a.
+     *
+     * @param array $a the a
+     *
+     * @return self
+     */
+    public function setA(array $a): self
+    {
+        if ($this->a !== $a) {
+            $this->a = $a;
+            $this->groupedCodes = null;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Set b.
+     *
+     * @param array $b the b
+     *
+     * @return self
+     */
+    public function setB(array $b): self
+    {
+        if ($this->b !== $b) {
+            $this->b = $b;
+            $this->groupedCodes = null;
+        }
+
+        return $this;
+    }
+
+    /**
+     * Get a range of lines from $start to $end from the second comparison string
+     * and return them as an array. If no values are supplied, the entire string
+     * is returned. It's also possible to specify just one line to return only
+     * that line.
+     *
+     * @param int      $start the starting number
+     * @param null|int $end   the ending number. If not supplied, only the item in $start will be returned.
+     *
+     * @return string[] array of all of the lines between the specified range
+     */
+    public function getA(int $start = 0, ?int $end = null): array
+    {
+        return $this->getText('a', $start, $end);
+    }
+
+    /**
+     * Get a range of lines from $start to $end from the second comparison string
+     * and return them as an array. If no values are supplied, the entire string
+     * is returned. It's also possible to specify just one line to return only
+     * that line.
+     *
+     * @param int      $start the starting number
+     * @param null|int $end   the ending number. If not supplied, only the item in $start will be returned.
+     *
+     * @return string[] array of all of the lines between the specified range
+     */
+    public function getB(int $start = 0, ?int $end = null): array
+    {
+        return $this->getText('b', $start, $end);
+    }
+
+    /**
+     * Generate a list of the compiled and grouped opcodes for the differences between the
+     * two strings. Generally called by the renderer, this class instantiates the sequence
+     * matcher and performs the actual diff generation and return an array of the opcodes
+     * for it. Once generated, the results are cached in the diff class instance.
+     *
+     * @return array array of the grouped opcodes for the generated diff
+     */
+    public function getGroupedOpcodes(): array
+    {
+        return $this->groupedCodes ??
+            (new SequenceMatcher($this->a, $this->b, null, $this->options))
+                ->getGroupedOpcodes($this->options['context']);
+    }
+
+    /**
+     * Render a diff using the supplied rendering class and return it.
+     *
+     * @param AbstractRenderer $renderer an instance of the rendering object to use for generating the diff
+     *
+     * @return string the generated diff
+     */
+    public function render(AbstractRenderer $renderer): string
+    {
+        $renderer->diff = $this;
+
+        // the "no difference" situation may happen frequently
+        // let's save some calculation if possible
+        $rendered = $this->a !== $this->b
+            ? $renderer->render()
+            : $renderer::IDENTICAL_RESULT;
+
+        if ($this->options['returnHtml'] && $renderer::IS_HTML_TEMPLATE) {
+            $rendered = nl2br(htmlspecialchars($rendered));
+        }
+
+        return $rendered;
+    }
+
+    /**
+     * The work horse of getA() and getB().
+     *
+     * @param string   $ab    'a' or 'b'
+     * @param int      $start the starting number
+     * @param null|int $end   the ending number. If not supplied, only the item in $start will be returned.
+     *
+     * @return string[] array of all of the lines between the specified range
+     */
+    protected function getText(string $ab, int $start = 0, ?int $end = null): array
+    {
+        assert($ab === 'a' || $ab === 'b');
+
+        if ($start === 0 && !isset($end)) {
+            return $this->$ab;
+        }
+
+        return array_slice(
+            $this->$ab,
+            $start,
+            isset($end) ? $end - $start : 1
+        );
+    }
+}

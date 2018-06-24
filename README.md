@@ -1,65 +1,164 @@
-PHP Diff Class
---------------
+# php-diff [![Build Status](https://travis-ci.org/jfcherng/php-diff.svg?branch=master)](https://travis-ci.org/jfcherng/php-diff)
 
-Introduction
-------------
-A comprehensive library for generating differences between
-two hashable objects (strings or arrays). Generated differences can be
-rendered in all of the standard formats including:
- * Unified
- * Context
- * Inline HTML
- * Side by Side HTML
+A comprehensive library for generating diff between two strings.
 
-The logic behind the core of the diff engine (ie, the sequence matcher)
-is primarily based on the Python difflib package. The reason for doing
-so is primarily because of its high degree of accuracy.
 
-Example Use
------------
-A quick usage example can be found in the example/ directory and under
-example.php.
+# Introduction
 
-More complete documentation will be available shortly.
+Generated diff can be rendered in all of the standard formats including:
 
-Merge files using jQuery
-------------------------
-Xiphe has build a jQuery plugin with that you can merge the compared
-files. Have a look at [jQuery-Merge-for-php-diff](https://github.com/Xiphe/jQuery-Merge-for-php-diff).
+- Unified (Text)
+- Context (Text)
+- Json (Text)
+- Inline (HTML)
+- Side by Side (HTML)
 
-Todo
-----
- * Ability to ignore blank line changes
- * 3 way diff support
- * Performance optimizations
+The logic behind the core of the diff engine (i.e., the sequence matcher) is primarily based on the [Python difflib package](https://docs.python.org/3/library/difflib.html#module-difflib).
+The reason for doing so is primarily because of its high degree of accuracy.
 
-License (BSD License)
----------------------
-Copyright (c) 2009 Chris Boulton <chris.boulton@interspire.com>
-All rights reserved.
- 
-Redistribution and use in source and binary forms, with or without 
-modification, are permitted provided that the following conditions are met:
 
- - Redistributions of source code must retain the above copyright notice,
-   this list of conditions and the following disclaimer.
- - Redistributions in binary form must reproduce the above copyright notice,
-   this list of conditions and the following disclaimer in the documentation
-   and/or other materials provided with the distribution.
- - Neither the name of the Chris Boulton nor the names of its contributors 
-   may be used to endorse or promote products derived from this software 
-   without specific prior written permission.
+# Changes After Forking
+
+- Some bug fixes and performance rewrites.
+- UTF-8-ready.
+- Follow `PSR-1`, `PSR-2`, `PSR-4`.
+- Add `Json` template.
+- Add character-level diff for HTML templates.
+- Add class `DiffHelper` for simple usage.
+- Add multi-language support (English, Chinese, etc...) for templates.
+
+
+# Installation
 
 ```
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" 
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE 
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE 
-ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE 
-LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR 
-CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
-SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
-INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN 
-CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) 
-ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE 
-POSSIBILITY OF SUCH DAMAGE.
+$ composer require jfcherng/php-diff
 ```
+
+
+# Example
+
+See [example/demo.php](https://github.com/jfcherng/php-mb-string/blob/master/example/demo.php) and files under `tests/`.
+
+```php
+<?php
+
+include __DIR__ . '/vendor/autoload.php';
+
+use Jfcherng\Diff\Diff;
+use Jfcherng\Diff\DiffHelper;
+use Jfcherng\Diff\Utility\RendererFactory;
+
+$old = 'This is the old string.';
+$new = 'And this is the new one.';
+
+// template class name: Unified, Context, Json, Inline, SideBySide
+$template = 'Unified';
+
+$diffOptions = [
+    // enable character-level diff
+    'charLevelDiff' => false,
+    // show how many neighbor lines
+    'context' => 3,
+    // ignore case difference
+    'ignoreCase' => false,
+    // ignore whitespace difference
+    'ignoreWhitespace' => false,
+    // insert <br /> before \n?
+    'returnHtml' => false,
+    // show "..." row in HTML templates
+    'separateBlock' => true,
+];
+
+$templateOptions = [
+    // template language: eng, cht, chs, jpn, ...
+    'language' => 'eng',
+    // HTML template tab width
+    'tabSize' => 4,
+];
+
+// one-line simple usage
+$result = DiffHelper::calculate($old, $new, $templates, $diffOptions, $templateOptions);
+
+// custom usage
+$diff = new Diff($old, $new, $diffOptions);
+$renderer = RendererFactory::make($template, $templateOptions);
+$result = $diff->render($renderer);
+```
+
+
+# Rendered Results
+
+
+## Inline
+
+![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline.png)
+
+
+## Side By Side
+
+![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/side-by-side.png)
+
+
+## Unified
+
+```diff
+@@ -1,13 +1,14 @@
+ <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+-       <title>Hello World!</title>
++       <title>Goodbye Cruel World!</title>
+    </head>
+    <body>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+-       <h2>A heading we'll be removing</h2>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
++
++       <p>Just a small amount of new text...</p>
+    </body>
+ </html>
+```
+
+
+## Context
+
+```
+***************
+*** 1,13 ****
+  <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+!       <title>Hello World!</title>
+    </head>
+    <body>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+-       <h2>A heading we'll be removing</h2>
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    </body>
+  </html>
+--- 1,14 ----
+  <html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+!       <title>Goodbye Cruel World!</title>
+    </head>
+    <body>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
++
++       <p>Just a small amount of new text...</p>
+    </body>
+  </html>
+```
+
+
+Supporters <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ATXYY9Y78EQ3Y" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" /></a>
+==========
+
+Thank you guys for sending me some cups of coffee.

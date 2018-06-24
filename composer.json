@@ -1,19 +1,49 @@
 {
-    "name": "chrisboulton/php-diff",
+    "name": "jfcherng/php-diff",
+    "description": "A comprehensive library for generating differences between two strings in multiple formats (unified, side by side HTML etc).",
     "type": "library",
-    "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
+    "license": "BSD-3-Clause",
     "authors": [
         {
+            "name": "Jack Cherng",
+            "email": "jfcherng@gmail.com"
+        },
+        {
             "name": "Chris Boulton",
-            "email": "@chrisboulton"
+            "email": "chris.boulton@interspire.com"
         }
     ],
     "autoload": {
-        "psr-0": {
-           "Diff": "lib/"
+        "psr-4": {
+            "Jfcherng\\Diff\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Jfcherng\\Diff\\Test\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "^7.1.3",
+        "jfcherng/php-levenshtein-distance": "^1.0",
+        "jfcherng/php-mb-string": "^1.0"
+    },
     "require-dev": {
-        "phpunit/phpunit": "~5.5"
+        "friendsofphp/php-cs-fixer": "^2.12",
+        "phan/phan": "~0.12"
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "scripts": {
+        "analyze": [
+            "phan --color"
+        ],
+        "fix": [
+            "php-cs-fixer fix --verbose"
+        ],
+        "test": [
+            "phpunit --verbose"
+        ]
     }
 }

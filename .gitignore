@@ -1,1 +1,14 @@
-/nbproject/
+# some IDE things
+.idea/
+.tags*
+/.web-server-pid
+**/oracle.sqlite
+.php_cs.cache
+
+# composer
+composer.lock
+vendor/
+
+# tmp files
+/var/*
+!/var/.gitkeep
