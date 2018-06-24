@@ -13,7 +13,7 @@ Generated diff can be rendered in all of the standard formats including:
 - Inline (HTML)
 - Side by Side (HTML)
 
-The logic behind the core of the diff engine (i.e., the sequence matcher) is primarily based on the [Python difflib package](https://docs.python.org/3/library/difflib.html#module-difflib).
+The logic behind the core of the diff engine (i.e., the sequence matcher) is primarily based on the [Python difflib package](https://docs.python.org/3/library/difflib.html).
 The reason for doing so is primarily because of its high degree of accuracy.
 
 
@@ -37,7 +37,7 @@ $ composer require jfcherng/php-diff
 
 # Example
 
-See [example/demo.php](https://github.com/jfcherng/php-mb-string/blob/master/example/demo.php) and files under `tests/`.
+See [example/demo.php](https://github.com/jfcherng/php-diff/blob/master/example/demo.php) and files under `tests/`.
 
 ```php
 <?php
