@@ -1,0 +1,18 @@
+language: php
+
+php:
+  - 7.1
+  - 7.2
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+before_install:
+  - pecl install -f ast
+
+install:
+  - composer install --prefer-dist --no-progress
+
+script:
+  - composer test
