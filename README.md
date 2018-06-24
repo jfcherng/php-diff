@@ -22,6 +22,7 @@ The reason for doing so is primarily because of its high degree of accuracy.
 - Some bug fixes and performance rewrites.
 - UTF-8-ready.
 - Follow `PSR-1`, `PSR-2`, `PSR-4`.
+- Use PHP 7.1 features and make it fully type-hinted.
 - Add `Json` template.
 - Add character-level diff for HTML templates.
 - Add class `DiffHelper` for simple usage.
