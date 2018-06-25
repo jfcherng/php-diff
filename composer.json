@@ -30,7 +30,8 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.12",
-        "phan/phan": "~0.12"
+        "phan/phan": "~0.12",
+        "phpunit/phpunit": "^7.2"
     },
     "config": {
         "sort-packages": true
