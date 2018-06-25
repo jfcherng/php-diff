@@ -22,9 +22,9 @@ The reason for doing so is primarily because of its high degree of accuracy.
 - Some bug fixes and performance rewrites.
 - UTF-8-ready.
 - Follow `PSR-1`, `PSR-2`, `PSR-4`.
-- Use PHP 7.1 features and make it fully type-hinted.
+- Utilize PHP 7.1 features and make it fully type-hinted.
 - Add `Json` template.
-- Add character-level diff for HTML templates.
+- Add [character-level diff](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/character-level-diff.png) for HTML templates.
 - Add classes `DiffHelper` and `RendererFactory` for simple usage.
 - Add multi-language support (English, Chinese, etc...) for templates.
 
@@ -55,6 +55,7 @@ $new = 'And this is the new one.';
 // template class name: Unified, Context, Json, Inline, SideBySide
 $template = 'Unified';
 
+// the Diff class options
 $diffOptions = [
     // enable character-level diff
     'charLevelDiff' => false,
@@ -68,6 +69,7 @@ $diffOptions = [
     'separateBlock' => true,
 ];
 
+// the template class options
 $templateOptions = [
     // template language: eng, cht, chs, jpn, ...
     // or an array which has the same keys with a language file
@@ -78,6 +80,8 @@ $templateOptions = [
 
 // one-line simple usage
 $result = DiffHelper::calculate($old, $new, $templates, $diffOptions, $templateOptions);
+// or even shorter if you are happy with default options
+$result = DiffHelper::calculate($old, $new, $templates);
 
 // custom usage
 $diff = new Diff($old, $new, $diffOptions);
@@ -87,6 +91,11 @@ $result = $diff->render($renderer);
 
 
 # Rendered Results
+
+
+## Character-level Diff
+
+![Character-level Diff](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/character-level-diff.png)
 
 
 ## Inline
