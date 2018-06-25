@@ -47,7 +47,7 @@ class SequenceMatcher
     /**
      * @var array
      */
-    protected $defaultOptions = [
+    protected static $defaultOptions = [
         'ignoreWhitespace' => false,
         'ignoreCase' => false,
     ];
@@ -95,7 +95,7 @@ class SequenceMatcher
      */
     public function setOptions(array $options): self
     {
-        $this->options = $options + $this->defaultOptions;
+        $this->options = $options + static::$defaultOptions;
 
         return $this;
     }

@@ -41,7 +41,7 @@ class Diff
     /**
      * @var array associative array of the default options available for the diff class and their default value
      */
-    protected $defaultOptions = [
+    protected static $defaultOptions = [
         'context' => 3,
         'charLevelDiff' => false,
         'ignoreWhitespace' => false,
@@ -59,7 +59,7 @@ class Diff
     public function __construct(array $a, array $b, array $options = [])
     {
         $this->setA($a)->setB($b);
-        $this->options = $options + $this->defaultOptions;
+        $this->options = $options + static::$defaultOptions;
     }
 
     /**

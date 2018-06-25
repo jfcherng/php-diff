@@ -43,7 +43,7 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * @var array array of the default options that apply to this renderer
      */
-    protected $defaultOptions = [
+    protected static $defaultOptions = [
         'language' => 'eng',
         'tabSize' => 4,
     ];
@@ -73,7 +73,7 @@ abstract class AbstractRenderer implements RendererInterface
      */
     public function setOptions(array $options): self
     {
-        $newOptions = $options + $this->defaultOptions;
+        $newOptions = $options + static::$defaultOptions;
 
         if (
             !isset($this->t) ||
@@ -100,15 +100,15 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * A shorthand to do translation.
      *
-     * @param string $text   The text
-     * @param bool   $escape Escape the translated text for HTML?
+     * @param string $text       The text
+     * @param bool   $escapeHtml Escape the translated text for HTML?
      *
      * @return string the translated text
      */
-    final protected function _(string $text, bool $escape = true): string
+    final protected function _(string $text, bool $escapeHtml = true): string
     {
         $text = $this->t->translate($text);
 
-        return $escape ? htmlspecialchars($text) : $text;
+        return $escapeHtml ? htmlspecialchars($text) : $text;
     }
 }
