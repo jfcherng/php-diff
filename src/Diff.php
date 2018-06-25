@@ -58,8 +58,10 @@ class Diff
      */
     public function __construct(array $a, array $b, array $options = [])
     {
-        $this->setA($a)->setB($b);
-        $this->options = $options + static::$defaultOptions;
+        $this
+            ->setA($a)
+            ->setB($b)
+            ->setOptions($options);
     }
 
     /**
@@ -97,6 +99,20 @@ class Diff
     }
 
     /**
+     * Set the options.
+     *
+     * @param array $options the options
+     *
+     * @return self
+     */
+    public function setOptions(array $options): self
+    {
+        $this->options = $options + static::$defaultOptions;
+
+        return $this;
+    }
+
+    /**
      * Get a range of lines from $start to $end from the second comparison string
      * and return them as an array. If no values are supplied, the entire string
      * is returned. It's also possible to specify just one line to return only
@@ -126,6 +142,18 @@ class Diff
     public function getB(int $start = 0, ?int $end = null): array
     {
         return $this->getText('b', $start, $end);
+    }
+
+    /**
+     * Get the options.
+     *
+     * @param array $options the options
+     *
+     * @return array the options
+     */
+    public function getOptions(array $options): array
+    {
+        return $this->options;
     }
 
     /**

@@ -10,6 +10,13 @@ use Jfcherng\Diff\Utility\RendererFactory;
 class DiffHelper
 {
     /**
+     * The Diff object.
+     *
+     * @var Diff
+     */
+    protected static $diff;
+
+    /**
      * Information of all available templates.
      *
      * @var array
@@ -90,16 +97,15 @@ class DiffHelper
             return RendererFactory::resolveTemplate($template)::IDENTICAL_RESULT;
         }
 
-        // convert input strings into arrays of line-split strings
-        if (is_string($old)) {
-            $old = explode("\n", $old);
-        }
-        if (is_string($new)) {
-            $new = explode("\n", $new);
-        }
+        static::$diff = static::$diff ?? new Diff([], []);
 
-        return (new Diff($old, $new, $diffOptions))->render(
-            RendererFactory::make($template, $templateOptions)
-        );
+        return static::$diff
+            ->setA(is_string($old) ? explode("\n", $old) : $old)
+            ->setB(is_string($new) ? explode("\n", $new) : $new)
+            ->setOptions($diffOptions)
+            ->render(
+                RendererFactory::getInstance($template)
+                    ->setOptions($templateOptions)
+            );
     }
 }
