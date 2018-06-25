@@ -21,6 +21,19 @@ abstract class AbstractHtml extends AbstractRenderer
     const IS_HTML_TEMPLATE = true;
 
     /**
+     * Closures that are used to enclose partial strings.
+     *
+     * - a different part in string (class internal)
+     * - a inserted char in output HTML
+     * - a deleted char in output HTML
+     *
+     * @var string[]
+     */
+    const CLOSURES = ["\0", "\1"];
+    const CLOSURES_INS = ['<ins>', '</ins>'];
+    const CLOSURES_DEL = ['<del>', '</del>'];
+
+    /**
      * @var array array of the different opcode tags and how they map to the HTML class
      */
     const TAG_CLASS_MAP = [
@@ -29,39 +42,6 @@ abstract class AbstractHtml extends AbstractRenderer
         SequenceMatcher::OPCODE_INSERT => 'Insert',
         SequenceMatcher::OPCODE_REPLACE => 'Replace',
     ];
-
-    protected $titleOld = 'Old';
-    protected $titleNew = 'New';
-    protected $titleDiff = 'Differences';
-
-    /**
-     * closures that are used to enclose.
-     *
-     * - a different part in string (class internal)
-     * - a inserted char in output HTML
-     * - a deleted char in output HTML
-     *
-     * @var string[]
-     */
-    protected static $closures = ["\0", "\1"];
-    protected static $closuresIns = ['<ins>', '</ins>'];
-    protected static $closuresDel = ['<del>', '</del>'];
-
-    /**
-     * The constructor.
-     *
-     * @param array $options The options
-     */
-    public function __construct(array $options = [])
-    {
-        parent::__construct($options);
-
-        foreach (['titleOld', 'titleNew', 'titleDiff'] as $option) {
-            if (isset($this->options[$option])) {
-                $this->$option = $this->options[$option];
-            }
-        }
-    }
 
     /**
      * Render and return an array structure suitable for generating HTML
@@ -96,14 +76,17 @@ abstract class AbstractHtml extends AbstractRenderer
                     $i2 - $i1 === $j2 - $j1
                 ) {
                     for ($i = 0; $i < $i2 - $i1; ++$i) {
-                        // start to render two corresponding lines
                         $fromLine = &$a[$i1 + $i];
                         $toLine = &$b[$j1 + $i];
+
+                        // render two corresponding lines
                         $mbFromLine->set($fromLine);
                         $mbToLine->set($toLine);
                         $this->renderChangedExtent($mbFromLine, $mbToLine);
                         $fromLine = $mbFromLine->get();
                         $toLine = $mbToLine->get();
+
+                        unset($fromLine, $toLine);
                     }
                 }
 
@@ -136,7 +119,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     ) {
                         $lines = array_slice($a, $i1, ($i2 - $i1));
                         $lines = $this->formatLines($lines);
-                        $lines = str_replace(static::$closures, static::$closuresDel, $lines);
+                        $lines = str_replace(self::CLOSURES, self::CLOSURES_DEL, $lines);
                         $blocks[$lastBlock]['base']['lines'] += $lines;
                     }
                     if (
@@ -145,7 +128,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     ) {
                         $lines = array_slice($b, $j1, ($j2 - $j1));
                         $lines = $this->formatLines($lines);
-                        $lines = str_replace(static::$closures, static::$closuresIns, $lines);
+                        $lines = str_replace(self::CLOSURES, self::CLOSURES_INS, $lines);
                         $blocks[$lastBlock]['changed']['lines'] += $lines;
                     }
                 }
@@ -226,12 +209,12 @@ abstract class AbstractHtml extends AbstractRenderer
 
         // two strings are different, we do rendering
         $mbFromLine->str_enclose_i(
-            static::$closures,
+            self::CLOSURES,
             $start,
             $end + $mbFromLine->strlen() - $start + 1
         );
         $mbToLine->str_enclose_i(
-            static::$closures,
+            self::CLOSURES,
             $start,
             $end + $mbToLine->strlen() - $start + 1
         );
@@ -254,8 +237,8 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function renderChangedExtentCharLevel(MbString $mbFromLine, MbString $mbToLine): self
     {
-        $fromLastEditPos = $mbFromLine->strlen();
-        $toLastEditPos = $mbToLine->strlen();
+        $fromEditPos = $mbFromLine->strlen();
+        $toEditPos = $mbToLine->strlen();
 
         // we prefer the char-level diff but if there is an exception like
         // "line too long", we fallback to line-level diff.
@@ -271,48 +254,48 @@ abstract class AbstractHtml extends AbstractRenderer
 
         // start to render
         foreach ($editInfo['progresses'] as $step => $operation) {
-            /*
-             * Note: The representation of 'del' is a special case.
-             *       It means do delete until that number of char.
-             *       So I use 'lastEditPos' to handle it.
-             */
             switch ($operation) {
-                case LevenshteinDistance::OP_COPY: // copy, render nothing
-                    --$fromLastEditPos;
-                    --$toLastEditPos;
+                // copy, render nothing
+                case LevenshteinDistance::OP_COPY:
+                    --$fromEditPos;
+                    --$toEditPos;
                     break;
-                case LevenshteinDistance::OP_DELETE: // delete, render 'from'
-                    --$fromLastEditPos;
-                    $mbFromLine->str_enclose_i(static::$closures, $fromLastEditPos, 1);
+                // delete, render 'from'
+                case LevenshteinDistance::OP_DELETE:
+                    --$fromEditPos;
+                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromEditPos, 1);
                     break;
-                case LevenshteinDistance::OP_INSERT: // insert, render 'to'
-                    --$toLastEditPos;
-                    $mbToLine->str_enclose_i(static::$closures, $toLastEditPos, 1);
+                // insert, render 'to'
+                case LevenshteinDistance::OP_INSERT:
+                    --$toEditPos;
+                    $mbToLine->str_enclose_i(self::CLOSURES, $toEditPos, 1);
                     break;
-                case LevenshteinDistance::OP_REPLACE: // replace, render both
-                    --$fromLastEditPos;
-                    $mbFromLine->str_enclose_i(static::$closures, $fromLastEditPos, 1);
-                    --$toLastEditPos;
-                    $mbToLine->str_enclose_i(static::$closures, $toLastEditPos, 1);
+                // replace, render both
+                case LevenshteinDistance::OP_REPLACE:
+                    --$fromEditPos;
+                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromEditPos, 1);
+                    --$toEditPos;
+                    $mbToLine->str_enclose_i(self::CLOSURES, $toEditPos, 1);
                     break;
             }
         }
 
-        // check for lastEditPos, render for the string head
-        // Note: at least, one of the lastEditPos must be zero
-        assert($fromLastEditPos === 0 || $toLastEditPos === 0);
+        // check for editPos, render for the string head
+        // Note: at least, one of the editPos must be zero
+        assert($fromEditPos === 0 || $toEditPos === 0);
 
-        if ($fromLastEditPos !== $toLastEditPos) {
-            if ($fromLastEditPos === 0) {
-                $mbToLine->str_enclose_i(static::$closures, 0, $toLastEditPos);
+        // render the string head
+        if ($fromEditPos !== $toEditPos) {
+            if ($fromEditPos === 0) {
+                $mbToLine->str_enclose_i(self::CLOSURES, 0, $toEditPos);
             } else {
-                $mbFromLine->str_enclose_i(static::$closures, 0, $fromLastEditPos);
+                $mbFromLine->str_enclose_i(self::CLOSURES, 0, $fromEditPos);
             }
         }
 
         // cleanup redundant tags
-        $mbFromLine->str_replace_i(static::$closures[1] . static::$closures[0], '');
-        $mbToLine->str_replace_i(static::$closures[1] . static::$closures[0], '');
+        $mbFromLine->str_replace_i(self::CLOSURES[1] . self::CLOSURES[0], '');
+        $mbToLine->str_replace_i(self::CLOSURES[1] . self::CLOSURES[0], '');
 
         return $this;
     }
