@@ -8,7 +8,6 @@
     <body>
         <?php
 
-            // include the diff class
             include __DIR__ . '/../vendor/autoload.php';
 
             use Jfcherng\Diff\DiffHelper;
@@ -17,10 +16,27 @@
             $a = file_get_contents(__DIR__ . '/a.txt');
             $b = file_get_contents(__DIR__ . '/b.txt');
 
-            // options for generating the diff
+            // options for Diff class
             $diffOptions = [
-                // 'ignoreWhitespace' => true,
-                // 'ignoreCase' => true,
+                // enable character-level diff
+                'charLevelDiff' => false,
+                // show how many neighbor lines
+                'context' => 3,
+                // ignore case difference
+                'ignoreCase' => false,
+                // ignore whitespace difference
+                'ignoreWhitespace' => false,
+                // show "..." row in HTML templates
+                'separateBlock' => true,
+            ];
+
+            // options for template class
+            $templateOptions = [
+                // template language: eng, cht, chs, jpn, ...
+                // or an array which has the same keys with a language file
+                'language' => 'eng',
+                // HTML template tab width
+                'tabSize' => 4,
             ];
 
         ?>
@@ -29,7 +45,7 @@
         <?php
 
             // generate a side by side diff
-            $result = DiffHelper::calculate($a, $b, 'SideBySide', $diffOptions);
+            $result = DiffHelper::calculate($a, $b, 'SideBySide', $diffOptions, $templateOptions);
             echo $result;
 
         ?>
@@ -38,7 +54,7 @@
         <?php
 
             // generate an inline diff
-            $result = DiffHelper::calculate($a, $b, 'Inline', $diffOptions);
+            $result = DiffHelper::calculate($a, $b, 'Inline', $diffOptions, $templateOptions);
             echo $result;
 
         ?>
@@ -47,7 +63,7 @@
         <pre><?php
 
             // generate a unified diff
-            $result = DiffHelper::calculate($a, $b, 'Unified', $diffOptions);
+            $result = DiffHelper::calculate($a, $b, 'Unified', $diffOptions, $templateOptions);
             echo htmlspecialchars($result);
 
         ?>
@@ -57,7 +73,7 @@
         <pre><?php
 
             // generate a context diff
-            $result = DiffHelper::calculate($a, $b, 'Context', $diffOptions);
+            $result = DiffHelper::calculate($a, $b, 'Context', $diffOptions, $templateOptions);
             echo htmlspecialchars($result);
 
         ?>
