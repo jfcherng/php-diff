@@ -198,7 +198,7 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function renderChangedExtent(MbString $mbFromLine, MbString $mbToLine): self
     {
-        if ($mbFromLine->get(true) === $mbToLine->get(true)) {
+        if ($mbFromLine->getRaw() === $mbToLine->getRaw()) {
             return $this;
         }
 
