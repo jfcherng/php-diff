@@ -67,9 +67,9 @@ class SideBySide extends AbstractHtml
                         $html .= (
                             '<tr>' .
                             '<th class="f-num">' . $fromLine . '</th>' .
-                            '<td class="old"><span>' . $line . '</span></td>' .
+                            '<td class="old">' . $line . '</td>' .
                             '<th class="t-num">' . $toLine . '</th>' .
-                            '<td class="new"><span>' . $line . '</span></td>' .
+                            '<td class="new">' . $line . '</td>' .
                             '</tr>'
                         );
                     }

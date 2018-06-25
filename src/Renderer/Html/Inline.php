@@ -118,7 +118,7 @@ class Inline extends AbstractHtml
                             '<th class="f-num">' . $fromLine . '</th>' .
                             '<th>&#xA0;</th>' .
                             '<th class="sign del">-</th>' .
-                            '<td class="old"><span>' . $line . '</span></td>' .
+                            '<td class="old">' . $line . '</td>' .
                             '</tr>'
                         );
                     }
@@ -131,7 +131,7 @@ class Inline extends AbstractHtml
                             '<th>&#xA0;</th>' .
                             '<th class="t-num">' . $toLine . '</th>' .
                             '<th class="sign ins">+</th>' .
-                            '<td class="new"><span>' . $line . '</span></td>' .
+                            '<td class="new">' . $line . '</td>' .
                             '</tr>'
                         );
                     }

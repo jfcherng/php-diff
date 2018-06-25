@@ -21,7 +21,7 @@
   border-collapse: separate;
   border: none;
   padding: 1px 2px;
-  background: #FFF;
+  background: #fff;
 }
 
 .diff td a,
@@ -32,14 +32,14 @@
 }
 
 .diff thead th {
-  background: #AAA;
+  background: #aaa;
   border-bottom: 1px solid #000;
   padding: 4px;
   text-align: left;
 }
 
 .diff tbody th {
-  background: #CCC;
+  background: #ccc;
   border-right: 1px solid #000;
   text-align: right;
   vertical-align: top;
@@ -47,7 +47,7 @@
 }
 
 .diff tbody th.sign {
-  background: #FFF;
+  background: #fff;
   border-right: none;
   padding: 1px 0;
   text-align: center;
@@ -60,10 +60,6 @@
 
 .diff tbody th.sign.ins {
   background: #e1fbe1;
-}
-
-.diff.no-word-break {
-  word-break: inherit;
 }
 
 .diff.diff-html {
@@ -90,9 +86,9 @@
 }
 
 .diff.diff-html .change ins {
-  background: #8E8;
+  background: #8e8;
 }
 
 .diff.diff-html .change del {
-  background: #E88;
+  background: #e88;
 }
