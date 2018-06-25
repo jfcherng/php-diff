@@ -33,7 +33,7 @@ class Language
      *
      * @throws InvalidArgumentException
      *
-     * @return array the tranlations
+     * @return self
      */
     public function setTranlations($langOrTrans): self
     {
