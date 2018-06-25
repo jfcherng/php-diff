@@ -37,10 +37,10 @@ abstract class AbstractHtml extends AbstractRenderer
      * @var array array of the different opcode tags and how they map to the HTML class
      */
     const TAG_CLASS_MAP = [
-        SequenceMatcher::OPCODE_DELETE => 'Delete',
-        SequenceMatcher::OPCODE_EQUAL => 'Equal',
-        SequenceMatcher::OPCODE_INSERT => 'Insert',
-        SequenceMatcher::OPCODE_REPLACE => 'Replace',
+        SequenceMatcher::OPCODE_DELETE => 'del',
+        SequenceMatcher::OPCODE_EQUAL => 'eq',
+        SequenceMatcher::OPCODE_INSERT => 'ins',
+        SequenceMatcher::OPCODE_REPLACE => 'rep',
     ];
 
     /**

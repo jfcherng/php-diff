@@ -33,7 +33,7 @@ class Inline extends AbstractHtml
         $html = '';
 
         $html .= (
-            '<table class="Differences DifferencesInline">' .
+            '<table class="diff diff-html diff-inline">' .
             '<thead>' .
             '<tr>' .
             '<th>' . $this->_('old_version') . '</th>' .
@@ -50,17 +50,17 @@ class Inline extends AbstractHtml
             // it is the same
             if ($i > 0 && $options['separateBlock']) {
                 $html .= (
-                    '<tbody class="Skipped">' .
+                    '<tbody class="skipped">' .
                     '<th>&hellip;</th>' .
                     '<th>&hellip;</th>' .
-                    '<th class="Sign">&#xA0;</th>' .
+                    '<th class="sign">&#xA0;</th>' .
                     '<td>&#xA0;</td>' .
                     '</tbody>'
                 );
             }
 
             foreach ($blocks as $change) {
-                $html .= '<tbody class="Change' . static::TAG_CLASS_MAP[$change['tag']] . '">';
+                $html .= '<tbody class="change change-' . static::TAG_CLASS_MAP[$change['tag']] . '">';
 
                 // equal changes should be shown on both sides of the diff
                 if ($change['tag'] === SequenceMatcher::OPCODE_EQUAL) {
@@ -69,41 +69,41 @@ class Inline extends AbstractHtml
                         $toLine = $change['changed']['offset'] + $no + 1;
 
                         $html .= (
-                            '<tr diff-type="=">' .
-                            '<th class="fNum">' . $fromLine . '</th>' .
-                            '<th class="tNum">' . $toLine . '</th>' .
-                            '<th class="Sign">&#xA0;</th>' .
-                            '<td class="Left">' . $line . '</td>' .
+                            '<tr data-type="=">' .
+                            '<th class="f-num">' . $fromLine . '</th>' .
+                            '<th class="t-num">' . $toLine . '</th>' .
+                            '<th class="sign">&#xA0;</th>' .
+                            '<td class="old">' . $line . '</td>' .
                             '</tr>'
                         );
                     }
                 }
-                // added lines only on the right side
+                // added lines only on the r side
                 elseif ($change['tag'] === SequenceMatcher::OPCODE_INSERT) {
                     foreach ($change['changed']['lines'] as $no => $line) {
                         $toLine = $change['changed']['offset'] + $no + 1;
 
                         $html .= (
-                            '<tr diff-type="+">' .
+                            '<tr data-type="+">' .
                             '<th>&#xA0;</th>' .
-                            '<th class="tNum">' . $toLine . '</th>' .
-                            '<th class="Sign ins">+</th>' .
-                            '<td class="Right"><ins>' . $line . '</ins></td>' .
+                            '<th class="t-num">' . $toLine . '</th>' .
+                            '<th class="sign ins">+</th>' .
+                            '<td class="new"><ins>' . $line . '</ins></td>' .
                             '</tr>'
                         );
                     }
                 }
-                // show deleted lines only on the left side
+                // show deleted lines only on the l side
                 elseif ($change['tag'] === SequenceMatcher::OPCODE_DELETE) {
                     foreach ($change['base']['lines'] as $no => $line) {
                         $fromLine = $change['base']['offset'] + $no + 1;
 
                         $html .= (
-                            '<tr diff-type="-">' .
-                            '<th class="fNum">' . $fromLine . '</th>' .
+                            '<tr data-type="-">' .
+                            '<th class="f-num">' . $fromLine . '</th>' .
                             '<th>&#xA0;</th>' .
-                            '<th class="Sign del">-</th>' .
-                            '<td class="Left"><del>' . $line . '</del></td>' .
+                            '<th class="sign del">-</th>' .
+                            '<td class="old"><del>' . $line . '</del></td>' .
                             '</tr>'
                         );
                     }
@@ -114,11 +114,11 @@ class Inline extends AbstractHtml
                         $fromLine = $change['base']['offset'] + $no + 1;
 
                         $html .= (
-                            '<tr diff-type="-">' .
-                            '<th class="fNum">' . $fromLine . '</th>' .
+                            '<tr data-type="-">' .
+                            '<th class="f-num">' . $fromLine . '</th>' .
                             '<th>&#xA0;</th>' .
-                            '<th class="Sign del">-</th>' .
-                            '<td class="Left"><span>' . $line . '</span></td>' .
+                            '<th class="sign del">-</th>' .
+                            '<td class="old"><span>' . $line . '</span></td>' .
                             '</tr>'
                         );
                     }
@@ -127,11 +127,11 @@ class Inline extends AbstractHtml
                         $toLine = $change['changed']['offset'] + $no + 1;
 
                         $html .= (
-                            '<tr diff-type="+">' .
+                            '<tr data-type="+">' .
                             '<th>&#xA0;</th>' .
-                            '<th class="tNum">' . $toLine . '</th>' .
-                            '<th class="Sign ins">+</th>' .
-                            '<td class="Right"><span>' . $line . '</span></td>' .
+                            '<th class="t-num">' . $toLine . '</th>' .
+                            '<th class="sign ins">+</th>' .
+                            '<td class="new"><span>' . $line . '</span></td>' .
                             '</tr>'
                         );
                     }

@@ -33,7 +33,7 @@ class SideBySide extends AbstractHtml
         $html = '';
 
         $html .= (
-            '<table class="Differences DifferencesSideBySide">' .
+            '<table class="diff diff-html diff-side-by-side">' .
             '<thead>' .
             '<tr>' .
             '<th colspan="2">' . $this->_('old_version') . '</th>' .
@@ -48,7 +48,7 @@ class SideBySide extends AbstractHtml
             // it is the same
             if ($i > 0 && $options['separateBlock']) {
                 $html .= (
-                    '<tbody class="Skipped">' .
+                    '<tbody class="skipped">' .
                     '<th>&hellip;</th><td>&#xA0;</td>' .
                     '<th>&hellip;</th><td>&#xA0;</td>' .
                     '</tbody>'
@@ -56,7 +56,7 @@ class SideBySide extends AbstractHtml
             }
 
             foreach ($blocks as $change) {
-                $html .= '<tbody class="Change' . static::TAG_CLASS_MAP[$change['tag']] . '">';
+                $html .= '<tbody class="change change-' . static::TAG_CLASS_MAP[$change['tag']] . '">';
 
                 // equal changes should be shown on both sides of the diff
                 if ($change['tag'] === SequenceMatcher::OPCODE_EQUAL) {
@@ -66,15 +66,15 @@ class SideBySide extends AbstractHtml
 
                         $html .= (
                             '<tr>' .
-                            '<th class="fNum">' . $fromLine . '</th>' .
-                            '<td class="Left"><span>' . $line . '</span></td>' .
-                            '<th class="tNum">' . $toLine . '</th>' .
-                            '<td class="Right"><span>' . $line . '</span></td>' .
+                            '<th class="f-num">' . $fromLine . '</th>' .
+                            '<td class="old"><span>' . $line . '</span></td>' .
+                            '<th class="t-num">' . $toLine . '</th>' .
+                            '<td class="new"><span>' . $line . '</span></td>' .
                             '</tr>'
                         );
                     }
                 }
-                // added lines only on the right side
+                // added lines only on the r side
                 elseif ($change['tag'] === SequenceMatcher::OPCODE_INSERT) {
                     foreach ($change['changed']['lines'] as $no => $line) {
                         $toLine = $change['changed']['offset'] + $no + 1;
@@ -82,24 +82,24 @@ class SideBySide extends AbstractHtml
                         $html .= (
                             '<tr>' .
                             '<th>&#xA0;</th>' .
-                            '<td class="Left">&#xA0;</td>' .
-                            '<th class="tNum">' . $toLine . '</th>' .
-                            '<td class="Right"><ins>' . $line . '</ins></td>' .
+                            '<td class="old">&#xA0;</td>' .
+                            '<th class="t-num">' . $toLine . '</th>' .
+                            '<td class="new"><ins>' . $line . '</ins></td>' .
                             '</tr>'
                         );
                     }
                 }
-                // show deleted lines only on the left side
+                // show deleted lines only on the l side
                 elseif ($change['tag'] === SequenceMatcher::OPCODE_DELETE) {
                     foreach ($change['base']['lines'] as $no => $line) {
                         $fromLine = $change['base']['offset'] + $no + 1;
 
                         $html .= (
                             '<tr>' .
-                            '<th class="fNum">' . $fromLine . '</th>' .
-                            '<td class="Left"><del>' . $line . '</del></td>' .
+                            '<th class="f-num">' . $fromLine . '</th>' .
+                            '<td class="old"><del>' . $line . '</del></td>' .
                             '<th>&#xA0;</th>' .
-                            '<td class="Right">&#xA0;</td>' .
+                            '<td class="new">&#xA0;</td>' .
                             '</tr>'
                         );
                     }
@@ -120,10 +120,10 @@ class SideBySide extends AbstractHtml
 
                             $html .= (
                                 '<tr>' .
-                                '<th class="fNum">' . $fromLine . '</th>' .
-                                '<td class="Left"><span>' . $line . '</span></td>' .
-                                '<th class="tNum">' . $toLine . '</th>' .
-                                '<td class="Right">' . $changedLine . '</td>' .
+                                '<th class="f-num">' . $fromLine . '</th>' .
+                                '<td class="old"><span>' . $line . '</span></td>' .
+                                '<th class="t-num">' . $toLine . '</th>' .
+                                '<td class="new">' . $changedLine . '</td>' .
                                 '</tr>'
                             );
                         }
@@ -141,10 +141,10 @@ class SideBySide extends AbstractHtml
 
                             $html .= (
                                 '<tr>' .
-                                '<th class="fNum">' . $fromLine . '</th>' .
-                                '<td class="Left"><span>' . $line . '</span></td>' .
-                                '<th class="tNum">' . $toLine . '</th>' .
-                                '<td class="Right">' . $changedLine . '</td>' .
+                                '<th class="f-num">' . $fromLine . '</th>' .
+                                '<td class="old"><span>' . $line . '</span></td>' .
+                                '<th class="t-num">' . $toLine . '</th>' .
+                                '<td class="new">' . $changedLine . '</td>' .
                                 '</tr>'
                             );
                         }
