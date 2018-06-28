@@ -6,7 +6,7 @@ namespace Jfcherng\Diff\Renderer\Html;
 
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Utility\SequenceMatcher;
-use Jfcherng\Utility\LevenshteinDistance;
+use Jfcherng\Utility\LevenshteinDistance as LD;
 use Jfcherng\Utility\MbString;
 use RuntimeException;
 
@@ -243,53 +243,43 @@ abstract class AbstractHtml extends AbstractRenderer
         // we prefer the char-level diff but if there is an exception like
         // "line too long", we fallback to line-level diff.
         try {
-            $editInfo = LevenshteinDistance::calculate(
+            $editInfo = LD::calculate(
                 $mbFromLine->get(),
                 $mbToLine->get(),
-                LevenshteinDistance::PROGRESS_SIMPLE
+                true,
+                LD::PROGRESS_MERGE_NEIGHBOR
             );
         } catch (RuntimeException $e) {
             return $this->renderChangedExtentLineLevel($mbFromLine, $mbToLine);
         }
 
         // start to render
-        foreach ($editInfo['progresses'] as $step => $operation) {
+        foreach ($editInfo['progresses'] as [$operation, $position,, $length]) {
             switch ($operation) {
+                // default never happens though
+                default:
                 // copy, render nothing
-                case LevenshteinDistance::OP_COPY:
-                    --$fromEditPos;
-                    --$toEditPos;
+                case LD::OP_COPY:
+                    $fromEditPos -= $length;
+                    $toEditPos -= $length;
                     break;
                 // delete, render 'from'
-                case LevenshteinDistance::OP_DELETE:
-                    --$fromEditPos;
-                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromEditPos, 1);
+                case LD::OP_DELETE:
+                    $fromEditPos -= $length;
+                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromEditPos, $length);
                     break;
                 // insert, render 'to'
-                case LevenshteinDistance::OP_INSERT:
-                    --$toEditPos;
-                    $mbToLine->str_enclose_i(self::CLOSURES, $toEditPos, 1);
+                case LD::OP_INSERT:
+                    $toEditPos -= $length;
+                    $mbToLine->str_enclose_i(self::CLOSURES, $toEditPos, $length);
                     break;
                 // replace, render both
-                case LevenshteinDistance::OP_REPLACE:
-                    --$fromEditPos;
-                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromEditPos, 1);
-                    --$toEditPos;
-                    $mbToLine->str_enclose_i(self::CLOSURES, $toEditPos, 1);
+                case LD::OP_REPLACE:
+                    $fromEditPos -= $length;
+                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromEditPos, $length);
+                    $toEditPos -= $length;
+                    $mbToLine->str_enclose_i(self::CLOSURES, $toEditPos, $length);
                     break;
-            }
-        }
-
-        // check for editPos, render for the string head
-        // Note: at least, one of the editPos must be zero
-        assert($fromEditPos === 0 || $toEditPos === 0);
-
-        // render the string head
-        if ($fromEditPos !== $toEditPos) {
-            if ($fromEditPos === 0) {
-                $mbToLine->str_enclose_i(self::CLOSURES, 0, $toEditPos);
-            } else {
-                $mbFromLine->str_enclose_i(self::CLOSURES, 0, $fromEditPos);
             }
         }
 
