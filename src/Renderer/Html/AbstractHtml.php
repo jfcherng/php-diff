@@ -244,7 +244,7 @@ abstract class AbstractHtml extends AbstractRenderer
                 $mbFromLine->get(),
                 $mbToLine->get(),
                 true,
-                LD::PROGRESS_MERGE_NEIGHBOR
+                LD::PROGRESS_MERGE_NEIGHBOR | LD::PROGRESS_NO_COPY
             );
         } catch (RuntimeException $e) {
             return $this->renderChangedExtentLineLevel($mbFromLine, $mbToLine);
@@ -255,9 +255,6 @@ abstract class AbstractHtml extends AbstractRenderer
             switch ($operation) {
                 // default never happens though
                 default:
-                // copy, render nothing
-                case LD::OP_COPY:
-                    break;
                 // delete, render 'from'
                 case LD::OP_DELETE:
                     $mbFromLine->str_enclose_i(self::CLOSURES, $fromPos, $length);
