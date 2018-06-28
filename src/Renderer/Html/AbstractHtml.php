@@ -237,9 +237,6 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function renderChangedExtentCharLevel(MbString $mbFromLine, MbString $mbToLine): self
     {
-        $fromEditPos = $mbFromLine->strlen();
-        $toEditPos = $mbToLine->strlen();
-
         // we prefer the char-level diff but if there is an exception like
         // "line too long", we fallback to line-level diff.
         try {
@@ -254,31 +251,25 @@ abstract class AbstractHtml extends AbstractRenderer
         }
 
         // start to render
-        foreach ($editInfo['progresses'] as [$operation, $position,, $length]) {
+        foreach ($editInfo['progresses'] as [$operation, $fromPos, $toPos, $length]) {
             switch ($operation) {
                 // default never happens though
                 default:
                 // copy, render nothing
                 case LD::OP_COPY:
-                    $fromEditPos -= $length;
-                    $toEditPos -= $length;
                     break;
                 // delete, render 'from'
                 case LD::OP_DELETE:
-                    $fromEditPos -= $length;
-                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromEditPos, $length);
+                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromPos, $length);
                     break;
                 // insert, render 'to'
                 case LD::OP_INSERT:
-                    $toEditPos -= $length;
-                    $mbToLine->str_enclose_i(self::CLOSURES, $toEditPos, $length);
+                    $mbToLine->str_enclose_i(self::CLOSURES, $toPos, $length);
                     break;
                 // replace, render both
                 case LD::OP_REPLACE:
-                    $fromEditPos -= $length;
-                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromEditPos, $length);
-                    $toEditPos -= $length;
-                    $mbToLine->str_enclose_i(self::CLOSURES, $toEditPos, $length);
+                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromPos, $length);
+                    $mbToLine->str_enclose_i(self::CLOSURES, $toPos, $length);
                     break;
             }
         }
