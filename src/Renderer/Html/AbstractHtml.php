@@ -240,7 +240,7 @@ abstract class AbstractHtml extends AbstractRenderer
         // we prefer the char-level diff but if there is an exception like
         // "line too long", we fallback to line-level diff.
         try {
-            $editInfo = LD::calculate(
+            $editInfo = LD::staticCalculate(
                 $mbFromLine->get(),
                 $mbToLine->get(),
                 true,
