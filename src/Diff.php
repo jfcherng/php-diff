@@ -157,6 +157,22 @@ class Diff
     }
 
     /**
+     * Get the singleton.
+     *
+     * @return self
+     */
+    public static function getInstance(): self
+    {
+        static $singleton;
+
+        if (!isset($singleton)) {
+            $singleton = new static([], []);
+        }
+
+        return $singleton;
+    }
+
+    /**
      * Generate a list of the compiled and grouped opcodes for the differences between the
      * two strings. Generally called by the renderer, this class instantiates the sequence
      * matcher and performs the actual diff generation and return an array of the opcodes

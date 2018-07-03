@@ -10,62 +10,50 @@ use Jfcherng\Diff\Utility\RendererFactory;
 class DiffHelper
 {
     /**
-     * The Diff object.
-     *
-     * @var Diff
-     */
-    protected static $diff;
-
-    /**
-     * Information of all available templates.
-     *
-     * @var array
-     */
-    protected static $templatesInfo;
-
-    /**
      * Get the information about available templates.
      *
      * @return array
      */
     public static function getTemplatesInfo(): array
     {
-        if (!isset(static::$templatesInfo)) {
-            $glob = implode(
-                DIRECTORY_SEPARATOR,
-                [
-                    __DIR__,
-                    'Renderer',
-                    '{' . implode(',', RendererConstant::TEMPLATE_TYPES) . '}',
-                    '*.php',
-                ]
-            );
+        static $templatesInfo;
 
-            $files = array_filter(
-                glob($glob, GLOB_BRACE),
-                // not an abstact class
-                function (string $file): bool {
-                    return strpos($file, 'Abstract') === false;
-                }
-            );
-
-            // class name = file name without the extension
-            $templates = array_map(
-                function (string $file): string {
-                    return basename($file, '.php');
-                },
-                $files
-            );
-
-            $info = [];
-            foreach ($templates as $template) {
-                $info[$template] = RendererFactory::resolveTemplate($template)::INFO;
-            }
-
-            static::$templatesInfo = $info;
+        if (isset($templatesInfo)) {
+            return $templatesInfo;
         }
 
-        return static::$templatesInfo;
+        $glob = implode(
+            DIRECTORY_SEPARATOR,
+            [
+                __DIR__,
+                'Renderer',
+                '{' . implode(',', RendererConstant::TEMPLATE_TYPES) . '}',
+                '*.php',
+            ]
+        );
+
+        $files = array_filter(
+            glob($glob, GLOB_BRACE),
+            // not an abstact class
+            function (string $file): bool {
+                return strpos($file, 'Abstract') === false;
+            }
+        );
+
+        // class name = file name without the extension
+        $templates = array_map(
+            function (string $file): string {
+                return basename($file, '.php');
+            },
+            $files
+        );
+
+        $info = [];
+        foreach ($templates as $template) {
+            $info[$template] = RendererFactory::resolveTemplate($template)::INFO;
+        }
+
+        return $templatesInfo = $info;
     }
 
     /**
@@ -97,9 +85,7 @@ class DiffHelper
             return RendererFactory::resolveTemplate($template)::IDENTICAL_RESULT;
         }
 
-        static::$diff = static::$diff ?? new Diff([], []);
-
-        return static::$diff
+        return Diff::getInstance()
             ->setA(is_string($old) ? explode("\n", $old) : $old)
             ->setB(is_string($new) ? explode("\n", $new) : $new)
             ->setOptions($diffOptions)
