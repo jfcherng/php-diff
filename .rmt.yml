@@ -39,4 +39,6 @@ master:
     changelog-update:          # Update a CHANGELOG file before the release
       file: CHANGELOG.md
       format: semantic
+      dump-commits: true
+      exclude-merge-commits: true
     vcs-commit: ~              # Commit the CHANGELOG
