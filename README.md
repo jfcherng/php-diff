@@ -29,6 +29,12 @@ The reason for doing so is primarily because of its high degree of accuracy.
 - Add multi-language support (English, Chinese, etc...) for templates.
 
 
+# Requirements
+
+- PHP >= 7.1.3
+- Extension: `iconv`
+
+
 # Installation
 
 ```
