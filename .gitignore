@@ -6,7 +6,6 @@
 .php_cs.cache
 
 # composer
-composer.lock
 vendor/
 
 # tmp files
