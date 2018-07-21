@@ -3,6 +3,7 @@ language: php
 php:
   - 7.1
   - 7.2
+  - nightly
 
 cache:
   directories:
@@ -12,7 +13,7 @@ before_install:
   - pecl install -f ast
 
 install:
-  - composer install --prefer-dist --no-progress
+  - composer install --prefer-dist --no-progress --ignore-platform-reqs
 
 script:
   - composer analyze
