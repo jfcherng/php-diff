@@ -29,8 +29,8 @@
         "jfcherng/php-mb-string": "^1.2.3"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.12",
-        "phan/phan": "~0.12",
+        "friendsofphp/php-cs-fixer": "^2.13",
+        "phan/phan": "^1.0",
         "phpunit/phpunit": "^7.2"
     },
     "config": {

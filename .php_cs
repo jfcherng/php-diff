@@ -15,14 +15,16 @@ $config = PhpCsFixer\Config::create()
         'array_syntax' => ['syntax' => 'short'],
         'combine_consecutive_issets' => true,
         'combine_consecutive_unsets' => true,
+        'combine_nested_dirname' => true,
         'comment_to_phpdoc' => true,
         'compact_nullable_typehint' => true,
         'concat_space' => ['spacing' => 'one'],
         'fully_qualified_strict_types' => true,
         'linebreak_after_opening_tag' => true,
         'list_syntax' => ['syntax' => 'short'],
-        'native_constant_invocation' => false,
         'method_argument_space' => ['ensure_fully_multiline' => true],
+        'native_constant_invocation' => false,
+        'native_function_invocation' => false,
         'no_alternative_syntax' => true,
         'no_multiline_whitespace_before_semicolons' => true,
         'no_null_property_initialization' => true,
@@ -57,7 +59,6 @@ $config = PhpCsFixer\Config::create()
             ->exclude('tests/Fixtures')
             ->exclude('var')
             ->exclude('vendor')
-            ->exclude('webhook')
             ->in(__DIR__)
     )
 ;
