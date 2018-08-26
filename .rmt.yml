@@ -37,7 +37,7 @@ master:
       tag-prefix: ''         # No more prefix for tags
   pre-release-actions:
     changelog-update:          # Update a CHANGELOG file before the release
-      file: CHANGELOG.md
+      file: CHANGELOG
       format: semantic
       dump-commits: true
       exclude-merge-commits: true
