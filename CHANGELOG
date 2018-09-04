@@ -3,6 +3,12 @@ VERSION 2  INIT
 ===============
 
    Version 2.1 - init
+      04/09/2018 18:56  2.1.15  php-cs-fixer
+         799cae1 php-cs-fixer: enable native_constant_invocation and native_function_invocation
+         96ee1d2 Update deps
+         83e3a54 Rename CHANGELOG.md -> CHANGELOG
+         81364db Update deps
+         605a963 Update .travis.yml
       18/07/2018 08:41  2.1.14  Add composer.lock
          726b3a6 Add composer.lock
          e36f649 Update README.md
