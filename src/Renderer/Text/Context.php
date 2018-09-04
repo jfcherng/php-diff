@@ -37,7 +37,7 @@ class Context extends AbstractText
         $opcodes = $this->diff->getGroupedOpcodes();
         foreach ($opcodes as $group) {
             $diff .= "***************\n";
-            $lastItem = count($group) - 1;
+            $lastItem = \count($group) - 1;
             $i1 = $group[0][1];
             $i2 = $group[$lastItem][2];
             $j1 = $group[0][3];
@@ -72,7 +72,7 @@ class Context extends AbstractText
                     if ($tag === SequenceMatcher::OPCODE_INSERT) {
                         continue;
                     }
-                    $diff .= static::TAG_MAP[$tag] . ' ' . implode("\n" . static::TAG_MAP[$tag] . ' ', $this->diff->getA($i1, $i2)) . "\n";
+                    $diff .= static::TAG_MAP[$tag] . ' ' . \implode("\n" . static::TAG_MAP[$tag] . ' ', $this->diff->getA($i1, $i2)) . "\n";
                 }
             }
 
@@ -95,7 +95,7 @@ class Context extends AbstractText
                     if ($tag === SequenceMatcher::OPCODE_DELETE) {
                         continue;
                     }
-                    $diff .= static::TAG_MAP[$tag] . ' ' . implode("\n" . static::TAG_MAP[$tag] . ' ', $this->diff->getB($j1, $j2)) . "\n";
+                    $diff .= static::TAG_MAP[$tag] . ' ' . \implode("\n" . static::TAG_MAP[$tag] . ' ', $this->diff->getB($j1, $j2)) . "\n";
                 }
             }
         }

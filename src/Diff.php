@@ -216,13 +216,13 @@ class Diff
      */
     protected function getText(string $ab, int $start = 0, ?int $end = null): array
     {
-        assert($ab === 'a' || $ab === 'b');
+        \assert($ab === 'a' || $ab === 'b');
 
         if ($start === 0 && !isset($end)) {
             return $this->$ab;
         }
 
-        return array_slice(
+        return \array_slice(
             $this->$ab,
             $start,
             isset($end) ? $end - $start : 1

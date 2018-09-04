@@ -22,28 +22,28 @@ class DiffHelper
             return $templatesInfo;
         }
 
-        $glob = implode(
-            DIRECTORY_SEPARATOR,
+        $glob = \implode(
+            \DIRECTORY_SEPARATOR,
             [
                 __DIR__,
                 'Renderer',
-                '{' . implode(',', RendererConstant::TEMPLATE_TYPES) . '}',
+                '{' . \implode(',', RendererConstant::TEMPLATE_TYPES) . '}',
                 '*.php',
             ]
         );
 
-        $files = array_filter(
-            glob($glob, GLOB_BRACE),
+        $files = \array_filter(
+            \glob($glob, \GLOB_BRACE),
             // not an abstact class
             function (string $file): bool {
-                return strpos($file, 'Abstract') === false;
+                return \strpos($file, 'Abstract') === false;
             }
         );
 
         // class name = file name without the extension
-        $templates = array_map(
+        $templates = \array_map(
             function (string $file): string {
-                return basename($file, '.php');
+                return \basename($file, '.php');
             },
             $files
         );
@@ -63,7 +63,7 @@ class DiffHelper
      */
     public static function getAvailableTemplates(): array
     {
-        return array_keys(static::getTemplatesInfo());
+        return \array_keys(static::getTemplatesInfo());
     }
 
     /**
@@ -86,8 +86,8 @@ class DiffHelper
         }
 
         return Diff::getInstance()
-            ->setA(is_string($old) ? explode("\n", $old) : $old)
-            ->setB(is_string($new) ? explode("\n", $new) : $new)
+            ->setA(\is_string($old) ? \explode("\n", $old) : $old)
+            ->setB(\is_string($new) ? \explode("\n", $new) : $new)
             ->setOptions($diffOptions)
             ->render(
                 RendererFactory::getInstance($template)

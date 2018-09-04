@@ -106,7 +106,7 @@ class SideBySide extends AbstractHtml
                 }
                 // show modified lines on both sides
                 elseif ($change['tag'] === SequenceMatcher::OPCODE_REPLACE) {
-                    if (count($change['base']['lines']) >= count($change['changed']['lines'])) {
+                    if (\count($change['base']['lines']) >= \count($change['changed']['lines'])) {
                         foreach ($change['base']['lines'] as $no => $line) {
                             $fromLine = $change['base']['offset'] + $no + 1;
 

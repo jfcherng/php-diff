@@ -73,7 +73,7 @@ final class RendererFactory
         foreach (RendererConstant::TEMPLATE_TYPES as $type) {
             $className = RendererConstant::RENDERER_NAMESPACE . "\\{$type}\\{$template}";
 
-            if (class_exists($className)) {
+            if (\class_exists($className)) {
                 return $className;
             }
         }

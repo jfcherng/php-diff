@@ -13,8 +13,8 @@
             use Jfcherng\Diff\DiffHelper;
 
             // include two sample files for comparison
-            $a = file_get_contents(__DIR__ . '/a.txt');
-            $b = file_get_contents(__DIR__ . '/b.txt');
+            $a = \file_get_contents(__DIR__ . '/a.txt');
+            $b = \file_get_contents(__DIR__ . '/b.txt');
 
             // options for Diff class
             $diffOptions = [
@@ -64,7 +64,7 @@
 
             // generate a unified diff
             $result = DiffHelper::calculate($a, $b, 'Unified', $diffOptions, $templateOptions);
-            echo htmlspecialchars($result);
+            echo \htmlspecialchars($result);
 
         ?>
         </pre>
@@ -74,7 +74,7 @@
 
             // generate a context diff
             $result = DiffHelper::calculate($a, $b, 'Context', $diffOptions, $templateOptions);
-            echo htmlspecialchars($result);
+            echo \htmlspecialchars($result);
 
         ?>
         </pre>

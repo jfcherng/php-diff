@@ -37,9 +37,9 @@ class Language
      */
     public function setTranlations($langOrTrans): self
     {
-        if (is_string($langOrTrans)) {
+        if (\is_string($langOrTrans)) {
             $this->translations = $this->getTranlationsByLanguage($langOrTrans);
-        } elseif (is_array($langOrTrans)) {
+        } elseif (\is_array($langOrTrans)) {
             $this->translations = $langOrTrans;
         } else {
             throw new InvalidArgumentException('Expect $langOrTrans to be string or array.');
@@ -71,7 +71,7 @@ class Language
     {
         $file = __DIR__ . "/../languages/{$language}.php";
 
-        if (!is_file($file)) {
+        if (!\is_file($file)) {
             throw new Exception("Language `{$language}` not found.");
         }
 

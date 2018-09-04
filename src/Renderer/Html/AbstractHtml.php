@@ -102,33 +102,33 @@ abstract class AbstractHtml extends AbstractRenderer
                             'lines' => [],
                         ],
                     ];
-                    $lastBlock = count($blocks) - 1;
+                    $lastBlock = \count($blocks) - 1;
                 }
 
                 $lastTag = $tag;
 
                 if ($tag === SequenceMatcher::OPCODE_EQUAL) {
-                    $lines = array_slice($a, $i1, ($i2 - $i1));
+                    $lines = \array_slice($a, $i1, ($i2 - $i1));
                     $blocks[$lastBlock]['base']['lines'] += $this->formatLines($lines);
-                    $lines = array_slice($b, $j1, ($j2 - $j1));
+                    $lines = \array_slice($b, $j1, ($j2 - $j1));
                     $blocks[$lastBlock]['changed']['lines'] += $this->formatLines($lines);
                 } else {
                     if (
                         $tag === SequenceMatcher::OPCODE_REPLACE ||
                         $tag === SequenceMatcher::OPCODE_DELETE
                     ) {
-                        $lines = array_slice($a, $i1, ($i2 - $i1));
+                        $lines = \array_slice($a, $i1, ($i2 - $i1));
                         $lines = $this->formatLines($lines);
-                        $lines = str_replace(self::CLOSURES, self::CLOSURES_DEL, $lines);
+                        $lines = \str_replace(self::CLOSURES, self::CLOSURES_DEL, $lines);
                         $blocks[$lastBlock]['base']['lines'] += $lines;
                     }
                     if (
                         $tag === SequenceMatcher::OPCODE_REPLACE ||
                         $tag === SequenceMatcher::OPCODE_INSERT
                     ) {
-                        $lines = array_slice($b, $j1, ($j2 - $j1));
+                        $lines = \array_slice($b, $j1, ($j2 - $j1));
                         $lines = $this->formatLines($lines);
-                        $lines = str_replace(self::CLOSURES, self::CLOSURES_INS, $lines);
+                        $lines = \str_replace(self::CLOSURES, self::CLOSURES_INS, $lines);
                         $blocks[$lastBlock]['changed']['lines'] += $lines;
                     }
                 }
@@ -161,14 +161,14 @@ abstract class AbstractHtml extends AbstractRenderer
         static $delimiter = "\u{ff2fa}\u{fcffc}\u{fff42}";
 
         // glue all lines into a single string to get rid of multiple function calls later
-        $string = implode($delimiter, $lines);
+        $string = \implode($delimiter, $lines);
 
         $string = $this->htmlSafe($string);
         $string = $this->expandTabs($string);
         $string = $this->fixSpaces($string);
 
         // split the string back to lines
-        return explode($delimiter, $string);
+        return \explode($delimiter, $string);
     }
 
     /**
@@ -292,7 +292,7 @@ abstract class AbstractHtml extends AbstractRenderer
     {
         // calculate $start
         $start = 0;
-        $startLimit = min($mbFromLine->strlen(), $mbToLine->strlen());
+        $startLimit = \min($mbFromLine->strlen(), $mbToLine->strlen());
         while (
             $start < $startLimit && // index out of range
             $mbFromLine->getAtRaw($start) === $mbToLine->getAtRaw($start)
@@ -327,7 +327,7 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function expandTabs(string $string): string
     {
-        return str_replace("\t", str_repeat(' ', $this->options['tabSize']), $string);
+        return \str_replace("\t", \str_repeat(' ', $this->options['tabSize']), $string);
     }
 
     /**
@@ -339,7 +339,7 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function htmlSafe(string $string): string
     {
-        return htmlspecialchars($string, ENT_NOQUOTES, 'UTF-8');
+        return \htmlspecialchars($string, \ENT_NOQUOTES, 'UTF-8');
     }
 
     /**
@@ -351,12 +351,12 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function fixSpaces(string $string): string
     {
-        return preg_replace_callback(
+        return \preg_replace_callback(
             '# {2,}#S', // only fix for more than 1 space
             function (array $matches): string {
-                $count = strlen($matches[0]);
+                $count = \strlen($matches[0]);
 
-                return ($count & 1 ? '&nbsp;' : '') . str_repeat(' &nbsp;', $count >> 1);
+                return ($count & 1 ? '&nbsp;' : '') . \str_repeat(' &nbsp;', $count >> 1);
             },
             $string
         );

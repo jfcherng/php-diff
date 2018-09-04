@@ -109,6 +109,6 @@ abstract class AbstractRenderer implements RendererInterface
     {
         $text = $this->t->translate($text);
 
-        return $escapeHtml ? htmlspecialchars($text) : $text;
+        return $escapeHtml ? \htmlspecialchars($text) : $text;
     }
 }

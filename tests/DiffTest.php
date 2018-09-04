@@ -59,8 +59,8 @@ EOT
      */
     public function testGetGroupedOpcodes(string $old, string $new, array $expected): void
     {
-        $old = explode("\n", $old);
-        $new = explode("\n", $new);
+        $old = \explode("\n", $old);
+        $new = \explode("\n", $new);
 
         $this->assertSame(
             $expected,

@@ -26,7 +26,7 @@ class Unified extends AbstractText
         $diff = '';
         $opcodes = $this->diff->getGroupedOpcodes();
         foreach ($opcodes as $group) {
-            $lastItem = count($group) - 1;
+            $lastItem = \count($group) - 1;
             $i1 = $group[0][1];
             $i2 = $group[$lastItem][2];
             $j1 = $group[0][3];
@@ -41,19 +41,19 @@ class Unified extends AbstractText
             foreach ($group as $opcode) {
                 [$tag, $i1, $i2, $j1, $j2] = $opcode;
                 if ($tag === SequenceMatcher::OPCODE_EQUAL) {
-                    $diff .= ' ' . implode("\n ", $this->diff->getA($i1, $i2)) . "\n";
+                    $diff .= ' ' . \implode("\n ", $this->diff->getA($i1, $i2)) . "\n";
                 } else {
                     if (
                         $tag === SequenceMatcher::OPCODE_REPLACE ||
                         $tag === SequenceMatcher::OPCODE_DELETE
                     ) {
-                        $diff .= '-' . implode("\n-", $this->diff->getA($i1, $i2)) . "\n";
+                        $diff .= '-' . \implode("\n-", $this->diff->getA($i1, $i2)) . "\n";
                     }
                     if (
                         $tag === SequenceMatcher::OPCODE_REPLACE ||
                         $tag === SequenceMatcher::OPCODE_INSERT
                     ) {
-                        $diff .= '+' . implode("\n+", $this->diff->getB($j1, $j2)) . "\n";
+                        $diff .= '+' . \implode("\n+", $this->diff->getB($j1, $j2)) . "\n";
                     }
                 }
             }

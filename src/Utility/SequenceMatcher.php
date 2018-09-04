@@ -268,13 +268,13 @@ class SequenceMatcher
         if ($this->options['ignoreWhitespace']) {
             static $replace = ["\t", ' '];
 
-            $lineA = str_replace($replace, '', $lineA);
-            $lineB = str_replace($replace, '', $lineB);
+            $lineA = \str_replace($replace, '', $lineA);
+            $lineB = \str_replace($replace, '', $lineB);
         }
 
         if ($this->options['ignoreCase']) {
-            $lineA = strtolower($lineA);
-            $lineB = strtolower($lineB);
+            $lineA = \strtolower($lineA);
+            $lineB = \strtolower($lineB);
         }
 
         return $lineA !== $lineB;
@@ -296,8 +296,8 @@ class SequenceMatcher
             return $this->matchingBlocks;
         }
 
-        $aCount = count($this->a);
-        $bCount = count($this->b);
+        $aCount = \count($this->a);
+        $bCount = \count($this->b);
 
         $queue = [
             [0, $aCount, 0, $bCount],
@@ -305,7 +305,7 @@ class SequenceMatcher
 
         $matchingBlocks = [];
         while (!empty($queue)) {
-            [$alo, $ahi, $blo, $bhi] = array_pop($queue);
+            [$alo, $ahi, $blo, $bhi] = \array_pop($queue);
             $x = $this->findLongestMatch($alo, $ahi, $blo, $bhi);
             [$i, $j, $k] = $x;
             if ($k) {
@@ -320,10 +320,10 @@ class SequenceMatcher
             }
         }
 
-        usort($matchingBlocks, function (array $a, array $b): int {
-            $aCount = count($a);
-            $bCount = count($b);
-            $max = max($aCount, $bCount);
+        \usort($matchingBlocks, function (array $a, array $b): int {
+            $aCount = \count($a);
+            $bCount = \count($b);
+            $max = \max($aCount, $bCount);
 
             for ($i = 0; $i < $max; ++$i) {
                 if ($a[$i] !== $b[$i]) {
@@ -448,22 +448,22 @@ class SequenceMatcher
         if ($opcodes[0][0] === static::OPCODE_EQUAL) {
             $opcodes[0] = [
                 $opcodes[0][0],
-                max($opcodes[0][1], $opcodes[0][2] - $context),
+                \max($opcodes[0][1], $opcodes[0][2] - $context),
                 $opcodes[0][2],
-                max($opcodes[0][3], $opcodes[0][4] - $context),
+                \max($opcodes[0][3], $opcodes[0][4] - $context),
                 $opcodes[0][4],
             ];
         }
 
-        $lastItem = count($opcodes) - 1;
+        $lastItem = \count($opcodes) - 1;
         if ($opcodes[$lastItem][0] === static::OPCODE_EQUAL) {
             [$tag, $i1, $i2, $j1, $j2] = $opcodes[$lastItem];
             $opcodes[$lastItem] = [
                 $tag,
                 $i1,
-                min($i2, $i1 + $context),
+                \min($i2, $i1 + $context),
                 $j1,
-                min($j2, $j1 + $context),
+                \min($j2, $j1 + $context),
             ];
         }
 
@@ -475,21 +475,21 @@ class SequenceMatcher
                 $group[] = [
                     $tag,
                     $i1,
-                    min($i2, $i1 + $context),
+                    \min($i2, $i1 + $context),
                     $j1,
-                    min($j2, $j1 + $context),
+                    \min($j2, $j1 + $context),
                 ];
                 $groups[] = $group;
                 $group = [];
-                $i1 = max($i1, $i2 - $context);
-                $j1 = max($j1, $j2 - $context);
+                $i1 = \max($i1, $i2 - $context);
+                $j1 = \max($j1, $j2 - $context);
             }
             $group[] = [$tag, $i1, $i2, $j1, $j2];
         }
 
         if (
             !empty($group) &&
-            !(count($group) === 1 && $group[0][0] === static::OPCODE_EQUAL)
+            !(\count($group) === 1 && $group[0][0] === static::OPCODE_EQUAL)
         ) {
             $groups[] = $group;
         }
@@ -513,15 +513,15 @@ class SequenceMatcher
      */
     public function ratio(): float
     {
-        $matchesCount = array_reduce(
+        $matchesCount = \array_reduce(
             $this->getMatchingBlocks(),
             function (int $sum, array $triple): int {
-                return $sum + $triple[count($triple) - 1];
+                return $sum + $triple[\count($triple) - 1];
             },
             0
         );
 
-        return $this->calculateRatio($matchesCount, count($this->a) + count($this->b));
+        return $this->calculateRatio($matchesCount, \count($this->a) + \count($this->b));
     }
 
     /**
@@ -532,14 +532,14 @@ class SequenceMatcher
      */
     protected function chainB(): self
     {
-        $length = count($this->b);
+        $length = \count($this->b);
         $this->b2j = [];
         $popularDict = [];
 
         for ($i = 0; $i < $length; ++$i) {
             $char = $this->b[$i];
             if (isset($this->b2j[$char])) {
-                if ($length >= 200 && count($this->b2j[$char]) * 100 > $length) {
+                if ($length >= 200 && \count($this->b2j[$char]) * 100 > $length) {
                     $popularDict[$char] = 1;
                     unset($this->b2j[$char]);
                 } else {
@@ -551,20 +551,20 @@ class SequenceMatcher
         }
 
         // remove leftovers
-        foreach (array_keys($popularDict) as $char) {
+        foreach (\array_keys($popularDict) as $char) {
             unset($this->b2j[$char]);
         }
 
         $this->junkDict = [];
-        if (is_callable($this->junkCallback)) {
-            foreach (array_keys($popularDict) as $char) {
+        if (\is_callable($this->junkCallback)) {
+            foreach (\array_keys($popularDict) as $char) {
                 if (($this->junkCallback)($char)) {
                     $this->junkDict[$char] = 1;
                     unset($popularDict[$char]);
                 }
             }
 
-            foreach (array_keys($this->b2j) as $char) {
+            foreach (\array_keys($this->b2j) as $char) {
                 if (($this->junkCallback)($char)) {
                     $this->junkDict[$char] = 1;
                     unset($this->b2j[$char]);
@@ -596,8 +596,8 @@ class SequenceMatcher
      */
     protected function quickRatio(): float
     {
-        $aCount = count($this->a);
-        $bCount = count($this->b);
+        $aCount = \count($this->a);
+        $bCount = \count($this->b);
 
         if (empty($this->fullBCount)) {
             for ($i = 0; $i < $bCount; ++$i) {
@@ -628,10 +628,10 @@ class SequenceMatcher
      */
     protected function realQuickRatio(): float
     {
-        $aCount = count($this->a);
-        $bCount = count($this->b);
+        $aCount = \count($this->a);
+        $bCount = \count($this->b);
 
-        return $this->calculateRatio(min($aCount, $bCount), $aCount + $bCount);
+        return $this->calculateRatio(\min($aCount, $bCount), $aCount + $bCount);
     }
 
     /**
