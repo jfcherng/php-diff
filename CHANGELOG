@@ -3,6 +3,8 @@ VERSION 2  INIT
 ===============
 
    Version 2.1 - init
+      16/09/2018 14:34  2.1.16  Bulgarian translation
+         e7fafe6 Bulgarian translation
       04/09/2018 18:56  2.1.15  php-cs-fixer
          799cae1 php-cs-fixer: enable native_constant_invocation and native_function_invocation
          96ee1d2 Update deps
