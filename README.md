@@ -85,12 +85,12 @@ $templateOptions = [
 ];
 
 // one-line simple usage
-$result = DiffHelper::calculate($old, $new, $templates, $diffOptions, $templateOptions);
+$result = DiffHelper::calculate($old, $new, $template, $diffOptions, $templateOptions);
 // or even shorter if you are happy with default options
-$result = DiffHelper::calculate($old, $new, $templates);
+$result = DiffHelper::calculate($old, $new, $template);
 
 // custom usage
-$diff = new Diff($old, $new, $diffOptions);
+$diff = new Diff(explode("\n", $old), explode("\n", $new), $diffOptions);
 $renderer = RendererFactory::make($template, $templateOptions);
 $result = $diff->render($renderer);
 ```
