@@ -69,8 +69,8 @@ class DiffHelper
     /**
      * All-in-one static method to calculate the diff.
      *
-     * @param string|string[] $old             the old string (or array of chars)
-     * @param string|string[] $new             the new string (or array of chars)
+     * @param string|string[] $old             the old string (or array of lines)
+     * @param string|string[] $new             the new string (or array of lines)
      * @param string          $template        the template name
      * @param array           $diffOptions     the options for Diff object
      * @param array           $templateOptions the options for template object
@@ -79,6 +79,10 @@ class DiffHelper
      */
     public static function calculate($old, $new, string $template = 'Unified', array $diffOptions = [], array $templateOptions = []): string
     {
+        // always convert into array form
+        \is_string($old) && ($old = \explode("\n", $old));
+        \is_string($new) && ($new = \explode("\n", $new));
+
         // the "no difference" situation may happen frequently
         // let's save some calculation if possible
         if ($old === $new) {
@@ -86,8 +90,8 @@ class DiffHelper
         }
 
         return Diff::getInstance()
-            ->setA(\is_string($old) ? \explode("\n", $old) : $old)
-            ->setB(\is_string($new) ? \explode("\n", $new) : $new)
+            ->setA($old)
+            ->setB($new)
             ->setOptions($diffOptions)
             ->render(
                 RendererFactory::getInstance($template)
