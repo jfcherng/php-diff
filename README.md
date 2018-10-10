@@ -38,7 +38,7 @@ The reason for doing so is primarily because of its high degree of accuracy.
 # Installation
 
 ```
-$ composer require jfcherng/php-diff --no-dev
+$ composer require jfcherng/php-diff
 ```
 
 
