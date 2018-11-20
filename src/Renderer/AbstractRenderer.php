@@ -75,6 +75,7 @@ abstract class AbstractRenderer implements RendererInterface
     {
         $newOptions = $options + static::$defaultOptions;
 
+        // language unset or changed?
         if (
             !isset($this->t) ||
             $this->options['language'] !== $newOptions['language']
