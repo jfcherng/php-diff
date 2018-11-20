@@ -3,6 +3,15 @@ VERSION 2  INIT
 ===============
 
    Version 2.1 - init
+      20/11/2018 19:31  2.1.17  nits
+         9297443 nits
+         9251d8b Add FileNotFoundException
+         7684942 Update deps
+         04590f1 Update README
+         0e11e19 Alias bg.php to bul.php
+         e186ff7 micro code tweak
+         28a423f Fix some typos
+         96c679c Update deps
       16/09/2018 14:34  2.1.16  Bulgarian translation
          e7fafe6 Bulgarian translation
       04/09/2018 18:56  2.1.15  php-cs-fixer
