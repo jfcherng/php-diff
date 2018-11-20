@@ -24,14 +24,12 @@ abstract class AbstractRenderer implements RendererInterface
     const IS_HTML_TEMPLATE = true;
 
     /**
-     * The output result when the old and the new are the same.
-     *
-     * @var string
+     * @var string the output result when the old and the new are the same
      */
     const IDENTICAL_RESULT = '';
 
     /**
-     * @var object instance of the diff class that this renderer is generating the rendered diff for
+     * @var \Jfcherng\Diff\Diff the instance of the diff class that this renderer is generating the rendered diff for
      */
     public $diff;
 

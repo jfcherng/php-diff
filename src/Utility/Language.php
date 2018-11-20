@@ -24,9 +24,9 @@ class Language
      */
     public function __construct($langOrTrans = 'eng')
     {
-        if (is_string($langOrTrans)) {
+        if (\is_string($langOrTrans)) {
             $this->setTranslations($langOrTrans);
-        } elseif (is_array($langOrTrans)) {
+        } elseif (\is_array($langOrTrans)) {
             $this->setTranslationsFromArray($langOrTrans);
         } else {
             throw new InvalidArgumentException('$langOrTrans must be either string or array');
