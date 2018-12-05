@@ -68,18 +68,14 @@ abstract class AbstractRenderer implements RendererInterface
      * options.
      *
      * @param array $options array of options to set
+     *
+     * @return self
      */
     public function setOptions(array $options): self
     {
         $newOptions = $options + static::$defaultOptions;
 
-        // language unset or changed?
-        if (
-            !isset($this->t) ||
-            $this->options['language'] !== $newOptions['language']
-        ) {
-            $this->t = new Language($newOptions['language']);
-        }
+        $this->updateLanguage($this->options['language'], $newOptions['language']);
 
         $this->options = $newOptions;
 
@@ -97,6 +93,23 @@ abstract class AbstractRenderer implements RendererInterface
     }
 
     /**
+     * Update the Language object.
+     *
+     * @param string $old the old language
+     * @param string $new the new language
+     *
+     * @return self
+     */
+    protected function updateLanguage(string $old, string $new): self
+    {
+        if (!isset($this->t) || $old !== $new) {
+            $this->t = new Language($new);
+        }
+
+        return $this;
+    }
+
+    /**
      * A shorthand to do translation.
      *
      * @param string $text       The text
@@ -104,7 +117,7 @@ abstract class AbstractRenderer implements RendererInterface
      *
      * @return string the translated text
      */
-    final protected function _(string $text, bool $escapeHtml = true): string
+    protected function _(string $text, bool $escapeHtml = true): string
     {
         $text = $this->t->translate($text);
 
