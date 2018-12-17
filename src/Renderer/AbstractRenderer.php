@@ -59,6 +59,7 @@ abstract class AbstractRenderer implements RendererInterface
      */
     public function __construct(array $options = [])
     {
+        $this->options = static::$defaultOptions;
         $this->setOptions($options);
     }
 
