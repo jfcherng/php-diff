@@ -1,0 +1,7 @@
+<?php
+
+return [
+    'old_version' => 'Старая версия',
+    'new_version' => 'Новая версия',
+    'differences' => 'Различия',
+];
