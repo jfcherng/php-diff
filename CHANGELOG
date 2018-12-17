@@ -3,6 +3,13 @@ VERSION 2  INIT
 ===============
 
    Version 2.1 - init
+      17/12/2018 21:34  2.1.18  Add Russian translation
+         efeee17 Update deps
+         0f28b9d Fix tests
+         767c432 Prefer using "rus" as the language code
+         70a9275 Add new lang
+         9c449ba nits
+         08bc260 Update deps
       20/11/2018 19:31  2.1.17  nits
          9297443 nits
          9251d8b Add FileNotFoundException
