@@ -26,11 +26,17 @@ class Language
     {
         if (\is_string($langOrTrans)) {
             $this->setTranslations($langOrTrans);
-        } elseif (\is_array($langOrTrans)) {
-            $this->setTranslationsFromArray($langOrTrans);
-        } else {
-            throw new InvalidArgumentException('$langOrTrans must be either string or array');
+
+            return;
         }
+
+        if (\is_array($langOrTrans)) {
+            $this->setTranslationsFromArray($langOrTrans);
+
+            return;
+        }
+
+        throw new InvalidArgumentException('$langOrTrans must be either string or array');
     }
 
     /**

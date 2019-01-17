@@ -31,7 +31,6 @@ class Json extends AbstractHtml
      */
     public function render(): string
     {
-        $options = $this->diff->options;
         $changes = $this->getChanges();
 
         return \json_encode($changes, \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES);

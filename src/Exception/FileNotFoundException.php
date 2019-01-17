@@ -11,7 +11,6 @@ class FileNotFoundException extends Exception
 {
     public function __construct(string $filepath = '', int $code = 0, Throwable $previous = null)
     {
-        $this->message = "File not found: {$filepath}";
-        $this->code = $code;
+        parent::__construct("File not found: {$filepath}", $code, $previous);
     }
 }

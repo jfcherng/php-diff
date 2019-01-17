@@ -36,14 +36,14 @@ class DiffHelper
             \glob($glob, \GLOB_BRACE),
             // not an abstact class
             function (string $file): bool {
-                return \strpos($file, 'Abstract') === false;
+                return substr($file, 0, 8) !== 'Abstract';
             }
         );
 
         // class name = file name without the extension
         $templates = \array_map(
             function (string $file): string {
-                return \basename($file, '.php');
+                return \pathinfo($file, \PATHINFO_FILENAME);
             },
             $files
         );

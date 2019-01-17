@@ -33,20 +33,22 @@ class Context extends AbstractText
      */
     public function render(): string
     {
-        $diff = '';
-        $opcodes = $this->diff->getGroupedOpcodes();
-        foreach ($opcodes as $group) {
-            $diff .= "***************\n";
-            $lastItem = \count($group) - 1;
+        $ret = '';
+
+        foreach ($this->diff->getGroupedOpcodes() as $group) {
+            $lastIdx = \count($group) - 1;
+
             $i1 = $group[0][1];
-            $i2 = $group[$lastItem][2];
+            $i2 = $group[$lastIdx][2];
             $j1 = $group[0][3];
-            $j2 = $group[$lastItem][4];
+            $j2 = $group[$lastIdx][4];
+
+            $ret .= "***************\n";
 
             if ($i2 - $i1 >= 2) {
-                $diff .= '*** ' . ($group[0][1] + 1) . ',' . $i2 . " ****\n";
+                $ret .= '*** ' . ($group[0][1] + 1) . ',' . $i2 . " ****\n";
             } else {
-                $diff .= '*** ' . $i2 . " ****\n";
+                $ret .= '*** ' . $i2 . " ****\n";
             }
 
             if ($j2 - $j1 >= 2) {
@@ -62,6 +64,7 @@ class Context extends AbstractText
                     $opcode[0] === SequenceMatcher::OPCODE_DELETE
                 ) {
                     $hasVisible = true;
+
                     break;
                 }
             }
@@ -69,10 +72,12 @@ class Context extends AbstractText
             if ($hasVisible) {
                 foreach ($group as $opcode) {
                     [$tag, $i1, $i2, $j1, $j2] = $opcode;
+
                     if ($tag === SequenceMatcher::OPCODE_INSERT) {
                         continue;
                     }
-                    $diff .= static::TAG_MAP[$tag] . ' ' . \implode("\n" . static::TAG_MAP[$tag] . ' ', $this->diff->getA($i1, $i2)) . "\n";
+
+                    $ret .= static::TAG_MAP[$tag] . ' ' . \implode("\n" . static::TAG_MAP[$tag] . ' ', $this->diff->getA($i1, $i2)) . "\n";
                 }
             }
 
@@ -83,23 +88,26 @@ class Context extends AbstractText
                     $opcode[0] === SequenceMatcher::OPCODE_INSERT
                 ) {
                     $hasVisible = true;
+
                     break;
                 }
             }
 
-            $diff .= $separator;
+            $ret .= $separator;
 
             if ($hasVisible) {
                 foreach ($group as $opcode) {
                     [$tag, $i1, $i2, $j1, $j2] = $opcode;
+
                     if ($tag === SequenceMatcher::OPCODE_DELETE) {
                         continue;
                     }
-                    $diff .= static::TAG_MAP[$tag] . ' ' . \implode("\n" . static::TAG_MAP[$tag] . ' ', $this->diff->getB($j1, $j2)) . "\n";
+
+                    $ret .= static::TAG_MAP[$tag] . ' ' . \implode("\n" . static::TAG_MAP[$tag] . ' ', $this->diff->getB($j1, $j2)) . "\n";
                 }
             }
         }
 
-        return $diff;
+        return $ret;
     }
 }

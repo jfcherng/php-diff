@@ -147,11 +147,9 @@ class Diff
     /**
      * Get the options.
      *
-     * @param array $options the options
-     *
      * @return array the options
      */
-    public function getOptions(array $options): array
+    public function getOptions(): array
     {
         return $this->options;
     }
@@ -212,11 +210,15 @@ class Diff
      * @param int      $start the starting number
      * @param null|int $end   the ending number. If not supplied, only the item in $start will be returned.
      *
+     * @throws InvalidArgumentException
+     *
      * @return string[] array of all of the lines between the specified range
      */
     protected function getText(string $ab, int $start = 0, ?int $end = null): array
     {
-        \assert($ab === 'a' || $ab === 'b');
+        if ($ab !== 'a' && $ab !== 'b') {
+            throw new InvalidArgumentException("\$ab must be either 'a' or 'b'");
+        }
 
         if ($start === 0 && !isset($end)) {
             return $this->$ab;

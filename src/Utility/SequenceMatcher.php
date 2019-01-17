@@ -189,16 +189,19 @@ class SequenceMatcher
         for ($i = $alo; $i < $ahi; ++$i) {
             $newJ2Len = [];
             $jDict = $this->b2j[$a[$i]] ?? [];
-            foreach ($jDict as $jKey => $j) {
+
+            foreach ($jDict as $j) {
                 if ($j < $blo) {
                     continue;
                 }
+
                 if ($j >= $bhi) {
                     break;
                 }
 
                 $k = ($j2Len[$j - 1] ?? 0) + 1;
                 $newJ2Len[$j] = $k;
+
                 if ($k > $bestSize) {
                     $bestI = $i - $k + 1;
                     $bestJ = $j - $k + 1;
@@ -538,6 +541,7 @@ class SequenceMatcher
 
         for ($i = 0; $i < $length; ++$i) {
             $char = $this->b[$i];
+
             if (isset($this->b2j[$char])) {
                 if ($length >= 200 && \count($this->b2j[$char]) * 100 > $length) {
                     $popularDict[$char] = 1;
@@ -545,9 +549,11 @@ class SequenceMatcher
                 } else {
                     $this->b2j[$char][] = $i;
                 }
-            } else {
-                $this->b2j[$char] = [$i];
+
+                continue;
             }
+
+            $this->b2j[$char] = [$i];
         }
 
         // remove leftovers
