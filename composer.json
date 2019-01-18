@@ -29,7 +29,7 @@
         "jfcherng/php-mb-string": "^1.2.3"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.13",
+        "friendsofphp/php-cs-fixer": "^2.14",
         "phan/phan": "^1.0",
         "phpunit/phpunit": "^7.2"
     },
