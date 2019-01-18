@@ -66,8 +66,7 @@
             $result = DiffHelper::calculate($a, $b, 'Unified', $diffOptions, $templateOptions);
             echo \htmlspecialchars($result);
 
-        ?>
-        </pre>
+        ?></pre>
 
         <h1>Context Diff</h1>
         <pre><?php
@@ -76,7 +75,6 @@
             $result = DiffHelper::calculate($a, $b, 'Context', $diffOptions, $templateOptions);
             echo \htmlspecialchars($result);
 
-        ?>
-        </pre>
+        ?></pre>
     </body>
 </html>
