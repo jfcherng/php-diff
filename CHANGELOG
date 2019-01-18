@@ -3,6 +3,9 @@ VERSION 2  INIT
 ===============
 
    Version 2.1 - init
+      19/01/2019 05:35  2.1.20  small performance tweaks
+         6516349 Small performance tweaks
+         d4b61a1 nits
       18/01/2019 08:52  2.1.19  coding style fixes
          e4284d6 php-cs-fixer
          d91ec6f Update deps
