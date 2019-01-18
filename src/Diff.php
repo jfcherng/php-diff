@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff;
 
+use InvalidArgumentException;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Utility\SequenceMatcher;
 
