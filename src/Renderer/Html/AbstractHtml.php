@@ -85,9 +85,9 @@ abstract class AbstractHtml extends AbstractRenderer
                         $this->renderChangedExtent($mbFromLine, $mbToLine);
                         $fromLine = $mbFromLine->get();
                         $toLine = $mbToLine->get();
-
-                        unset($fromLine, $toLine);
                     }
+
+                    unset($fromLine, $toLine);
                 }
 
                 if ($tag !== $lastTag) {
@@ -292,6 +292,12 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function getChangeExtent(MbString $mbFromLine, MbString $mbToLine): array
     {
+        // two strings are the same
+        // most lines should be this cases, an early return could save many function calls
+        if ($mbFromLine->getRaw() === $mbToLine->getRaw()) {
+            return [0, 0];
+        }
+
         // calculate $start
         $start = 0;
         $startLimit = \min($mbFromLine->strlen(), $mbToLine->strlen());
@@ -310,11 +316,6 @@ abstract class AbstractHtml extends AbstractRenderer
             $mbFromLine->getAtRaw($end) === $mbToLine->getAtRaw($end)
         ) {
             --$end;
-        }
-
-        // two strings are the same
-        if ($start === $startLimit && $end === $endLimit) {
-            return [0, 0];
         }
 
         return [$start, $end];

@@ -472,7 +472,7 @@ class SequenceMatcher
             ];
         }
 
-        $maxRange = $context * 2;
+        $maxRange = $context << 1;
         $groups = $group = [];
         foreach ($opcodes as $code) {
             [$tag, $i1, $i2, $j1, $j2] = $code;
@@ -518,13 +518,11 @@ class SequenceMatcher
      */
     public function ratio(): float
     {
-        $matchesCount = \array_reduce(
-            $this->getMatchingBlocks(),
-            function (int $sum, array $triple): int {
-                return $sum + $triple[\count($triple) - 1];
-            },
-            0
-        );
+        $matchesCount = 0;
+
+        foreach ($this->getMatchingBlocks() as $block) {
+            $matchesCount += $block[\count($block) - 1];
+        }
 
         return $this->calculateRatio($matchesCount, \count($this->a) + \count($this->b));
     }
