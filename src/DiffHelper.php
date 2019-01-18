@@ -36,7 +36,7 @@ class DiffHelper
             \glob($glob, \GLOB_BRACE),
             // not an abstact class
             function (string $file): bool {
-                return substr($file, 0, 8) !== 'Abstract';
+                return \substr($file, 0, 8) !== 'Abstract';
             }
         );
 
