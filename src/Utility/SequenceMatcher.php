@@ -399,6 +399,7 @@ class SequenceMatcher
         $blocks = $this->getMatchingBlocks();
         foreach ($blocks as $block) {
             [$ai, $bj, $size] = $block;
+
             if ($i < $ai && $j < $bj) {
                 $tag = static::OPCODE_REPLACE;
             } elseif ($i < $ai) {
@@ -442,6 +443,7 @@ class SequenceMatcher
     public function getGroupedOpcodes(int $context = 3): array
     {
         $opcodes = $this->getOpcodes();
+
         if (empty($opcodes)) {
             $opcodes = [
                 [static::OPCODE_EQUAL, 0, 1, 0, 1],
@@ -545,6 +547,7 @@ class SequenceMatcher
             if (isset($this->b2j[$char])) {
                 if ($length >= 200 && \count($this->b2j[$char]) * 100 > $length) {
                     $popularDict[$char] = 1;
+
                     unset($this->b2j[$char]);
                 } else {
                     $this->b2j[$char][] = $i;
@@ -618,6 +621,7 @@ class SequenceMatcher
             $char = $this->a[$i];
             $numb = $avail[$char] ?? ($this->fullBCount[$char] ?? 0);
             $avail[$char] = $numb - 1;
+
             if ($numb > 0) {
                 ++$matchesCount;
             }

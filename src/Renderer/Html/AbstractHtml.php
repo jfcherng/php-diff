@@ -102,6 +102,7 @@ abstract class AbstractHtml extends AbstractRenderer
                             'lines' => [],
                         ],
                     ];
+
                     $lastBlock = \count($blocks) - 1;
                 }
 
@@ -122,6 +123,7 @@ abstract class AbstractHtml extends AbstractRenderer
                         $lines = \str_replace(self::CLOSURES, self::CLOSURES_DEL, $lines);
                         $blocks[$lastBlock]['base']['lines'] += $lines;
                     }
+
                     if (
                         $tag === SequenceMatcher::OPCODE_REPLACE ||
                         $tag === SequenceMatcher::OPCODE_INSERT

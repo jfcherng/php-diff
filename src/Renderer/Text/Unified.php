@@ -26,12 +26,12 @@ class Unified extends AbstractText
         $ret = '';
 
         foreach ($this->diff->getGroupedOpcodes() as $group) {
-            $lastIdx = \count($group) - 1;
+            $lastItem = \count($group) - 1;
 
             $i1 = $group[0][1];
-            $i2 = $group[$lastIdx][2];
+            $i2 = $group[$lastItem][2];
             $j1 = $group[0][3];
-            $j2 = $group[$lastIdx][4];
+            $j2 = $group[$lastItem][4];
 
             if ($i1 === 0 && $i2 === 0) {
                 $i1 = $i2 = -1;
