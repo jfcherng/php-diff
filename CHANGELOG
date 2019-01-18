@@ -3,6 +3,16 @@ VERSION 2  INIT
 ===============
 
    Version 2.1 - init
+      18/01/2019 08:52  2.1.19  coding style fixes
+         e4284d6 php-cs-fixer
+         d91ec6f Update deps
+         ce3f817 nits
+         76cd7f3 Fix phan error
+         7fbd791 Revise badges in README
+         887ee9f Add Codacy badge
+         4c159f6 Some coding style tweaks
+         ee1c2a5 year++
+         eca66d7 Add tests for PHP 7.3
       17/12/2018 21:34  2.1.18  Add Russian translation
          efeee17 Update deps
          0f28b9d Fix tests
