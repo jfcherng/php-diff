@@ -35,18 +35,18 @@ class Context extends AbstractText
     {
         $ret = '';
 
-        foreach ($this->diff->getGroupedOpcodes() as $group) {
-            $lastItem = \count($group) - 1;
+        foreach ($this->diff->getGroupedOpcodes() as $opcodes) {
+            $lastItem = \count($opcodes) - 1;
 
-            $i1 = $group[0][1];
-            $i2 = $group[$lastItem][2];
-            $j1 = $group[0][3];
-            $j2 = $group[$lastItem][4];
+            $i1 = $opcodes[0][1];
+            $i2 = $opcodes[$lastItem][2];
+            $j1 = $opcodes[0][3];
+            $j2 = $opcodes[$lastItem][4];
 
             $ret .= "***************\n";
 
             if ($i2 - $i1 >= 2) {
-                $ret .= '*** ' . ($group[0][1] + 1) . ',' . $i2 . " ****\n";
+                $ret .= '*** ' . ($opcodes[0][1] + 1) . ',' . $i2 . " ****\n";
             } else {
                 $ret .= '*** ' . $i2 . " ****\n";
             }
@@ -58,7 +58,7 @@ class Context extends AbstractText
             }
 
             $hasVisible = false;
-            foreach ($group as $opcode) {
+            foreach ($opcodes as $opcode) {
                 if (
                     $opcode[0] === SequenceMatcher::OPCODE_REPLACE ||
                     $opcode[0] === SequenceMatcher::OPCODE_DELETE
@@ -70,9 +70,7 @@ class Context extends AbstractText
             }
 
             if ($hasVisible) {
-                foreach ($group as $opcode) {
-                    [$tag, $i1, $i2, $j1, $j2] = $opcode;
-
+                foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
                     if ($tag === SequenceMatcher::OPCODE_INSERT) {
                         continue;
                     }
@@ -82,7 +80,7 @@ class Context extends AbstractText
             }
 
             $hasVisible = false;
-            foreach ($group as $opcode) {
+            foreach ($opcodes as $opcode) {
                 if (
                     $opcode[0] === SequenceMatcher::OPCODE_REPLACE ||
                     $opcode[0] === SequenceMatcher::OPCODE_INSERT
@@ -96,9 +94,7 @@ class Context extends AbstractText
             $ret .= $separator;
 
             if ($hasVisible) {
-                foreach ($group as $opcode) {
-                    [$tag, $i1, $i2, $j1, $j2] = $opcode;
-
+                foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
                     if ($tag === SequenceMatcher::OPCODE_DELETE) {
                         continue;
                     }

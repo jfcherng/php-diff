@@ -16,10 +16,10 @@ class DiffHelper
      */
     public static function getTemplatesInfo(): array
     {
-        static $templatesInfo;
+        static $info;
 
-        if (isset($templatesInfo)) {
-            return $templatesInfo;
+        if (isset($info)) {
+            return $info;
         }
 
         $glob = \implode(
@@ -53,7 +53,7 @@ class DiffHelper
             $info[$template] = RendererFactory::resolveTemplate($template)::INFO;
         }
 
-        return $templatesInfo = $info;
+        return $info;
     }
 
     /**

@@ -70,14 +70,25 @@ final class RendererFactory
      */
     public static function resolveTemplate(string $template): ?string
     {
+        static $cache = [];
+
+        // the result could be null so do not use isset() here
+        if (array_key_exists($template, $cache)) {
+            return $cache[$template];
+        }
+
+        $result = null;
+
         foreach (RendererConstant::TEMPLATE_TYPES as $type) {
             $className = RendererConstant::RENDERER_NAMESPACE . "\\{$type}\\{$template}";
 
             if (\class_exists($className)) {
-                return $className;
+                $result = $className;
+
+                break;
             }
         }
 
-        return null;
+        return $cache[$template] = $result;
     }
 }

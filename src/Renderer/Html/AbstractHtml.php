@@ -71,16 +71,13 @@ abstract class AbstractHtml extends AbstractRenderer
         $mbFromLine = new MbString('', 'UTF-8');
         $mbToLine = new MbString('', 'UTF-8');
         $changes = [];
-        $opcodes = $this->diff->getGroupedOpcodes();
 
-        foreach ($opcodes as $group) {
+        foreach ($this->diff->getGroupedOpcodes() as $opcodes) {
             $blocks = [];
             $lastTag = null;
             $lastBlock = 0;
 
-            foreach ($group as $opcode) {
-                [$tag, $i1, $i2, $j1, $j2] = $opcode;
-
+            foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
                 if (
                     $tag === SequenceMatcher::OPCODE_REPLACE &&
                     $i2 - $i1 === $j2 - $j1

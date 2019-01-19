@@ -25,13 +25,13 @@ class Unified extends AbstractText
     {
         $ret = '';
 
-        foreach ($this->diff->getGroupedOpcodes() as $group) {
-            $lastItem = \count($group) - 1;
+        foreach ($this->diff->getGroupedOpcodes() as $opcodes) {
+            $lastItem = \count($opcodes) - 1;
 
-            $i1 = $group[0][1];
-            $i2 = $group[$lastItem][2];
-            $j1 = $group[0][3];
-            $j2 = $group[$lastItem][4];
+            $i1 = $opcodes[0][1];
+            $i2 = $opcodes[$lastItem][2];
+            $j1 = $opcodes[0][3];
+            $j2 = $opcodes[$lastItem][4];
 
             if ($i1 === 0 && $i2 === 0) {
                 $i1 = $i2 = -1;
@@ -39,9 +39,7 @@ class Unified extends AbstractText
 
             $ret .= '@@ -' . ($i1 + 1) . ',' . ($i2 - $i1) . ' +' . ($j1 + 1) . ',' . ($j2 - $j1) . " @@\n";
 
-            foreach ($group as $opcode) {
-                [$tag, $i1, $i2, $j1, $j2] = $opcode;
-
+            foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
                 if ($tag === SequenceMatcher::OPCODE_EQUAL) {
                     $ret .= ' ' . \implode("\n ", $this->diff->getA($i1, $i2)) . "\n";
 

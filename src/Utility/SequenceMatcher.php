@@ -339,19 +339,20 @@ class SequenceMatcher
 
         $i1 = $j1 = $k1 = 0;
         $nonAdjacent = [];
-        foreach ($matchingBlocks as $block) {
-            [$i2, $j2, $k2] = $block;
+        foreach ($matchingBlocks as [$i2, $j2, $k2]) {
             if ($i1 + $k1 === $i2 && $j1 + $k1 === $j2) {
                 $k1 += $k2;
-            } else {
-                if ($k1) {
-                    $nonAdjacent[] = [$i1, $j1, $k1];
-                }
 
-                $i1 = $i2;
-                $j1 = $j2;
-                $k1 = $k2;
+                continue;
             }
+
+            if ($k1) {
+                $nonAdjacent[] = [$i1, $j1, $k1];
+            }
+
+            $i1 = $i2;
+            $j1 = $j2;
+            $k1 = $k2;
         }
 
         if ($k1) {
@@ -396,10 +397,7 @@ class SequenceMatcher
         $i = $j = 0;
         $this->opcodes = [];
 
-        $blocks = $this->getMatchingBlocks();
-        foreach ($blocks as $block) {
-            [$ai, $bj, $size] = $block;
-
+        foreach ($this->getMatchingBlocks() as [$ai, $bj, $size]) {
             if ($i < $ai && $j < $bj) {
                 $tag = static::OPCODE_REPLACE;
             } elseif ($i < $ai) {
@@ -474,8 +472,7 @@ class SequenceMatcher
 
         $maxRange = $context << 1;
         $groups = $group = [];
-        foreach ($opcodes as $code) {
-            [$tag, $i1, $i2, $j1, $j2] = $code;
+        foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
             if ($tag === static::OPCODE_EQUAL && $i2 - $i1 > $maxRange) {
                 $group[] = [
                     $tag,
@@ -489,6 +486,7 @@ class SequenceMatcher
                 $i1 = \max($i1, $i2 - $context);
                 $j1 = \max($j1, $j2 - $context);
             }
+
             $group[] = [$tag, $i1, $i2, $j1, $j2];
         }
 
