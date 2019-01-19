@@ -73,7 +73,7 @@ final class RendererFactory
         static $cache = [];
 
         // the result could be null so do not use isset() here
-        if (array_key_exists($template, $cache)) {
+        if (\array_key_exists($template, $cache)) {
             return $cache[$template];
         }
 

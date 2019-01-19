@@ -30,7 +30,7 @@ abstract class AbstractRenderer implements RendererInterface
     const IDENTICAL_RESULT = '';
 
     /**
-     * @var \Jfcherng\Diff\Diff the instance of the diff class that this renderer is generating the rendered diff for
+     * @var Diff the instance of the diff class that this renderer is generating the rendered diff for
      */
     protected $diff;
 
@@ -72,7 +72,7 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * Set the diff object.
      *
-     * @param \Jfcherng\Diff\Diff $diff the diff object
+     * @param Diff $diff the diff object
      *
      * @return self
      */
@@ -106,7 +106,7 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * Get the diff object.
      *
-     * @return \Jfcherng\Diff\Diff the diff object
+     * @return Diff the diff object
      */
     public function getDiff(): Diff
     {

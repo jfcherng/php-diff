@@ -68,8 +68,6 @@ abstract class AbstractHtml extends AbstractRenderer
         $a = $this->diff->getA();
         $b = $this->diff->getB();
 
-        $mbFromLine = new MbString('', 'UTF-8');
-        $mbToLine = new MbString('', 'UTF-8');
         $changes = [];
 
         foreach ($this->diff->getGroupedOpcodes() as $opcodes) {
@@ -83,18 +81,8 @@ abstract class AbstractHtml extends AbstractRenderer
                     $i2 - $i1 === $j2 - $j1
                 ) {
                     for ($i = 0; $i < $i2 - $i1; ++$i) {
-                        $fromLine = &$a[$i1 + $i];
-                        $toLine = &$b[$j1 + $i];
-
-                        // render two corresponding lines
-                        $mbFromLine->set($fromLine);
-                        $mbToLine->set($toLine);
-                        $this->renderChangedExtent($mbFromLine, $mbToLine);
-                        $fromLine = $mbFromLine->get();
-                        $toLine = $mbToLine->get();
+                        $this->renderChangedExtent($a[$i1 + $i], $b[$j1 + $i]);
                     }
-
-                    unset($fromLine, $toLine);
                 }
 
                 if ($tag !== $lastTag) {
@@ -183,33 +171,48 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * Renderer the changed extent.
      *
-     * @param MbString $mbFromLine the megabytes from line
-     * @param MbString $mbToLine   the megabytes to line
+     * @param string &$from the from line
+     * @param string &$to   the to line
      *
      * @return self
      */
-    protected function renderChangedExtent(MbString $mbFromLine, MbString $mbToLine): self
+    protected function renderChangedExtent(string &$from, string &$to): self
     {
-        if ($mbFromLine->getRaw() === $mbToLine->getRaw()) {
+        static $mbLines;
+
+        if ($from === $to) {
             return $this;
         }
 
-        return $this->diff->options['charLevelDiff']
-            ? $this->renderChangedExtentCharLevel($mbFromLine, $mbToLine)
-            : $this->renderChangedExtentLineLevel($mbFromLine, $mbToLine);
+        $mbLines = $mbLines ?? [
+            'from' => new MbString('', 'UTF-8'),
+            'to' => new MbString('', 'UTF-8'),
+        ];
+
+        $mbLines['from']->set($from);
+        $mbLines['to']->set($to);
+
+        $this->diff->options['charLevelDiff']
+            ? $this->renderChangedExtentCharLevel($mbLines['from'], $mbLines['to'])
+            : $this->renderChangedExtentLineLevel($mbLines['from'], $mbLines['to']);
+
+        $from = $mbLines['from']->get();
+        $to = $mbLines['to']->get();
+
+        return $this;
     }
 
     /**
      * Renderer the changed extent at line level.
      *
-     * @param MbString $mbFromLine the megabytes from line
-     * @param MbString $mbToLine   the megabytes to line
+     * @param MbString $mbFrom the megabytes from line
+     * @param MbString $mbTo   the megabytes to line
      *
      * @return self
      */
-    protected function renderChangedExtentLineLevel(MbString $mbFromLine, MbString $mbToLine): self
+    protected function renderChangedExtentLineLevel(MbString $mbFrom, MbString $mbTo): self
     {
-        [$start, $end] = $this->getChangeExtent($mbFromLine, $mbToLine);
+        [$start, $end] = $this->getChangeExtent($mbFrom, $mbTo);
 
         // two strings are the same
         if ($end === 0) {
@@ -217,15 +220,15 @@ abstract class AbstractHtml extends AbstractRenderer
         }
 
         // two strings are different, we do rendering
-        $mbFromLine->str_enclose_i(
+        $mbFrom->str_enclose_i(
             self::CLOSURES,
             $start,
-            $end + $mbFromLine->strlen() - $start + 1
+            $end + $mbFrom->strlen() - $start + 1
         );
-        $mbToLine->str_enclose_i(
+        $mbTo->str_enclose_i(
             self::CLOSURES,
             $start,
-            $end + $mbToLine->strlen() - $start + 1
+            $end + $mbTo->strlen() - $start + 1
         );
 
         return $this;
@@ -239,24 +242,24 @@ abstract class AbstractHtml extends AbstractRenderer
      *       Jfcherng\Utility\MbString::toArrayRaw.
      *       Don't know how's the performance improvement though.
      *
-     * @param MbString $mbFromLine the megabytes from line
-     * @param MbString $mbToLine   the megabytes to line
+     * @param MbString $mbFrom the megabytes from line
+     * @param MbString $mbTo   the megabytes to line
      *
      * @return self
      */
-    protected function renderChangedExtentCharLevel(MbString $mbFromLine, MbString $mbToLine): self
+    protected function renderChangedExtentCharLevel(MbString $mbFrom, MbString $mbTo): self
     {
         // we prefer the char-level diff but if there is an exception like
         // "line too long", we fallback to line-level diff.
         try {
             $editInfo = LD::staticCalculate(
-                $mbFromLine->get(),
-                $mbToLine->get(),
+                $mbFrom->get(),
+                $mbTo->get(),
                 true,
                 LD::PROGRESS_MERGE_NEIGHBOR | LD::PROGRESS_NO_COPY
             );
         } catch (RuntimeException $e) {
-            return $this->renderChangedExtentLineLevel($mbFromLine, $mbToLine);
+            return $this->renderChangedExtentLineLevel($mbFrom, $mbTo);
         }
 
         // start to render
@@ -266,23 +269,23 @@ abstract class AbstractHtml extends AbstractRenderer
                 default:
                 // delete, render 'from'
                 case LD::OP_DELETE:
-                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromPos, $length);
+                    $mbFrom->str_enclose_i(self::CLOSURES, $fromPos, $length);
                     break;
                 // insert, render 'to'
                 case LD::OP_INSERT:
-                    $mbToLine->str_enclose_i(self::CLOSURES, $toPos, $length);
+                    $mbTo->str_enclose_i(self::CLOSURES, $toPos, $length);
                     break;
                 // replace, render both
                 case LD::OP_REPLACE:
-                    $mbFromLine->str_enclose_i(self::CLOSURES, $fromPos, $length);
-                    $mbToLine->str_enclose_i(self::CLOSURES, $toPos, $length);
+                    $mbFrom->str_enclose_i(self::CLOSURES, $fromPos, $length);
+                    $mbTo->str_enclose_i(self::CLOSURES, $toPos, $length);
                     break;
             }
         }
 
         // cleanup redundant tags
-        $mbFromLine->str_replace_i(self::CLOSURES[1] . self::CLOSURES[0], '');
-        $mbToLine->str_replace_i(self::CLOSURES[1] . self::CLOSURES[0], '');
+        $mbFrom->str_replace_i(self::CLOSURES[1] . self::CLOSURES[0], '');
+        $mbTo->str_replace_i(self::CLOSURES[1] . self::CLOSURES[0], '');
 
         return $this;
     }
@@ -291,26 +294,26 @@ abstract class AbstractHtml extends AbstractRenderer
      * Given two strings, determine where the changes in the two strings begin,
      * and where the changes in the two strings end.
      *
-     * @param MbString $mbFromLine the first string
-     * @param MbString $mbToLine   the second string
+     * @param MbString $mbFrom the megabytes from line
+     * @param MbString $mbTo   the megabytes to line
      *
      * @return array Array containing the starting position (non-negative) and the ending position (negative)
-     *               array(0, 0) if two strings are the same
+     *               [0, 0] if two strings are the same
      */
-    protected function getChangeExtent(MbString $mbFromLine, MbString $mbToLine): array
+    protected function getChangeExtent(MbString $mbFrom, MbString $mbTo): array
     {
         // two strings are the same
         // most lines should be this cases, an early return could save many function calls
-        if ($mbFromLine->getRaw() === $mbToLine->getRaw()) {
+        if ($mbFrom->getRaw() === $mbTo->getRaw()) {
             return [0, 0];
         }
 
         // calculate $start
         $start = 0;
-        $startLimit = \min($mbFromLine->strlen(), $mbToLine->strlen());
+        $startLimit = \min($mbFrom->strlen(), $mbTo->strlen());
         while (
             $start < $startLimit && // index out of range
-            $mbFromLine->getAtRaw($start) === $mbToLine->getAtRaw($start)
+            $mbFrom->getAtRaw($start) === $mbTo->getAtRaw($start)
         ) {
             ++$start;
         }
@@ -320,7 +323,7 @@ abstract class AbstractHtml extends AbstractRenderer
         $endLimit = $startLimit - $start;
         while (
             -$end <= $endLimit && // index out of range
-            $mbFromLine->getAtRaw($end) === $mbToLine->getAtRaw($end)
+            $mbFrom->getAtRaw($end) === $mbTo->getAtRaw($end)
         ) {
             --$end;
         }

@@ -72,7 +72,7 @@ class Diff
     /**
      * Set a.
      *
-     * @param array $a the a
+     * @param string[] $a the a
      *
      * @return self
      */
@@ -89,7 +89,7 @@ class Diff
     /**
      * Set b.
      *
-     * @param array $b the b
+     * @param string[] $b the b
      *
      * @return self
      */
@@ -177,7 +177,7 @@ class Diff
      * matcher and performs the actual diff generation and return an array of the opcodes
      * for it. Once generated, the results are cached in the diff class instance.
      *
-     * @return array array of the grouped opcodes for the generated diff
+     * @return array[] array of the grouped opcodes for the generated diff
      */
     public function getGroupedOpcodes(): array
     {

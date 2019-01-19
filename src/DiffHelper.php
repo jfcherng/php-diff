@@ -63,7 +63,7 @@ class DiffHelper
      */
     public static function getAvailableTemplates(): array
     {
-        return \array_keys(static::getTemplatesInfo());
+        return \array_keys(self::getTemplatesInfo());
     }
 
     /**

@@ -10,10 +10,13 @@ use Jfcherng\Diff\Exception\FileNotFoundException;
 class Language
 {
     /**
-     * @var string[] the translations
+     * @var string[] the translation dict
      */
     protected $translations = [];
 
+    /**
+     * @var string the language name
+     */
     protected $language = '_custom_';
 
     /**
@@ -26,51 +29,34 @@ class Language
      */
     public function __construct($langOrTrans = 'eng')
     {
-        if (\is_string($langOrTrans)) {
-            $this->setTranslations($langOrTrans);
+        $this->setLanguageOrTranslations($langOrTrans);
+    }
 
-            return;
+    /**
+     * Set the language name.
+     *
+     * @param string|string[] $langOrTrans the language string or translations array
+     *
+     * @throws InvalidArgumentException
+     * @throws FileNotFoundException    language file not found
+     *
+     * @return self
+     */
+    public function setLanguageOrTranslations($langOrTrans): self
+    {
+        if (\is_string($langOrTrans)) {
+            $this->setLanguage($langOrTrans);
+
+            return $this;
         }
 
         if (\is_array($langOrTrans)) {
-            $this->setTranslationsFromArray($langOrTrans);
+            $this->setTranslations($langOrTrans);
 
-            return;
+            return $this;
         }
 
         throw new InvalidArgumentException('$langOrTrans must be either string or array');
-    }
-
-    /**
-     * Set the translations by language name.
-     *
-     * @param string $language the language name
-     *
-     * @throws FileNotFoundException language file not found
-     *
-     * @return self
-     */
-    public function setTranslations(string $language): self
-    {
-        $this->language = $language;
-        $this->translations = $this->getTranslationsByLanguage($language);
-
-        return $this;
-    }
-
-    /**
-     * Set the translations from an array.
-     *
-     * @param string[] $translations the language translations array
-     *
-     * @return self
-     */
-    public function setTranslationsFromArray(array $translations): self
-    {
-        $this->language = '_custom_';
-        $this->translations = $translations;
-
-        return $this;
     }
 
     /**
@@ -100,7 +86,7 @@ class Language
      *
      * @throws FileNotFoundException language file not found
      *
-     * @return array
+     * @return string[]
      */
     public function getTranslationsByLanguage(string $language): array
     {
@@ -123,5 +109,37 @@ class Language
     public function translate(string $text): string
     {
         return $this->translations[$text] ?? "![${text}]";
+    }
+
+    /**
+     * Set the language name.
+     *
+     * @param string $language the language name
+     *
+     * @throws FileNotFoundException language file not found
+     *
+     * @return self
+     */
+    protected function setLanguage(string $language): self
+    {
+        $this->language = $language;
+        $this->translations = $this->getTranslationsByLanguage($language);
+
+        return $this;
+    }
+
+    /**
+     * Set the translations.
+     *
+     * @param string[] $translations the language translations array
+     *
+     * @return self
+     */
+    protected function setTranslations(array $translations): self
+    {
+        $this->language = '_custom_';
+        $this->translations = $translations;
+
+        return $this;
     }
 }
