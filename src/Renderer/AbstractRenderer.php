@@ -19,9 +19,9 @@ abstract class AbstractRenderer implements RendererInterface
     ];
 
     /**
-     * @var bool Is this template pure text?
+     * @var bool is this template pure text?
      */
-    const IS_HTML_TEMPLATE = true;
+    const IS_TEXT_TEMPLATE = true;
 
     /**
      * @var string the output result when the old and the new are the same

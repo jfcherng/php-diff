@@ -16,9 +16,9 @@ use RuntimeException;
 abstract class AbstractHtml extends AbstractRenderer
 {
     /**
-     * @var bool Is this template pure text?
+     * @var bool is this template pure text?
      */
-    const IS_HTML_TEMPLATE = true;
+    const IS_TEXT_TEMPLATE = false;
 
     /**
      * Closures that are used to enclose partial strings.
@@ -29,9 +29,19 @@ abstract class AbstractHtml extends AbstractRenderer
      *
      * @var string[]
      */
-    const CLOSURES = ["\0", "\1"];
+    const CLOSURES = ["\u{fcffc}\u{ff2fb}", "\u{fff41}\u{fcffc}"];
     const CLOSURES_INS = ['<ins>', '</ins>'];
     const CLOSURES_DEL = ['<del>', '</del>'];
+
+    /**
+     * The delimiter to be used as the glue in string/array functions.
+     *
+     * this delimiter contains chars from the Unicode reserved areas
+     * hopefully, it won't appear in our lines
+     *
+     * @var string
+     */
+    const DELIMITER = "\u{ff2fa}\u{fcffc}\u{fff42}";
 
     /**
      * @var array array of the different opcode tags and how they map to the HTML class
@@ -154,23 +164,20 @@ abstract class AbstractHtml extends AbstractRenderer
     protected function formatLines(array $lines): array
     {
         // for example, the "Json" template does not need these
-        if (!static::IS_HTML_TEMPLATE) {
+        if (static::IS_TEXT_TEMPLATE) {
             return $lines;
         }
 
-        // this delimiter contains chars from the Unicode reserved area
-        // hopefully, it won't appear in our lines
-        static $delimiter = "\u{ff2fa}\u{fcffc}\u{fff42}";
-
         // glue all lines into a single string to get rid of multiple function calls later
-        $string = \implode($delimiter, $lines);
+        // unnecessary, but should improve performance if there are many lines
+        $string = \implode(self::DELIMITER, $lines);
 
-        $string = $this->htmlSafe($string);
         $string = $this->expandTabs($string);
-        $string = $this->fixSpaces($string);
+        $string = $this->htmlSafe($string);
+        $string = $this->htmlFixSpaces($string);
 
         // split the string back to lines
-        return \explode($delimiter, $string);
+        return \explode(self::DELIMITER, $string);
     }
 
     /**
@@ -346,13 +353,13 @@ abstract class AbstractHtml extends AbstractRenderer
     }
 
     /**
-     * Replace a string containing spaces with a HTML representation using &nbsp;.
+     * Replace a string containing spaces with a HTML representation having "&nbsp;".
      *
      * @param string $string the string of spaces
      *
      * @return string the HTML representation of the string
      */
-    protected function fixSpaces(string $string): string
+    protected function htmlFixSpaces(string $string): string
     {
         return \preg_replace_callback(
             '# {2,}#S', // only fix for more than 1 space
