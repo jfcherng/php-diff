@@ -174,7 +174,10 @@ abstract class AbstractHtml extends AbstractRenderer
 
         $string = $this->expandTabs($string);
         $string = $this->htmlSafe($string);
-        $string = $this->htmlFixSpaces($string);
+
+        if ($this->options['spacesToNbsp']) {
+            $string = $this->htmlFixSpaces($string);
+        }
 
         // split the string back to lines
         return \explode(self::DELIMITER, $string);

@@ -42,8 +42,14 @@ abstract class AbstractRenderer implements RendererInterface
      * @var array array of the default options that apply to this renderer
      */
     protected static $defaultOptions = [
+        // template language: eng, cht, chs, jpn, ...
+        // or an array which has the same keys with a language file
         'language' => 'eng',
+        // HTML template tab width
         'tabSize' => 4,
+        // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
+        // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
+        'spacesToNbsp' => false,
     ];
 
     /**
