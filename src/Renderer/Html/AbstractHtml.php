@@ -366,7 +366,7 @@ abstract class AbstractHtml extends AbstractRenderer
             function (array $matches): string {
                 $count = \strlen($matches[0]);
 
-                return ($count & 1 ? '&nbsp;' : '') . \str_repeat(' &nbsp;', $count >> 1);
+                return \str_repeat(' &nbsp;', $count >> 1) . ($count & 1 ? ' ' : '');
             },
             $string
         );
