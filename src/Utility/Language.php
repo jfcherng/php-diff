@@ -14,13 +14,15 @@ class Language
      */
     protected $translations = [];
 
+    protected $language = '_custom_';
+
     /**
      * The constructor.
      *
-     * @param string|string[] $langOrTrans The language string or translations array
+     * @param string|string[] $langOrTrans the language string or translations array
      *
      * @throws InvalidArgumentException
-     * @throws FileNotFoundException    Language file not found
+     * @throws FileNotFoundException    language file not found
      */
     public function __construct($langOrTrans = 'eng')
     {
@@ -42,15 +44,16 @@ class Language
     /**
      * Set the translations by language name.
      *
-     * @param string $lang The language name
+     * @param string $language the language name
      *
-     * @throws FileNotFoundException Language file not found
+     * @throws FileNotFoundException language file not found
      *
      * @return self
      */
-    public function setTranslations(string $lang): self
+    public function setTranslations(string $language): self
     {
-        $this->translations = $this->getTranslationsByLanguage($lang);
+        $this->language = $language;
+        $this->translations = $this->getTranslationsByLanguage($language);
 
         return $this;
     }
@@ -58,15 +61,26 @@ class Language
     /**
      * Set the translations from an array.
      *
-     * @param string[] $translations The language translations array
+     * @param string[] $translations the language translations array
      *
      * @return self
      */
     public function setTranslationsFromArray(array $translations): self
     {
+        $this->language = '_custom_';
         $this->translations = $translations;
 
         return $this;
+    }
+
+    /**
+     * Get the language.
+     *
+     * @return string the language
+     */
+    public function getLanguage(): string
+    {
+        return $this->language;
     }
 
     /**
@@ -84,7 +98,7 @@ class Language
      *
      * @param string $language the language
      *
-     * @throws FileNotFoundException Language file not found
+     * @throws FileNotFoundException language file not found
      *
      * @return array
      */

@@ -66,14 +66,13 @@ abstract class AbstractRenderer implements RendererInterface
      */
     public function __construct(array $options = [])
     {
-        $this->options = static::$defaultOptions;
         $this->setOptions($options);
     }
 
     /**
      * Set the diff object.
      *
-     * @param \Jfcherng\Diff\Diff $options array of options to set
+     * @param \Jfcherng\Diff\Diff $diff the diff object
      *
      * @return self
      */
@@ -89,7 +88,7 @@ abstract class AbstractRenderer implements RendererInterface
      * Options are merged with the default to ensure that there aren't any missing
      * options.
      *
-     * @param array $options array of options to set
+     * @param array $options the options
      *
      * @return self
      */
@@ -97,7 +96,7 @@ abstract class AbstractRenderer implements RendererInterface
     {
         $newOptions = $options + static::$defaultOptions;
 
-        $this->updateLanguage($this->options['language'], $newOptions['language']);
+        $this->updateLanguage($this->options['language'] ?? '', $newOptions['language']);
 
         $this->options = $newOptions;
 
