@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff;
 
-use InvalidArgumentException;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Utility\SequenceMatcher;
 
@@ -27,12 +26,12 @@ class Diff
     /**
      * @var string[] the "old" sequence to use as the basis for the comparison
      */
-    protected $a;
+    protected $a = [];
 
     /**
      * @var string[] the "new" sequence to generate the changes for
      */
-    protected $b;
+    protected $b = [];
 
     /**
      * @var null|array array containing the generated opcodes for the differences between the two items
@@ -62,7 +61,7 @@ class Diff
      * @param string[] $b       array containing the lines for the second string to compare
      * @param array    $options
      */
-    public function __construct(array $a, array $b, array $options = [])
+    public function __construct(array $a = [], array $b = [], array $options = [])
     {
         $this
             ->setA($a)
@@ -131,7 +130,7 @@ class Diff
      */
     public function getA(int $start = 0, ?int $end = null): array
     {
-        return $this->getText('a', $start, $end);
+        return $this->getText($this->a, $start, $end);
     }
 
     /**
@@ -147,7 +146,7 @@ class Diff
      */
     public function getB(int $start = 0, ?int $end = null): array
     {
-        return $this->getText('b', $start, $end);
+        return $this->getText($this->b, $start, $end);
     }
 
     /**
@@ -169,11 +168,7 @@ class Diff
     {
         static $singleton;
 
-        if (!isset($singleton)) {
-            $singleton = new static([], []);
-        }
-
-        return $singleton;
+        return $singleton ?? new static();
     }
 
     /**
@@ -212,28 +207,18 @@ class Diff
     /**
      * The work horse of getA() and getB().
      *
-     * @param string   $ab    'a' or 'b'
+     * @param string[] $lines the array of lines
      * @param int      $start the starting number
      * @param null|int $end   the ending number. If not supplied, only the item in $start will be returned.
      *
-     * @throws InvalidArgumentException
-     *
      * @return string[] array of all of the lines between the specified range
      */
-    protected function getText(string $ab, int $start = 0, ?int $end = null): array
+    protected function getText(array $lines, int $start = 0, ?int $end = null): array
     {
-        if ($ab !== 'a' && $ab !== 'b') {
-            throw new InvalidArgumentException("\$ab must be either 'a' or 'b'");
+        if ($start === 0 && (!isset($end) || $end === \count($lines))) {
+            return $lines;
         }
 
-        if ($start === 0 && !isset($end)) {
-            return $this->$ab;
-        }
-
-        return \array_slice(
-            $this->$ab,
-            $start,
-            isset($end) ? $end - $start : 1
-        );
+        return \array_slice($lines, $start, isset($end) ? $end - $start : 1);
     }
 }
