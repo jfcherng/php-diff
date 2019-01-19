@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer;
 
+use Jfcherng\Diff\Diff;
 use Jfcherng\Diff\Utility\Language;
 
 /**
@@ -19,9 +20,9 @@ abstract class AbstractRenderer implements RendererInterface
     ];
 
     /**
-     * @var bool is this template pure text?
+     * @var bool Is this template pure text?
      */
-    const IS_TEXT_TEMPLATE = true;
+    const IS_HTML_TEMPLATE = true;
 
     /**
      * @var string the output result when the old and the new are the same
@@ -31,7 +32,7 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * @var \Jfcherng\Diff\Diff the instance of the diff class that this renderer is generating the rendered diff for
      */
-    public $diff;
+    protected $diff;
 
     /**
      * @var Language the language translation object
@@ -70,6 +71,20 @@ abstract class AbstractRenderer implements RendererInterface
     }
 
     /**
+     * Set the diff object.
+     *
+     * @param \Jfcherng\Diff\Diff $options array of options to set
+     *
+     * @return self
+     */
+    public function setDiff(Diff $diff): self
+    {
+        $this->diff = $diff;
+
+        return $this;
+    }
+
+    /**
      * Set the options of the renderer to those supplied in the passed in array.
      * Options are merged with the default to ensure that there aren't any missing
      * options.
@@ -87,6 +102,16 @@ abstract class AbstractRenderer implements RendererInterface
         $this->options = $newOptions;
 
         return $this;
+    }
+
+    /**
+     * Get the diff object.
+     *
+     * @return \Jfcherng\Diff\Diff the diff object
+     */
+    public function getDiff(): Diff
+    {
+        return $this->diff;
     }
 
     /**

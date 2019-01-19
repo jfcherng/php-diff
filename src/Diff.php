@@ -195,7 +195,7 @@ class Diff
      */
     public function render(AbstractRenderer $renderer): string
     {
-        $renderer->diff = $this;
+        $renderer->setDiff($this);
 
         // the "no difference" situation may happen frequently
         // let's save some calculation if possible
