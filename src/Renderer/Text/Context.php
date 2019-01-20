@@ -43,65 +43,66 @@ class Context extends AbstractText
             $j1 = $opcodes[0][3];
             $j2 = $opcodes[$lastItem][4];
 
-            $ret .= "***************\n";
+            $separatorFrom =
+                '*** ' .
+                ($i2 - $i1 >= 2 ? ($i1 + 1) . ',' . $i2 : $i2) .
+                " ****\n";
 
-            if ($i2 - $i1 >= 2) {
-                $ret .= '*** ' . ($opcodes[0][1] + 1) . ',' . $i2 . " ****\n";
-            } else {
-                $ret .= '*** ' . $i2 . " ****\n";
+            $separatorTo =
+                '--- ' .
+                ($j2 - $j1 >= 2 ? ($j1 + 1) . ',' . $j2 : $j2) .
+                " ----\n";
+
+            $ret .=
+                "***************\n" .
+                $separatorFrom .
+                $this->renderBlockFrom($opcodes) .
+                $separatorTo .
+                $this->renderBlockTo($opcodes);
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Render the block: from.
+     *
+     * @param array $opcodes the opcodes
+     *
+     * @return string
+     */
+    protected function renderBlockFrom(array $opcodes): string
+    {
+        $ret = '';
+
+        foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
+            if ($tag === SequenceMatcher::OPCODE_INSERT) {
+                continue;
             }
 
-            if ($j2 - $j1 >= 2) {
-                $separator = '--- ' . ($j1 + 1) . ',' . $j2 . " ----\n";
-            } else {
-                $separator = '--- ' . $j2 . " ----\n";
+            $ret .= self::TAG_MAP[$tag] . ' ' . \implode("\n" . self::TAG_MAP[$tag] . ' ', $this->diff->getA($i1, $i2)) . "\n";
+        }
+
+        return $ret;
+    }
+
+    /**
+     * Render the block: to.
+     *
+     * @param array $opcodes the opcodes
+     *
+     * @return string
+     */
+    protected function renderBlockTo(array $opcodes): string
+    {
+        $ret = '';
+
+        foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
+            if ($tag === SequenceMatcher::OPCODE_DELETE) {
+                continue;
             }
 
-            $hasVisible = false;
-            foreach ($opcodes as $opcode) {
-                if (
-                    $opcode[0] === SequenceMatcher::OPCODE_REPLACE ||
-                    $opcode[0] === SequenceMatcher::OPCODE_DELETE
-                ) {
-                    $hasVisible = true;
-
-                    break;
-                }
-            }
-
-            if ($hasVisible) {
-                foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
-                    if ($tag === SequenceMatcher::OPCODE_INSERT) {
-                        continue;
-                    }
-
-                    $ret .= static::TAG_MAP[$tag] . ' ' . \implode("\n" . static::TAG_MAP[$tag] . ' ', $this->diff->getA($i1, $i2)) . "\n";
-                }
-            }
-
-            $hasVisible = false;
-            foreach ($opcodes as $opcode) {
-                if (
-                    $opcode[0] === SequenceMatcher::OPCODE_REPLACE ||
-                    $opcode[0] === SequenceMatcher::OPCODE_INSERT
-                ) {
-                    $hasVisible = true;
-
-                    break;
-                }
-            }
-
-            $ret .= $separator;
-
-            if ($hasVisible) {
-                foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
-                    if ($tag === SequenceMatcher::OPCODE_DELETE) {
-                        continue;
-                    }
-
-                    $ret .= static::TAG_MAP[$tag] . ' ' . \implode("\n" . static::TAG_MAP[$tag] . ' ', $this->diff->getB($j1, $j2)) . "\n";
-                }
-            }
+            $ret .= self::TAG_MAP[$tag] . ' ' . \implode("\n" . self::TAG_MAP[$tag] . ' ', $this->diff->getB($j1, $j2)) . "\n";
         }
 
         return $ret;
