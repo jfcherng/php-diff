@@ -2,6 +2,10 @@
 VERSION 2  INIT
 ===============
 
+   Version 2.2 - char-level diff performance++
+      20/01/2019 21:22  2.2.0  initial release
+         b28ce64 Remove dependancy: jfcherng/php-levenshtein-distance
+
    Version 2.1 - init
       20/01/2019 11:57  2.1.23  fix Json template
          ced5f33 Fix the Json template

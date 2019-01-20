@@ -252,8 +252,8 @@ abstract class AbstractHtml extends AbstractRenderer
             ->getOpcodes();
 
         // reversely iterate opcodes
-        for (end($opcodes); key($opcodes) !== null; prev($opcodes)) {
-            [$tag, $i1, $i2, $j1, $j2] = current($opcodes);
+        for (\end($opcodes); \key($opcodes) !== null; \prev($opcodes)) {
+            [$tag, $i1, $i2, $j1, $j2] = \current($opcodes);
 
             switch ($tag) {
                 case SequenceMatcher::OPCODE_DELETE:
