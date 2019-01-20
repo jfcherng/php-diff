@@ -22,7 +22,8 @@ The reason for doing so is primarily because of its high degree of accuracy.
 
 # Changes After Forking
 
-- Some bug fixes and performance rewrites.
+- Various bug fixes and performance rewrites.
+- Install with Composer.
 - UTF-8-ready.
 - Follow `PSR-1`, `PSR-2`, `PSR-4`.
 - Utilize PHP 7.1 features and make it fully type-hinted.
