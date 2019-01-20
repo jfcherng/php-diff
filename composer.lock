@@ -4,53 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "01f0c2ca09e6ff428293ea66754e9123",
+    "content-hash": "08953ca95fd07199370217c22bfe552e",
     "packages": [
-        {
-            "name": "jfcherng/php-levenshtein-distance",
-            "version": "2.3.5",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jfcherng/php-levenshtein-distance.git",
-                "reference": "c819cf83bbbae78d672b873944c76994d83c178f"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jfcherng/php-levenshtein-distance/zipball/c819cf83bbbae78d672b873944c76994d83c178f",
-                "reference": "c819cf83bbbae78d672b873944c76994d83c178f",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.1.3"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^2.13",
-                "phan/phan": "^1.0",
-                "phpunit/phpunit": "^7.2"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Jfcherng\\Utility\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jack Cherng",
-                    "email": "jfcherng@gmail.com"
-                }
-            ],
-            "description": "Calculate the Levenshtein distance and edit progresses between two strings.",
-            "keywords": [
-                "edit-progress",
-                "levenshtein-distance"
-            ],
-            "time": "2018-09-04T10:58:18+00:00"
-        },
         {
             "name": "jfcherng/php-mb-string",
             "version": "1.2.4",

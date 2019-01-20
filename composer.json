@@ -25,7 +25,6 @@
     },
     "require": {
         "php": "^7.1.3",
-        "jfcherng/php-levenshtein-distance": "^2.3",
         "jfcherng/php-mb-string": "^1.2.3"
     },
     "require-dev": {

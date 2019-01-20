@@ -6,9 +6,7 @@ namespace Jfcherng\Diff\Renderer\Html;
 
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Utility\SequenceMatcher;
-use Jfcherng\Utility\LevenshteinDistance as LD;
 use Jfcherng\Utility\MbString;
-use RuntimeException;
 
 /**
  * Base renderer for rendering HTML based diffs.
@@ -237,11 +235,6 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * Renderer the changed extent at char level.
      *
-     * @todo This method looks like could be rewritten with
-     *       Jfcherng\Diff\Utility\SequenceMatcher::getOpcodes and
-     *       Jfcherng\Utility\MbString::toArrayRaw.
-     *       Don't know how's the performance improvement though.
-     *
      * @param MbString $mbFrom the megabytes from line
      * @param MbString $mbTo   the megabytes to line
      *
@@ -249,37 +242,32 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function renderChangedExtentCharLevel(MbString $mbFrom, MbString $mbTo): self
     {
-        // we prefer the char-level diff but if there is an exception like
-        // "line too long", we fallback to line-level diff.
-        try {
-            $editInfo = LD::staticCalculate(
-                $mbFrom->get(),
-                $mbTo->get(),
-                true,
-                LD::PROGRESS_MERGE_NEIGHBOR | LD::PROGRESS_NO_COPY
-            );
-        } catch (RuntimeException $e) {
-            return $this->renderChangedExtentLineLevel($mbFrom, $mbTo);
-        }
+        static $sm;
 
-        // start to render
-        foreach ($editInfo['progresses'] as [$operation, $fromPos, $toPos, $length]) {
-            switch ($operation) {
-                // default never happens though
+        $sm = $sm ?? new SequenceMatcher([], []);
+
+        $opcodes = $sm
+            ->setSeq1($mbFrom->toArray())
+            ->setSeq2($mbTo->toArray())
+            ->getOpcodes();
+
+        // reversely iterate opcodes
+        for (end($opcodes); key($opcodes) !== null; prev($opcodes)) {
+            [$tag, $i1, $i2, $j1, $j2] = current($opcodes);
+
+            switch ($tag) {
+                case SequenceMatcher::OPCODE_DELETE:
+                    $mbFrom->str_enclose_i(static::CLOSURES, $i1, $i2 - $i1);
+                    break;
+                case SequenceMatcher::OPCODE_INSERT:
+                    $mbTo->str_enclose_i(static::CLOSURES, $j1, $j2 - $j1);
+                    break;
+                case SequenceMatcher::OPCODE_REPLACE:
+                    $mbFrom->str_enclose_i(static::CLOSURES, $i1, $i2 - $i1);
+                    $mbTo->str_enclose_i(static::CLOSURES, $j1, $j2 - $j1);
+                    break;
                 default:
-                // delete, render 'from'
-                case LD::OP_DELETE:
-                    $mbFrom->str_enclose_i(static::CLOSURES, $fromPos, $length);
-                    break;
-                // insert, render 'to'
-                case LD::OP_INSERT:
-                    $mbTo->str_enclose_i(static::CLOSURES, $toPos, $length);
-                    break;
-                // replace, render both
-                case LD::OP_REPLACE:
-                    $mbFrom->str_enclose_i(static::CLOSURES, $fromPos, $length);
-                    $mbTo->str_enclose_i(static::CLOSURES, $toPos, $length);
-                    break;
+                    continue 2;
             }
         }
 
