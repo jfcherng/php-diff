@@ -3,6 +3,9 @@ VERSION 2  INIT
 ===============
 
    Version 2.1 - init
+      20/01/2019 11:57  2.1.23  fix Json template
+         ced5f33 Fix the Json template
+         7b21dc5 Update readme
       20/01/2019 09:01  2.1.22  nits
          4dc695f Refactor template classes
          59824ed Code tidy
