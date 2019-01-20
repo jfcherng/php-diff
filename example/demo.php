@@ -44,11 +44,31 @@
 
         ?>
 
+        <h1>Character-level Diff</h1>
+        <?php
+
+            $old = "\$old = 'This is the old string.';";
+            $new = "\$new = 'And this is the new one.';";
+
+            // demo the character-level diff
+            $result = DiffHelper::calculate(
+                $old,
+                $new,
+                'Inline',
+                ['charLevelDiff' => true] + $diffOptions,
+                $templateOptions
+            );
+
+            echo $result;
+
+        ?>
+
         <h1>Side by Side Diff</h1>
         <?php
 
             // generate a side by side diff
             $result = DiffHelper::calculate($a, $b, 'SideBySide', $diffOptions, $templateOptions);
+
             echo $result;
 
         ?>
@@ -58,6 +78,7 @@
 
             // generate an inline diff
             $result = DiffHelper::calculate($a, $b, 'Inline', $diffOptions, $templateOptions);
+
             echo $result;
 
         ?>
@@ -67,6 +88,7 @@
 
             // generate a unified diff
             $result = DiffHelper::calculate($a, $b, 'Unified', $diffOptions, $templateOptions);
+
             echo \htmlspecialchars($result);
 
         ?></pre>
@@ -76,6 +98,7 @@
 
             // generate a context diff
             $result = DiffHelper::calculate($a, $b, 'Context', $diffOptions, $templateOptions);
+
             echo \htmlspecialchars($result);
 
         ?></pre>
