@@ -3,6 +3,11 @@ VERSION 2  INIT
 ===============
 
    Version 2.1 - init
+      20/01/2019 09:01  2.1.22  nits
+         4dc695f Refactor template classes
+         59824ed Code tidy
+         7a5c1fb Code tidy
+         100dd67 Update readme
       19/01/2019 09:17  2.1.21  nits
          36f45d4 Code tidy
          a3e70d1 Make the diff object in the renderer non-public
