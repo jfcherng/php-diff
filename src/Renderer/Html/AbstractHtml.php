@@ -242,11 +242,11 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function renderChangedExtentCharLevel(MbString $mbFrom, MbString $mbTo): self
     {
-        static $sm;
+        static $sequenceMatcher;
 
-        $sm = $sm ?? new SequenceMatcher([], []);
+        $sequenceMatcher = $sequenceMatcher ?? new SequenceMatcher([], []);
 
-        $opcodes = $sm
+        $opcodes = $sequenceMatcher
             ->setSeq1($mbFrom->toArray())
             ->setSeq2($mbTo->toArray())
             ->getOpcodes();

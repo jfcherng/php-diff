@@ -34,6 +34,11 @@ class Diff
     protected $b = [];
 
     /**
+     * @var null|SequenceMatcher the sequence matcher
+     */
+    protected $sequenceMatcher;
+
+    /**
      * @var null|array array containing the generated opcodes for the differences between the two items
      */
     protected $groupedCodes;
@@ -63,6 +68,8 @@ class Diff
      */
     public function __construct(array $a = [], array $b = [], array $options = [])
     {
+        $this->sequenceMatcher = new SequenceMatcher([], []);
+
         $this
             ->setA($a)
             ->setB($b)
@@ -81,6 +88,7 @@ class Diff
         if ($this->a !== $a) {
             $this->a = $a;
             $this->groupedCodes = null;
+            $this->sequenceMatcher->setSeq1($a);
         }
 
         return $this;
@@ -98,6 +106,7 @@ class Diff
         if ($this->b !== $b) {
             $this->b = $b;
             $this->groupedCodes = null;
+            $this->sequenceMatcher->setSeq2($b);
         }
 
         return $this;
@@ -113,6 +122,8 @@ class Diff
     public function setOptions(array $options): self
     {
         $this->options = $options + static::$defaultOptions;
+
+        $this->sequenceMatcher->setOptions($this->options);
 
         return $this;
     }
@@ -181,9 +192,8 @@ class Diff
      */
     public function getGroupedOpcodes(): array
     {
-        return $this->groupedCodes ??
-            (new SequenceMatcher($this->a, $this->b, null, $this->options))
-                ->getGroupedOpcodes($this->options['context']);
+        return $this->groupedCodes = $this->groupedCodes ??
+            $this->sequenceMatcher->getGroupedOpcodes($this->options['context']);
     }
 
     /**
