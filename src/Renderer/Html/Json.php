@@ -19,12 +19,18 @@ class Json extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    const IS_HTML_TEMPLATE = false;
+    const IS_TEXT_TEMPLATE = true;
 
     /**
      * {@inheritdoc}
      */
     const IDENTICAL_RESULT = '[]';
+
+    /**
+     * {@inheritdoc}
+     */
+    const CLOSURES_INS = ["\2", "\3"];
+    const CLOSURES_DEL = ["\2", "\4"];
 
     /**
      * {@inheritdoc}

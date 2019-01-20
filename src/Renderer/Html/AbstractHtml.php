@@ -115,7 +115,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     ) {
                         $lines = \array_slice($a, $i1, ($i2 - $i1));
                         $lines = $this->formatLines($lines);
-                        $lines = \str_replace(self::CLOSURES, self::CLOSURES_DEL, $lines);
+                        $lines = \str_replace(static::CLOSURES, static::CLOSURES_DEL, $lines);
                         $blocks[$lastBlock]['base']['lines'] += $lines;
                     }
 
@@ -125,7 +125,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     ) {
                         $lines = \array_slice($b, $j1, ($j2 - $j1));
                         $lines = $this->formatLines($lines);
-                        $lines = \str_replace(self::CLOSURES, self::CLOSURES_INS, $lines);
+                        $lines = \str_replace(static::CLOSURES, static::CLOSURES_INS, $lines);
                         $blocks[$lastBlock]['changed']['lines'] += $lines;
                     }
                 }
@@ -155,7 +155,7 @@ abstract class AbstractHtml extends AbstractRenderer
 
         // glue all lines into a single string to get rid of multiple function calls later
         // unnecessary, but should improve performance if there are many lines
-        $string = \implode(self::DELIMITER, $lines);
+        $string = \implode(static::DELIMITER, $lines);
 
         $string = $this->expandTabs($string);
         $string = $this->htmlSafe($string);
@@ -165,7 +165,7 @@ abstract class AbstractHtml extends AbstractRenderer
         }
 
         // split the string back to lines
-        return \explode(self::DELIMITER, $string);
+        return \explode(static::DELIMITER, $string);
     }
 
     /**
@@ -221,12 +221,12 @@ abstract class AbstractHtml extends AbstractRenderer
 
         // two strings are different, we do rendering
         $mbFrom->str_enclose_i(
-            self::CLOSURES,
+            static::CLOSURES,
             $start,
             $end + $mbFrom->strlen() - $start + 1
         );
         $mbTo->str_enclose_i(
-            self::CLOSURES,
+            static::CLOSURES,
             $start,
             $end + $mbTo->strlen() - $start + 1
         );
@@ -269,23 +269,23 @@ abstract class AbstractHtml extends AbstractRenderer
                 default:
                 // delete, render 'from'
                 case LD::OP_DELETE:
-                    $mbFrom->str_enclose_i(self::CLOSURES, $fromPos, $length);
+                    $mbFrom->str_enclose_i(static::CLOSURES, $fromPos, $length);
                     break;
                 // insert, render 'to'
                 case LD::OP_INSERT:
-                    $mbTo->str_enclose_i(self::CLOSURES, $toPos, $length);
+                    $mbTo->str_enclose_i(static::CLOSURES, $toPos, $length);
                     break;
                 // replace, render both
                 case LD::OP_REPLACE:
-                    $mbFrom->str_enclose_i(self::CLOSURES, $fromPos, $length);
-                    $mbTo->str_enclose_i(self::CLOSURES, $toPos, $length);
+                    $mbFrom->str_enclose_i(static::CLOSURES, $fromPos, $length);
+                    $mbTo->str_enclose_i(static::CLOSURES, $toPos, $length);
                     break;
             }
         }
 
         // cleanup redundant tags
-        $mbFrom->str_replace_i(self::CLOSURES[1] . self::CLOSURES[0], '');
-        $mbTo->str_replace_i(self::CLOSURES[1] . self::CLOSURES[0], '');
+        $mbFrom->str_replace_i(static::CLOSURES[1] . static::CLOSURES[0], '');
+        $mbTo->str_replace_i(static::CLOSURES[1] . static::CLOSURES[0], '');
 
         return $this;
     }
