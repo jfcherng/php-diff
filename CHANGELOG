@@ -1,4 +1,14 @@
 
+VERSION 3  OPTIONS CHANGED
+==========================
+
+   Version 3.0 - options changed
+      21/01/2019 16:41  3.0.0  initial release
+         d7b6079 Clear up options
+         c9a43a1 Fix diff getInstance()
+         1b99649 Code tidy
+         f5cd010 Update demo.php
+
 VERSION 2  INIT
 ===============
 
