@@ -176,26 +176,30 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function renderChangedExtent(string &$from, string &$to): self
     {
-        static $mbLines;
+        static $mbFrom, $mbTo;
 
         if ($from === $to) {
             return $this;
         }
 
-        $mbLines = $mbLines ?? [
-            'from' => new MbString('', 'UTF-8'),
-            'to' => new MbString('', 'UTF-8'),
-        ];
+        $mbFrom = $mbFrom ?? new MbString('', 'UTF-8');
+        $mbTo = $mbTo ?? new MbString('', 'UTF-8');
 
-        $mbLines['from']->set($from);
-        $mbLines['to']->set($to);
+        $mbFrom->set($from);
+        $mbTo->set($to);
 
-        $this->diff->options['charLevelDiff']
-            ? $this->renderChangedExtentCharLevel($mbLines['from'], $mbLines['to'])
-            : $this->renderChangedExtentLineLevel($mbLines['from'], $mbLines['to']);
+        switch ($this->options['detailLevel']) {
+            default:
+            case 'line':
+                $this->renderChangedExtentByLine($mbFrom, $mbTo);
+                break;
+            case 'char':
+                $this->renderChangedExtentByChar($mbFrom, $mbTo);
+                break;
+        }
 
-        $from = $mbLines['from']->get();
-        $to = $mbLines['to']->get();
+        $from = $mbFrom->get();
+        $to = $mbTo->get();
 
         return $this;
     }
@@ -208,9 +212,9 @@ abstract class AbstractHtml extends AbstractRenderer
      *
      * @return self
      */
-    protected function renderChangedExtentLineLevel(MbString $mbFrom, MbString $mbTo): self
+    protected function renderChangedExtentByLine(MbString $mbFrom, MbString $mbTo): self
     {
-        [$start, $end] = $this->getChangeExtent($mbFrom, $mbTo);
+        [$start, $end] = $this->getChangeExtentBeginEnd($mbFrom, $mbTo);
 
         // two strings are the same
         if ($end === 0) {
@@ -240,16 +244,9 @@ abstract class AbstractHtml extends AbstractRenderer
      *
      * @return self
      */
-    protected function renderChangedExtentCharLevel(MbString $mbFrom, MbString $mbTo): self
+    protected function renderChangedExtentByChar(MbString $mbFrom, MbString $mbTo): self
     {
-        static $sequenceMatcher;
-
-        $sequenceMatcher = $sequenceMatcher ?? new SequenceMatcher([], []);
-
-        $opcodes = $sequenceMatcher
-            ->setSeq1($mbFrom->toArray())
-            ->setSeq2($mbTo->toArray())
-            ->getOpcodes();
+        $opcodes = $this->getChangeExtentSegments($mbFrom, $mbTo);
 
         // reversely iterate opcodes
         for (\end($opcodes); \key($opcodes) !== null; \prev($opcodes)) {
@@ -288,7 +285,7 @@ abstract class AbstractHtml extends AbstractRenderer
      * @return array Array containing the starting position (non-negative) and the ending position (negative)
      *               [0, 0] if two strings are the same
      */
-    protected function getChangeExtent(MbString $mbFrom, MbString $mbTo): array
+    protected function getChangeExtentBeginEnd(MbString $mbFrom, MbString $mbTo): array
     {
         // two strings are the same
         // most lines should be this cases, an early return could save many function calls
@@ -317,6 +314,26 @@ abstract class AbstractHtml extends AbstractRenderer
         }
 
         return [$start, $end];
+    }
+
+    /**
+     * Get the change extent segments.
+     *
+     * @param MbString $mbFrom the megabytes from line
+     * @param MbString $mbTo   the megabytes to line
+     *
+     * @return array the change extent segment
+     */
+    protected function getChangeExtentSegments(MbString $mbFrom, MbString $mbTo): array
+    {
+        static $sequenceMatcher;
+
+        $sequenceMatcher = $sequenceMatcher ?? new SequenceMatcher([], []);
+
+        return $sequenceMatcher
+            ->setSeq1($mbFrom->toArray())
+            ->setSeq2($mbTo->toArray())
+            ->getOpcodes();
     }
 
     /**

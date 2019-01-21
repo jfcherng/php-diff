@@ -18,28 +18,28 @@
 
             // options for Diff class
             $diffOptions = [
-                // enable character-level diff
-                'charLevelDiff' => false,
                 // show how many neighbor lines
                 'context' => 3,
                 // ignore case difference
                 'ignoreCase' => false,
                 // ignore whitespace difference
                 'ignoreWhitespace' => false,
-                // show "..." row in HTML templates
-                'separateBlock' => true,
             ];
 
             // options for template class
             $templateOptions = [
+                // how detailed the redered HTML is? (line, char)
+                'detailLevel' => 'line',
                 // template language: eng, cht, chs, jpn, ...
                 // or an array which has the same keys with a language file
                 'language' => 'eng',
-                // HTML template tab width
-                'tabSize' => 4,
+                // show "..." row in HTML templates
+                'separateBlock' => true,
                 // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
                 // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
                 'spacesToNbsp' => false,
+                // HTML template tab width
+                'tabSize' => 4,
             ];
 
         ?>

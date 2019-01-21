@@ -47,16 +47,12 @@ class Diff
      * @var array associative array of the default options available for the diff class and their default value
      */
     protected static $defaultOptions = [
-        // enable character-level diff
-        'context' => 3,
         // show how many neighbor lines
-        'charLevelDiff' => false,
+        'context' => 3,
         // ignore case difference
         'ignoreWhitespace' => false,
         // ignore whitespace difference
         'ignoreCase' => false,
-        // show "..." row in HTML templates
-        'separateBlock' => true,
     ];
 
     /**
