@@ -179,7 +179,7 @@ class Diff
     {
         static $singleton;
 
-        return $singleton ?? new static();
+        return $singleton = $singleton ?? new static();
     }
 
     /**
