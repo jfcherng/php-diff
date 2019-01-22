@@ -2,6 +2,12 @@
 VERSION 3  OPTIONS CHANGED
 ==========================
 
+   Version 3.1 - word-level diff
+      22/01/2019 11:49  3.1.0  initial release
+         f6fbce8 Suppress phan errors
+         6850cb5 Add word-level diff
+         aea5ff8 Fix demo.php
+
    Version 3.0 - options changed
       21/01/2019 16:41  3.0.0  initial release
          d7b6079 Clear up options

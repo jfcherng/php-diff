@@ -254,8 +254,8 @@ abstract class AbstractHtml extends AbstractRenderer
     {
         static $punctuations = ' $,.:;!?\'"()\[\]{}%@<=>_+\-*\/~\\\\|';
 
-        $fromWords = preg_split("/([{$punctuations}])/uS", $mbFrom->get(), -1, PREG_SPLIT_DELIM_CAPTURE);
-        $toWords = preg_split("/([{$punctuations}])/uS", $mbTo->get(), -1, PREG_SPLIT_DELIM_CAPTURE);
+        $fromWords = \preg_split("/([{$punctuations}])/uS", $mbFrom->get(), -1, \PREG_SPLIT_DELIM_CAPTURE);
+        $toWords = \preg_split("/([{$punctuations}])/uS", $mbTo->get(), -1, \PREG_SPLIT_DELIM_CAPTURE);
 
         $opcodes = $this->getChangeExtentSegments($fromWords, $toWords);
 
@@ -281,8 +281,8 @@ abstract class AbstractHtml extends AbstractRenderer
             }
         }
 
-        $mbFrom->set(implode('', $fromWords));
-        $mbTo->set(implode('', $toWords));
+        $mbFrom->set(\implode('', $fromWords));
+        $mbTo->set(\implode('', $toWords));
 
         return $this;
     }
