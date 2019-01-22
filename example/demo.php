@@ -55,8 +55,8 @@
                 $old,
                 $new,
                 'Inline',
-                ['charLevelDiff' => true] + $diffOptions,
-                $templateOptions
+                $diffOptions,
+                ['detailLevel' => 'char'] + $templateOptions
             );
 
             echo $result;
