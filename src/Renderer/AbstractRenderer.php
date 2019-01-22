@@ -6,6 +6,7 @@ namespace Jfcherng\Diff\Renderer;
 
 use Jfcherng\Diff\Diff;
 use Jfcherng\Diff\Utility\Language;
+use Jfcherng\Diff\Utility\SequenceMatcher;
 
 /**
  * Abstract class for diff renderers.
@@ -33,6 +34,11 @@ abstract class AbstractRenderer implements RendererInterface
      * @var Diff the instance of the diff class that this renderer is generating the rendered diff for
      */
     protected $diff;
+
+    /**
+     * @var SequenceMatcher
+     */
+    protected $sequenceMatcher;
 
     /**
      * @var Language the language translation object
@@ -70,6 +76,8 @@ abstract class AbstractRenderer implements RendererInterface
      */
     public function __construct(array $options = [])
     {
+        $this->sequenceMatcher = new SequenceMatcher([], []);
+
         $this->setOptions($options);
     }
 
@@ -83,6 +91,7 @@ abstract class AbstractRenderer implements RendererInterface
     public function setDiff(Diff $diff): self
     {
         $this->diff = $diff;
+        $this->sequenceMatcher->setOptions($diff->getOptions());
 
         return $this;
     }
