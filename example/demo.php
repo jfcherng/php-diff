@@ -16,6 +16,10 @@
             $a = \file_get_contents(__DIR__ . '/a.txt');
             $b = \file_get_contents(__DIR__ . '/b.txt');
 
+            // sample string for comparison
+            $old = "\$old = 'This is the old string.';";
+            $new = "\$new = 'And this is the new one.';";
+
             // options for Diff class
             $diffOptions = [
                 // show how many neighbor lines
@@ -28,7 +32,7 @@
 
             // options for template class
             $templateOptions = [
-                // how detailed the redered HTML is? (line, char)
+                // how detailed the redered HTML is? (line, word, char)
                 'detailLevel' => 'line',
                 // template language: eng, cht, chs, jpn, ...
                 // or an array which has the same keys with a language file
@@ -44,11 +48,24 @@
 
         ?>
 
-        <h1>Character-level Diff</h1>
+        <h1>Word-level Diff</h1>
         <?php
 
-            $old = "\$old = 'This is the old string.';";
-            $new = "\$new = 'And this is the new one.';";
+            // demo the word-level diff
+            $result = DiffHelper::calculate(
+                $old,
+                $new,
+                'Inline',
+                $diffOptions,
+                ['detailLevel' => 'word'] + $templateOptions
+            );
+
+            echo $result;
+
+        ?>
+
+        <h1>Character-level Diff</h1>
+        <?php
 
             // demo the character-level diff
             $result = DiffHelper::calculate(

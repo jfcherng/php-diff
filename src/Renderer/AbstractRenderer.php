@@ -43,7 +43,7 @@ abstract class AbstractRenderer implements RendererInterface
      * @var array array of the default options that apply to this renderer
      */
     protected static $defaultOptions = [
-        // how detailed the rendered HTML is? (line, char)
+        // how detailed the rendered HTML is? (line, word, char)
         'detailLevel' => 'line',
         // template language: eng, cht, chs, jpn, ...
         // or an array which has the same keys with a language file

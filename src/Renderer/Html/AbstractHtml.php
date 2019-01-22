@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jfcherng\Diff\Renderer\Html;
 
 use Jfcherng\Diff\Renderer\AbstractRenderer;
+use Jfcherng\Diff\Utility\ReverseIterator;
 use Jfcherng\Diff\Utility\SequenceMatcher;
 use Jfcherng\Utility\MbString;
 
@@ -193,6 +194,9 @@ abstract class AbstractHtml extends AbstractRenderer
             case 'line':
                 $this->renderChangedExtentByLine($mbFrom, $mbTo);
                 break;
+            case 'word':
+                $this->renderChangedExtentByWord($mbFrom, $mbTo);
+                break;
             case 'char':
                 $this->renderChangedExtentByChar($mbFrom, $mbTo);
                 break;
@@ -237,6 +241,51 @@ abstract class AbstractHtml extends AbstractRenderer
     }
 
     /**
+     * Renderer the changed extent at word level.
+     *
+     * @param MbString $mbFrom the megabytes from line
+     * @param MbString $mbTo   the megabytes to line
+     *
+     * @return self
+     */
+    protected function renderChangedExtentByWord(MbString $mbFrom, MbString $mbTo): self
+    {
+        static $punctuations = ' $,.:;!?\'"()\[\]{}%@<=>_+\-*\/~\\\\|';
+
+        $fromWords = preg_split("/([{$punctuations}])/uS", $mbFrom->get(), -1, PREG_SPLIT_DELIM_CAPTURE);
+        $toWords = preg_split("/([{$punctuations}])/uS", $mbTo->get(), -1, PREG_SPLIT_DELIM_CAPTURE);
+
+        $opcodes = $this->getChangeExtentSegments($fromWords, $toWords);
+
+        // reversely iterate opcodes
+        foreach (ReverseIterator::fromArray($opcodes) as [[$tag, $i1, $i2, $j1, $j2]]) {
+            switch ($tag) {
+                case SequenceMatcher::OPCODE_DELETE:
+                    $fromWords[$i1] = static::CLOSURES[0] . $fromWords[$i1];
+                    $fromWords[$i2 - 1] .= static::CLOSURES[1];
+                    break;
+                case SequenceMatcher::OPCODE_INSERT:
+                    $toWords[$j1] = static::CLOSURES[0] . $toWords[$j1];
+                    $toWords[$j2 - 1] .= static::CLOSURES[1];
+                    break;
+                case SequenceMatcher::OPCODE_REPLACE:
+                    $fromWords[$i1] = static::CLOSURES[0] . $fromWords[$i1];
+                    $fromWords[$i2 - 1] .= static::CLOSURES[1];
+                    $toWords[$j1] = static::CLOSURES[0] . $toWords[$j1];
+                    $toWords[$j2 - 1] .= static::CLOSURES[1];
+                    break;
+                default:
+                    continue 2;
+            }
+        }
+
+        $mbFrom->set(implode('', $fromWords));
+        $mbTo->set(implode('', $toWords));
+
+        return $this;
+    }
+
+    /**
      * Renderer the changed extent at char level.
      *
      * @param MbString $mbFrom the megabytes from line
@@ -246,12 +295,10 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function renderChangedExtentByChar(MbString $mbFrom, MbString $mbTo): self
     {
-        $opcodes = $this->getChangeExtentSegments($mbFrom, $mbTo);
+        $opcodes = $this->getChangeExtentSegments($mbFrom->toArray(), $mbTo->toArray());
 
         // reversely iterate opcodes
-        for (\end($opcodes); \key($opcodes) !== null; \prev($opcodes)) {
-            [$tag, $i1, $i2, $j1, $j2] = \current($opcodes);
-
+        foreach (ReverseIterator::fromArray($opcodes) as [[$tag, $i1, $i2, $j1, $j2]]) {
             switch ($tag) {
                 case SequenceMatcher::OPCODE_DELETE:
                     $mbFrom->str_enclose_i(static::CLOSURES, $i1, $i2 - $i1);
@@ -267,10 +314,6 @@ abstract class AbstractHtml extends AbstractRenderer
                     continue 2;
             }
         }
-
-        // cleanup redundant tags
-        $mbFrom->str_replace_i(static::CLOSURES[1] . static::CLOSURES[0], '');
-        $mbTo->str_replace_i(static::CLOSURES[1] . static::CLOSURES[0], '');
 
         return $this;
     }
@@ -319,21 +362,18 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * Get the change extent segments.
      *
-     * @param MbString $mbFrom the megabytes from line
-     * @param MbString $mbTo   the megabytes to line
+     * @param array $from the from array
+     * @param array $to   the to array
      *
      * @return array the change extent segment
      */
-    protected function getChangeExtentSegments(MbString $mbFrom, MbString $mbTo): array
+    protected function getChangeExtentSegments(array $from, array $to): array
     {
         static $sequenceMatcher;
 
         $sequenceMatcher = $sequenceMatcher ?? new SequenceMatcher([], []);
 
-        return $sequenceMatcher
-            ->setSeq1($mbFrom->toArray())
-            ->setSeq2($mbTo->toArray())
-            ->getOpcodes();
+        return $sequenceMatcher->setSeq1($from)->setSeq2($to)->getOpcodes();
     }
 
     /**

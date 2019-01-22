@@ -26,8 +26,9 @@ The reason for doing so is primarily because of its high degree of accuracy.
 - Install with Composer.
 - UTF-8-ready.
 - Follow `PSR-1`, `PSR-2`, `PSR-4`.
-- Utilize PHP 7.1 features and make it fully type-hinted.
+- Utilize PHP 7.1 features and make it type-hinted.
 - Add `Json` template.
+- Add char-level and word-level diff.
 - Add [character-level diff](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/character-level-diff.png) for HTML templates.
 - Add classes `DiffHelper` and `RendererFactory` for simple usage.
 - Add multi-language support (English, Chinese, etc...) for templates.
@@ -77,7 +78,7 @@ $diffOptions = [
 
 // the template class options
 $templateOptions = [
-    // how detailed the redered HTML is? (line, char)
+    // how detailed the redered HTML is? (line, word, char)
     'detailLevel' => 'line',
     // template language: eng, cht, chs, jpn, ...
     // or an array which has the same keys with a language file
@@ -106,9 +107,14 @@ $result = $diff->render($renderer);
 # Rendered Results
 
 
-## Character-level Diff
+## Word-level Diff
 
-![Character-level Diff](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/character-level-diff.png)
+![Word-level Diff](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/word-level-diff.png)
+
+
+## Char-level Diff
+
+![Char-level Diff](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/char-level-diff.png)
 
 
 ## Inline
