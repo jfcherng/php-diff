@@ -3,6 +3,9 @@ VERSION 3  OPTIONS CHANGED
 ==========================
 
    Version 3.1 - word-level diff
+      22/01/2019 12:05  3.1.1  fix ignoreCase/ignoreWhitespace
+         300e4cf Fix ignoreCase/ignoreWhitespace for word/char-level diff
+         9ea24dd Update readme
       22/01/2019 11:49  3.1.0  initial release
          f6fbce8 Suppress phan errors
          6850cb5 Add word-level diff
