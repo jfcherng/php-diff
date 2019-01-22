@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "08953ca95fd07199370217c22bfe552e",
+    "content-hash": "f5472827d15a723f135be3747f5a470a",
     "packages": [
         {
             "name": "jfcherng/php-mb-string",
-            "version": "1.2.4",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-mb-string.git",
-                "reference": "d1ec337cb3111a1de38ecdb0351221453c23096b"
+                "reference": "5337757f6822107913e6a7487d3a055aab180ef9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jfcherng/php-mb-string/zipball/d1ec337cb3111a1de38ecdb0351221453c23096b",
-                "reference": "d1ec337cb3111a1de38ecdb0351221453c23096b",
+                "url": "https://api.github.com/repos/jfcherng/php-mb-string/zipball/5337757f6822107913e6a7487d3a055aab180ef9",
+                "reference": "5337757f6822107913e6a7487d3a055aab180ef9",
                 "shasum": ""
             },
             "require": {
@@ -46,7 +46,7 @@
                 }
             ],
             "description": "An implementation targeting high performance for frequently reading/writing operations.",
-            "time": "2018-09-04T10:58:40+00:00"
+            "time": "2019-01-22T05:47:03+00:00"
         }
     ],
     "packages-dev": [
