@@ -85,18 +85,7 @@ abstract class AbstractHtml extends AbstractRenderer
                 }
 
                 if ($tag !== $lastTag) {
-                    $blocks[] = [
-                        'tag' => $tag,
-                        'base' => [
-                            'offset' => $i1,
-                            'lines' => [],
-                        ],
-                        'changed' => [
-                            'offset' => $j1,
-                            'lines' => [],
-                        ],
-                    ];
-
+                    $blocks[] = $this->getDefaultBlock($tag, $i1, $j1);
                     $lastBlock = \count($blocks) - 1;
                 }
 
@@ -374,6 +363,30 @@ abstract class AbstractHtml extends AbstractRenderer
     protected function getChangeExtentSegments(array $from, array $to): array
     {
         return $this->sequenceMatcher->setSequences($from, $to)->getOpcodes();
+    }
+
+    /**
+     * Get the default block.
+     *
+     * @param string $tag the operation tag
+     * @param int    $i1  begin index of the diff of the source
+     * @param int    $j1  begin index of the diff of the destination
+     *
+     * @return array the default block
+     */
+    protected function getDefaultBlock(string $tag, int $i1, int $j1): array
+    {
+        return [
+            'tag' => $tag,
+            'base' => [
+                'offset' => $i1,
+                'lines' => [],
+            ],
+            'changed' => [
+                'offset' => $j1,
+                'lines' => [],
+            ],
+        ];
     }
 
     /**
