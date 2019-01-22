@@ -23,7 +23,6 @@ class SideBySide extends AbstractHtml
      */
     public function render(): string
     {
-        $options = $this->diff->options;
         $changes = $this->getChanges();
 
         if (empty($changes)) {
@@ -35,7 +34,7 @@ class SideBySide extends AbstractHtml
         $html .= $this->renderTableHeader();
 
         foreach ($changes as $i => $blocks) {
-            if ($i > 0 && $options['separateBlock']) {
+            if ($i > 0 && $this->options['separateBlock']) {
                 $html .= $this->renderTableSeparateBlock();
             }
 
