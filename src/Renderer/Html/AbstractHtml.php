@@ -247,6 +247,8 @@ abstract class AbstractHtml extends AbstractRenderer
      * @param MbString $mbTo   the megabytes to line
      *
      * @return self
+     *
+     * @phan-suppress PhanTypeConversionFromArray, PhanUndeclaredVariable
      */
     protected function renderChangedExtentByWord(MbString $mbFrom, MbString $mbTo): self
     {
@@ -292,6 +294,8 @@ abstract class AbstractHtml extends AbstractRenderer
      * @param MbString $mbTo   the megabytes to line
      *
      * @return self
+     *
+     * @phan-suppress PhanTypeConversionFromArray, PhanUndeclaredVariable
      */
     protected function renderChangedExtentByChar(MbString $mbFrom, MbString $mbTo): self
     {
