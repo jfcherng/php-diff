@@ -3,6 +3,8 @@ VERSION 3  OPTIONS CHANGED
 ==========================
 
    Version 3.1 - word-level diff
+      22/01/2019 15:32  3.1.4  fix render options[D[D[D[D[D[D[D[Der
+         d7dbacf Fix render options
       22/01/2019 13:55  3.1.3  nist
          2d139a8 Code tidy
          d54e4f1 Update deps
