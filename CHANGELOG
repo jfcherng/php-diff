@@ -3,6 +3,9 @@ VERSION 3  OPTIONS CHANGED
 ==========================
 
    Version 3.1 - word-level diff
+      22/01/2019 12:36  3.1.2  nits
+         1bef1a0 Diff's $a, $b are now required in __construct()
+         22426a5 Add Diff::setAB()
       22/01/2019 12:05  3.1.1  fix ignoreCase/ignoreWhitespace
          300e4cf Fix ignoreCase/ignoreWhitespace for word/char-level diff
          9ea24dd Update readme
