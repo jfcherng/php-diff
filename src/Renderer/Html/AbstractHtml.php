@@ -249,7 +249,7 @@ abstract class AbstractHtml extends AbstractRenderer
         $opcodes = $this->getChangeExtentSegments($fromWords, $toWords);
 
         // reversely iterate opcodes
-        foreach (ReverseIterator::fromArray($opcodes) as [[$tag, $i1, $i2, $j1, $j2]]) {
+        foreach (ReverseIterator::fromArray($opcodes) as [$tag, $i1, $i2, $j1, $j2]) {
             switch ($tag) {
                 case SequenceMatcher::OPCODE_DELETE:
                     $fromWords[$i1] = static::CLOSURES[0] . $fromWords[$i1];
@@ -291,7 +291,7 @@ abstract class AbstractHtml extends AbstractRenderer
         $opcodes = $this->getChangeExtentSegments($mbFrom->toArray(), $mbTo->toArray());
 
         // reversely iterate opcodes
-        foreach (ReverseIterator::fromArray($opcodes) as [[$tag, $i1, $i2, $j1, $j2]]) {
+        foreach (ReverseIterator::fromArray($opcodes) as [$tag, $i1, $i2, $j1, $j2]) {
             switch ($tag) {
                 case SequenceMatcher::OPCODE_DELETE:
                     $mbFrom->str_enclose_i(static::CLOSURES, $i1, $i2 - $i1);
