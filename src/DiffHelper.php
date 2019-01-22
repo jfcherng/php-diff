@@ -90,8 +90,7 @@ class DiffHelper
         }
 
         return Diff::getInstance()
-            ->setA($old)
-            ->setB($new)
+            ->setAB($old, $new)
             ->setOptions($diffOptions)
             ->render(
                 RendererFactory::getInstance($template)

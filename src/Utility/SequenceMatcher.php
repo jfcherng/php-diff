@@ -79,8 +79,6 @@ class SequenceMatcher
      */
     public function __construct(array $a, array $b, ?callable $junkCallback = null, array $options = [])
     {
-        $this->a = [];
-        $this->b = [];
         $this->junkCallback = $junkCallback;
         $this->setOptions($options);
         $this->setSequences($a, $b);

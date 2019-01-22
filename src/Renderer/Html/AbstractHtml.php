@@ -373,10 +373,7 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function getChangeExtentSegments(array $from, array $to): array
     {
-        return $this->sequenceMatcher
-            ->setSeq1($from)
-            ->setSeq2($to)
-            ->getOpcodes();
+        return $this->sequenceMatcher->setSequences($from, $to)->getOpcodes();
     }
 
     /**

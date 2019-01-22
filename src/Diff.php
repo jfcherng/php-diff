@@ -66,10 +66,22 @@ class Diff
     {
         $this->sequenceMatcher = new SequenceMatcher([], []);
 
-        $this
-            ->setA($a)
-            ->setB($b)
-            ->setOptions($options);
+        $this->setAB($a, $b)->setOptions($options);
+    }
+
+    /**
+     * Set a and b.
+     *
+     * @param string[] $a the a
+     * @param string[] $b the b
+     *
+     * @return self
+     */
+    public function setAB(array $a, array $b): self
+    {
+        $this->setA($a)->setB($b);
+
+        return $this;
     }
 
     /**
