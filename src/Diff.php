@@ -62,7 +62,7 @@ class Diff
      * @param string[] $b       array containing the lines for the second string to compare
      * @param array    $options
      */
-    public function __construct(array $a = [], array $b = [], array $options = [])
+    public function __construct(array $a, array $b, array $options = [])
     {
         $this->sequenceMatcher = new SequenceMatcher([], []);
 
@@ -187,7 +187,7 @@ class Diff
     {
         static $singleton;
 
-        return $singleton = $singleton ?? new static();
+        return $singleton = $singleton ?? new static([], []);
     }
 
     /**
