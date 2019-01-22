@@ -28,8 +28,7 @@ The reason for doing so is primarily because of its high degree of accuracy.
 - Follow `PSR-1`, `PSR-2`, `PSR-4`.
 - Utilize PHP 7.1 features and make it type-hinted.
 - Add `Json` template.
-- Add char-level and word-level diff.
-- Add [character-level diff](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/character-level-diff.png) for HTML templates.
+- Add char-level and word-level diff for HTML templates.
 - Add classes `DiffHelper` and `RendererFactory` for simple usage.
 - Add multi-language support (English, Chinese, etc...) for templates.
 
