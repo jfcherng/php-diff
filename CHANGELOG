@@ -3,6 +3,9 @@ VERSION 3  OPTIONS CHANGED
 ==========================
 
    Version 3.2 - add none-level diff[D
+      24/01/2019 15:32  3.2.4  nits
+         af51b33 Add more punctuations as word separators
+         9e649d8 Fix typos
       24/01/2019 14:48  3.2.3  fix LineRendererFactory case-sensitive
          4825b96 Fix LineRendererFactory case-sensitive problem
       24/01/2019 14:21  3.2.2  nits
