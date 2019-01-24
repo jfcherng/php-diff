@@ -83,26 +83,28 @@ abstract class AbstractHtml extends AbstractRenderer
                         $blocks[$lastBlock]['base']['lines'] += $formattedLines;
                         $blocks[$lastBlock]['changed']['lines'] += $formattedLines;
                     }
-                } else {
-                    if (
-                        $tag === SequenceMatcher::OPCODE_REPLACE ||
-                        $tag === SequenceMatcher::OPCODE_DELETE
-                    ) {
-                        $lines = \array_slice($a, $i1, ($i2 - $i1));
-                        $lines = $this->formatLines($lines);
-                        $lines = \str_replace(static::HTML_CLOSURES, static::HTML_CLOSURES_DEL, $lines);
-                        $blocks[$lastBlock]['base']['lines'] += $lines;
-                    }
 
-                    if (
-                        $tag === SequenceMatcher::OPCODE_REPLACE ||
-                        $tag === SequenceMatcher::OPCODE_INSERT
-                    ) {
-                        $lines = \array_slice($b, $j1, ($j2 - $j1));
-                        $lines = $this->formatLines($lines);
-                        $lines = \str_replace(static::HTML_CLOSURES, static::HTML_CLOSURES_INS, $lines);
-                        $blocks[$lastBlock]['changed']['lines'] += $lines;
-                    }
+                    continue;
+                }
+
+                if (
+                    $tag === SequenceMatcher::OPCODE_REPLACE ||
+                    $tag === SequenceMatcher::OPCODE_DELETE
+                ) {
+                    $lines = \array_slice($a, $i1, ($i2 - $i1));
+                    $lines = $this->formatLines($lines);
+                    $lines = \str_replace(static::HTML_CLOSURES, static::HTML_CLOSURES_DEL, $lines);
+                    $blocks[$lastBlock]['base']['lines'] += $lines;
+                }
+
+                if (
+                    $tag === SequenceMatcher::OPCODE_REPLACE ||
+                    $tag === SequenceMatcher::OPCODE_INSERT
+                ) {
+                    $lines = \array_slice($b, $j1, ($j2 - $j1));
+                    $lines = $this->formatLines($lines);
+                    $lines = \str_replace(static::HTML_CLOSURES, static::HTML_CLOSURES_INS, $lines);
+                    $blocks[$lastBlock]['changed']['lines'] += $lines;
                 }
             }
 
