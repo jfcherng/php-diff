@@ -77,7 +77,7 @@ $diffOptions = [
 
 // the template class options
 $templateOptions = [
-    // how detailed the redered HTML is? (line, word, char)
+    // how detailed the rendered HTML in-line diff is? (none, line, word, char)
     'detailLevel' => 'line',
     // template language: eng, cht, chs, jpn, ...
     // or an array which has the same keys with a language file
@@ -106,24 +106,36 @@ $result = $diff->render($renderer);
 # Rendered Results
 
 
-## Word-level Diff
+## HTML Diff In-line Detail Rendering
 
-![Word-level Diff](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/word-level-diff.png)
-
-
-## Char-level Diff
-
-![Char-level Diff](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/char-level-diff.png)
+<table>
+  <tr>
+    <td>None-level</td>
+    <td>Line-level (Default)</td>
+  </tr>
+  <tr>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-none-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-line-level-diff.png"></td>
+  </tr>
+  <tr>
+    <td>Word-level</td>
+    <td>Char-level</td>
+  </tr>
+  <tr>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-word-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-char-level-diff.png"></td>
+  </tr>
+</table>
 
 
 ## Inline
 
-![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline.png)
+![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-renderer.png)
 
 
 ## Side By Side
 
-![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/side-by-side.png)
+![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/side-by-side-renderer.png)
 
 
 ## Unified

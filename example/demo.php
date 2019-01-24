@@ -32,7 +32,7 @@
 
             // options for template class
             $templateOptions = [
-                // how detailed the redered HTML is? (line, word, char)
+                // how detailed the rendered HTML is? (line, word, char)
                 'detailLevel' => 'line',
                 // template language: eng, cht, chs, jpn, ...
                 // or an array which has the same keys with a language file
@@ -48,7 +48,23 @@
 
         ?>
 
-        <h1>Line-level Diff</h1>
+        <h1>None-level Diff</h1>
+        <?php
+
+            // demo the no-inline-detail diff
+            $result = DiffHelper::calculate(
+                $old,
+                $new,
+                'Inline',
+                $diffOptions,
+                ['detailLevel' => 'none'] + $templateOptions
+            );
+
+            echo $result;
+
+        ?>
+
+        <h1>Line-level Diff (Default)</h1>
         <?php
 
             // demo the word-level diff

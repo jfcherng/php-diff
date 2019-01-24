@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html;
 
+use InvalidArgumentException;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Utility\ReverseIterator;
 use Jfcherng\Diff\Utility\SequenceMatcher;
@@ -162,13 +163,18 @@ abstract class AbstractHtml extends AbstractRenderer
      * @param string &$from the from line
      * @param string &$to   the to line
      *
+     * @throws InvalidArgumentException
+     *
      * @return self
      */
     protected function renderChangedExtent(string &$from, string &$to): self
     {
         static $mbFrom, $mbTo;
 
-        if ($from === $to) {
+        if (
+            $this->options['detailLevel'] === 'none' ||
+            $from === $to
+        ) {
             return $this;
         }
 
@@ -179,7 +185,6 @@ abstract class AbstractHtml extends AbstractRenderer
         $mbTo->set($to);
 
         switch ($this->options['detailLevel']) {
-            default:
             case 'line':
                 $this->renderChangedExtentByLine($mbFrom, $mbTo);
                 break;
@@ -189,6 +194,10 @@ abstract class AbstractHtml extends AbstractRenderer
             case 'char':
                 $this->renderChangedExtentByChar($mbFrom, $mbTo);
                 break;
+            default:
+                throw new InvalidArgumentException(
+                    "Invalid option: detailLevel = {$this->options['detailLevel']}"
+                );
         }
 
         $from = $mbFrom->get();
