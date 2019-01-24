@@ -77,10 +77,12 @@ abstract class AbstractHtml extends AbstractRenderer
                 $lastTag = $tag;
 
                 if ($tag === SequenceMatcher::OPCODE_EQUAL) {
-                    $lines = \array_slice($a, $i1, ($i2 - $i1));
-                    $blocks[$lastBlock]['base']['lines'] += $this->formatLines($lines);
-                    $lines = \array_slice($b, $j1, ($j2 - $j1));
-                    $blocks[$lastBlock]['changed']['lines'] += $this->formatLines($lines);
+                    if (!empty($lines = \array_slice($a, $i1, ($i2 - $i1)))) {
+                        $formattedLines = $this->formatLines($lines);
+
+                        $blocks[$lastBlock]['base']['lines'] += $formattedLines;
+                        $blocks[$lastBlock]['changed']['lines'] += $formattedLines;
+                    }
                 } else {
                     if (
                         $tag === SequenceMatcher::OPCODE_REPLACE ||

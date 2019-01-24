@@ -25,6 +25,7 @@ class Unified extends AbstractText
     {
         $ret = '';
 
+        // var_dump($this->diff->getGroupedOpcodes());
         foreach ($this->diff->getGroupedOpcodes() as $opcodes) {
             $lastItem = \count($opcodes) - 1;
 
@@ -41,7 +42,7 @@ class Unified extends AbstractText
 
             foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
                 if ($tag === SequenceMatcher::OPCODE_EQUAL) {
-                    $ret .= ' ' . \implode("\n ", $this->diff->getA($i1, $i2)) . "\n";
+                    $ret .= $this->renderContext(' ', $this->diff->getA($i1, $i2));
 
                     continue;
                 }
@@ -50,18 +51,33 @@ class Unified extends AbstractText
                     $tag === SequenceMatcher::OPCODE_REPLACE ||
                     $tag === SequenceMatcher::OPCODE_DELETE
                 ) {
-                    $ret .= '-' . \implode("\n-", $this->diff->getA($i1, $i2)) . "\n";
+                    $ret .= $this->renderContext('-', $this->diff->getA($i1, $i2));
                 }
 
                 if (
                     $tag === SequenceMatcher::OPCODE_REPLACE ||
                     $tag === SequenceMatcher::OPCODE_INSERT
                 ) {
-                    $ret .= '+' . \implode("\n+", $this->diff->getB($j1, $j2)) . "\n";
+                    $ret .= $this->renderContext('+', $this->diff->getB($j1, $j2));
                 }
             }
         }
 
         return $ret;
+    }
+
+    /**
+     * Render the context array with the symbol.
+     *
+     * @param string $symbol  the symbol
+     * @param array  $context the context
+     *
+     * @return string
+     */
+    protected function renderContext(string $symbol, array $context): string
+    {
+        return empty($context)
+            ? ''
+            : $symbol . \implode("\n{$symbol}", $context) . "\n";
     }
 }

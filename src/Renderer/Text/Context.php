@@ -80,7 +80,10 @@ class Context extends AbstractText
                 continue;
             }
 
-            $ret .= self::TAG_MAP[$tag] . ' ' . \implode("\n" . self::TAG_MAP[$tag] . ' ', $this->diff->getA($i1, $i2)) . "\n";
+            $ret .= $this->renderContext(
+                self::TAG_MAP[$tag],
+                $this->diff->getA($i1, $i2)
+            );
         }
 
         return $ret;
@@ -102,9 +105,27 @@ class Context extends AbstractText
                 continue;
             }
 
-            $ret .= self::TAG_MAP[$tag] . ' ' . \implode("\n" . self::TAG_MAP[$tag] . ' ', $this->diff->getB($j1, $j2)) . "\n";
+            $ret .= $this->renderContext(
+                self::TAG_MAP[$tag],
+                $this->diff->getB($j1, $j2)
+            );
         }
 
         return $ret;
+    }
+
+    /**
+     * Render the context array with the symbol.
+     *
+     * @param string $symbol  the symbol
+     * @param array  $context the context
+     *
+     * @return string
+     */
+    protected function renderContext(string $symbol, array $context): string
+    {
+        return empty($context)
+            ? ''
+            : "{$symbol} " . \implode("\n{$symbol} ", $context) . "\n";
     }
 }
