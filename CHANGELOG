@@ -3,6 +3,8 @@ VERSION 3  OPTIONS CHANGED
 ==========================
 
    Version 3.2 - add none-level diff[D
+      24/01/2019 14:48  3.2.3  fix LineRendererFactory case-sensitive
+         4825b96 Fix LineRendererFactory case-sensitive problem
       24/01/2019 14:21  3.2.2  nits
          4b74e4f PreservedConstantInterface -> ReservedConstantInterface
       24/01/2019 14:18  3.2.1  nits
