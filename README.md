@@ -90,6 +90,11 @@ $result = $diff->render($renderer);
 # Rendered Results
 
 
+## UTF-8 Ready
+
+![UTF-8 Ready](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/utf-8-ready.png)
+
+
 ## HTML Diff In-line Detail Rendering
 
 <table>

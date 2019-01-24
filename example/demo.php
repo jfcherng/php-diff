@@ -12,13 +12,17 @@
 
             use Jfcherng\Diff\DiffHelper;
 
-            // include two sample files for comparison
-            $a = \file_get_contents(__DIR__ . '/a.txt');
-            $b = \file_get_contents(__DIR__ . '/b.txt');
-
             // sample string for comparison
             $old = "\$old = 'This is the old string.';";
             $new = "\$new = 'And this is the new one.';";
+
+            // sample string for comparison
+            $old_u8 = '內存不足！沒法在視頻聊天時播放視頻。';
+            $new_u8 = '記憶體不足！沒辦法在視訊聊天時播放影片。';
+
+            // include two sample files for comparison
+            $old_file = \file_get_contents(__DIR__ . '/old_file.txt');
+            $new_file = \file_get_contents(__DIR__ . '/new_file.txt');
 
             // options for Diff class
             $diffOptions = [
@@ -45,6 +49,22 @@
                 // HTML template tab width
                 'tabSize' => 4,
             ];
+
+        ?>
+
+        <h1>UTF-8 Ready</h1>
+        <?php
+
+            // demo the UTF-8 diff
+            $result = DiffHelper::calculate(
+                $old_u8,
+                $new_u8,
+                'Inline',
+                $diffOptions,
+                ['detailLevel' => 'char'] + $templateOptions
+            );
+
+            echo $result;
 
         ?>
 
@@ -116,7 +136,7 @@
         <?php
 
             // generate a side by side diff
-            $result = DiffHelper::calculate($a, $b, 'SideBySide', $diffOptions, $templateOptions);
+            $result = DiffHelper::calculate($old_file, $new_file, 'SideBySide', $diffOptions, $templateOptions);
 
             echo $result;
 
@@ -126,7 +146,7 @@
         <?php
 
             // generate an inline diff
-            $result = DiffHelper::calculate($a, $b, 'Inline', $diffOptions, $templateOptions);
+            $result = DiffHelper::calculate($old_file, $new_file, 'Inline', $diffOptions, $templateOptions);
 
             echo $result;
 
@@ -136,7 +156,7 @@
         <pre><?php
 
             // generate a unified diff
-            $result = DiffHelper::calculate($a, $b, 'Unified', $diffOptions, $templateOptions);
+            $result = DiffHelper::calculate($old_file, $new_file, 'Unified', $diffOptions, $templateOptions);
 
             echo \htmlspecialchars($result);
 
@@ -146,7 +166,7 @@
         <pre><?php
 
             // generate a context diff
-            $result = DiffHelper::calculate($a, $b, 'Context', $diffOptions, $templateOptions);
+            $result = DiffHelper::calculate($old_file, $new_file, 'Context', $diffOptions, $templateOptions);
 
             echo \htmlspecialchars($result);
 
