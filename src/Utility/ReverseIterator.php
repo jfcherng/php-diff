@@ -20,16 +20,27 @@ class ReverseIterator
      */
     public static function fromArray(array $array, int $flags = 0): Generator
     {
-        for (\end($array); ($key = \key($array)) !== null; \prev($array)) {
-            $value = \current($array);
+        // it may worth unrolling if-conditions to out of for-loop
+        // so it wont have to check multiple if-conditions inside each loop
 
-            if ($flags & self::ITERATOR_GET_BOTH) {
-                yield [$value, $key];
-
-                continue;
+        if ($flags & self::ITERATOR_GET_BOTH) {
+            for (\end($array); ($key = \key($array)) !== null; \prev($array)) {
+                yield $key => \current($array);
             }
 
-            yield $flags & self::ITERATOR_GET_KEY ? $key : $value;
+            return;
+        }
+
+        if ($flags & self::ITERATOR_GET_KEY) {
+            for (\end($array); ($key = \key($array)) !== null; \prev($array)) {
+                yield $key;
+            }
+
+            return;
+        }
+
+        for (\end($array); \key($array) !== null; \prev($array)) {
+            yield \current($array);
         }
     }
 }
