@@ -90,13 +90,13 @@ class Language
      */
     public function getTranslationsByLanguage(string $language): array
     {
-        $file = __DIR__ . "/../languages/{$language}.php";
+        $file = __DIR__ . "/../languages/{$language}.json";
 
         if (!\is_file($file)) {
             throw new FileNotFoundException($file);
         }
 
-        return require $file;
+        return json_decode(file_get_contents($file), true);
     }
 
     /**
