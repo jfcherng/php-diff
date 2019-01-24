@@ -6,6 +6,10 @@ namespace Jfcherng\Diff\Utility;
 
 /**
  * Sequence matcher for Diff.
+ *
+ * The logic behind the diff engine is primarily based on the Python difflib package.
+ *
+ * @see https://docs.python.org/3/library/difflib.html
  */
 class SequenceMatcher
 {

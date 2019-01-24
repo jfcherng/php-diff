@@ -16,22 +16,6 @@ Generated diff can be rendered in all of the standard formats including:
 - Inline (HTML)
 - Side by Side (HTML)
 
-The logic behind the core of the diff engine (i.e., the sequence matcher) is primarily based on the [Python difflib package](https://docs.python.org/3/library/difflib.html).
-The reason for doing so is primarily because of its high degree of accuracy.
-
-
-# Changes After Forking
-
-- Various bug fixes and performance rewrites.
-- Install with Composer.
-- UTF-8-ready.
-- Follow `PSR-1`, `PSR-2`, `PSR-4`.
-- Utilize PHP 7.1 features and make it type-hinted.
-- Add `Json` template.
-- Add char-level and word-level diff for HTML templates.
-- Add classes `DiffHelper` and `RendererFactory` for simple usage.
-- Add multi-language support (English, Chinese, etc...) for templates.
-
 
 # Requirements
 
@@ -195,6 +179,13 @@ $result = $diff->render($renderer);
     </body>
   </html>
 ```
+
+
+# Acknowledgment
+
+This package is built on the top of [chrisboulton/php-diff](https://github.com/chrisboulton/php-diff) initially.
+But the original repository looks like no longer maintained.
+Here have been quite lots of rewrites and new features since then, hence I re-started this as a new package for better visibility.
 
 
 Supporters <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ATXYY9Y78EQ3Y" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" /></a>
