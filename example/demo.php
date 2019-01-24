@@ -48,6 +48,22 @@
 
         ?>
 
+        <h1>Line-level Diff</h1>
+        <?php
+
+            // demo the word-level diff
+            $result = DiffHelper::calculate(
+                $old,
+                $new,
+                'Inline',
+                $diffOptions,
+                ['detailLevel' => 'line'] + $templateOptions
+            );
+
+            echo $result;
+
+        ?>
+
         <h1>Word-level Diff</h1>
         <?php
 
