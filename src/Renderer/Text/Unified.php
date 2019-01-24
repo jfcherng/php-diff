@@ -27,7 +27,6 @@ class Unified extends AbstractText
     {
         $ret = '';
 
-        // var_dump($this->diff->getGroupedOpcodes());
         foreach ($this->diff->getGroupedOpcodes() as $opcodes) {
             $lastItem = \count($opcodes) - 1;
 
