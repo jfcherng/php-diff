@@ -2,6 +2,12 @@
 VERSION 3  OPTIONS CHANGED
 ==========================
 
+   Version 3.2 - add none-level diff[D
+      24/01/2019 12:49  3.2.0  initial release
+         9e6e37a Add none-level diff
+         5e05555 Add line-level diff to example.php
+         cdc19df Unroll if-conditions for ReverseIterator::fromArray()
+
    Version 3.1 - word-level diff
       22/01/2019 15:32  3.1.4  fix render options[D[D[D[D[D[D[D[Der
          d7dbacf Fix render options
