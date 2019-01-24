@@ -52,7 +52,7 @@ final class LineRendererFactory
      */
     public static function make(string $type, ...$ctorArgs): AbstractLineRenderer
     {
-        $className = RendererConstant::RENDERER_NAMESPACE . '\\HTML\\LineRenderer\\' . \ucfirst($type);
+        $className = RendererConstant::RENDERER_NAMESPACE . '\\Html\\LineRenderer\\' . \ucfirst($type);
 
         if (!\class_exists($className)) {
             throw new InvalidArgumentException("LineRenderer not found: {$type}");
