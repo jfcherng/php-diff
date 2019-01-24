@@ -33,32 +33,32 @@ final class RendererFactory
      */
     public static function getInstance(string $template): AbstractRenderer
     {
-        if (!isset(static::$singletons[$template])) {
-            static::$singletons[$template] = static::make($template);
+        if (!isset(self::$singletons[$template])) {
+            self::$singletons[$template] = self::make($template);
         }
 
-        return static::$singletons[$template];
+        return self::$singletons[$template];
     }
 
     /**
      * Make a new instance of a template.
      *
-     * @param string $template        the template
-     * @param array  $templateOptions the template options
+     * @param string $template    the template
+     * @param mixed  ...$ctorArgs the constructor arguments
      *
      * @throws InvalidArgumentException
      *
      * @return AbstractRenderer
      */
-    public static function make(string $template, array $templateOptions = []): AbstractRenderer
+    public static function make(string $template, ...$ctorArgs): AbstractRenderer
     {
-        $className = static::resolveTemplate($template);
+        $className = self::resolveTemplate($template);
 
         if (!isset($className)) {
             throw new InvalidArgumentException("Template not found: {$template}");
         }
 
-        return new $className($templateOptions);
+        return new $className(...$ctorArgs);
     }
 
     /**

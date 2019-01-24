@@ -29,8 +29,8 @@ class Json extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    const CLOSURES_INS = ["\2", "\3"];
-    const CLOSURES_DEL = ["\2", "\4"];
+    const HTML_CLOSURES_INS = ["\2", "\3"];
+    const HTML_CLOSURES_DEL = ["\2", "\4"];
 
     /**
      * {@inheritdoc}
