@@ -129,10 +129,6 @@ abstract class AbstractHtml extends AbstractRenderer
     {
         static $mbFrom, $mbTo;
 
-        if ($from === $to) {
-            return $this;
-        }
-
         $mbFrom = $mbFrom ?? new MbString('', 'UTF-8');
         $mbTo = $mbTo ?? new MbString('', 'UTF-8');
 
