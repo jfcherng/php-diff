@@ -2,6 +2,11 @@
 VERSION 3  OPTIONS CHANGED
 ==========================
 
+   Version 3.3 - JSON format language files
+      25/01/2019 01:06  3.3.0  initial release
+         395b802 Use JSON format language files
+         c299e39 Remove debug codes
+
    Version 3.2 - add none-level diff[D
       24/01/2019 23:54  3.2.6  nits
          7d9ca9c Code tidy

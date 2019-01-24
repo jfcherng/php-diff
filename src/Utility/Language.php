@@ -96,7 +96,7 @@ class Language
             throw new FileNotFoundException($file);
         }
 
-        return json_decode(file_get_contents($file), true);
+        return \json_decode(\file_get_contents($file), true);
     }
 
     /**
