@@ -8,6 +8,8 @@ use Jfcherng\Diff\Utility\SequenceMatcher;
 
 /**
  * Context diff generator.
+ *
+ * @see https://en.wikipedia.org/wiki/Diff#Context_format
  */
 class Context extends AbstractText
 {
@@ -43,25 +45,32 @@ class Context extends AbstractText
             $j1 = $opcodes[0][3];
             $j2 = $opcodes[$lastItem][4];
 
-            $separatorFrom =
-                '*** ' .
-                ($i2 - $i1 >= 2 ? ($i1 + 1) . ',' . $i2 : $i2) .
-                " ****\n";
-
-            $separatorTo =
-                '--- ' .
-                ($j2 - $j1 >= 2 ? ($j1 + 1) . ',' . $j2 : $j2) .
-                " ----\n";
-
             $ret .=
                 "***************\n" .
-                $separatorFrom .
+                $this->renderBlockHeader('*', $i1, $i2) .
                 $this->renderBlockFrom($opcodes) .
-                $separatorTo .
+                $this->renderBlockHeader('-', $j1, $j2) .
                 $this->renderBlockTo($opcodes);
         }
 
         return $ret;
+    }
+
+    /**
+     * Render the block header.
+     *
+     * @param string $delimiter the delimiter
+     * @param int    $a1        the a1
+     * @param int    $a2        the a2
+     *
+     * @return string
+     */
+    protected function renderBlockHeader(string $delimiter, int $a1, int $a2): string
+    {
+        return
+            "{$delimiter}{$delimiter}{$delimiter} " .
+            ($a2 - $a1 >= 2 ? ($a1 + 1) . ',' . $a2 : $a2) .
+            " {$delimiter}{$delimiter}{$delimiter}{$delimiter}\n";
     }
 
     /**

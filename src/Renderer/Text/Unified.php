@@ -8,6 +8,8 @@ use Jfcherng\Diff\Utility\SequenceMatcher;
 
 /**
  * Unified diff generator.
+ *
+ * @see https://en.wikipedia.org/wiki/Diff#Unified_format
  */
 class Unified extends AbstractText
 {
@@ -38,7 +40,7 @@ class Unified extends AbstractText
                 $i1 = $i2 = -1;
             }
 
-            $ret .= '@@ -' . ($i1 + 1) . ',' . ($i2 - $i1) . ' +' . ($j1 + 1) . ',' . ($j2 - $j1) . " @@\n";
+            $ret .= $this->renderBlockHeader($i1 + 1, $i2 - $i1, $j1 + 1, $j2 - $j1);
 
             foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
                 if ($tag === SequenceMatcher::OPCODE_EQUAL) {
@@ -64,6 +66,21 @@ class Unified extends AbstractText
         }
 
         return $ret;
+    }
+
+    /**
+     * Render the block header.
+     *
+     * @param int $a1 the a1
+     * @param int $a2 the a2
+     * @param int $b1 the b1
+     * @param int $b2 the b2
+     *
+     * @return string
+     */
+    protected function renderBlockHeader(int $a1, int $a2, int $b1, int $b2): string
+    {
+        return "@@ -{$a1},{$a2} +{$b1},{$b2} @@\n";
     }
 
     /**
