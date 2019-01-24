@@ -10,7 +10,7 @@ use Jfcherng\Diff\Utility\Language;
 /**
  * Abstract class for diff renderers.
  */
-abstract class AbstractRenderer implements RendererInterface, PreservedConstantInterface
+abstract class AbstractRenderer implements RendererInterface, ReservedConstantInterface
 {
     /**
      * @var array information about this template

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer;
 
-interface PreservedConstantInterface
+interface ReservedConstantInterface
 {
     /**
      * Closures that are used to enclose partial strings.
