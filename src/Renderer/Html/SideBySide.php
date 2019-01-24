@@ -72,8 +72,7 @@ class SideBySide extends AbstractHtml
         return
             '<tbody class="skipped">' .
                 '<tr>' .
-                    '<th>…</th><td></td>' .
-                    '<th>…</th><td></td>' .
+                    '<td colspan="4"></td>' .
                 '</tr>' .
             '</tbody>';
     }

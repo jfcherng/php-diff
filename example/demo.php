@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <title>jfcherng/php-diff - Examples</title>
-        <link href="./styles.css" rel="stylesheet" type="text/css" />
+        <link href="./diff-table.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <?php

@@ -74,10 +74,7 @@ class Inline extends AbstractHtml
         return
             '<tbody class="skipped">' .
                 '<tr>' .
-                    '<th>…</th>' .
-                    '<th>…</th>' .
-                    '<th class="sign"></th>' .
-                    '<td></td>' .
+                    '<td colspan="4"></td>' .
                 '</tr>' .
             '</tbody>';
     }

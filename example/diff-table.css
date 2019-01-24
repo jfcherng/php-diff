@@ -1,21 +1,22 @@
-@charset "UTF-8";
-
+/**
+ * compiled by https://www.sassmeister.com with
+ *
+ * - Sass v3.4.25
+ */
 .diff {
   border-collapse: collapse;
   border-spacing: 0;
   border: 1px solid #000;
   color: #000;
   empty-cells: show;
-  font-family: consolas;
+  font-family: consolas, pmingliu, simhei;
   font-size: 13px;
   width: 100%;
   word-break: break-all;
 }
-
 .diff th {
   font-weight: 700;
 }
-
 .diff td,
 .diff th {
   border-collapse: separate;
@@ -23,21 +24,25 @@
   padding: 1px 2px;
   background: #fff;
 }
-
 .diff td a,
 .diff th a {
   color: #000;
   cursor: inherit;
   pointer-events: none;
 }
-
 .diff thead th {
   background: #aaa;
   border-bottom: 1px solid #000;
   padding: 4px;
   text-align: left;
 }
-
+.diff tbody.skipped {
+  border-top: 1px solid #000;
+}
+.diff tbody.skipped td,
+.diff tbody.skipped th {
+  display: none;
+}
 .diff tbody th {
   background: #ccc;
   border-right: 1px solid #000;
@@ -45,7 +50,6 @@
   vertical-align: top;
   width: 4em;
 }
-
 .diff tbody th.sign {
   background: #fff;
   border-right: none;
@@ -53,42 +57,45 @@
   text-align: center;
   width: 1em;
 }
-
 .diff tbody th.sign.del {
   background: #fbe1e1;
 }
-
 .diff tbody th.sign.ins {
   background: #e1fbe1;
 }
-
 .diff.diff-html {
   white-space: pre-wrap;
 }
-
-.diff.diff-html .change .old {
-  background: #fbe1e1;
-}
-
-.diff.diff-html .change .new {
-  background: #e1fbe1;
-}
-
 .diff.diff-html .change.change-eq .old,
 .diff.diff-html .change.change-eq .new {
   background: #fff;
 }
-
+.diff.diff-html .change .old {
+  background: #fbe1e1;
+}
+.diff.diff-html .change .new {
+  background: #e1fbe1;
+}
 .diff.diff-html .change ins,
 .diff.diff-html .change del {
   font-weight: 700;
   text-decoration: none;
 }
-
 .diff.diff-html .change ins {
   background: #8e8;
 }
-
 .diff.diff-html .change del {
   background: #e88;
+}
+.diff.diff-html .edit-container:hover {
+  box-shadow: 0 0 8px 2px #888;
+  position: relative;
+  z-index: 5;
+}
+.diff.diff-html .edit-container.edited {
+  background: #e1e1fb;
+}
+.diff.diff-html .edit {
+  display: block;
+  outline: none;
 }

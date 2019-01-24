@@ -1,0 +1,138 @@
+@import "compass/css3";
+
+.diff {
+  $bgcolor: #fff;
+  $bgcolor-edit-highlight: #88e;
+  $bgcolor-insert-highlight: #8e8;
+  $bgcolor-delete-highlight: #e88;
+
+  $bgcolor-edit: tint($bgcolor-edit-highlight, 75%);
+  $bgcolor-insert: tint($bgcolor-insert-highlight, 75%);
+  $bgcolor-delete: tint($bgcolor-delete-highlight, 75%);
+
+  $table-head-color: #aaa;
+  $table-sidebar-color: #ccc;
+  $border-color: #000;
+
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid $border-color;
+  color: #000;
+  empty-cells: show;
+  font-family: consolas, pmingliu, simhei;
+  font-size: 13px;
+  width: 100%;
+  word-break: break-all;
+
+  th {
+    font-weight: 700;
+  }
+
+  td,
+  th {
+    border-collapse: separate;
+    border: none;
+    padding: 1px 2px;
+    background: $bgcolor;
+
+    a {
+      color: #000;
+      cursor: inherit;
+      pointer-events: none;
+    }
+  }
+
+  thead th {
+    background: $table-head-color;
+    border-bottom: 1px solid $border-color;
+    padding: 4px;
+    text-align: left;
+  }
+
+  tbody {
+    &.skipped {
+      border-top: 1px solid #000;
+
+      td,
+      th {
+        display: none;
+      }
+    }
+
+    th {
+      background: $table-sidebar-color;
+      border-right: 1px solid $border-color;
+      text-align: right;
+      vertical-align: top;
+      width: 4em;
+
+      &.sign {
+        background: $bgcolor;
+        border-right: none;
+        padding: 1px 0;
+        text-align: center;
+        width: 1em;
+
+        &.del {
+          background: $bgcolor-delete;
+        }
+
+        &.ins {
+          background: $bgcolor-insert;
+        }
+      }
+    }
+  }
+
+  &.diff-html {
+    white-space: pre-wrap;
+
+    .change {
+      &.change-eq {
+        .old,
+        .new {
+          background: $bgcolor;
+        }
+      }
+
+      .old {
+        background: $bgcolor-delete;
+      }
+
+      .new {
+        background: $bgcolor-insert;
+      }
+
+      ins,
+      del {
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      ins {
+        background: $bgcolor-insert-highlight;
+      }
+
+      del {
+        background: $bgcolor-delete-highlight;
+      }
+    }
+
+    .edit-container {
+      &:hover {
+        box-shadow: 0 0 8px 2px #888;
+        position: relative;
+        z-index: 5;
+      }
+
+      &.edited {
+        background: $bgcolor-edit;
+      }
+    }
+
+    .edit {
+      display: block;
+      outline: none;
+    }
+  }
+}
