@@ -3,6 +3,10 @@ VERSION 3  OPTIONS CHANGED
 ==========================
 
    Version 3.2 - add none-level diff[D
+      24/01/2019 23:54  3.2.6  nits
+         7d9ca9c Code tidy
+         ce5273a Code tidy
+         42bdf83 Remove a unnecesary "else"
       24/01/2019 19:44  3.2.5  minify diff table block separator
          215f300 Change diff table block separator rendering
          08f3cf7 Remove extra empty lines when setting context to 0
