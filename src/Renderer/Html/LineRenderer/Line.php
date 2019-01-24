@@ -13,7 +13,7 @@ class Line extends AbstractLineRenderer
      */
     public function render(MbString $mbFrom, MbString $mbTo): LineRendererInterface
     {
-        [$start, $end] = $this->getChangeExtentBeginEnd($mbFrom, $mbTo);
+        [$start, $end] = $this->getChangedExtentBeginEnd($mbFrom, $mbTo);
 
         // two strings are the same
         if ($end === 0) {
@@ -45,7 +45,7 @@ class Line extends AbstractLineRenderer
      * @return array Array containing the starting position (non-negative) and the ending position (negative)
      *               [0, 0] if two strings are the same
      */
-    protected function getChangeExtentBeginEnd(MbString $mbFrom, MbString $mbTo): array
+    protected function getChangedExtentBeginEnd(MbString $mbFrom, MbString $mbTo): array
     {
         // two strings are the same
         // most lines should be this cases, an early return could save many function calls

@@ -20,7 +20,7 @@ class Word extends AbstractLineRenderer
         $fromWords = $mbFrom->toArraySplit("/([{$punctuations}])/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
         $toWords = $mbTo->toArraySplit("/([{$punctuations}])/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
 
-        $opcodes = $this->getChangeExtentSegments($fromWords, $toWords);
+        $opcodes = $this->getChangedExtentSegments($fromWords, $toWords);
 
         // reversely iterate opcodes
         foreach (ReverseIterator::fromArray($opcodes) as [$tag, $i1, $i2, $j1, $j2]) {

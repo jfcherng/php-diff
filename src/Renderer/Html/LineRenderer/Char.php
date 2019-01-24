@@ -15,7 +15,7 @@ class Char extends AbstractLineRenderer
      */
     public function render(MbString $mbFrom, MbString $mbTo): LineRendererInterface
     {
-        $opcodes = $this->getChangeExtentSegments($mbFrom->toArray(), $mbTo->toArray());
+        $opcodes = $this->getChangedExtentSegments($mbFrom->toArray(), $mbTo->toArray());
 
         // reversely iterate opcodes
         foreach (ReverseIterator::fromArray($opcodes) as [$tag, $i1, $i2, $j1, $j2]) {
