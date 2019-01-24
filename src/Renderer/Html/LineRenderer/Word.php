@@ -15,7 +15,12 @@ class Word extends AbstractLineRenderer
      */
     public function render(MbString $mbFrom, MbString $mbTo): LineRendererInterface
     {
-        static $punctuations = ' $,.:;!?\'"()\[\]{}%@<=>_+\-*\/~\\\\|';
+        static $punctuations = (
+            ' $,.:;!?\'"()\[\]{}%@<=>_+\-*\/~\\\\|' .
+            '　＄，．：；！？’＂（）［］｛｝％＠＜＝＞＿＋－＊／～＼｜' .
+            '「」『』〈〉《》【】()）（‘’“”' .
+            '．‧・･•·'
+        );
 
         $fromWords = $mbFrom->toArraySplit("/([{$punctuations}])/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
         $toWords = $mbTo->toArraySplit("/([{$punctuations}])/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
