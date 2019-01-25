@@ -7,7 +7,7 @@ namespace Jfcherng\Diff;
 use Jfcherng\Diff\Renderer\RendererConstant;
 use Jfcherng\Diff\Utility\RendererFactory;
 
-class DiffHelper
+final class DiffHelper
 {
     /**
      * Get the information about available templates.

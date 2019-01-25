@@ -6,7 +6,7 @@ namespace Jfcherng\Diff\Utility;
 
 use Generator;
 
-class ReverseIterator
+final class ReverseIterator
 {
     const ITERATOR_GET_KEY = 1 << 1;
     const ITERATOR_GET_BOTH = 1 << 2;

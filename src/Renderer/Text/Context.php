@@ -11,7 +11,7 @@ use Jfcherng\Diff\Utility\SequenceMatcher;
  *
  * @see https://en.wikipedia.org/wiki/Diff#Context_format
  */
-class Context extends AbstractText
+final class Context extends AbstractText
 {
     /**
      * {@inheritdoc}

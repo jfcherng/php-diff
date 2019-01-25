@@ -9,7 +9,7 @@ use Jfcherng\Diff\Utility\SequenceMatcher;
 /**
  * Side by Side HTML diff generator.
  */
-class SideBySide extends AbstractHtml
+final class SideBySide extends AbstractHtml
 {
     /**
      * {@inheritdoc}

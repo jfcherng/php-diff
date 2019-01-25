@@ -7,7 +7,7 @@ namespace Jfcherng\Diff\Exception;
 use Exception;
 use Throwable;
 
-class FileNotFoundException extends Exception
+final class FileNotFoundException extends Exception
 {
     public function __construct(string $filepath = '', int $code = 0, Throwable $previous = null)
     {

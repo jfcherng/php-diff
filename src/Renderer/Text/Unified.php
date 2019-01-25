@@ -11,7 +11,7 @@ use Jfcherng\Diff\Utility\SequenceMatcher;
  *
  * @see https://en.wikipedia.org/wiki/Diff#Unified_format
  */
-class Unified extends AbstractText
+final class Unified extends AbstractText
 {
     /**
      * {@inheritdoc}

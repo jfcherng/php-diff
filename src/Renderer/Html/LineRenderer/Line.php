@@ -6,7 +6,7 @@ namespace Jfcherng\Diff\Renderer\Html\LineRenderer;
 
 use Jfcherng\Utility\MbString;
 
-class Line extends AbstractLineRenderer
+final class Line extends AbstractLineRenderer
 {
     /**
      * {@inheritdoc}

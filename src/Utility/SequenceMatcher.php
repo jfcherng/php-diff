@@ -11,7 +11,7 @@ namespace Jfcherng\Diff\Utility;
  *
  * @see https://docs.python.org/3/library/difflib.html
  */
-class SequenceMatcher
+final class SequenceMatcher
 {
     const OPCODE_DELETE = 'del';
     const OPCODE_EQUAL = 'eq';
@@ -21,37 +21,37 @@ class SequenceMatcher
     /**
      * @var null|callable either a string or an array containing a callback function to determine if a line is "junk" or not
      */
-    protected $junkCallback;
+    private $junkCallback;
 
     /**
      * @var array the first sequence to compare against
      */
-    protected $a = [];
+    private $a = [];
 
     /**
      * @var array the second sequence
      */
-    protected $b = [];
+    private $b = [];
 
     /**
      * @var array Array of characters that are considered junk from the second sequence. Characters are the array key.
      */
-    protected $junkDict = [];
+    private $junkDict = [];
 
     /**
      * @var array array of indices that do not contain junk elements
      */
-    protected $b2j = [];
+    private $b2j = [];
 
     /**
      * @var array
      */
-    protected $options = [];
+    private $options = [];
 
     /**
      * @var array
      */
-    protected static $defaultOptions = [
+    private static $defaultOptions = [
         'ignoreWhitespace' => false,
         'ignoreCase' => false,
     ];
@@ -59,17 +59,17 @@ class SequenceMatcher
     /**
      * @var array
      */
-    protected $fullBCount = [];
+    private $fullBCount = [];
 
     /**
      * @var array
      */
-    protected $matchingBlocks = [];
+    private $matchingBlocks = [];
 
     /**
      * @var array
      */
-    protected $opcodes = [];
+    private $opcodes = [];
 
     /**
      * The constructor. With the sequences being passed, they'll be set
@@ -533,7 +533,7 @@ class SequenceMatcher
      *
      * @return self
      */
-    protected function chainB(): self
+    private function chainB(): self
     {
         $length = \count($this->b);
         $this->b2j = [];
@@ -590,7 +590,7 @@ class SequenceMatcher
      *
      * @return bool $b True if the character is considered junk. False if not.
      */
-    protected function isBJunk(string $b): bool
+    private function isBJunk(string $b): bool
     {
         return isset($this->junkDict[$b]);
     }
@@ -601,7 +601,7 @@ class SequenceMatcher
      *
      * @return float the calculated ratio
      */
-    protected function quickRatio(): float
+    private function quickRatio(): float
     {
         $aCount = \count($this->a);
         $bCount = \count($this->b);
@@ -634,7 +634,7 @@ class SequenceMatcher
      *
      * @return float the calculated ratio
      */
-    protected function realQuickRatio(): float
+    private function realQuickRatio(): float
     {
         $aCount = \count($this->a);
         $bCount = \count($this->b);
@@ -651,7 +651,7 @@ class SequenceMatcher
      *
      * @return float the calculated ratio
      */
-    protected function calculateRatio(int $matchesCount, int $length = 0): float
+    private function calculateRatio(int $matchesCount, int $length = 0): float
     {
         return $length ? ($matchesCount << 1) / $length : 1;
     }

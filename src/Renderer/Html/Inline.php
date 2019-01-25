@@ -9,7 +9,7 @@ use Jfcherng\Diff\Utility\SequenceMatcher;
 /**
  * Inline HTML diff generator.
  */
-class Inline extends AbstractHtml
+final class Inline extends AbstractHtml
 {
     /**
      * {@inheritdoc}

@@ -16,7 +16,7 @@ use Jfcherng\Diff\Utility\SequenceMatcher;
  *
  * @see http://github.com/chrisboulton/php-diff
  */
-class Diff
+final class Diff
 {
     /**
      * @var array array of the options that have been applied for generating the diff
@@ -26,27 +26,27 @@ class Diff
     /**
      * @var string[] the "old" sequence to use as the basis for the comparison
      */
-    protected $a = [];
+    private $a = [];
 
     /**
      * @var string[] the "new" sequence to generate the changes for
      */
-    protected $b = [];
+    private $b = [];
 
     /**
      * @var null|SequenceMatcher the sequence matcher
      */
-    protected $sequenceMatcher;
+    private $sequenceMatcher;
 
     /**
      * @var null|array array containing the generated opcodes for the differences between the two items
      */
-    protected $groupedCodes;
+    private $groupedCodes;
 
     /**
      * @var array associative array of the default options available for the diff class and their default value
      */
-    protected static $defaultOptions = [
+    private static $defaultOptions = [
         // show how many neighbor lines
         'context' => 3,
         // ignore case difference
@@ -231,7 +231,7 @@ class Diff
      *
      * @return string[] array of all of the lines between the specified range
      */
-    protected function getText(array $lines, int $start = 0, ?int $end = null): array
+    private function getText(array $lines, int $start = 0, ?int $end = null): array
     {
         if ($start === 0 && (!isset($end) || $end === \count($lines))) {
             return $lines;

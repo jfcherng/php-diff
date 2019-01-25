@@ -8,7 +8,7 @@ use Jfcherng\Diff\Utility\ReverseIterator;
 use Jfcherng\Diff\Utility\SequenceMatcher;
 use Jfcherng\Utility\MbString;
 
-class Word extends AbstractLineRenderer
+final class Word extends AbstractLineRenderer
 {
     /**
      * {@inheritdoc}

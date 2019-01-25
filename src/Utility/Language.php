@@ -7,17 +7,17 @@ namespace Jfcherng\Diff\Utility;
 use InvalidArgumentException;
 use Jfcherng\Diff\Exception\FileNotFoundException;
 
-class Language
+final class Language
 {
     /**
      * @var string[] the translation dict
      */
-    protected $translations = [];
+    private $translations = [];
 
     /**
      * @var string the language name
      */
-    protected $language = '_custom_';
+    private $language = '_custom_';
 
     /**
      * The constructor.
@@ -120,7 +120,7 @@ class Language
      *
      * @return self
      */
-    protected function setLanguage(string $language): self
+    private function setLanguage(string $language): self
     {
         $this->language = $language;
         $this->translations = $this->getTranslationsByLanguage($language);
@@ -135,7 +135,7 @@ class Language
      *
      * @return self
      */
-    protected function setTranslations(array $translations): self
+    private function setTranslations(array $translations): self
     {
         $this->language = '_custom_';
         $this->translations = $translations;

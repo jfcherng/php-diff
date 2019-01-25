@@ -7,7 +7,7 @@ namespace Jfcherng\Diff\Renderer\Html;
 /**
  * Json diff generator.
  */
-class Json extends AbstractHtml
+final class Json extends AbstractHtml
 {
     /**
      * {@inheritdoc}
