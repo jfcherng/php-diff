@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html;
 
-use InvalidArgumentException;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Renderer\Html\LineRenderer\AbstractLineRenderer;
 use Jfcherng\Diff\Utility\LineRendererFactory;
@@ -121,7 +120,7 @@ abstract class AbstractHtml extends AbstractRenderer
      * @param string               $from         the from line
      * @param string               $to           the to line
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return self
      */

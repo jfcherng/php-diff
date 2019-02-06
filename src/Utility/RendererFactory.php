@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Utility;
 
-use InvalidArgumentException;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Renderer\RendererConstant;
 
@@ -46,7 +45,7 @@ final class RendererFactory
      * @param string $template    the template
      * @param mixed  ...$ctorArgs the constructor arguments
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return AbstractRenderer
      */
@@ -55,7 +54,7 @@ final class RendererFactory
         $className = self::resolveTemplate($template);
 
         if (!isset($className)) {
-            throw new InvalidArgumentException("Template not found: {$template}");
+            throw new \InvalidArgumentException("Template not found: {$template}");
         }
 
         return new $className(...$ctorArgs);

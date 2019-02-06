@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Utility;
 
-use InvalidArgumentException;
 use Jfcherng\Diff\Exception\FileNotFoundException;
 
 final class Language
@@ -24,8 +23,8 @@ final class Language
      *
      * @param string|string[] $langOrTrans the language string or translations array
      *
-     * @throws InvalidArgumentException
-     * @throws FileNotFoundException    language file not found
+     * @throws \InvalidArgumentException
+     * @throws FileNotFoundException     language file not found
      */
     public function __construct($langOrTrans = 'eng')
     {
@@ -37,8 +36,8 @@ final class Language
      *
      * @param string|string[] $langOrTrans the language string or translations array
      *
-     * @throws InvalidArgumentException
-     * @throws FileNotFoundException    language file not found
+     * @throws \InvalidArgumentException
+     * @throws FileNotFoundException     language file not found
      *
      * @return self
      */
@@ -56,7 +55,7 @@ final class Language
             return $this;
         }
 
-        throw new InvalidArgumentException('$langOrTrans must be either string or array');
+        throw new \InvalidArgumentException('$langOrTrans must be either string or array');
     }
 
     /**

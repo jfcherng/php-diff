@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Utility;
 
-use InvalidArgumentException;
 use Jfcherng\Diff\Renderer\Html\LineRenderer\AbstractLineRenderer;
 use Jfcherng\Diff\Renderer\RendererConstant;
 
@@ -46,7 +45,7 @@ final class LineRendererFactory
      * @param string $type        the type
      * @param mixed  ...$ctorArgs the constructor arguments
      *
-     * @throws InvalidArgumentException
+     * @throws \InvalidArgumentException
      *
      * @return AbstractLineRenderer
      */
@@ -55,7 +54,7 @@ final class LineRendererFactory
         $className = RendererConstant::RENDERER_NAMESPACE . '\\Html\\LineRenderer\\' . \ucfirst($type);
 
         if (!\class_exists($className)) {
-            throw new InvalidArgumentException("LineRenderer not found: {$type}");
+            throw new \InvalidArgumentException("LineRenderer not found: {$type}");
         }
 
         return new $className(...$ctorArgs);
