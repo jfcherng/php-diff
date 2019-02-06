@@ -1,9 +1,9 @@
 # some IDE things
+*.cache
 .idea/
 .tags*
 /.web-server-pid
 **/oracle.sqlite
-.php_cs.cache
 
 # composer
 vendor/
