@@ -50,7 +50,7 @@ EOT
     /**
      * Test the Diff::getGroupedOpcodes.
      *
-     * @covers       \Jfcherng\Utility\Diff::getGroupedOpcodes
+     * @covers       \Jfcherng\Diff\Diff::getGroupedOpcodes
      * @dataProvider getGroupedOpcodesDataProvider
      *
      * @param string $old      the old

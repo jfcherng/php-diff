@@ -107,7 +107,7 @@ final class Language
      */
     public function translate(string $text): string
     {
-        return $this->translations[$text] ?? "![${text}]";
+        return $this->translations[$text] ?? "![{$text}]";
     }
 
     /**
