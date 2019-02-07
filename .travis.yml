@@ -4,7 +4,6 @@ php:
   - 7.1
   - 7.2
   - 7.3
-  - nightly
 
 cache:
   directories:
@@ -14,7 +13,8 @@ before_install:
   - pecl install -f ast
 
 install:
-  - composer install --prefer-dist --no-progress --ignore-platform-reqs
+  - rm -f composer.lock  # temporary fix for PHPUnit 8
+  - composer install --prefer-dist --no-progress
 
 script:
   - composer analyze
