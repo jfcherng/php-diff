@@ -9,7 +9,7 @@
   border: 1px solid #000;
   color: #000;
   empty-cells: show;
-  font-family: consolas, pmingliu, simhei;
+  font-family: monospace;
   font-size: 13px;
   width: 100%;
   word-break: break-all;
