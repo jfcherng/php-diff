@@ -41,7 +41,7 @@ include __DIR__ . '/vendor/autoload.php';
 
 use Jfcherng\Diff\Diff;
 use Jfcherng\Diff\DiffHelper;
-use Jfcherng\Diff\Utility\RendererFactory;
+use Jfcherng\Diff\Factory\RendererFactory;
 
 $old = 'This is the old string.';
 $new = 'And this is the new one.';

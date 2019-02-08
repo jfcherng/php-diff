@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Jfcherng\Diff\Utility;
+namespace Jfcherng\Diff\Factory;
 
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Renderer\RendererConstant;

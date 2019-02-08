@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff;
 
+use Jfcherng\Diff\Factory\RendererFactory;
 use Jfcherng\Diff\Renderer\RendererConstant;
-use Jfcherng\Diff\Utility\RendererFactory;
 
 final class DiffHelper
 {

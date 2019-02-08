@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html;
 
+use Jfcherng\Diff\Factory\LineRendererFactory;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Renderer\Html\LineRenderer\AbstractLineRenderer;
 use Jfcherng\Diff\Renderer\RendererConstant;
 use Jfcherng\Diff\SequenceMatcher;
-use Jfcherng\Diff\Utility\LineRendererFactory;
 use Jfcherng\Utility\MbString;
 
 /**
