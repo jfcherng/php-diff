@@ -10,6 +10,13 @@ use Jfcherng\Diff\Utility\RendererFactory;
 final class DiffHelper
 {
     /**
+     * The constructor.
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * Get the information about available templates.
      *
      * @return array
