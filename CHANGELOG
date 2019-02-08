@@ -1,4 +1,22 @@
 
+VERSION 4  STRIP OUT THE SEQUENCEMATCHER
+========================================
+
+   Version 4.0 - Strip out the SequenceMatcher
+      08/02/2019 10:04  4.0.0  initial release
+         fac4dae nits
+         b6fa08d Strip out SequenceMatcher as an external package
+         2349bb2 Demo uses "font-family: monospace"
+         ed3f47c Temporary fix for CI
+         538f270 Update tests
+         11cf372 Fix typos
+         d56ad7e Use native exceptions
+         67351d1 Update deps
+         8b14dae Add "final" to classes non-inherited
+         ee6e5a3 Add UTF-8-ready demo
+         bf686a2 Prepare for being a new package
+         04fb079 nits
+
 VERSION 3  OPTIONS CHANGED
 ==========================
 
