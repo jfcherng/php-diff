@@ -136,7 +136,7 @@ final class Diff
     }
 
     /**
-     * Get a range of lines from $start to $end from the second comparison string
+     * Get a range of lines from $start to $end from the first comparison string
      * and return them as an array. If no values are supplied, the entire string
      * is returned. It's also possible to specify just one line to return only
      * that line.
