@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Text;
 
-use Jfcherng\Diff\Utility\SequenceMatcher;
+use Jfcherng\Diff\SequenceMatcher;
 
 /**
  * Context diff generator.

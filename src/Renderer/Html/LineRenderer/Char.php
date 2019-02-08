@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html\LineRenderer;
 
+use Jfcherng\Diff\SequenceMatcher;
 use Jfcherng\Diff\Utility\ReverseIterator;
-use Jfcherng\Diff\Utility\SequenceMatcher;
 use Jfcherng\Utility\MbString;
 
 final class Char extends AbstractLineRenderer

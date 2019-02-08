@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2a356c19d7ad9b752df3170845f35af0",
+    "content-hash": "18cbfe07136dc9b751267cf0f8f68929",
     "packages": [
         {
             "name": "jfcherng/php-mb-string",
@@ -47,6 +47,51 @@
             ],
             "description": "An implementation targeting high performance for frequently reading/writing operations.",
             "time": "2019-01-22T05:47:03+00:00"
+        },
+        {
+            "name": "jfcherng/php-sequence-matcher",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jfcherng/php-sequence-matcher.git",
+                "reference": "41b0e2ceb396f35246c62e8eb14c42c1275a675b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/41b0e2ceb396f35246c62e8eb14c42c1275a675b",
+                "reference": "41b0e2ceb396f35246c62e8eb14c42c1275a675b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.14",
+                "phan/phan": "^1.2",
+                "phpunit/phpunit": "^7.2 || ^8.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Jfcherng\\Diff\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Jack Cherng",
+                    "email": "jfcherng@gmail.com"
+                },
+                {
+                    "name": "Chris Boulton",
+                    "email": "chris.boulton@interspire.com"
+                }
+            ],
+            "description": "A longest sequence matcher.",
+            "time": "2019-02-08T01:39:39+00:00"
         }
     ],
     "packages-dev": [
@@ -1333,16 +1378,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.0.1",
+            "version": "8.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "753a192050133fc649234de34d1993d87785b134"
+                "reference": "d64e502503bcfab5d46c0b74ffd41f4986831dc7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/753a192050133fc649234de34d1993d87785b134",
-                "reference": "753a192050133fc649234de34d1993d87785b134",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d64e502503bcfab5d46c0b74ffd41f4986831dc7",
+                "reference": "d64e502503bcfab5d46c0b74ffd41f4986831dc7",
                 "shasum": ""
             },
             "require": {
@@ -1411,7 +1456,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-02-03T17:34:56+00:00"
+            "time": "2019-02-07T14:17:09+00:00"
         },
         {
             "name": "psr/log",

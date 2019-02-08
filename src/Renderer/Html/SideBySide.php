@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html;
 
-use Jfcherng\Diff\Utility\SequenceMatcher;
+use Jfcherng\Diff\SequenceMatcher;
 
 /**
  * Side by Side HTML diff generator.

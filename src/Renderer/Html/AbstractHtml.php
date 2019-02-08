@@ -6,8 +6,8 @@ namespace Jfcherng\Diff\Renderer\Html;
 
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Renderer\Html\LineRenderer\AbstractLineRenderer;
+use Jfcherng\Diff\SequenceMatcher;
 use Jfcherng\Diff\Utility\LineRendererFactory;
-use Jfcherng\Diff\Utility\SequenceMatcher;
 use Jfcherng\Utility\MbString;
 
 /**

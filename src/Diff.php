@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Jfcherng\Diff;
 
 use Jfcherng\Diff\Renderer\AbstractRenderer;
-use Jfcherng\Diff\Utility\SequenceMatcher;
 
 /**
  * A comprehensive library for generating differences between two strings

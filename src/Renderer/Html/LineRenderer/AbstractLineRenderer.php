@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Jfcherng\Diff\Renderer\Html\LineRenderer;
 
 use Jfcherng\Diff\Renderer\ReservedConstantInterface;
-use Jfcherng\Diff\Utility\SequenceMatcher;
+use Jfcherng\Diff\SequenceMatcher;
 
 abstract class AbstractLineRenderer implements LineRendererInterface, ReservedConstantInterface
 {
