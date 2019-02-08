@@ -4,10 +4,9 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html\LineRenderer;
 
-use Jfcherng\Diff\Renderer\ReservedConstantInterface;
 use Jfcherng\Diff\SequenceMatcher;
 
-abstract class AbstractLineRenderer implements LineRendererInterface, ReservedConstantInterface
+abstract class AbstractLineRenderer implements LineRendererInterface
 {
     /**
      * @var SequenceMatcher the sequence matcher

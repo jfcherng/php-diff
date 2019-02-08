@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html\LineRenderer;
 
+use Jfcherng\Diff\Renderer\RendererConstant;
 use Jfcherng\Diff\SequenceMatcher;
 use Jfcherng\Diff\Utility\ReverseIterator;
 use Jfcherng\Utility\MbString;
@@ -21,14 +22,14 @@ final class Char extends AbstractLineRenderer
         foreach (ReverseIterator::fromArray($opcodes) as [$tag, $i1, $i2, $j1, $j2]) {
             switch ($tag) {
                 case SequenceMatcher::OPCODE_DELETE:
-                    $mbFrom->str_enclose_i(self::HTML_CLOSURES, $i1, $i2 - $i1);
+                    $mbFrom->str_enclose_i(RendererConstant::HTML_CLOSURES, $i1, $i2 - $i1);
                     break;
                 case SequenceMatcher::OPCODE_INSERT:
-                    $mbTo->str_enclose_i(self::HTML_CLOSURES, $j1, $j2 - $j1);
+                    $mbTo->str_enclose_i(RendererConstant::HTML_CLOSURES, $j1, $j2 - $j1);
                     break;
                 case SequenceMatcher::OPCODE_REPLACE:
-                    $mbFrom->str_enclose_i(self::HTML_CLOSURES, $i1, $i2 - $i1);
-                    $mbTo->str_enclose_i(self::HTML_CLOSURES, $j1, $j2 - $j1);
+                    $mbFrom->str_enclose_i(RendererConstant::HTML_CLOSURES, $i1, $i2 - $i1);
+                    $mbTo->str_enclose_i(RendererConstant::HTML_CLOSURES, $j1, $j2 - $j1);
                     break;
                 default:
                     continue 2;

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html\LineRenderer;
 
+use Jfcherng\Diff\Renderer\RendererConstant;
 use Jfcherng\Utility\MbString;
 
 final class Line extends AbstractLineRenderer
@@ -22,12 +23,12 @@ final class Line extends AbstractLineRenderer
 
         // two strings are different, we do rendering
         $mbFrom->str_enclose_i(
-            self::HTML_CLOSURES,
+            RendererConstant::HTML_CLOSURES,
             $start,
             $end + $mbFrom->strlen() - $start + 1
         );
         $mbTo->str_enclose_i(
-            self::HTML_CLOSURES,
+            RendererConstant::HTML_CLOSURES,
             $start,
             $end + $mbTo->strlen() - $start + 1
         );

@@ -6,6 +6,7 @@ namespace Jfcherng\Diff\Renderer\Html;
 
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Renderer\Html\LineRenderer\AbstractLineRenderer;
+use Jfcherng\Diff\Renderer\RendererConstant;
 use Jfcherng\Diff\SequenceMatcher;
 use Jfcherng\Diff\Utility\LineRendererFactory;
 use Jfcherng\Utility\MbString;
@@ -92,7 +93,11 @@ abstract class AbstractHtml extends AbstractRenderer
                 ) {
                     $lines = \array_slice($a, $i1, ($i2 - $i1));
                     $lines = $this->formatLines($lines);
-                    $lines = \str_replace(static::HTML_CLOSURES, static::HTML_CLOSURES_DEL, $lines);
+                    $lines = \str_replace(
+                        RendererConstant::HTML_CLOSURES,
+                        RendererConstant::HTML_CLOSURES_DEL,
+                        $lines
+                    );
                     $blocks[$lastBlock]['base']['lines'] += $lines;
                 }
 
@@ -102,7 +107,11 @@ abstract class AbstractHtml extends AbstractRenderer
                 ) {
                     $lines = \array_slice($b, $j1, ($j2 - $j1));
                     $lines = $this->formatLines($lines);
-                    $lines = \str_replace(static::HTML_CLOSURES, static::HTML_CLOSURES_INS, $lines);
+                    $lines = \str_replace(
+                        RendererConstant::HTML_CLOSURES,
+                        RendererConstant::HTML_CLOSURES_INS,
+                        $lines
+                    );
                     $blocks[$lastBlock]['changed']['lines'] += $lines;
                 }
             }
@@ -184,7 +193,7 @@ abstract class AbstractHtml extends AbstractRenderer
 
         // glue all lines into a single string to get rid of multiple function calls later
         // unnecessary, but should improve performance if there are many lines
-        $string = \implode(static::IMPLODE_DELIMITER, $lines);
+        $string = \implode(RendererConstant::IMPLODE_DELIMITER, $lines);
 
         $string = $this->expandTabs($string);
         $string = $this->htmlSafe($string);
@@ -194,7 +203,7 @@ abstract class AbstractHtml extends AbstractRenderer
         }
 
         // split the string back to lines
-        return \explode(static::IMPLODE_DELIMITER, $string);
+        return \explode(RendererConstant::IMPLODE_DELIMITER, $string);
     }
 
     /**
