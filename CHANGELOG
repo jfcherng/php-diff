@@ -3,6 +3,10 @@ VERSION 4  STRIP OUT THE SEQUENCEMATCHER
 ========================================
 
    Version 4.0 - Strip out the SequenceMatcher
+      08/02/2019 20:17  4.0.1  nits
+         8f11cb1 Fix a typo
+         54351a6 Move factory classes to Jfcherng\Diff\Factory\
+         6d68583 Merge ReservedConstantInterface into RendererConstant
       08/02/2019 10:04  4.0.0  initial release
          fac4dae nits
          b6fa08d Strip out SequenceMatcher as an external package
