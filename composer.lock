@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "18cbfe07136dc9b751267cf0f8f68929",
+    "content-hash": "c327d04d441faa341e8b8ec16c4c5160",
     "packages": [
         {
             "name": "jfcherng/php-mb-string",
@@ -420,16 +420,16 @@
         },
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v2.14.0",
+            "version": "v2.14.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "b788ea0af899cedc8114dca7db119c93b6685da2"
+                "reference": "2e82abd1322897eb8aacb861e5ff551af3888349"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/b788ea0af899cedc8114dca7db119c93b6685da2",
-                "reference": "b788ea0af899cedc8114dca7db119c93b6685da2",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/2e82abd1322897eb8aacb861e5ff551af3888349",
+                "reference": "2e82abd1322897eb8aacb861e5ff551af3888349",
                 "shasum": ""
             },
             "require": {
@@ -476,11 +476,6 @@
                 "php-cs-fixer"
             ],
             "type": "application",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.14-dev"
-                }
-            },
             "autoload": {
                 "psr-4": {
                     "PhpCsFixer\\": "src/"
@@ -512,7 +507,7 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
-            "time": "2019-01-04T18:29:47+00:00"
+            "time": "2019-02-10T22:52:33+00:00"
         },
         {
             "name": "microsoft/tolerant-php-parser",
@@ -692,16 +687,16 @@
         },
         {
             "name": "phan/phan",
-            "version": "1.2.2",
+            "version": "1.2.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phan/phan.git",
-                "reference": "ef46ee68afecf9e0188e9329dd922b346876a00a"
+                "reference": "532c43562af1206f68b504a89cc71737063b3972"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phan/phan/zipball/ef46ee68afecf9e0188e9329dd922b346876a00a",
-                "reference": "ef46ee68afecf9e0188e9329dd922b346876a00a",
+                "url": "https://api.github.com/repos/phan/phan/zipball/532c43562af1206f68b504a89cc71737063b3972",
+                "reference": "532c43562af1206f68b504a89cc71737063b3972",
                 "shasum": ""
             },
             "require": {
@@ -754,7 +749,7 @@
                 "php",
                 "static"
             ],
-            "time": "2019-02-02T15:02:21+00:00"
+            "time": "2019-02-10T23:34:07+00:00"
         },
         {
             "name": "phar-io/manifest",
