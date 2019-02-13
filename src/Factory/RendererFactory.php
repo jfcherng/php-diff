@@ -26,14 +26,15 @@ final class RendererFactory
     /**
      * Get a singleton of a template.
      *
-     * @param string $template the template
+     * @param string $template    the template
+     * @param mixed  ...$ctorArgs the constructor arguments
      *
      * @return AbstractRenderer
      */
-    public static function getInstance(string $template): AbstractRenderer
+    public static function getInstance(string $template, ...$ctorArgs): AbstractRenderer
     {
         if (!isset(self::$singletons[$template])) {
-            self::$singletons[$template] = self::make($template);
+            self::$singletons[$template] = self::make($template, ...$ctorArgs);
         }
 
         return self::$singletons[$template];

@@ -25,8 +25,8 @@ final class ReverseIterator
      */
     public static function fromArray(array $array, int $flags = 0): \Generator
     {
-        // it may worth unrolling if-conditions to out of for-loop
-        // so it wont have to check multiple if-conditions inside each loop
+        // it may worth unrolling if-conditions to be out of for-loop
+        // so it does have to check if-conditions in each iteration
 
         if ($flags & self::ITERATOR_GET_BOTH) {
             for (\end($array); ($key = \key($array)) !== null; \prev($array)) {
