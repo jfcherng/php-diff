@@ -2,6 +2,15 @@
 VERSION 4  STRIP OUT THE SEQUENCEMATCHER
 ========================================
 
+   Version 4.1 - Allow negative tabSize
+      16/02/2019 18:36  4.1.0  initial release
+         53e6b17 Allow renderer option tabSize < 0
+         e60fb5c Remove useless codes
+         bf85310 Add more punctuations for word-level line renderer
+         847b795 Update readme
+         ba77110 nits
+         b13149a Update deps
+
    Version 4.0 - Strip out the SequenceMatcher
       08/02/2019 20:17  4.0.1  nits
          8f11cb1 Fix a typo
