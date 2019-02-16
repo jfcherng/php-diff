@@ -29,12 +29,6 @@ final class Json extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    const HTML_CLOSURES_INS = ["\2", "\3"];
-    const HTML_CLOSURES_DEL = ["\2", "\4"];
-
-    /**
-     * {@inheritdoc}
-     */
     public function render(): string
     {
         return \json_encode(
