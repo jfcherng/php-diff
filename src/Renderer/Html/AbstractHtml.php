@@ -195,7 +195,7 @@ abstract class AbstractHtml extends AbstractRenderer
         // unnecessary, but should improve performance if there are many lines
         $string = \implode(RendererConstant::IMPLODE_DELIMITER, $lines);
 
-        $string = $this->expandTabs($string);
+        $string = $this->expandTabs($string, $this->options['tabSize']);
         $string = $this->htmlSafe($string);
 
         if ($this->options['spacesToNbsp']) {
@@ -207,15 +207,18 @@ abstract class AbstractHtml extends AbstractRenderer
     }
 
     /**
-     * Replace tabs in a string with a number of spaces as defined by the tabSize option.
+     * Replace tabs in a string with a number of spaces.
      *
-     * @param string $string the containing tabs to convert
+     * @param string $string  the containing tabs to convert
+     * @param int    $tabSize one tab = how many spaces, a negative does nothing
      *
      * @return string the string with the tabs converted to spaces
      */
-    protected function expandTabs(string $string): string
+    protected function expandTabs(string $string, int $tabSize = -1): string
     {
-        return \str_replace("\t", \str_repeat(' ', $this->options['tabSize']), $string);
+        return $tabSize >= 0
+            ? \str_replace("\t", \str_repeat(' ', $tabSize), $string)
+            : $string;
     }
 
     /**

@@ -48,7 +48,7 @@ abstract class AbstractRenderer implements RendererInterface
         // template language: eng, cht, chs, jpn, ...
         // or an array which has the same keys with a language file
         'language' => 'eng',
-        // HTML template tab width
+        // HTML template tab width (negative = do not convert into spaces)
         'tabSize' => 4,
         // show "..." row in HTML templates
         'separateBlock' => true,

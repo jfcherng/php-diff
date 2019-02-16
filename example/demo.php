@@ -46,7 +46,7 @@
                 // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
                 // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
                 'spacesToNbsp' => false,
-                // HTML template tab width
+                // HTML template tab width (negative = do not convert into spaces)
                 'tabSize' => 4,
             ];
 
