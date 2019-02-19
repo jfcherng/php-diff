@@ -12,14 +12,6 @@
 
             use Jfcherng\Diff\DiffHelper;
 
-            // sample string for comparison
-            $old = "\$old = 'This is the old string.';";
-            $new = "\$new = 'And this is the new one.';";
-
-            // sample string for comparison
-            $old_u8 = '內存不足！沒法在視頻聊天時播放視頻。';
-            $new_u8 = '記憶體不足！沒辦法在視訊聊天時播放影片。';
-
             // include two sample files for comparison
             $old_file = \file_get_contents(__DIR__ . '/old_file.txt');
             $new_file = \file_get_contents(__DIR__ . '/new_file.txt');
@@ -27,7 +19,7 @@
             // options for Diff class
             $diffOptions = [
                 // show how many neighbor lines
-                'context' => 3,
+                'context' => 1,
                 // ignore case difference
                 'ignoreCase' => false,
                 // ignore whitespace difference
@@ -52,29 +44,13 @@
 
         ?>
 
-        <h1>UTF-8 Ready</h1>
-        <?php
-
-            // demo the UTF-8 diff
-            $result = DiffHelper::calculate(
-                $old_u8,
-                $new_u8,
-                'Inline',
-                $diffOptions,
-                ['detailLevel' => 'char'] + $templateOptions
-            );
-
-            echo $result;
-
-        ?>
-
         <h1>None-level Diff</h1>
         <?php
 
             // demo the no-inline-detail diff
             $result = DiffHelper::calculate(
-                $old,
-                $new,
+                $old_file,
+                $new_file,
                 'Inline',
                 $diffOptions,
                 ['detailLevel' => 'none'] + $templateOptions
@@ -89,8 +65,8 @@
 
             // demo the word-level diff
             $result = DiffHelper::calculate(
-                $old,
-                $new,
+                $old_file,
+                $new_file,
                 'Inline',
                 $diffOptions,
                 ['detailLevel' => 'line'] + $templateOptions
@@ -105,8 +81,8 @@
 
             // demo the word-level diff
             $result = DiffHelper::calculate(
-                $old,
-                $new,
+                $old_file,
+                $new_file,
                 'Inline',
                 $diffOptions,
                 ['detailLevel' => 'word'] + $templateOptions
@@ -121,8 +97,8 @@
 
             // demo the character-level diff
             $result = DiffHelper::calculate(
-                $old,
-                $new,
+                $old_file,
+                $new_file,
                 'Inline',
                 $diffOptions,
                 ['detailLevel' => 'char'] + $templateOptions
@@ -136,7 +112,13 @@
         <?php
 
             // generate a side by side diff
-            $result = DiffHelper::calculate($old_file, $new_file, 'SideBySide', $diffOptions, $templateOptions);
+            $result = DiffHelper::calculate(
+                $old_file,
+                $new_file,
+                'SideBySide',
+                $diffOptions,
+                $templateOptions
+            );
 
             echo $result;
 
@@ -146,7 +128,13 @@
         <?php
 
             // generate an inline diff
-            $result = DiffHelper::calculate($old_file, $new_file, 'Inline', $diffOptions, $templateOptions);
+            $result = DiffHelper::calculate(
+                $old_file,
+                $new_file,
+                'Inline',
+                $diffOptions,
+                $templateOptions
+            );
 
             echo $result;
 
@@ -156,7 +144,13 @@
         <pre><?php
 
             // generate a unified diff
-            $result = DiffHelper::calculate($old_file, $new_file, 'Unified', $diffOptions, $templateOptions);
+            $result = DiffHelper::calculate(
+                $old_file,
+                $new_file,
+                'Unified',
+                $diffOptions,
+                $templateOptions
+            );
 
             echo \htmlspecialchars($result);
 
@@ -166,9 +160,36 @@
         <pre><?php
 
             // generate a context diff
-            $result = DiffHelper::calculate($old_file, $new_file, 'Context', $diffOptions, $templateOptions);
+            $result = DiffHelper::calculate(
+                $old_file,
+                $new_file,
+                'Context',
+                $diffOptions,
+                $templateOptions
+            );
 
             echo \htmlspecialchars($result);
+
+        ?></pre>
+
+        <h1>JSON Diff</h1>
+        <pre><?php
+
+            // generate a JSON diff
+            $result = DiffHelper::calculate(
+                $old_file,
+                $new_file,
+                'Json',
+                $diffOptions,
+                $templateOptions
+            );
+
+            $beautified = \json_encode(
+                \json_decode($result, true),
+                \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT
+            );
+
+            echo $beautified;
 
         ?></pre>
     </body>

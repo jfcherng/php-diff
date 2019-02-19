@@ -90,11 +90,6 @@ $result = $diff->render($renderer);
 # Rendered Results
 
 
-## UTF-8 Ready
-
-![UTF-8 Ready](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/utf-8-ready.png)
-
-
 ## HTML Diff In-line Detail Rendering
 
 <table>
@@ -130,23 +125,20 @@ $result = $diff->render($renderer);
 ## Unified
 
 ```diff
-@@ -1,13 +1,14 @@
- <html>
-    <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
--       <title>Hello World!</title>
-+       <title>Goodbye Cruel World!</title>
-    </head>
-    <body>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
--       <h2>A heading we'll be removing</h2>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-+
-+       <p>Just a small amount of new text...</p>
-    </body>
- </html>
+@@ -1,3 +1,4 @@
+-<p>Hello World!</p>
++<div>Hello World!</div>
+ ~~~~~~~~~~~~~~~~~~~
++Let's add a new line here.
+ X
+@@ -7,6 +8,5 @@
+ N
+-Do you know in Chinese, "金槍魚罐頭" means tuna can.
++Do you know in Japanese, "魚の缶詰" means fish can.
+ This is just a useless line.
+ G
+-// @todo Remember to delete this line
+ Say hello to my neighbors.
 ```
 
 
@@ -154,37 +146,178 @@ $result = $diff->render($renderer);
 
 ```
 ***************
-*** 1,13 ****
-  <html>
-    <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-!       <title>Hello World!</title>
-    </head>
-    <body>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
--       <h2>A heading we'll be removing</h2>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-    </body>
-  </html>
---- 1,14 ----
-  <html>
-    <head>
-        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
-!       <title>Goodbye Cruel World!</title>
-    </head>
-    <body>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-+
-+       <p>Just a small amount of new text...</p>
-    </body>
-  </html>
+*** 1,3 ****
+! <p>Hello World!</p>
+  ~~~~~~~~~~~~~~~~~~~
+  X
+--- 1,4 ----
+! <div>Hello World!</div>
+  ~~~~~~~~~~~~~~~~~~~
++ Let's add a new line here.
+  X
+***************
+*** 7,12 ****
+  N
+! Do you know in Chinese, "金槍魚罐頭" means tuna can.
+  This is just a useless line.
+  G
+- // @todo Remember to delete this line
+  Say hello to my neighbors.
+--- 8,12 ----
+  N
+! Do you know in Japanese, "魚の缶詰" means fish can.
+  This is just a useless line.
+  G
+  Say hello to my neighbors.
 ```
 
+
+## JSON
+
+<details><summary>Click to expand the result</summary>
+
+```javascript
+[
+    [
+        {
+            "tag": "rep",
+            "base": {
+                "offset": 0,
+                "lines": [
+                    "&lt;<del>p&gt;Hello World!&lt;/p</del>&gt;"
+                ]
+            },
+            "changed": {
+                "offset": 0,
+                "lines": [
+                    "&lt;<ins>div&gt;Hello World!&lt;/div</ins>&gt;"
+                ]
+            }
+        },
+        {
+            "tag": "eq",
+            "base": {
+                "offset": 1,
+                "lines": [
+                    "~~~~~~~~~~~~~~~~~~~"
+                ]
+            },
+            "changed": {
+                "offset": 1,
+                "lines": [
+                    "~~~~~~~~~~~~~~~~~~~"
+                ]
+            }
+        },
+        {
+            "tag": "ins",
+            "base": {
+                "offset": 2,
+                "lines": []
+            },
+            "changed": {
+                "offset": 2,
+                "lines": [
+                    "Let's add a new line here."
+                ]
+            }
+        },
+        {
+            "tag": "eq",
+            "base": {
+                "offset": 2,
+                "lines": [
+                    "X"
+                ]
+            },
+            "changed": {
+                "offset": 3,
+                "lines": [
+                    "X"
+                ]
+            }
+        }
+    ],
+    [
+        {
+            "tag": "eq",
+            "base": {
+                "offset": 6,
+                "lines": [
+                    "N"
+                ]
+            },
+            "changed": {
+                "offset": 7,
+                "lines": [
+                    "N"
+                ]
+            }
+        },
+        {
+            "tag": "rep",
+            "base": {
+                "offset": 7,
+                "lines": [
+                    "Do you know in <del>Chinese, \"金槍魚罐頭\" means tuna</del> can."
+                ]
+            },
+            "changed": {
+                "offset": 8,
+                "lines": [
+                    "Do you know in <ins>Japanese, \"魚の缶詰\" means fish</ins> can."
+                ]
+            }
+        },
+        {
+            "tag": "eq",
+            "base": {
+                "offset": 8,
+                "lines": [
+                    "This is just a useless line.",
+                    "G"
+                ]
+            },
+            "changed": {
+                "offset": 9,
+                "lines": [
+                    "This is just a useless line.",
+                    "G"
+                ]
+            }
+        },
+        {
+            "tag": "del",
+            "base": {
+                "offset": 10,
+                "lines": [
+                    "// @todo Remember to delete this line"
+                ]
+            },
+            "changed": {
+                "offset": 11,
+                "lines": []
+            }
+        },
+        {
+            "tag": "eq",
+            "base": {
+                "offset": 11,
+                "lines": [
+                    "Say hello to my neighbors."
+                ]
+            },
+            "changed": {
+                "offset": 11,
+                "lines": [
+                    "Say hello to my neighbors."
+                ]
+            }
+        }
+    ]
+]
+```
+</details>
 
 # Upgrading
 

@@ -11,3 +11,4 @@ vendor/
 # tmp files
 /var/*
 !/var/.gitkeep
+/branch-*
