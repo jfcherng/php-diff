@@ -12,7 +12,7 @@ use Jfcherng\Diff\SequenceMatcher;
 use Jfcherng\Utility\MbString;
 
 /**
- * Base renderer for rendering HTML based diffs.
+ * Base renderer for rendering HTML-based diffs.
  */
 abstract class AbstractHtml extends AbstractRenderer
 {
@@ -137,8 +137,8 @@ abstract class AbstractHtml extends AbstractRenderer
     {
         static $mbFrom, $mbTo;
 
-        $mbFrom = $mbFrom ?? new MbString('', 'UTF-8');
-        $mbTo = $mbTo ?? new MbString('', 'UTF-8');
+        $mbFrom = $mbFrom ?? new MbString();
+        $mbTo = $mbTo ?? new MbString();
 
         $mbFrom->set($from);
         $mbTo->set($to);
@@ -243,7 +243,7 @@ abstract class AbstractHtml extends AbstractRenderer
     protected function htmlFixSpaces(string $string): string
     {
         return \preg_replace_callback(
-            '# {2,}#S', // only fix for more than 1 space
+            '/ {2,}/S', // only fix for more than 1 space
             function (array $matches): string {
                 $count = \strlen($matches[0]);
 

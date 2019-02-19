@@ -6,6 +6,9 @@ namespace Jfcherng\Diff\Renderer\Html\LineRenderer;
 
 use Jfcherng\Diff\SequenceMatcher;
 
+/**
+ * Base renderer for rendering HTML-based line diffs.
+ */
 abstract class AbstractLineRenderer implements LineRendererInterface
 {
     /**

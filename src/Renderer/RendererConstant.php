@@ -25,7 +25,7 @@ final class RendererConstant
     /**
      * The delimiter to be used as the glue in string/array functions.
      *
-     * this delimiter contains chars from the Unicode reserved areas
+     * this delimiter contains chars from the 15-16th Unicode reserved areas
      * hopefully, it won't appear in our lines
      *
      * @var string

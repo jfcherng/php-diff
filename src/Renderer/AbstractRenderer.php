@@ -8,7 +8,7 @@ use Jfcherng\Diff\Diff;
 use Jfcherng\Diff\Utility\Language;
 
 /**
- * Abstract class for diff renderers.
+ * Base class for diff renderers.
  */
 abstract class AbstractRenderer implements RendererInterface
 {
