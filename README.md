@@ -90,7 +90,7 @@ $result = $diff->render($renderer);
 # Rendered Results
 
 
-## HTML Diff In-line Detail Rendering
+## HTML Diff In-line Detailed Rendering
 
 <table>
   <tr>
@@ -112,17 +112,17 @@ $result = $diff->render($renderer);
 </table>
 
 
-## Inline
+## Renderer: Inline
 
 ![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-renderer.png)
 
 
-## Side By Side
+## Renderer: Side By Side
 
 ![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/side-by-side-renderer.png)
 
 
-## Unified
+## Renderer: Unified
 
 ```diff
 @@ -1,3 +1,4 @@
@@ -142,7 +142,7 @@ $result = $diff->render($renderer);
 ```
 
 
-## Context
+## Renderer: Context
 
 ```
 ***************
@@ -172,7 +172,7 @@ $result = $diff->render($renderer);
 ```
 
 
-## JSON
+## Renderer: JSON
 
 <details><summary>Click to expand the result</summary>
 
