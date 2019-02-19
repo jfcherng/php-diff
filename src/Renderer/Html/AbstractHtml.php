@@ -186,11 +186,6 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function formatLines(array $lines): array
     {
-        // for example, the "Json" template does not need these
-        if (static::IS_TEXT_TEMPLATE) {
-            return $lines;
-        }
-
         // glue all lines into a single string to get rid of multiple function calls later
         // unnecessary, but should improve performance if there are many lines
         $string = \implode(RendererConstant::IMPLODE_DELIMITER, $lines);
