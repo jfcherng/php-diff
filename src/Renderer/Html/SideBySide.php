@@ -157,7 +157,7 @@ final class SideBySide extends AbstractHtml
                     '<th></th>' .
                     '<td class="old"></td>' .
                     '<th class="t-num">' . $toLine . '</th>' .
-                    '<td class="new"><ins>' . $line . '</ins></td>' .
+                    '<td class="new">' . $line . '</td>' .
                 '</tr>';
         }
 
@@ -181,7 +181,7 @@ final class SideBySide extends AbstractHtml
             $html .=
                 '<tr>' .
                     '<th class="f-num">' . $fromLine . '</th>' .
-                    '<td class="old"><del>' . $line . '</del></td>' .
+                    '<td class="old">' . $line . '</td>' .
                     '<th></th>' .
                     '<td class="new"></td>' .
                 '</tr>';

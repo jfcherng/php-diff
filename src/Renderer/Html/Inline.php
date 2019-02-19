@@ -159,7 +159,7 @@ final class Inline extends AbstractHtml
                     '<th></th>' .
                     '<th class="t-num">' . $toLine . '</th>' .
                     '<th class="sign ins">+</th>' .
-                    '<td class="new"><ins>' . $line . '</ins></td>' .
+                    '<td class="new">' . $line . '</td>' .
                 '</tr>';
         }
 
@@ -185,7 +185,7 @@ final class Inline extends AbstractHtml
                     '<th class="f-num">' . $fromLine . '</th>' .
                     '<th></th>' .
                     '<th class="sign del">-</th>' .
-                    '<td class="old"><del>' . $line . '</del></td>' .
+                    '<td class="old">' . $line . '</td>' .
                 '</tr>';
         }
 
