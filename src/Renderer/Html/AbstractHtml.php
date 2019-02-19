@@ -214,7 +214,7 @@ abstract class AbstractHtml extends AbstractRenderer
      *
      * @return string the string with the tabs converted to spaces
      */
-    protected function expandTabs(string $string, int $tabSize = -1): string
+    protected function expandTabs(string $string, int $tabSize = 4): string
     {
         return $tabSize >= 0
             ? \str_replace("\t", \str_repeat(' ', $tabSize), $string)
