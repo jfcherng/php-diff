@@ -84,8 +84,13 @@ final class DiffHelper
      *
      * @return string the difference
      */
-    public static function calculate($old, $new, string $template = 'Unified', array $diffOptions = [], array $templateOptions = []): string
-    {
+    public static function calculate(
+        $old,
+        $new,
+        string $template = 'Unified',
+        array $diffOptions = [],
+        array $templateOptions = []
+    ): string {
         // always convert into array form
         \is_string($old) && ($old = \explode("\n", $old));
         \is_string($new) && ($new = \explode("\n", $new));

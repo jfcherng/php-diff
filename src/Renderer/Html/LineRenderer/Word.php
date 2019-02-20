@@ -17,23 +17,31 @@ final class Word extends AbstractLineRenderer
     public function render(MbString $mbFrom, MbString $mbTo): LineRendererInterface
     {
         static $punctuationsRange = (
-            // Latin-1 Supplement ( https://unicode-table.com/en/blocks/latin-1-supplement/ )
+            // Latin-1 Supplement
+            // @see https://unicode-table.com/en/blocks/latin-1-supplement/
             "\u{0080}-\u{00BB}" .
-            // Spacing Modifier Letters ( https://unicode-table.com/en/blocks/spacing-modifier-letters/ )
+            // Spacing Modifier Letters
+            // @see https://unicode-table.com/en/blocks/spacing-modifier-letters/
             "\u{02B0}-\u{02FF}" .
-            // Combining Diacritical Marks ( https://unicode-table.com/en/blocks/combining-diacritical-marks/ )
+            // Combining Diacritical Marks
+            // @see https://unicode-table.com/en/blocks/combining-diacritical-marks/
             "\u{0300}-\u{036F}" .
-            // Small Form Variants ( https://unicode-table.com/en/blocks/small-form-variants/ )
+            // Small Form Variants
+            // @see https://unicode-table.com/en/blocks/small-form-variants/
             "\u{FE50}-\u{FE6F}" .
-            // General Punctuation ( https://unicode-table.com/en/blocks/general-punctuation/ )
+            // General Punctuation
+            // @see https://unicode-table.com/en/blocks/general-punctuation/
             "\u{2000}-\u{206F}" .
-            // Supplemental Punctuation ( https://unicode-table.com/en/blocks/supplemental-punctuation/ )
+            // Supplemental Punctuation
+            // @see https://unicode-table.com/en/blocks/supplemental-punctuation/
             "\u{2E00}-\u{2E7F}" .
-            // CJK Symbols and Punctuation ( https://unicode-table.com/en/blocks/cjk-symbols-and-punctuation/ )
+            // CJK Symbols and Punctuation
+            // @see https://unicode-table.com/en/blocks/cjk-symbols-and-punctuation/
             "\u{3000}-\u{303F}" .
-            // Ideographic Symbols and Punctuation ( https://unicode-table.com/en/blocks/ideographic-symbols-and-punctuation/ )
+            // Ideographic Symbols and Punctuation
+            // @see https://unicode-table.com/en/blocks/ideographic-symbols-and-punctuation/
             "\u{16FE0}-\u{16FFF}" .
-            // ...
+            // hmm... seems to be no rule
             " \t$,.:;!?'\"()\[\]{}%@<=>_+\-*\/~\\\\|" .
             '　＄，．：；！？’＂（）［］｛｝％＠＜＝＞＿＋－＊／～＼｜' .
             '「」『』〈〉《》【】()（）‘’“”' .
