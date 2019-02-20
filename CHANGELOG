@@ -3,6 +3,9 @@ VERSION 4  STRIP OUT THE SEQUENCEMATCHER
 ========================================
 
    Version 4.1 - Allow negative tabSize
+      20/02/2019 15:04  4.1.2  update deps
+         df25c88 Update jfcherng/php-sequence-matcher ^2.0
+         0c7b425 Update readme
       19/02/2019 19:36  4.1.1  fix some HTML templates
          0ed0e53 Fix HTML renderer should not emphasize inserted/deleted lines
          6e97b8a Update output example in readme
