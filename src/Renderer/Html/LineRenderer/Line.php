@@ -14,7 +14,7 @@ final class Line extends AbstractLineRenderer
      */
     public function render(MbString $mbFrom, MbString $mbTo): LineRendererInterface
     {
-        [$start, $end] = $this->getChangedExtentBeginEnd($mbFrom, $mbTo);
+        [$start, $end] = $this->getChangedExtentRegion($mbFrom, $mbTo);
 
         // two strings are the same
         if ($end === 0) {
@@ -46,7 +46,7 @@ final class Line extends AbstractLineRenderer
      * @return array Array containing the starting position (non-negative) and the ending position (negative)
      *               [0, 0] if two strings are the same
      */
-    protected function getChangedExtentBeginEnd(MbString $mbFrom, MbString $mbTo): array
+    protected function getChangedExtentRegion(MbString $mbFrom, MbString $mbTo): array
     {
         // two strings are the same
         // most lines should be this cases, an early return could save many function calls
@@ -56,9 +56,9 @@ final class Line extends AbstractLineRenderer
 
         // calculate $start
         $start = 0;
-        $startLimit = \min($mbFrom->strlen(), $mbTo->strlen());
+        $startMax = \min($mbFrom->strlen(), $mbTo->strlen());
         while (
-            $start < $startLimit && // index out of range
+            $start < $startMax && // index out of range
             $mbFrom->getAtRaw($start) === $mbTo->getAtRaw($start)
         ) {
             ++$start;
@@ -66,9 +66,9 @@ final class Line extends AbstractLineRenderer
 
         // calculate $end
         $end = -1; // trick
-        $endLimit = $startLimit - $start;
+        $endMin = $startMax - $start;
         while (
-            -$end <= $endLimit && // index out of range
+            -$end <= $endMin && // index out of range
             $mbFrom->getAtRaw($end) === $mbTo->getAtRaw($end)
         ) {
             --$end;

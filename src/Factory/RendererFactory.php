@@ -72,12 +72,9 @@ final class RendererFactory
     {
         static $cache = [];
 
-        // the result could be null so do not use isset() here
-        if (\array_key_exists($template, $cache)) {
+        if (isset($cache[$template])) {
             return $cache[$template];
         }
-
-        $result = null;
 
         foreach (RendererConstant::TEMPLATE_TYPES as $type) {
             $className = RendererConstant::RENDERER_NAMESPACE . "\\{$type}\\{$template}";
@@ -89,6 +86,6 @@ final class RendererFactory
             }
         }
 
-        return $cache[$template] = $result;
+        return isset($result) ? ($cache[$template] = $result) : null;
     }
 }
