@@ -3,6 +3,9 @@ VERSION 4  STRIP OUT THE SEQUENCEMATCHER
 ========================================
 
    Version 4.1 - Allow negative tabSize
+      20/02/2019 18:49  4.1.4  Fix Diff::getText()
+         540daf5 Fix potential boundary error in Diff::getText()
+         2b723e7 Revert "Inline and remove Diff::getText()"
       20/02/2019 16:45  4.1.3  Fix Diff::getText()
          a5171c8 Inline and remove Diff::getText()
          be52d42 Fix Diff::getText() when $end is null
