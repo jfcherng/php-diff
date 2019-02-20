@@ -188,9 +188,7 @@ abstract class AbstractHtml extends AbstractRenderer
     }
 
     /**
-     * Format a series of lines suitable for output in a HTML rendered diff.
-     * This involves replacing tab characters with spaces, making the HTML safe
-     * for output, ensuring that double spaces are replaced with &nbsp; etc.
+     * Make a series of lines suitable for outputting in a HTML rendered diff.
      *
      * @param string[] $lines array of lines to format
      *
@@ -198,10 +196,32 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function formatLines(array $lines): array
     {
-        // glue all lines into a single string to get rid of multiple function calls later
-        // unnecessary, but should improve performance if there are many lines
-        $string = \implode(RendererConstant::IMPLODE_DELIMITER, $lines);
+        /**
+         * To prevent from invoking the same function calls for several times,
+         * we can glue lines into a string and call functions for one time.
+         * After that, we split the string back into lines.
+         */
+        return \explode(
+            RendererConstant::IMPLODE_DELIMITER,
+            $this->formatStringFromLines(\implode(
+                RendererConstant::IMPLODE_DELIMITER,
+                $lines
+            ))
+        );
+    }
 
+    /**
+     * Make a string suitable for outputting in a HTML rendered diff.
+     *
+     * This my involve replacing tab characters with spaces, making the HTML safe
+     * for output, ensuring that double spaces are replaced with &nbsp; etc.
+     *
+     * @param string $string the string of imploded lines
+     *
+     * @return string the formatted string
+     */
+    protected function formatStringFromLines(string $string): string
+    {
         $string = $this->expandTabs($string, $this->options['tabSize']);
         $string = $this->htmlSafe($string);
 
@@ -209,8 +229,7 @@ abstract class AbstractHtml extends AbstractRenderer
             $string = $this->htmlFixSpaces($string);
         }
 
-        // split the string back to lines
-        return \explode(RendererConstant::IMPLODE_DELIMITER, $string);
+        return $string;
     }
 
     /**
