@@ -122,15 +122,15 @@ final class SideBySide extends AbstractHtml
     {
         $html = '';
 
-        foreach ($change['base']['lines'] as $no => $line) {
-            $oldLineNum = $change['base']['offset'] + $no + 1;
-            $newLine = $change['changed']['offset'] + $no + 1;
+        foreach ($change['old']['lines'] as $no => $line) {
+            $oldLineNum = $change['old']['offset'] + $no + 1;
+            $newLine = $change['new']['offset'] + $no + 1;
 
             $html .=
                 '<tr>' .
-                    '<th class="f-num">' . $oldLineNum . '</th>' .
+                    '<th class="n-old">' . $oldLineNum . '</th>' .
                     '<td class="old">' . $line . '</td>' .
-                    '<th class="t-num">' . $newLine . '</th>' .
+                    '<th class="n-new">' . $newLine . '</th>' .
                     '<td class="new">' . $line . '</td>' .
                 '</tr>';
         }
@@ -149,14 +149,14 @@ final class SideBySide extends AbstractHtml
     {
         $html = '';
 
-        foreach ($change['changed']['lines'] as $no => $newLine) {
-            $newLineNum = $change['changed']['offset'] + $no + 1;
+        foreach ($change['new']['lines'] as $no => $newLine) {
+            $newLineNum = $change['new']['offset'] + $no + 1;
 
             $html .=
                 '<tr>' .
                     '<th></th>' .
                     '<td class="old"></td>' .
-                    '<th class="t-num">' . $newLineNum . '</th>' .
+                    '<th class="n-new">' . $newLineNum . '</th>' .
                     '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
@@ -175,12 +175,12 @@ final class SideBySide extends AbstractHtml
     {
         $html = '';
 
-        foreach ($change['base']['lines'] as $no => $oldLine) {
-            $oldLineNum = $change['base']['offset'] + $no + 1;
+        foreach ($change['old']['lines'] as $no => $oldLine) {
+            $oldLineNum = $change['old']['offset'] + $no + 1;
 
             $html .=
                 '<tr>' .
-                    '<th class="f-num">' . $oldLineNum . '</th>' .
+                    '<th class="n-old">' . $oldLineNum . '</th>' .
                     '<td class="old">' . $oldLine . '</td>' .
                     '<th></th>' .
                     '<td class="new"></td>' .
@@ -201,13 +201,13 @@ final class SideBySide extends AbstractHtml
     {
         $html = '';
 
-        if (\count($change['base']['lines']) >= \count($change['changed']['lines'])) {
-            foreach ($change['base']['lines'] as $no => $oldLine) {
-                $oldLineNum = $change['base']['offset'] + $no + 1;
+        if (\count($change['old']['lines']) >= \count($change['new']['lines'])) {
+            foreach ($change['old']['lines'] as $no => $oldLine) {
+                $oldLineNum = $change['old']['offset'] + $no + 1;
 
-                if (isset($change['changed']['lines'][$no])) {
-                    $newLineNum = $change['base']['offset'] + $no + 1;
-                    $newLine = '<span>' . $change['changed']['lines'][$no] . '</span>';
+                if (isset($change['new']['lines'][$no])) {
+                    $newLineNum = $change['old']['offset'] + $no + 1;
+                    $newLine = '<span>' . $change['new']['lines'][$no] . '</span>';
                 } else {
                     $newLineNum = '';
                     $newLine = '';
@@ -215,19 +215,19 @@ final class SideBySide extends AbstractHtml
 
                 $html .=
                     '<tr>' .
-                        '<th class="f-num">' . $oldLineNum . '</th>' .
+                        '<th class="n-old">' . $oldLineNum . '</th>' .
                         '<td class="old"><span>' . $oldLine . '</span></td>' .
-                        '<th class="t-num">' . $newLineNum . '</th>' .
+                        '<th class="n-new">' . $newLineNum . '</th>' .
                         '<td class="new">' . $newLine . '</td>' .
                     '</tr>';
             }
         } else {
-            foreach ($change['changed']['lines'] as $no => $newLine) {
-                $newLineNum = $change['changed']['offset'] + $no + 1;
+            foreach ($change['new']['lines'] as $no => $newLine) {
+                $newLineNum = $change['new']['offset'] + $no + 1;
 
-                if (isset($change['base']['lines'][$no])) {
-                    $oldLineNum = $change['base']['offset'] + $no + 1;
-                    $oldLine = '<span>' . $change['base']['lines'][$no] . '</span>';
+                if (isset($change['old']['lines'][$no])) {
+                    $oldLineNum = $change['old']['offset'] + $no + 1;
+                    $oldLine = '<span>' . $change['old']['lines'][$no] . '</span>';
                 } else {
                     $oldLineNum = '';
                     $oldLine = '';
@@ -235,9 +235,9 @@ final class SideBySide extends AbstractHtml
 
                 $html .=
                     '<tr>' .
-                        '<th class="f-num">' . $oldLineNum . '</th>' .
+                        '<th class="n-old">' . $oldLineNum . '</th>' .
                         '<td class="old"><span>' . $oldLine . '</span></td>' .
-                        '<th class="t-num">' . $newLineNum . '</th>' .
+                        '<th class="n-new">' . $newLineNum . '</th>' .
                         '<td class="new">' . $newLine . '</td>' .
                     '</tr>';
             }

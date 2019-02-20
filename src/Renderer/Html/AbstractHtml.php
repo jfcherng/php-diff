@@ -80,8 +80,8 @@ abstract class AbstractHtml extends AbstractRenderer
                     if (!empty($lines = \array_slice($old, $i1, ($i2 - $i1)))) {
                         $formattedLines = $this->formatLines($lines);
 
-                        $blocks[$lastBlock]['base']['lines'] += $formattedLines;
-                        $blocks[$lastBlock]['changed']['lines'] += $formattedLines;
+                        $blocks[$lastBlock]['old']['lines'] += $formattedLines;
+                        $blocks[$lastBlock]['new']['lines'] += $formattedLines;
                     }
 
                     continue;
@@ -109,7 +109,7 @@ abstract class AbstractHtml extends AbstractRenderer
                         $lines
                     );
 
-                    $blocks[$lastBlock]['base']['lines'] += $lines;
+                    $blocks[$lastBlock]['old']['lines'] += $lines;
                 }
 
                 if (
@@ -124,7 +124,7 @@ abstract class AbstractHtml extends AbstractRenderer
                         $lines
                     );
 
-                    $blocks[$lastBlock]['changed']['lines'] += $lines;
+                    $blocks[$lastBlock]['new']['lines'] += $lines;
                 }
             }
 
@@ -167,8 +167,8 @@ abstract class AbstractHtml extends AbstractRenderer
      * Get the default block.
      *
      * @param string $tag the operation tag
-     * @param int    $i1  begin index of the diff of the source
-     * @param int    $j1  begin index of the diff of the destination
+     * @param int    $i1  begin index of the diff of the old array
+     * @param int    $j1  begin index of the diff of the new array
      *
      * @return array the default block
      */
@@ -176,11 +176,11 @@ abstract class AbstractHtml extends AbstractRenderer
     {
         return [
             'tag' => $tag,
-            'base' => [
+            'old' => [
                 'offset' => $i1,
                 'lines' => [],
             ],
-            'changed' => [
+            'new' => [
                 'offset' => $j1,
                 'lines' => [],
             ],
