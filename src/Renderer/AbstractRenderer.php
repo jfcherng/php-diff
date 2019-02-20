@@ -50,7 +50,7 @@ abstract class AbstractRenderer implements RendererInterface
         'language' => 'eng',
         // HTML template tab width (negative = do not convert into spaces)
         'tabSize' => 4,
-        // show "..." row in HTML templates
+        // show a separator between different diff hunks in HTML templates
         'separateBlock' => true,
         // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
         // but if you want to visualize them in the backend with "&nbsp;", you can set this to true

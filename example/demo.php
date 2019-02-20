@@ -33,7 +33,7 @@
                 // template language: eng, cht, chs, jpn, ...
                 // or an array which has the same keys with a language file
                 'language' => 'eng',
-                // show "..." row in HTML templates
+                // show a separator between different diff hunks in HTML templates
                 'separateBlock' => true,
                 // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
                 // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
