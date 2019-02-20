@@ -25,10 +25,10 @@ abstract class AbstractHtml extends AbstractRenderer
      * @var array array of the different opcode tags and how they map to the HTML class
      */
     const TAG_CLASS_MAP = [
-        SequenceMatcher::OPCODE_DELETE => 'del',
-        SequenceMatcher::OPCODE_EQUAL => 'eq',
-        SequenceMatcher::OPCODE_INSERT => 'ins',
-        SequenceMatcher::OPCODE_REPLACE => 'rep',
+        SequenceMatcher::OP_DEL => 'del',
+        SequenceMatcher::OP_EQ => 'eq',
+        SequenceMatcher::OP_INS => 'ins',
+        SequenceMatcher::OP_REP => 'rep',
     ];
 
     /**
@@ -61,7 +61,7 @@ abstract class AbstractHtml extends AbstractRenderer
 
             foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
                 if (
-                    $tag === SequenceMatcher::OPCODE_REPLACE &&
+                    $tag === SequenceMatcher::OP_REP &&
                     $i2 - $i1 === $j2 - $j1
                 ) {
                     for ($i = 0; $i < $i2 - $i1; ++$i) {
@@ -76,7 +76,7 @@ abstract class AbstractHtml extends AbstractRenderer
 
                 $lastTag = $tag;
 
-                if ($tag === SequenceMatcher::OPCODE_EQUAL) {
+                if ($tag === SequenceMatcher::OP_EQ) {
                     if (!empty($lines = \array_slice($a, $i1, ($i2 - $i1)))) {
                         $formattedLines = $this->formatLines($lines);
 
@@ -87,9 +87,19 @@ abstract class AbstractHtml extends AbstractRenderer
                     continue;
                 }
 
+                /**
+                 * @todo By setting option "useIntOpcodes" for the sequence matcher,
+                 *       this "if" could be further optimized by using bit operations.
+                 *
+                 *       Like this: "if ($tag & (OP_INT_REP | OP_INT_DEL))"
+                 *
+                 *       But int tag would be less readable while debugging.
+                 *       Also, this would be a BC break for the output of the JSON renderer.
+                 *       Is it worth doing?
+                 */
                 if (
-                    $tag === SequenceMatcher::OPCODE_REPLACE ||
-                    $tag === SequenceMatcher::OPCODE_DELETE
+                    $tag === SequenceMatcher::OP_REP ||
+                    $tag === SequenceMatcher::OP_DEL
                 ) {
                     $lines = \array_slice($a, $i1, ($i2 - $i1));
                     $lines = $this->formatLines($lines);
@@ -98,12 +108,13 @@ abstract class AbstractHtml extends AbstractRenderer
                         RendererConstant::HTML_CLOSURES_DEL,
                         $lines
                     );
+
                     $blocks[$lastBlock]['base']['lines'] += $lines;
                 }
 
                 if (
-                    $tag === SequenceMatcher::OPCODE_REPLACE ||
-                    $tag === SequenceMatcher::OPCODE_INSERT
+                    $tag === SequenceMatcher::OP_REP ||
+                    $tag === SequenceMatcher::OP_INS
                 ) {
                     $lines = \array_slice($b, $j1, ($j2 - $j1));
                     $lines = $this->formatLines($lines);
@@ -112,6 +123,7 @@ abstract class AbstractHtml extends AbstractRenderer
                         RendererConstant::HTML_CLOSURES_INS,
                         $lines
                     );
+
                     $blocks[$lastBlock]['changed']['lines'] += $lines;
                 }
             }

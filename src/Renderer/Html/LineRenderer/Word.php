@@ -48,15 +48,15 @@ final class Word extends AbstractLineRenderer
         // reversely iterate opcodes
         foreach (ReverseIterator::fromArray($opcodes) as [$tag, $i1, $i2, $j1, $j2]) {
             switch ($tag) {
-                case SequenceMatcher::OPCODE_DELETE:
+                case SequenceMatcher::OP_DEL:
                     $fromWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $fromWords[$i1];
                     $fromWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];
                     break;
-                case SequenceMatcher::OPCODE_INSERT:
+                case SequenceMatcher::OP_INS:
                     $toWords[$j1] = RendererConstant::HTML_CLOSURES[0] . $toWords[$j1];
                     $toWords[$j2 - 1] .= RendererConstant::HTML_CLOSURES[1];
                     break;
-                case SequenceMatcher::OPCODE_REPLACE:
+                case SequenceMatcher::OP_REP:
                     $fromWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $fromWords[$i1];
                     $fromWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];
                     $toWords[$j1] = RendererConstant::HTML_CLOSURES[0] . $toWords[$j1];

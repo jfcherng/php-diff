@@ -42,22 +42,22 @@ final class Unified extends AbstractText
             $ret .= $this->renderBlockHeader($i1 + 1, $i2 - $i1, $j1 + 1, $j2 - $j1);
 
             foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
-                if ($tag === SequenceMatcher::OPCODE_EQUAL) {
+                if ($tag === SequenceMatcher::OP_EQ) {
                     $ret .= $this->renderContext(' ', $this->diff->getA($i1, $i2));
 
                     continue;
                 }
 
                 if (
-                    $tag === SequenceMatcher::OPCODE_REPLACE ||
-                    $tag === SequenceMatcher::OPCODE_DELETE
+                    $tag === SequenceMatcher::OP_REP ||
+                    $tag === SequenceMatcher::OP_DEL
                 ) {
                     $ret .= $this->renderContext('-', $this->diff->getA($i1, $i2));
                 }
 
                 if (
-                    $tag === SequenceMatcher::OPCODE_REPLACE ||
-                    $tag === SequenceMatcher::OPCODE_INSERT
+                    $tag === SequenceMatcher::OP_REP ||
+                    $tag === SequenceMatcher::OP_INS
                 ) {
                     $ret .= $this->renderContext('+', $this->diff->getB($j1, $j2));
                 }

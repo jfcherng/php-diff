@@ -93,19 +93,19 @@ final class Inline extends AbstractHtml
         switch ($change['tag']) {
             default:
             // equal changes should be shown on both sides of the diff
-            case SequenceMatcher::OPCODE_EQUAL:
+            case SequenceMatcher::OP_EQ:
                 $html .= $this->renderTableEqual($change);
                 break;
             // added lines only on the r side
-            case SequenceMatcher::OPCODE_INSERT:
+            case SequenceMatcher::OP_INS:
                 $html .= $this->renderTableInsert($change);
                 break;
             // show deleted lines only on the l side
-            case SequenceMatcher::OPCODE_DELETE:
+            case SequenceMatcher::OP_DEL:
                 $html .= $this->renderTableDelete($change);
                 break;
             // show modified lines on both sides
-            case SequenceMatcher::OPCODE_REPLACE:
+            case SequenceMatcher::OP_REP:
                 $html .= $this->renderTableReplace($change);
                 break;
         }

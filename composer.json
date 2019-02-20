@@ -26,7 +26,7 @@
     "require": {
         "php": "^7.1.3",
         "jfcherng/php-mb-string": "^1.3",
-        "jfcherng/php-sequence-matcher": "^1.0"
+        "jfcherng/php-sequence-matcher": "^2.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^2.14.1",

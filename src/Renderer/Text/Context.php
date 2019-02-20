@@ -24,10 +24,10 @@ final class Context extends AbstractText
      * @var array array of the different opcode tags and how they map to the context diff equivalent
      */
     const TAG_MAP = [
-        SequenceMatcher::OPCODE_DELETE => '-',
-        SequenceMatcher::OPCODE_EQUAL => ' ',
-        SequenceMatcher::OPCODE_INSERT => '+',
-        SequenceMatcher::OPCODE_REPLACE => '!',
+        SequenceMatcher::OP_DEL => '-',
+        SequenceMatcher::OP_EQ => ' ',
+        SequenceMatcher::OP_INS => '+',
+        SequenceMatcher::OP_REP => '!',
     ];
 
     /**
@@ -85,7 +85,7 @@ final class Context extends AbstractText
         $ret = '';
 
         foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
-            if ($tag === SequenceMatcher::OPCODE_INSERT) {
+            if ($tag === SequenceMatcher::OP_INS) {
                 continue;
             }
 
@@ -110,7 +110,7 @@ final class Context extends AbstractText
         $ret = '';
 
         foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
-            if ($tag === SequenceMatcher::OPCODE_DELETE) {
+            if ($tag === SequenceMatcher::OP_DEL) {
                 continue;
             }
 

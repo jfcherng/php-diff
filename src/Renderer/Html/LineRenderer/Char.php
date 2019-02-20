@@ -21,13 +21,13 @@ final class Char extends AbstractLineRenderer
         // reversely iterate opcodes
         foreach (ReverseIterator::fromArray($opcodes) as [$tag, $i1, $i2, $j1, $j2]) {
             switch ($tag) {
-                case SequenceMatcher::OPCODE_DELETE:
+                case SequenceMatcher::OP_DEL:
                     $mbFrom->str_enclose_i(RendererConstant::HTML_CLOSURES, $i1, $i2 - $i1);
                     break;
-                case SequenceMatcher::OPCODE_INSERT:
+                case SequenceMatcher::OP_INS:
                     $mbTo->str_enclose_i(RendererConstant::HTML_CLOSURES, $j1, $j2 - $j1);
                     break;
-                case SequenceMatcher::OPCODE_REPLACE:
+                case SequenceMatcher::OP_REP:
                     $mbFrom->str_enclose_i(RendererConstant::HTML_CLOSURES, $i1, $i2 - $i1);
                     $mbTo->str_enclose_i(RendererConstant::HTML_CLOSURES, $j1, $j2 - $j1);
                     break;
