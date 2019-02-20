@@ -148,7 +148,7 @@ final class Diff
      */
     public function getA(int $start = 0, ?int $end = null): array
     {
-        return \array_slice($this->a, $start, ($end ?? $start + 1) - $start);
+        return $this->getText($this->a, $start, $end);
     }
 
     /**
@@ -164,7 +164,7 @@ final class Diff
      */
     public function getB(int $start = 0, ?int $end = null): array
     {
-        return \array_slice($this->b, $start, ($end ?? $start + 1) - $start);
+        return $this->getText($this->b, $start, $end);
     }
 
     /**
@@ -219,5 +219,19 @@ final class Diff
         return $this->a === $this->b
             ? $renderer::getIdenticalResult()
             : $renderer->render();
+    }
+
+    /**
+     * The work horse of getA() and getB().
+     *
+     * @param string[] $lines the array of lines
+     * @param int      $start the starting number
+     * @param null|int $end   the ending number. If not supplied, only the item in $start will be sliced.
+     *
+     * @return string[] array of all of the lines between the specified range
+     */
+    private function getText(array $lines, int $start = 0, ?int $end = null): array
+    {
+        return \array_slice($lines, $start, ($end ?? $start + 1) - $start);
     }
 }
