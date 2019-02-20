@@ -11,7 +11,7 @@ final class None extends AbstractLineRenderer
     /**
      * {@inheritdoc}
      */
-    public function render(MbString $mbFrom, MbString $mbTo): LineRendererInterface
+    public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
     {
         return $this;
     }

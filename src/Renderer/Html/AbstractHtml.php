@@ -46,11 +46,11 @@ abstract class AbstractHtml extends AbstractRenderer
             $this->options
         );
 
-        // As we'll be modifying a & b to include our change markers,
+        // As we'll be modifying old & new to include our change markers,
         // we need to get the contents and store them here. That way
         // we're not going to destroy the original data
-        $a = $this->diff->getA();
-        $b = $this->diff->getB();
+        $old = $this->diff->getOld();
+        $new = $this->diff->getNew();
 
         $changes = [];
 
@@ -65,7 +65,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     $i2 - $i1 === $j2 - $j1
                 ) {
                     for ($i = 0; $i < $i2 - $i1; ++$i) {
-                        $this->renderChangedExtent($lineRenderer, $a[$i1 + $i], $b[$j1 + $i]);
+                        $this->renderChangedExtent($lineRenderer, $old[$i1 + $i], $new[$j1 + $i]);
                     }
                 }
 
@@ -77,7 +77,7 @@ abstract class AbstractHtml extends AbstractRenderer
                 $lastTag = $tag;
 
                 if ($tag === SequenceMatcher::OP_EQ) {
-                    if (!empty($lines = \array_slice($a, $i1, ($i2 - $i1)))) {
+                    if (!empty($lines = \array_slice($old, $i1, ($i2 - $i1)))) {
                         $formattedLines = $this->formatLines($lines);
 
                         $blocks[$lastBlock]['base']['lines'] += $formattedLines;
@@ -101,7 +101,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     $tag === SequenceMatcher::OP_REP ||
                     $tag === SequenceMatcher::OP_DEL
                 ) {
-                    $lines = \array_slice($a, $i1, ($i2 - $i1));
+                    $lines = \array_slice($old, $i1, ($i2 - $i1));
                     $lines = $this->formatLines($lines);
                     $lines = \str_replace(
                         RendererConstant::HTML_CLOSURES,
@@ -116,7 +116,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     $tag === SequenceMatcher::OP_REP ||
                     $tag === SequenceMatcher::OP_INS
                 ) {
-                    $lines = \array_slice($b, $j1, ($j2 - $j1));
+                    $lines = \array_slice($new, $j1, ($j2 - $j1));
                     $lines = $this->formatLines($lines);
                     $lines = \str_replace(
                         RendererConstant::HTML_CLOSURES,
@@ -138,27 +138,27 @@ abstract class AbstractHtml extends AbstractRenderer
      * Renderer the changed extent.
      *
      * @param AbstractLineRenderer $lineRenderer the line renderer
-     * @param string               $from         the from line
-     * @param string               $to           the to line
+     * @param string               $old          the old line
+     * @param string               $new          the new line
      *
      * @throws \InvalidArgumentException
      *
      * @return self
      */
-    protected function renderChangedExtent(AbstractLineRenderer $lineRenderer, string &$from, string &$to): self
+    protected function renderChangedExtent(AbstractLineRenderer $lineRenderer, string &$old, string &$new): self
     {
-        static $mbFrom, $mbTo;
+        static $mbOld, $mbNew;
 
-        $mbFrom = $mbFrom ?? new MbString();
-        $mbTo = $mbTo ?? new MbString();
+        $mbOld = $mbOld ?? new MbString();
+        $mbNew = $mbNew ?? new MbString();
 
-        $mbFrom->set($from);
-        $mbTo->set($to);
+        $mbOld->set($old);
+        $mbNew->set($new);
 
-        $lineRenderer->render($mbFrom, $mbTo);
+        $lineRenderer->render($mbOld, $mbNew);
 
-        $from = $mbFrom->get();
-        $to = $mbTo->get();
+        $old = $mbOld->get();
+        $new = $mbNew->get();
 
         return $this;
     }

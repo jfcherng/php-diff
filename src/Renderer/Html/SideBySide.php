@@ -123,14 +123,14 @@ final class SideBySide extends AbstractHtml
         $html = '';
 
         foreach ($change['base']['lines'] as $no => $line) {
-            $fromLine = $change['base']['offset'] + $no + 1;
-            $toLine = $change['changed']['offset'] + $no + 1;
+            $oldLineNum = $change['base']['offset'] + $no + 1;
+            $newLine = $change['changed']['offset'] + $no + 1;
 
             $html .=
                 '<tr>' .
-                    '<th class="f-num">' . $fromLine . '</th>' .
+                    '<th class="f-num">' . $oldLineNum . '</th>' .
                     '<td class="old">' . $line . '</td>' .
-                    '<th class="t-num">' . $toLine . '</th>' .
+                    '<th class="t-num">' . $newLine . '</th>' .
                     '<td class="new">' . $line . '</td>' .
                 '</tr>';
         }
@@ -149,15 +149,15 @@ final class SideBySide extends AbstractHtml
     {
         $html = '';
 
-        foreach ($change['changed']['lines'] as $no => $line) {
-            $toLine = $change['changed']['offset'] + $no + 1;
+        foreach ($change['changed']['lines'] as $no => $newLine) {
+            $newLineNum = $change['changed']['offset'] + $no + 1;
 
             $html .=
                 '<tr>' .
                     '<th></th>' .
                     '<td class="old"></td>' .
-                    '<th class="t-num">' . $toLine . '</th>' .
-                    '<td class="new">' . $line . '</td>' .
+                    '<th class="t-num">' . $newLineNum . '</th>' .
+                    '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
 
@@ -175,13 +175,13 @@ final class SideBySide extends AbstractHtml
     {
         $html = '';
 
-        foreach ($change['base']['lines'] as $no => $line) {
-            $fromLine = $change['base']['offset'] + $no + 1;
+        foreach ($change['base']['lines'] as $no => $oldLine) {
+            $oldLineNum = $change['base']['offset'] + $no + 1;
 
             $html .=
                 '<tr>' .
-                    '<th class="f-num">' . $fromLine . '</th>' .
-                    '<td class="old">' . $line . '</td>' .
+                    '<th class="f-num">' . $oldLineNum . '</th>' .
+                    '<td class="old">' . $oldLine . '</td>' .
                     '<th></th>' .
                     '<td class="new"></td>' .
                 '</tr>';
@@ -202,43 +202,43 @@ final class SideBySide extends AbstractHtml
         $html = '';
 
         if (\count($change['base']['lines']) >= \count($change['changed']['lines'])) {
-            foreach ($change['base']['lines'] as $no => $line) {
-                $fromLine = $change['base']['offset'] + $no + 1;
+            foreach ($change['base']['lines'] as $no => $oldLine) {
+                $oldLineNum = $change['base']['offset'] + $no + 1;
 
                 if (isset($change['changed']['lines'][$no])) {
-                    $toLine = $change['base']['offset'] + $no + 1;
-                    $changedLine = '<span>' . $change['changed']['lines'][$no] . '</span>';
+                    $newLineNum = $change['base']['offset'] + $no + 1;
+                    $newLine = '<span>' . $change['changed']['lines'][$no] . '</span>';
                 } else {
-                    $toLine = '';
-                    $changedLine = '';
+                    $newLineNum = '';
+                    $newLine = '';
                 }
 
                 $html .=
                     '<tr>' .
-                        '<th class="f-num">' . $fromLine . '</th>' .
-                        '<td class="old"><span>' . $line . '</span></td>' .
-                        '<th class="t-num">' . $toLine . '</th>' .
-                        '<td class="new">' . $changedLine . '</td>' .
+                        '<th class="f-num">' . $oldLineNum . '</th>' .
+                        '<td class="old"><span>' . $oldLine . '</span></td>' .
+                        '<th class="t-num">' . $newLineNum . '</th>' .
+                        '<td class="new">' . $newLine . '</td>' .
                     '</tr>';
             }
         } else {
-            foreach ($change['changed']['lines'] as $no => $changedLine) {
-                $toLine = $change['changed']['offset'] + $no + 1;
+            foreach ($change['changed']['lines'] as $no => $newLine) {
+                $newLineNum = $change['changed']['offset'] + $no + 1;
 
                 if (isset($change['base']['lines'][$no])) {
-                    $fromLine = $change['base']['offset'] + $no + 1;
-                    $line = '<span>' . $change['base']['lines'][$no] . '</span>';
+                    $oldLineNum = $change['base']['offset'] + $no + 1;
+                    $oldLine = '<span>' . $change['base']['lines'][$no] . '</span>';
                 } else {
-                    $fromLine = '';
-                    $line = '';
+                    $oldLineNum = '';
+                    $oldLine = '';
                 }
 
                 $html .=
                     '<tr>' .
-                        '<th class="f-num">' . $fromLine . '</th>' .
-                        '<td class="old"><span>' . $line . '</span></td>' .
-                        '<th class="t-num">' . $toLine . '</th>' .
-                        '<td class="new">' . $changedLine . '</td>' .
+                        '<th class="f-num">' . $oldLineNum . '</th>' .
+                        '<td class="old"><span>' . $oldLine . '</span></td>' .
+                        '<th class="t-num">' . $newLineNum . '</th>' .
+                        '<td class="new">' . $newLine . '</td>' .
                     '</tr>';
             }
         }

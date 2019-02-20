@@ -11,10 +11,10 @@ interface LineRendererInterface
     /**
      * Renderer the in-line changed extent.
      *
-     * @param MbString $mbFrom the megabytes from line
-     * @param MbString $mbTo   the megabytes to line
+     * @param MbString $mbOld the old megabytes line
+     * @param MbString $mbNew the new megabytes line
      *
      * @return self
      */
-    public function render(MbString $mbFrom, MbString $mbTo): self;
+    public function render(MbString $mbOld, MbString $mbNew): self;
 }

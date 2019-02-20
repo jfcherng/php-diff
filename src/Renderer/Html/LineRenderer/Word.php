@@ -14,7 +14,7 @@ final class Word extends AbstractLineRenderer
     /**
      * {@inheritdoc}
      */
-    public function render(MbString $mbFrom, MbString $mbTo): LineRendererInterface
+    public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
     {
         static $punctuationsRange = (
             // Latin-1 Supplement
@@ -48,35 +48,35 @@ final class Word extends AbstractLineRenderer
             '．‧・･•·¿'
         );
 
-        $fromWords = $mbFrom->toArraySplit("/([{$punctuationsRange}]++)/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
-        $toWords = $mbTo->toArraySplit("/([{$punctuationsRange}]++)/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
+        $oldWords = $mbOld->toArraySplit("/([{$punctuationsRange}]++)/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
+        $newWords = $mbNew->toArraySplit("/([{$punctuationsRange}]++)/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
 
-        $opcodes = $this->getChangedExtentSegments($fromWords, $toWords);
+        $opcodes = $this->getChangedExtentSegments($oldWords, $newWords);
 
         // reversely iterate opcodes
         foreach (ReverseIterator::fromArray($opcodes) as [$tag, $i1, $i2, $j1, $j2]) {
             switch ($tag) {
                 case SequenceMatcher::OP_DEL:
-                    $fromWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $fromWords[$i1];
-                    $fromWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];
+                    $oldWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $oldWords[$i1];
+                    $oldWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];
                     break;
                 case SequenceMatcher::OP_INS:
-                    $toWords[$j1] = RendererConstant::HTML_CLOSURES[0] . $toWords[$j1];
-                    $toWords[$j2 - 1] .= RendererConstant::HTML_CLOSURES[1];
+                    $newWords[$j1] = RendererConstant::HTML_CLOSURES[0] . $newWords[$j1];
+                    $newWords[$j2 - 1] .= RendererConstant::HTML_CLOSURES[1];
                     break;
                 case SequenceMatcher::OP_REP:
-                    $fromWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $fromWords[$i1];
-                    $fromWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];
-                    $toWords[$j1] = RendererConstant::HTML_CLOSURES[0] . $toWords[$j1];
-                    $toWords[$j2 - 1] .= RendererConstant::HTML_CLOSURES[1];
+                    $oldWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $oldWords[$i1];
+                    $oldWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];
+                    $newWords[$j1] = RendererConstant::HTML_CLOSURES[0] . $newWords[$j1];
+                    $newWords[$j2 - 1] .= RendererConstant::HTML_CLOSURES[1];
                     break;
                 default:
                     continue 2;
             }
         }
 
-        $mbFrom->set(\implode('', $fromWords));
-        $mbTo->set(\implode('', $toWords));
+        $mbOld->set(\implode('', $oldWords));
+        $mbNew->set(\implode('', $newWords));
 
         return $this;
     }

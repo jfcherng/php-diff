@@ -96,7 +96,7 @@ final class DiffHelper
         \is_string($new) && ($new = \explode("\n", $new));
 
         return Diff::getInstance()
-            ->setAB($old, $new)
+            ->setOldNew($old, $new)
             ->setOptions($diffOptions)
             ->render(
                 RendererFactory::getInstance($template)

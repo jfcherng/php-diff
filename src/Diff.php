@@ -25,12 +25,12 @@ final class Diff
     /**
      * @var string[] the "old" sequence to use as the basis for the comparison
      */
-    private $a = [];
+    private $old = [];
 
     /**
      * @var string[] the "new" sequence to generate the changes for
      */
-    private $b = [];
+    private $new = [];
 
     /**
      * @var null|SequenceMatcher the sequence matcher
@@ -57,63 +57,63 @@ final class Diff
     /**
      * The constructor.
      *
-     * @param string[] $a       array containing the lines of the first string to compare
-     * @param string[] $b       array containing the lines for the second string to compare
+     * @param string[] $old     array containing the lines of the old string to compare
+     * @param string[] $new     array containing the lines for the new string to compare
      * @param array    $options
      */
-    public function __construct(array $a, array $b, array $options = [])
+    public function __construct(array $old, array $new, array $options = [])
     {
         $this->sequenceMatcher = new SequenceMatcher([], []);
 
-        $this->setAB($a, $b)->setOptions($options);
+        $this->setOldNew($old, $new)->setOptions($options);
     }
 
     /**
-     * Set a and b.
+     * Set old and new.
      *
-     * @param string[] $a the a
-     * @param string[] $b the b
+     * @param string[] $old the old
+     * @param string[] $new the new
      *
      * @return self
      */
-    public function setAB(array $a, array $b): self
+    public function setOldNew(array $old, array $new): self
     {
-        $this->setA($a)->setB($b);
+        $this->setOld($old)->setNew($new);
 
         return $this;
     }
 
     /**
-     * Set a.
+     * Set old.
      *
-     * @param string[] $a the a
+     * @param string[] $old the old
      *
      * @return self
      */
-    public function setA(array $a): self
+    public function setOld(array $old): self
     {
-        if ($this->a !== $a) {
-            $this->a = $a;
+        if ($this->old !== $old) {
+            $this->old = $old;
             $this->groupedCodes = null;
-            $this->sequenceMatcher->setSeq1($a);
+            $this->sequenceMatcher->setSeq1($old);
         }
 
         return $this;
     }
 
     /**
-     * Set b.
+     * Set new.
      *
-     * @param string[] $b the b
+     * @param string[] $new the new
      *
      * @return self
      */
-    public function setB(array $b): self
+    public function setNew(array $new): self
     {
-        if ($this->b !== $b) {
-            $this->b = $b;
+        if ($this->new !== $new) {
+            $this->new = $new;
             $this->groupedCodes = null;
-            $this->sequenceMatcher->setSeq2($b);
+            $this->sequenceMatcher->setSeq2($new);
         }
 
         return $this;
@@ -136,8 +136,7 @@ final class Diff
     }
 
     /**
-     * Get a range of lines from $start to $end from the first comparison string
-     * and return them as an array.
+     * Get a range of lines from $start to $end from the old string and return them as an array.
      *
      * If $end is null, it returns array sliced from the $start to the end.
      *
@@ -146,14 +145,13 @@ final class Diff
      *
      * @return string[] array of all of the lines between the specified range
      */
-    public function getA(int $start = 0, ?int $end = null): array
+    public function getOld(int $start = 0, ?int $end = null): array
     {
-        return $this->getText($this->a, $start, $end);
+        return $this->getText($this->old, $start, $end);
     }
 
     /**
-     * Get a range of lines from $start to $end from the second comparison string
-     * and return them as an array.
+     * Get a range of lines from $start to $end from the new string and return them as an array.
      *
      * If $end is null, it returns array sliced from the $start to the end.
      *
@@ -162,9 +160,9 @@ final class Diff
      *
      * @return string[] array of all of the lines between the specified range
      */
-    public function getB(int $start = 0, ?int $end = null): array
+    public function getNew(int $start = 0, ?int $end = null): array
     {
-        return $this->getText($this->b, $start, $end);
+        return $this->getText($this->new, $start, $end);
     }
 
     /**
@@ -216,9 +214,88 @@ final class Diff
 
         // the "no difference" situation may happen frequently
         // let's save some calculation if possible
-        return $this->a === $this->b
+        return $this->old === $this->new
             ? $renderer::getIdenticalResult()
             : $renderer->render();
+    }
+
+    /**
+     * Set a and b.
+     *
+     * @deprecated 5.0.0
+     *
+     * @param string[] $a the a
+     * @param string[] $b the b
+     *
+     * @return self
+     */
+    public function setAB(array $a, array $b): self
+    {
+        return $this->setOldNew($a, $b);
+    }
+
+    /**
+     * Set a.
+     *
+     * @deprecated 5.0.0
+     *
+     * @param string[] $a the a
+     *
+     * @return self
+     */
+    public function setA(array $a): self
+    {
+        return $this->setOld($a);
+    }
+
+    /**
+     * Set b.
+     *
+     * @deprecated 5.0.0
+     *
+     * @param string[] $b the b
+     *
+     * @return self
+     */
+    public function setB(array $b): self
+    {
+        return $this->setNew($b);
+    }
+
+    /**
+     * Get a range of lines from $start to $end from the first comparison string
+     * and return them as an array.
+     *
+     * If $end is null, it returns array sliced from the $start to the end.
+     *
+     * @deprecated 5.0.0
+     *
+     * @param int      $start the starting number. If null, the whole array will be returned.
+     * @param null|int $end   the ending number. If null, only the item in $start will be returned.
+     *
+     * @return string[] array of all of the lines between the specified range
+     */
+    public function getA(int $start = 0, ?int $end = null): array
+    {
+        return $this->getOld($start, $end);
+    }
+
+    /**
+     * Get a range of lines from $start to $end from the second comparison string
+     * and return them as an array.
+     *
+     * If $end is null, it returns array sliced from the $start to the end.
+     *
+     * @deprecated 5.0.0
+     *
+     * @param int      $start the starting number
+     * @param null|int $end   the ending number
+     *
+     * @return string[] array of all of the lines between the specified range
+     */
+    public function getB(int $start = 0, ?int $end = null): array
+    {
+        return $this->getNew($start, $end);
     }
 
     /**

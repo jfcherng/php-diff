@@ -91,7 +91,7 @@ final class Context extends AbstractText
 
             $ret .= $this->renderContext(
                 self::TAG_MAP[$tag],
-                $this->diff->getA($i1, $i2)
+                $this->diff->getOld($i1, $i2)
             );
         }
 
@@ -116,7 +116,7 @@ final class Context extends AbstractText
 
             $ret .= $this->renderContext(
                 self::TAG_MAP[$tag],
-                $this->diff->getB($j1, $j2)
+                $this->diff->getNew($j1, $j2)
             );
         }
 

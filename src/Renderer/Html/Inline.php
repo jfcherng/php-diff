@@ -125,13 +125,13 @@ final class Inline extends AbstractHtml
         $html = '';
 
         foreach ($change['base']['lines'] as $no => $line) {
-            $fromLine = $change['base']['offset'] + $no + 1;
-            $toLine = $change['changed']['offset'] + $no + 1;
+            $oldLineNum = $change['base']['offset'] + $no + 1;
+            $newLineNum = $change['changed']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="=">' .
-                    '<th class="f-num">' . $fromLine . '</th>' .
-                    '<th class="t-num">' . $toLine . '</th>' .
+                    '<th class="f-num">' . $oldLineNum . '</th>' .
+                    '<th class="t-num">' . $newLineNum . '</th>' .
                     '<th class="sign"></th>' .
                     '<td class="old">' . $line . '</td>' .
                 '</tr>';
@@ -151,15 +151,15 @@ final class Inline extends AbstractHtml
     {
         $html = '';
 
-        foreach ($change['changed']['lines'] as $no => $line) {
-            $toLine = $change['changed']['offset'] + $no + 1;
+        foreach ($change['changed']['lines'] as $no => $newLine) {
+            $newLineNum = $change['changed']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="+">' .
                     '<th></th>' .
-                    '<th class="t-num">' . $toLine . '</th>' .
+                    '<th class="t-num">' . $newLineNum . '</th>' .
                     '<th class="sign ins">+</th>' .
-                    '<td class="new">' . $line . '</td>' .
+                    '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
 
@@ -177,15 +177,15 @@ final class Inline extends AbstractHtml
     {
         $html = '';
 
-        foreach ($change['base']['lines'] as $no => $line) {
-            $fromLine = $change['base']['offset'] + $no + 1;
+        foreach ($change['base']['lines'] as $no => $oldLine) {
+            $oldLineNum = $change['base']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="-">' .
-                    '<th class="f-num">' . $fromLine . '</th>' .
+                    '<th class="f-num">' . $oldLineNum . '</th>' .
                     '<th></th>' .
                     '<th class="sign del">-</th>' .
-                    '<td class="old">' . $line . '</td>' .
+                    '<td class="old">' . $oldLine . '</td>' .
                 '</tr>';
         }
 
@@ -203,27 +203,27 @@ final class Inline extends AbstractHtml
     {
         $html = '';
 
-        foreach ($change['base']['lines'] as $no => $line) {
-            $fromLine = $change['base']['offset'] + $no + 1;
+        foreach ($change['base']['lines'] as $no => $oldLine) {
+            $oldLineNum = $change['base']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="-">' .
-                    '<th class="f-num">' . $fromLine . '</th>' .
+                    '<th class="f-num">' . $oldLineNum . '</th>' .
                     '<th></th>' .
                     '<th class="sign del">-</th>' .
-                    '<td class="old">' . $line . '</td>' .
+                    '<td class="old">' . $oldLine . '</td>' .
                 '</tr>';
         }
 
-        foreach ($change['changed']['lines'] as $no => $line) {
-            $toLine = $change['changed']['offset'] + $no + 1;
+        foreach ($change['changed']['lines'] as $no => $newLine) {
+            $newLineNum = $change['changed']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="+">' .
                     '<th></th>' .
-                    '<th class="t-num">' . $toLine . '</th>' .
+                    '<th class="t-num">' . $newLineNum . '</th>' .
                     '<th class="sign ins">+</th>' .
-                    '<td class="new">' . $line . '</td>' .
+                    '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
 

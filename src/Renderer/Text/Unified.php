@@ -43,7 +43,7 @@ final class Unified extends AbstractText
 
             foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
                 if ($tag === SequenceMatcher::OP_EQ) {
-                    $ret .= $this->renderContext(' ', $this->diff->getA($i1, $i2));
+                    $ret .= $this->renderContext(' ', $this->diff->getOld($i1, $i2));
 
                     continue;
                 }
@@ -52,14 +52,14 @@ final class Unified extends AbstractText
                     $tag === SequenceMatcher::OP_REP ||
                     $tag === SequenceMatcher::OP_DEL
                 ) {
-                    $ret .= $this->renderContext('-', $this->diff->getA($i1, $i2));
+                    $ret .= $this->renderContext('-', $this->diff->getOld($i1, $i2));
                 }
 
                 if (
                     $tag === SequenceMatcher::OP_REP ||
                     $tag === SequenceMatcher::OP_INS
                 ) {
-                    $ret .= $this->renderContext('+', $this->diff->getB($j1, $j2));
+                    $ret .= $this->renderContext('+', $this->diff->getNew($j1, $j2));
                 }
             }
         }

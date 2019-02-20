@@ -12,9 +12,9 @@ final class Line extends AbstractLineRenderer
     /**
      * {@inheritdoc}
      */
-    public function render(MbString $mbFrom, MbString $mbTo): LineRendererInterface
+    public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
     {
-        [$start, $end] = $this->getChangedExtentRegion($mbFrom, $mbTo);
+        [$start, $end] = $this->getChangedExtentRegion($mbOld, $mbNew);
 
         // two strings are the same
         if ($end === 0) {
@@ -22,15 +22,15 @@ final class Line extends AbstractLineRenderer
         }
 
         // two strings are different, we do rendering
-        $mbFrom->str_enclose_i(
+        $mbOld->str_enclose_i(
             RendererConstant::HTML_CLOSURES,
             $start,
-            $end + $mbFrom->strlen() - $start + 1
+            $end + $mbOld->strlen() - $start + 1
         );
-        $mbTo->str_enclose_i(
+        $mbNew->str_enclose_i(
             RendererConstant::HTML_CLOSURES,
             $start,
-            $end + $mbTo->strlen() - $start + 1
+            $end + $mbNew->strlen() - $start + 1
         );
 
         return $this;
@@ -40,26 +40,26 @@ final class Line extends AbstractLineRenderer
      * Given two strings, determine where the changes in the two strings begin,
      * and where the changes in the two strings end.
      *
-     * @param MbString $mbFrom the megabytes from line
-     * @param MbString $mbTo   the megabytes to line
+     * @param MbString $mbOld the old megabytes line
+     * @param MbString $mbNew the new megabytes line
      *
      * @return array Array containing the starting position (non-negative) and the ending position (negative)
      *               [0, 0] if two strings are the same
      */
-    protected function getChangedExtentRegion(MbString $mbFrom, MbString $mbTo): array
+    protected function getChangedExtentRegion(MbString $mbOld, MbString $mbNew): array
     {
         // two strings are the same
         // most lines should be this cases, an early return could save many function calls
-        if ($mbFrom->getRaw() === $mbTo->getRaw()) {
+        if ($mbOld->getRaw() === $mbNew->getRaw()) {
             return [0, 0];
         }
 
         // calculate $start
         $start = 0;
-        $startMax = \min($mbFrom->strlen(), $mbTo->strlen());
+        $startMax = \min($mbOld->strlen(), $mbNew->strlen());
         while (
             $start < $startMax && // index out of range
-            $mbFrom->getAtRaw($start) === $mbTo->getAtRaw($start)
+            $mbOld->getAtRaw($start) === $mbNew->getAtRaw($start)
         ) {
             ++$start;
         }
@@ -69,7 +69,7 @@ final class Line extends AbstractLineRenderer
         $endMin = $startMax - $start;
         while (
             -$end <= $endMin && // index out of range
-            $mbFrom->getAtRaw($end) === $mbTo->getAtRaw($end)
+            $mbOld->getAtRaw($end) === $mbNew->getAtRaw($end)
         ) {
             --$end;
         }
