@@ -25,11 +25,6 @@ abstract class AbstractRenderer implements RendererInterface
     const IS_HTML_TEMPLATE = true;
 
     /**
-     * @var string the output result when the old and the new are the same
-     */
-    const IDENTICAL_RESULT = '';
-
-    /**
      * @var Diff the instance of the diff class that this renderer is generating the rendered diff for
      */
     protected $diff;
@@ -125,6 +120,16 @@ abstract class AbstractRenderer implements RendererInterface
     public function getOptions(): array
     {
         return $this->options;
+    }
+
+    /**
+     * Get the renderer result when the old and the new are the same.
+     *
+     * @return string
+     */
+    public static function getIdenticalResult(): string
+    {
+        return '';
     }
 
     /**

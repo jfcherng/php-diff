@@ -26,7 +26,7 @@ final class SideBySide extends AbstractHtml
         $changes = $this->getChanges();
 
         if (empty($changes)) {
-            return self::IDENTICAL_RESULT;
+            return self::getIdenticalResult();
         }
 
         $html = '<table class="diff diff-html diff-side-by-side">';

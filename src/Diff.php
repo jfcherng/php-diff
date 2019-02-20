@@ -216,9 +216,9 @@ final class Diff
 
         // the "no difference" situation may happen frequently
         // let's save some calculation if possible
-        return $this->a !== $this->b
-            ? $renderer->render()
-            : $renderer::IDENTICAL_RESULT;
+        return $this->a === $this->b
+            ? $renderer::getIdenticalResult()
+            : $renderer->render();
     }
 
     /**
@@ -232,10 +232,8 @@ final class Diff
      */
     private function getText(array $lines, int $start = 0, ?int $end = null): array
     {
-        if ($start === 0 && (!isset($end) || $end === \count($lines))) {
-            return $lines;
-        }
-
-        return \array_slice($lines, $start, isset($end) ? $end - $start : 1);
+        return $start === 0 && (!isset($end) || $end === \count($lines))
+            ? $lines
+            : \array_slice($lines, $start, isset($end) ? $end - $start : 1);
     }
 }

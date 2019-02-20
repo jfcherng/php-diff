@@ -90,12 +90,6 @@ final class DiffHelper
         \is_string($old) && ($old = \explode("\n", $old));
         \is_string($new) && ($new = \explode("\n", $new));
 
-        // the "no difference" situation may happen frequently
-        // let's save some calculation if possible
-        if ($old === $new) {
-            return RendererFactory::resolveTemplate($template)::IDENTICAL_RESULT;
-        }
-
         return Diff::getInstance()
             ->setAB($old, $new)
             ->setOptions($diffOptions)

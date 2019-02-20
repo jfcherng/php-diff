@@ -26,11 +26,6 @@ final class Json extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    const IDENTICAL_RESULT = '[]';
-
-    /**
-     * {@inheritdoc}
-     */
     public function render(): string
     {
         return \json_encode(
