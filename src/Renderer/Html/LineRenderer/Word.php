@@ -48,8 +48,8 @@ final class Word extends AbstractLineRenderer
             '．‧・･•·¿'
         );
 
-        $fromWords = $mbFrom->toArraySplit("/([{$punctuationsRange}])/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
-        $toWords = $mbTo->toArraySplit("/([{$punctuationsRange}])/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
+        $fromWords = $mbFrom->toArraySplit("/([{$punctuationsRange}]++)/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
+        $toWords = $mbTo->toArraySplit("/([{$punctuationsRange}]++)/uS", -1, \PREG_SPLIT_DELIM_CAPTURE);
 
         $opcodes = $this->getChangedExtentSegments($fromWords, $toWords);
 
