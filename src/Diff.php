@@ -137,12 +137,12 @@ final class Diff
 
     /**
      * Get a range of lines from $start to $end from the first comparison string
-     * and return them as an array. If no values are supplied, the entire string
-     * is returned. It's also possible to specify just one line to return only
-     * that line.
+     * and return them as an array.
      *
-     * @param int      $start the starting number
-     * @param null|int $end   the ending number. If not supplied, only the item in $start will be returned.
+     * If $end is null, it returns array sliced from the $start to the end.
+     *
+     * @param int      $start the starting number. If null, the whole array will be returned.
+     * @param null|int $end   the ending number. If null, only the item in $start will be returned.
      *
      * @return string[] array of all of the lines between the specified range
      */
@@ -153,12 +153,12 @@ final class Diff
 
     /**
      * Get a range of lines from $start to $end from the second comparison string
-     * and return them as an array. If no values are supplied, the entire string
-     * is returned. It's also possible to specify just one line to return only
-     * that line.
+     * and return them as an array.
+     *
+     * If $end is null, it returns array sliced from the $start to the end.
      *
      * @param int      $start the starting number
-     * @param null|int $end   the ending number. If not supplied, only the item in $start will be returned.
+     * @param null|int $end   the ending number
      *
      * @return string[] array of all of the lines between the specified range
      */
@@ -224,14 +224,46 @@ final class Diff
     /**
      * The work horse of getA() and getB().
      *
+     * If $end is null, it returns array sliced from the $start to the end.
+     *
      * @param string[] $lines the array of lines
      * @param int      $start the starting number
-     * @param null|int $end   the ending number. If not supplied, only the item in $start will be sliced.
+     * @param null|int $end   the ending number
      *
      * @return string[] array of all of the lines between the specified range
      */
     private function getText(array $lines, int $start = 0, ?int $end = null): array
     {
-        return \array_slice($lines, $start, ($end ?? $start + 1) - $start);
+        $arrayLength = \count($lines);
+
+        // make $end set
+        $end = $end ?? $arrayLength;
+
+        // make $start non-negative
+        if ($start < 0) {
+            $start += $arrayLength;
+
+            if ($start < 0) {
+                $start = 0;
+            }
+        }
+
+        // may prevent from calling array_slice()
+        if ($start === 0 && $end >= $arrayLength) {
+            return $lines;
+        }
+
+        // make $end non-negative
+        if ($end < 0) {
+            $end += $arrayLength;
+
+            if ($end < 0) {
+                $end = 0;
+            }
+        }
+
+        // now both $start and $end are non-negative
+        // hence the length for array_slice() must be non-negative
+        return \array_slice($lines, $start, \max(0, $end - $start));
     }
 }
