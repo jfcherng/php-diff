@@ -2,6 +2,30 @@
 ## VERSION 4  AT NOON
 
  * Version **4.1** - Allow negative tabSize
+   * 2019-02-22 02:51  **4.1.9**  fix Json renderer with empty changes
+      * d842546 Fix Json renderer with empty changes
+   * 2019-02-22 02:38  **4.1.8**  fix dep
+      * c2fb459 squizlabs/php_codesniffer should be in require-dev
+   * 2019-02-22 02:16  **4.1.7**  fix them
+      * 88ff257 Update example/old_file.txt and the new one.
+      * 32537b9 Fix AbstractHtml::expandTabs() $tabSize undeclared
+      * 37bd345 Fix problem caused by in OP_EQ, it still may be $old !== $new
+      * a821017 AbstractHtml::expandTabs() add argument: $onlyLeadingTabs
+      * bd00670 Code tidy
+      * 2031306 Update readme
+      * 0637909 Move upgrading guide from readme to other files
+      * 5e932e6 Separate CHANGELOG by major version
+   * 2019-02-21 19:50  **4.1.5**  cs tweak
+      * 1464d86 Update .rmt.yml
+      * b3b0595 Code tidy
+      * 7caae81 Update readme
+      * 347935c Update deps
+      * 6f8e9dd Uniform the term "$a, $b, from, to" into "old, new"
+      * f7679ff Code tidy
+      * 159d244 nits
+      * 76675e4 Tiny regex performance increasement
+      * 42eeff7 Fix 120 chars per line
+      * 86f2325 Introduce squizlabs/php_codesniffer
    * 2019-02-20 18:49  **4.1.4**  Fix Diff::getText()
       * 540daf5 Fix potential boundary error in Diff::getText()
       * 2b723e7 Revert "Inline and remove Diff::getText()"
