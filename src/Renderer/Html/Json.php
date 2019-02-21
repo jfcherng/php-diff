@@ -26,14 +26,8 @@ final class Json extends AbstractHtml
      */
     public function render(): string
     {
-        $changes = $this->getChanges();
-
-        if (empty($changes)) {
-            return self::getIdenticalResult();
-        }
-
         return \json_encode(
-            $changes,
+            $this->getChanges(),
             \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES
         );
     }
