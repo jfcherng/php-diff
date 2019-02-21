@@ -122,16 +122,21 @@ final class SideBySide extends AbstractHtml
     {
         $html = '';
 
-        foreach ($change['base']['lines'] as $no => $line) {
+        // note that although we are in a OP_EQ situation,
+        // the old and the new may not be exactly the same
+        // because of ignoreCase, ignoreWhitespace, etc
+        foreach ($change['base']['lines'] as $no => $oldLine) {
+            $newLine = $change['changed']['lines'][$no];
+
             $oldLineNum = $change['base']['offset'] + $no + 1;
-            $newLine = $change['changed']['offset'] + $no + 1;
+            $newLineNum = $change['changed']['offset'] + $no + 1;
 
             $html .=
                 '<tr>' .
                     '<th class="f-num">' . $oldLineNum . '</th>' .
-                    '<td class="old">' . $line . '</td>' .
-                    '<th class="t-num">' . $newLine . '</th>' .
-                    '<td class="new">' . $line . '</td>' .
+                    '<td class="old">' . $oldLine . '</td>' .
+                    '<th class="t-num">' . $newLineNum . '</th>' .
+                    '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
 
