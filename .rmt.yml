@@ -34,7 +34,7 @@ master:
   version-generator: semantic  # More complex versionning (semantic)
   version-persister:
     vcs-tag:
-      tag-pattern: '5\.[0-9]+\.[0-9]+'
+      tag-pattern: '4\.[0-9]+\.[0-9]+'
       tag-prefix: ''         # No more prefix for tags
   pre-release-actions:
     changelog-update:          # Update a CHANGELOG file before the release
