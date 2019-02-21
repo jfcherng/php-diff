@@ -319,26 +319,6 @@ $result = $diff->render($renderer);
 ```
 </details>
 
-# Upgrading
-
-
-<details><summary>From v2 to v3</summary>
-
-- `$diffOptions` removes: `charLevelDiff` and `separateBlock`.
-- `$templateOptions` adds: `detailLevel` (similar to `charLevelDiff`, read docs) and `separateBlock` (exact the same one in `$diffOptions`).
-- `Jfcherng\Diff\Diff`'s `$a` (`$old`), `$b` (`$new`) are required in `__construct()`. (You may pass two empty arrays if you do not want to do anything at that moment.)
-- The look of "skipped" block in HTML renderers (`SideBySide` and `Inline`) have been changed. (You may have to tweak your CSS.)
-
-</details>
-
-<details><summary>From v3 to v4</summary>
-
-- `Jfcherng\Diff\Utility\SequenceMatcher` becomes [a new package](https://packagist.org/packages/jfcherng/php-sequence-matcher) by the namespace of `Jfcherng\Diff\SequenceMatcher`.
-- Factories under `Jfcherng\Diff\Utility\` are moved to `Jfcherng\Diff\Factory\`. For example, `Jfcherng\Diff\Utility\RendererFactory` is now `Jfcherng\Diff\Factory\RendererFactory`.
-- Non-abstract classes are no longer inheritable as they are added with `final` keywords. (This allows me to do more internal changes without causing possible BC breaks.)
-
-</details>
-
 
 # Acknowledgment
 
