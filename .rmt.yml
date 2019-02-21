@@ -29,29 +29,17 @@ _default:
       ask-confirmation: true
 
 # BRANCH SPECIFIC CONFIG
-#  On master, we override the general config
-master:
-  version-generator: semantic  # More complex versionning (semantic)
-  version-persister:
-    vcs-tag:
-      tag-prefix: ''         # No more prefix for tags
-  pre-release-actions:
-    changelog-update:          # Update a CHANGELOG file before the release
-      file: CHANGELOG
-      format: semantic
-      dump-commits: true
-      exclude-merge-commits: true
-    vcs-commit: ~              # Commit the CHANGELOG
-
+#  On v4, we override the general config
 v4:
   version-generator: semantic  # More complex versionning (semantic)
   version-persister:
     vcs-tag:
+      tag-pattern: '4\.[0-9]+\.[0-9]+'
       tag-prefix: ''         # No more prefix for tags
   pre-release-actions:
     changelog-update:          # Update a CHANGELOG file before the release
-      file: CHANGELOG
-      format: semantic
+      file: CHANGELOG_v4.md
+      format: markdown
       dump-commits: true
       exclude-merge-commits: true
     vcs-commit: ~              # Commit the CHANGELOG
