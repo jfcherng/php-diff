@@ -30,10 +30,6 @@ final class Json extends AbstractHtml
     {
         $changes = $this->getChanges();
 
-        if (empty($changes)) {
-            return self::getIdenticalResult();
-        }
-
         if ($this->options['outputTagAsString']) {
             $this->convertTagToString($changes);
         }
