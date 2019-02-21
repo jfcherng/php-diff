@@ -2,6 +2,9 @@
 ## VERSION 5  AFTERNOON
 
  * Version **5.0** - AFTERNOON
+   * 2019-02-22 02:55  **5.0.2**  fix Json renderer with empty changes
+      * 6ca5b97 Fix Json renderer with empty changes
+      * e512f2d Update CHANGELOG_v4.md
    * 2019-02-22 02:35  **5.0.1**  fix dep
       * 7757363 squizlabs/php_codesniffer should be in require-dev
       * 6ac0c99 Update .rmt.yml
