@@ -2,6 +2,8 @@
 ## VERSION 4  AT NOON
 
  * Version **4.1** - Allow negative tabSize
+   * 2019-02-22 02:51  **4.1.9**  fix Json renderer with empty changes
+      * d842546 Fix Json renderer with empty changes
    * 2019-02-22 02:38  **4.1.8**  fix dep
       * c2fb459 squizlabs/php_codesniffer should be in require-dev
    * 2019-02-22 02:16  **4.1.7**  fix them
