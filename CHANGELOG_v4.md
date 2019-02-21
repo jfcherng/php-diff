@@ -2,6 +2,8 @@
 ## VERSION 4  AT NOON
 
  * Version **4.1** - Allow negative tabSize
+   * 2019-02-22 02:38  **4.1.8**  fix dep
+      * c2fb459 squizlabs/php_codesniffer should be in require-dev
    * 2019-02-22 02:16  **4.1.7**  fix them
       * 88ff257 Update example/old_file.txt and the new one.
       * 32537b9 Fix AbstractHtml::expandTabs() $tabSize undeclared
