@@ -3,6 +3,17 @@ VERSION 4  STRIP OUT THE SEQUENCEMATCHER
 ========================================
 
    Version 4.1 - Allow negative tabSize
+      21/02/2019 19:50  4.1.5  cs tweak
+         1464d86 Update .rmt.yml
+         b3b0595 Code tidy
+         7caae81 Update readme
+         347935c Update deps
+         6f8e9dd Uniform the term "$a, $b, from, to" into "old, new"
+         f7679ff Code tidy
+         159d244 nits
+         76675e4 Tiny regex performance increasement
+         42eeff7 Fix 120 chars per line
+         86f2325 Introduce squizlabs/php_codesniffer
       20/02/2019 18:49  4.1.4  Fix Diff::getText()
          540daf5 Fix potential boundary error in Diff::getText()
          2b723e7 Revert "Inline and remove Diff::getText()"
