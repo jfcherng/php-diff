@@ -240,16 +240,29 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * Replace tabs in a string with a number of spaces.
      *
-     * @param string $string  the containing tabs to convert
-     * @param int    $tabSize one tab = how many spaces, a negative does nothing
+     * @param string $string          the containing tabs to convert
+     * @param int    $tabSize         one tab = how many spaces, a negative does nothing
+     * @param bool   $onlyLeadingTabs only expand leading tabs
      *
      * @return string the string with the tabs converted to spaces
      */
-    protected function expandTabs(string $string, int $tabSize = 4): string
+    protected function expandTabs(string $string, int $tabSize = 4, bool $onlyLeadingTabs = false): string
     {
-        return $tabSize >= 0
-            ? \str_replace("\t", \str_repeat(' ', $tabSize), $string)
-            : $string;
+        if ($tabSize < 0) {
+            return $string;
+        }
+
+        if ($onlyLeadingTabs) {
+            return \preg_replace_callback(
+                "/^[ \t]{1,}/mS", // tabs and spaces may be mixed
+                function (array $matches): string {
+                    return \str_replace("\t", \str_repeat(' ', $tabSize), $matches[0]);
+                },
+                $string
+            );
+        }
+
+        return \str_replace("\t", \str_repeat(' ', $tabSize), $string);
     }
 
     /**
