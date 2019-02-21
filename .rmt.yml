@@ -42,3 +42,16 @@ master:
       dump-commits: true
       exclude-merge-commits: true
     vcs-commit: ~              # Commit the CHANGELOG
+
+v4:
+  version-generator: semantic  # More complex versionning (semantic)
+  version-persister:
+    vcs-tag:
+      tag-prefix: ''         # No more prefix for tags
+  pre-release-actions:
+    changelog-update:          # Update a CHANGELOG file before the release
+      file: CHANGELOG
+      format: semantic
+      dump-commits: true
+      exclude-merge-commits: true
+    vcs-commit: ~              # Commit the CHANGELOG
