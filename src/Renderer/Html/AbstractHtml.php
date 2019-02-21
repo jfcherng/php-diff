@@ -251,7 +251,7 @@ abstract class AbstractHtml extends AbstractRenderer
         if ($onlyLeadingTabs) {
             return \preg_replace_callback(
                 "/^[ \t]{1,}/mS", // tabs and spaces may be mixed
-                function (array $matches): string {
+                function (array $matches) use ($tabSize): string {
                     return \str_replace("\t", \str_repeat(' ', $tabSize), $matches[0]);
                 },
                 $string
