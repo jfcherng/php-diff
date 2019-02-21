@@ -2,6 +2,15 @@
 ## VERSION 4  AT NOON
 
  * Version **4.1** - Allow negative tabSize
+   * 2019-02-22 02:16  **4.1.7**  fix them
+      * 88ff257 Update example/old_file.txt and the new one.
+      * 32537b9 Fix AbstractHtml::expandTabs() $tabSize undeclared
+      * 37bd345 Fix problem caused by in OP_EQ, it still may be $old !== $new
+      * a821017 AbstractHtml::expandTabs() add argument: $onlyLeadingTabs
+      * bd00670 Code tidy
+      * 2031306 Update readme
+      * 0637909 Move upgrading guide from readme to other files
+      * 5e932e6 Separate CHANGELOG by major version
    * 2019-02-21 19:50  **4.1.5**  cs tweak
       * 1464d86 Update .rmt.yml
       * b3b0595 Code tidy
