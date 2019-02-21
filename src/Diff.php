@@ -92,11 +92,9 @@ final class Diff
      */
     public function setOld(array $old): self
     {
-        if ($this->old !== $old) {
-            $this->old = $old;
-            $this->groupedCodes = null;
-            $this->sequenceMatcher->setSeq1($old);
-        }
+        $this->old = $old;
+        $this->sequenceMatcher->setSeq1($old);
+        $this->resetCachedResults();
 
         return $this;
     }
@@ -110,11 +108,9 @@ final class Diff
      */
     public function setNew(array $new): self
     {
-        if ($this->new !== $new) {
-            $this->new = $new;
-            $this->groupedCodes = null;
-            $this->sequenceMatcher->setSeq2($new);
-        }
+        $this->new = $new;
+        $this->sequenceMatcher->setSeq2($new);
+        $this->resetCachedResults();
 
         return $this;
     }
@@ -131,6 +127,7 @@ final class Diff
         $this->options = $options + static::$defaultOptions;
 
         $this->sequenceMatcher->setOptions($this->options);
+        $this->resetCachedResults();
 
         return $this;
     }
@@ -199,6 +196,18 @@ final class Diff
     {
         return $this->groupedCodes = $this->groupedCodes ??
             $this->sequenceMatcher->getGroupedOpcodes($this->options['context']);
+    }
+
+    /**
+     * Reset cached results.
+     *
+     * @return self
+     */
+    public function resetCachedResults(): self
+    {
+        $this->groupedCodes = null;
+
+        return $this;
     }
 
     /**

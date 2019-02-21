@@ -29,7 +29,7 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     /**
      * The constructor.
      *
-     * @param array $diffOptions     the difference options
+     * @param array $diffOptions     the diff options
      * @param array $templateOptions the template options
      */
     public function __construct(array $diffOptions, array $templateOptions)
@@ -44,7 +44,7 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     /**
      * Set the diff options.
      *
-     * @param array $diffOptions the options
+     * @param array $diffOptions the diff options
      *
      * @return self
      */
