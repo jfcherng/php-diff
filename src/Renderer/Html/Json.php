@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html;
 
+use Jfcherng\Diff\SequenceMatcher;
+
 /**
  * Json diff generator.
  */
@@ -26,10 +28,30 @@ final class Json extends AbstractHtml
      */
     public function render(): string
     {
+        $changes = $this->getChanges();
+
+        if ($this->options['outputTagAsString']) {
+            $this->convertTagToString($changes);
+        }
+
         return \json_encode(
-            $this->getChanges(),
+            $changes,
             \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES
         );
+    }
+
+    /**
+     * Convert tags of changes to their string form for better readability.
+     *
+     * @param array $changes the changes
+     */
+    protected function convertTagToString(array &$changes): void
+    {
+        foreach ($changes as &$blocks) {
+            foreach ($blocks as &$change) {
+                $change['tag'] = SequenceMatcher::opIntToStr($change['tag']);
+            }
+        }
     }
 
     /**

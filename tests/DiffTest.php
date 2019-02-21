@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jfcherng\Diff\Test;
 
 use Jfcherng\Diff\Diff;
+use Jfcherng\Diff\SequenceMatcher;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -37,10 +38,10 @@ EOT
                 ,
                 [
                     [
-                        ['eq', 0, 1, 0, 1],
-                        ['del', 1, 2, 1, 1],
-                        ['eq', 2, 4, 1, 3],
-                        ['ins', 4, 4, 3, 4],
+                        [SequenceMatcher::OP_EQ, 0, 1, 0, 1],
+                        [SequenceMatcher::OP_DEL, 1, 2, 1, 1],
+                        [SequenceMatcher::OP_EQ, 2, 4, 1, 3],
+                        [SequenceMatcher::OP_INS, 4, 4, 3, 4],
                     ],
                 ],
             ],

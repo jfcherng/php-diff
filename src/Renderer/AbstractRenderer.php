@@ -50,6 +50,9 @@ abstract class AbstractRenderer implements RendererInterface
         // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
         // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
         'spacesToNbsp' => false,
+        // internally, ops (tags) are all int type but this is not good for human reading.
+        // set this to "true" to convert them into string form before outputting.
+        'outputTagAsString' => false,
     ];
 
     /**

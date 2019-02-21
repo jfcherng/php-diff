@@ -15,3 +15,6 @@
 
   - `<th class="f-num">` (from-number) becomes `<th class="n-new">` (number-new).
   - `<th class="t-num">` (to-number) becomes `<th class="n-old">` (number-old).
+
+- The `tag` in `Json` template is now in `int` form by default.
+  To get previous behavior, set the renderer option `outputTagAsString` to `true`.

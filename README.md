@@ -73,6 +73,9 @@ $templateOptions = [
     'spacesToNbsp' => false,
     // HTML template tab width (negative = do not convert into spaces)
     'tabSize' => 4,
+    // internally, ops (tags) are all int type but this is not good for human reading.
+    // set this to "true" to convert them into string form before outputting.
+    'outputTagAsString' => true,
 ];
 
 // one-line simple usage
