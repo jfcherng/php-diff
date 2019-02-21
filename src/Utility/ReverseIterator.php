@@ -6,8 +6,8 @@ namespace Jfcherng\Diff\Utility;
 
 final class ReverseIterator
 {
-    const ITERATOR_GET_KEY = 1 << 1;
-    const ITERATOR_GET_BOTH = 1 << 2;
+    const ITERATOR_GET_KEY = 1 << 0;
+    const ITERATOR_GET_BOTH = 1 << 1;
 
     /**
      * The constructor.
@@ -20,14 +20,13 @@ final class ReverseIterator
      * Iterate the array reversely.
      *
      * @param array $array the array
+     * @param int   $flags the flags
      *
      * @return \Generator
      */
     public static function fromArray(array $array, int $flags = 0): \Generator
     {
-        // it may worth unrolling if-conditions to be out of for-loop
-        // so it does have to check if-conditions in each iteration
-
+        // iterate [key => value] pair
         if ($flags & self::ITERATOR_GET_BOTH) {
             for (\end($array); ($key = \key($array)) !== null; \prev($array)) {
                 yield $key => \current($array);
@@ -36,6 +35,7 @@ final class ReverseIterator
             return;
         }
 
+        // iterate only key
         if ($flags & self::ITERATOR_GET_KEY) {
             for (\end($array); ($key = \key($array)) !== null; \prev($array)) {
                 yield $key;
@@ -44,6 +44,7 @@ final class ReverseIterator
             return;
         }
 
+        // iterate only value
         for (\end($array); \key($array) !== null; \prev($array)) {
             yield \current($array);
         }
