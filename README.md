@@ -183,7 +183,7 @@ $result = $diff->render($renderer);
 [
     [
         {
-            "tag": "rep",
+            "tag": 8,
             "old": {
                 "offset": 0,
                 "lines": [
@@ -198,7 +198,7 @@ $result = $diff->render($renderer);
             }
         },
         {
-            "tag": "eq",
+            "tag": 1,
             "old": {
                 "offset": 1,
                 "lines": [
@@ -213,7 +213,7 @@ $result = $diff->render($renderer);
             }
         },
         {
-            "tag": "ins",
+            "tag": 4,
             "old": {
                 "offset": 2,
                 "lines": []
@@ -226,7 +226,7 @@ $result = $diff->render($renderer);
             }
         },
         {
-            "tag": "eq",
+            "tag": 1,
             "old": {
                 "offset": 2,
                 "lines": [
@@ -243,7 +243,7 @@ $result = $diff->render($renderer);
     ],
     [
         {
-            "tag": "eq",
+            "tag": 1,
             "old": {
                 "offset": 6,
                 "lines": [
@@ -258,7 +258,7 @@ $result = $diff->render($renderer);
             }
         },
         {
-            "tag": "rep",
+            "tag": 8,
             "old": {
                 "offset": 7,
                 "lines": [
@@ -273,7 +273,7 @@ $result = $diff->render($renderer);
             }
         },
         {
-            "tag": "eq",
+            "tag": 1,
             "old": {
                 "offset": 8,
                 "lines": [
@@ -290,7 +290,7 @@ $result = $diff->render($renderer);
             }
         },
         {
-            "tag": "del",
+            "tag": 2,
             "old": {
                 "offset": 10,
                 "lines": [
@@ -303,7 +303,7 @@ $result = $diff->render($renderer);
             }
         },
         {
-            "tag": "eq",
+            "tag": 1,
             "old": {
                 "offset": 11,
                 "lines": [
