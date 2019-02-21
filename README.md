@@ -181,13 +181,13 @@ $result = $diff->render($renderer);
     [
         {
             "tag": "rep",
-            "base": {
+            "old": {
                 "offset": 0,
                 "lines": [
                     "&lt;<del>p&gt;Hello World!&lt;/p</del>&gt;"
                 ]
             },
-            "changed": {
+            "new": {
                 "offset": 0,
                 "lines": [
                     "&lt;<ins>div&gt;Hello World!&lt;/div</ins>&gt;"
@@ -196,13 +196,13 @@ $result = $diff->render($renderer);
         },
         {
             "tag": "eq",
-            "base": {
+            "old": {
                 "offset": 1,
                 "lines": [
                     "~~~~~~~~~~~~~~~~~~~"
                 ]
             },
-            "changed": {
+            "new": {
                 "offset": 1,
                 "lines": [
                     "~~~~~~~~~~~~~~~~~~~"
@@ -211,11 +211,11 @@ $result = $diff->render($renderer);
         },
         {
             "tag": "ins",
-            "base": {
+            "old": {
                 "offset": 2,
                 "lines": []
             },
-            "changed": {
+            "new": {
                 "offset": 2,
                 "lines": [
                     "Let's add a new line here."
@@ -224,13 +224,13 @@ $result = $diff->render($renderer);
         },
         {
             "tag": "eq",
-            "base": {
+            "old": {
                 "offset": 2,
                 "lines": [
                     "X"
                 ]
             },
-            "changed": {
+            "new": {
                 "offset": 3,
                 "lines": [
                     "X"
@@ -241,13 +241,13 @@ $result = $diff->render($renderer);
     [
         {
             "tag": "eq",
-            "base": {
+            "old": {
                 "offset": 6,
                 "lines": [
                     "N"
                 ]
             },
-            "changed": {
+            "new": {
                 "offset": 7,
                 "lines": [
                     "N"
@@ -256,13 +256,13 @@ $result = $diff->render($renderer);
         },
         {
             "tag": "rep",
-            "base": {
+            "old": {
                 "offset": 7,
                 "lines": [
                     "Do you know in <del>Chinese, \"金槍魚罐頭\" means tuna</del> can."
                 ]
             },
-            "changed": {
+            "new": {
                 "offset": 8,
                 "lines": [
                     "Do you know in <ins>Japanese, \"魚の缶詰\" means fish</ins> can."
@@ -271,14 +271,14 @@ $result = $diff->render($renderer);
         },
         {
             "tag": "eq",
-            "base": {
+            "old": {
                 "offset": 8,
                 "lines": [
                     "This is just a useless line.",
                     "G"
                 ]
             },
-            "changed": {
+            "new": {
                 "offset": 9,
                 "lines": [
                     "This is just a useless line.",
@@ -288,26 +288,26 @@ $result = $diff->render($renderer);
         },
         {
             "tag": "del",
-            "base": {
+            "old": {
                 "offset": 10,
                 "lines": [
                     "// @todo Remember to delete this line"
                 ]
             },
-            "changed": {
+            "new": {
                 "offset": 11,
                 "lines": []
             }
         },
         {
             "tag": "eq",
-            "base": {
+            "old": {
                 "offset": 11,
                 "lines": [
                     "Say hello to my neighbors."
                 ]
             },
-            "changed": {
+            "new": {
                 "offset": 11,
                 "lines": [
                     "Say hello to my neighbors."
