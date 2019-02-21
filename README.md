@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jfcherng/php-diff.svg?branch=master)](https://travis-ci.org/jfcherng/php-diff)
+[![Build Status](https://travis-ci.org/jfcherng/php-diff.svg?branch=v4)](https://travis-ci.org/jfcherng/php-diff)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3a7a07d2ed67434e8e8582ea4ec9867b)](https://app.codacy.com/app/jfcherng/php-diff?utm_source=github.com&utm_medium=referral&utm_content=jfcherng/php-diff&utm_campaign=Badge_Grade_Dashboard)
 
 # php-diff
@@ -32,7 +32,7 @@ $ composer require jfcherng/php-diff
 
 # Example
 
-See [example/demo.php](https://github.com/jfcherng/php-diff/blob/master/example/demo.php) and files under `tests/`.
+See [example/demo.php](https://github.com/jfcherng/php-diff/blob/v4/example/demo.php) and files under `tests/`.
 
 ```php
 <?php
