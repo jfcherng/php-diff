@@ -48,9 +48,9 @@ final class Context extends AbstractText
             $ret .=
                 "***************\n" .
                 $this->renderBlockHeader('*', $i1, $i2) .
-                $this->renderBlockFrom($opcodes) .
+                $this->renderBlockOld($opcodes) .
                 $this->renderBlockHeader('-', $j1, $j2) .
-                $this->renderBlockTo($opcodes);
+                $this->renderBlockNew($opcodes);
         }
 
         return $ret;
@@ -74,13 +74,13 @@ final class Context extends AbstractText
     }
 
     /**
-     * Render the block: from.
+     * Render the old block.
      *
      * @param array $opcodes the opcodes
      *
      * @return string
      */
-    protected function renderBlockFrom(array $opcodes): string
+    protected function renderBlockOld(array $opcodes): string
     {
         $ret = '';
 
@@ -99,13 +99,13 @@ final class Context extends AbstractText
     }
 
     /**
-     * Render the block: to.
+     * Render the new block.
      *
      * @param array $opcodes the opcodes
      *
      * @return string
      */
-    protected function renderBlockTo(array $opcodes): string
+    protected function renderBlockNew(array $opcodes): string
     {
         $ret = '';
 
