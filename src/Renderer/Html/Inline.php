@@ -124,7 +124,12 @@ final class Inline extends AbstractHtml
     {
         $html = '';
 
-        foreach ($change['old']['lines'] as $no => $line) {
+        // note that although we are in a OP_EQ situation,
+        // the old and the new may not be exactly the same
+        // because of ignoreCase, ignoreWhitespace, etc
+        foreach ($change['old']['lines'] as $no => $oldLine) {
+            // hmm... but this is a inline template
+            // we could only pick a line from the old or the new to show
             $oldLineNum = $change['old']['offset'] + $no + 1;
             $newLineNum = $change['new']['offset'] + $no + 1;
 
@@ -133,7 +138,7 @@ final class Inline extends AbstractHtml
                     '<th class="n-old">' . $oldLineNum . '</th>' .
                     '<th class="n-new">' . $newLineNum . '</th>' .
                     '<th class="sign"></th>' .
-                    '<td class="old">' . $line . '</td>' .
+                    '<td class="old">' . $oldLine . '</td>' .
                 '</tr>';
         }
 

@@ -77,17 +77,13 @@ abstract class AbstractHtml extends AbstractRenderer
                 $lastTag = $tag;
 
                 if ($tag === SequenceMatcher::OP_EQ) {
-                    /**
-                     * @todo Technically this is wrong.
-                     *       The old and the new may not be exactly the same
-                     *       because of ignoreCase and ignoreWhitespace.
-                     */
-                    if (!empty($lines = \array_slice($old, $i1, $i2 - $i1))) {
-                        $formattedLines = $this->formatLines($lines);
-
-                        $blocks[$lastBlock]['old']['lines'] += $formattedLines;
-                        $blocks[$lastBlock]['new']['lines'] += $formattedLines;
-                    }
+                    // note that although we are in a OP_EQ situation,
+                    // the old and the new may not be exactly the same
+                    // because of ignoreCase, ignoreWhitespace, etc
+                    $lines = \array_slice($old, $i1, $i2 - $i1);
+                    $blocks[$lastBlock]['old']['lines'] += $this->formatLines($lines);
+                    $lines = \array_slice($new, $j1, $j2 - $j1);
+                    $blocks[$lastBlock]['new']['lines'] += $this->formatLines($lines);
 
                     continue;
                 }
