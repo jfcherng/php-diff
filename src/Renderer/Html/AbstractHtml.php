@@ -77,7 +77,12 @@ abstract class AbstractHtml extends AbstractRenderer
                 $lastTag = $tag;
 
                 if ($tag === SequenceMatcher::OP_EQ) {
-                    if (!empty($lines = \array_slice($old, $i1, ($i2 - $i1)))) {
+                    /**
+                     * @todo Technically this is wrong.
+                     *       The old and the new may not be exactly the same
+                     *       because of ignoreCase and ignoreWhitespace.
+                     */
+                    if (!empty($lines = \array_slice($old, $i1, $i2 - $i1))) {
                         $formattedLines = $this->formatLines($lines);
 
                         $blocks[$lastBlock]['old']['lines'] += $formattedLines;
@@ -101,7 +106,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     $tag === SequenceMatcher::OP_REP ||
                     $tag === SequenceMatcher::OP_DEL
                 ) {
-                    $lines = \array_slice($old, $i1, ($i2 - $i1));
+                    $lines = \array_slice($old, $i1, $i2 - $i1);
                     $lines = $this->formatLines($lines);
                     $lines = \str_replace(
                         RendererConstant::HTML_CLOSURES,
@@ -116,7 +121,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     $tag === SequenceMatcher::OP_REP ||
                     $tag === SequenceMatcher::OP_INS
                 ) {
-                    $lines = \array_slice($new, $j1, ($j2 - $j1));
+                    $lines = \array_slice($new, $j1, $j2 - $j1);
                     $lines = $this->formatLines($lines);
                     $lines = \str_replace(
                         RendererConstant::HTML_CLOSURES,
