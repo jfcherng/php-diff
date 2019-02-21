@@ -56,7 +56,7 @@ abstract class AbstractHtml extends AbstractRenderer
 
         foreach ($this->diff->getGroupedOpcodes() as $opcodes) {
             $blocks = [];
-            $lastTag = null;
+            $lastTag = 0;
             $lastBlock = 0;
 
             foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
@@ -88,20 +88,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     continue;
                 }
 
-                /**
-                 * @todo By setting option "useIntOpcodes" for the sequence matcher,
-                 *       this "if" could be further optimized by using bit operations.
-                 *
-                 *       Like this: "if ($tag & (OP_INT_REP | OP_INT_DEL))"
-                 *
-                 *       But int tag would be less readable while debugging.
-                 *       Also, this would be a BC break for the output of the JSON renderer.
-                 *       Is it worth doing?
-                 */
-                if (
-                    $tag === SequenceMatcher::OP_REP ||
-                    $tag === SequenceMatcher::OP_DEL
-                ) {
+                if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
                     $lines = \array_slice($old, $i1, $i2 - $i1);
                     $lines = $this->formatLines($lines);
                     $lines = \str_replace(
@@ -113,10 +100,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     $blocks[$lastBlock]['old']['lines'] += $lines;
                 }
 
-                if (
-                    $tag === SequenceMatcher::OP_REP ||
-                    $tag === SequenceMatcher::OP_INS
-                ) {
+                if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
                     $lines = \array_slice($new, $j1, $j2 - $j1);
                     $lines = $this->formatLines($lines);
                     $lines = \str_replace(
@@ -167,13 +151,13 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * Get the default block.
      *
-     * @param string $tag the operation tag
-     * @param int    $i1  begin index of the diff of the old array
-     * @param int    $j1  begin index of the diff of the new array
+     * @param int $tag the operation tag
+     * @param int $i1  begin index of the diff of the old array
+     * @param int $j1  begin index of the diff of the new array
      *
      * @return array the default block
      */
-    protected function getDefaultBlock(string $tag, int $i1, int $j1): array
+    protected function getDefaultBlock(int $tag, int $i1, int $j1): array
     {
         return [
             'tag' => $tag,

@@ -48,17 +48,11 @@ final class Unified extends AbstractText
                     continue;
                 }
 
-                if (
-                    $tag === SequenceMatcher::OP_REP ||
-                    $tag === SequenceMatcher::OP_DEL
-                ) {
+                if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
                     $ret .= $this->renderContext('-', $this->diff->getOld($i1, $i2));
                 }
 
-                if (
-                    $tag === SequenceMatcher::OP_REP ||
-                    $tag === SequenceMatcher::OP_INS
-                ) {
+                if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
                     $ret .= $this->renderContext('+', $this->diff->getNew($j1, $j2));
                 }
             }
