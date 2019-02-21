@@ -2,6 +2,9 @@
 ## VERSION 5  AFTERNOON
 
  * Version **5.0** - AFTERNOON
+   * 2019-02-22 02:35  **5.0.1**  fix dep
+      * 7757363 squizlabs/php_codesniffer should be in require-dev
+      * 6ac0c99 Update .rmt.yml
    * 2019-02-22 02:24  **5.0.0**  initial release
       * 9f85206 Update .rmt.yml
       * 064a3b3 Add renderer option: outputTagAsString
