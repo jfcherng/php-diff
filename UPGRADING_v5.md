@@ -1,0 +1,17 @@
+## Upgrading to v5
+
+- Names involving `a, b`, `from, to`, `base, changed` have been renamed to `old, new` for consistency.
+  Here's some examples:
+
+  - `Diff::setAB()` becomes `Diff::setOldNew()`.
+  - `Diff::setA()` becomes `Diff::setOld()`.
+  - `Diff::setB()` becomes `Diff::setNew()`.
+  - `Diff::getA()` becomes `Diff::getOld()`.
+  - `Diff::getB()` becomes `Diff::getNew()`.
+  - `base`, `changed` keys in the result of the `Json` renderer have become `old`, `new`.
+
+- In the result of HTML renderers, classes of rows of line numbers has been changed.
+  You may have to change your CSS if you have some customized things depend on these.
+
+  - `<th class="f-num">` (from-number) becomes `<th class="n-new">` (number-new).
+  - `<th class="t-num">` (to-number) becomes `<th class="n-old">` (number-old).

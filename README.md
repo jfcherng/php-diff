@@ -319,46 +319,6 @@ $result = $diff->render($renderer);
 ```
 </details>
 
-# Upgrading
-
-
-<details><summary>From v2 to v3</summary>
-
-- `$diffOptions` removes: `charLevelDiff` and `separateBlock`.
-- `$templateOptions` adds: `detailLevel` (similar to `charLevelDiff`, read docs) and `separateBlock` (exact the same one in `$diffOptions`).
-- `Jfcherng\Diff\Diff`'s `$a` (`$old`), `$b` (`$new`) are required in `__construct()`. (You may pass two empty arrays if you do not want to do anything at that moment.)
-- The look of "skipped" block in HTML renderers (`SideBySide` and `Inline`) have been changed. (You may have to tweak your CSS.)
-
-</details>
-
-<details><summary>From v3 to v4</summary>
-
-- `Jfcherng\Diff\Utility\SequenceMatcher` becomes [a new package](https://packagist.org/packages/jfcherng/php-sequence-matcher) by the namespace of `Jfcherng\Diff\SequenceMatcher`.
-- Factories under `Jfcherng\Diff\Utility\` are moved to `Jfcherng\Diff\Factory\`. For example, `Jfcherng\Diff\Utility\RendererFactory` is now `Jfcherng\Diff\Factory\RendererFactory`.
-- Non-abstract classes are no longer inheritable as they are added with `final` keywords. (This allows me to do more internal changes without causing possible BC breaks.)
-
-</details>
-
-<details><summary>From v4 to v5</summary>
-
-- Names involving `a, b`, `from, to`, `base, changed` have been renamed to `old, new` for consistency.
-  Here's some examples:
-
-  - `Diff::setAB()` becomes `Diff::setOldNew()`.
-  - `Diff::setA()` becomes `Diff::setOld()`.
-  - `Diff::setB()` becomes `Diff::setNew()`.
-  - `Diff::getA()` becomes `Diff::getOld()`.
-  - `Diff::getB()` becomes `Diff::getNew()`.
-  - `base`, `changed` keys in the result of the `Json` renderer have become `old`, `new`.
-
-- In the result of HTML renderers, classes of rows of line numbers has been changed.
-  You may have to change your CSS if you have some customized things depend on these.
-
-  - `<th class="f-num">` (from-number) becomes `<th class="n-new">` (number-new).
-  - `<th class="t-num">` (to-number) becomes `<th class="n-old">` (number-old).
-
-</details>
-
 
 # Acknowledgment
 
