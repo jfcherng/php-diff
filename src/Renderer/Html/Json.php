@@ -30,6 +30,10 @@ final class Json extends AbstractHtml
     {
         $changes = $this->getChanges();
 
+        if (empty($changes)) {
+            return self::getIdenticalResult();
+        }
+
         if ($this->options['outputTagAsString']) {
             $this->convertTagToString($changes);
         }
@@ -38,6 +42,14 @@ final class Json extends AbstractHtml
             $changes,
             \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES
         );
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public static function getIdenticalResult(): string
+    {
+        return '[]';
     }
 
     /**
