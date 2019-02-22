@@ -56,7 +56,7 @@ abstract class AbstractHtml extends AbstractRenderer
 
         foreach ($this->diff->getGroupedOpcodes() as $opcodes) {
             $blocks = [];
-            $lastTag = 0;
+            $lastTag = SequenceMatcher::OP_NOP;
             $lastBlock = 0;
 
             foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
