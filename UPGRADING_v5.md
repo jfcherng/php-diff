@@ -16,5 +16,9 @@
   - `<th class="f-num">` (from-number) becomes `<th class="n-new">` (number-new).
   - `<th class="t-num">` (to-number) becomes `<th class="n-old">` (number-old).
 
-- The `tag` in `Json` template is now in `int` form by default.
+- The `tag` (sometimes called `op`) in `Json` template is now in `int` form by default.
   To get previous behavior, set the renderer option `outputTagAsString` to `true`.
+
+- The `tag` (sometimes called `op`) in `Diff::getGroupedOpcodes()`'s results are now in `int` form.
+  The corresponding meaning could be found in 
+  [jfcherng/php-sequence-matcher](https://github.com/jfcherng/php-sequence-matcher/blob/3.0.0/src/SequenceMatcher.php#L16-L26).
