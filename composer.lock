@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "15e3a2fc3946a401033d6bca90f6cce0",
+    "content-hash": "b9c02c8660c35791b3d6e4b7e88b16d9",
     "packages": [
         {
             "name": "jfcherng/php-mb-string",
@@ -50,16 +50,16 @@
         },
         {
             "name": "jfcherng/php-sequence-matcher",
-            "version": "3.0.0",
+            "version": "3.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-sequence-matcher.git",
-                "reference": "b891c73264af4cd5d1671481da4767ddc0c8b103"
+                "reference": "11bc4f57e662da43295960cc6bddeceb819b0e5a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/b891c73264af4cd5d1671481da4767ddc0c8b103",
-                "reference": "b891c73264af4cd5d1671481da4767ddc0c8b103",
+                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/11bc4f57e662da43295960cc6bddeceb819b0e5a",
+                "reference": "11bc4f57e662da43295960cc6bddeceb819b0e5a",
                 "shasum": ""
             },
             "require": {
@@ -91,7 +91,7 @@
                 }
             ],
             "description": "A longest sequence matcher.",
-            "time": "2019-02-21T17:27:46+00:00"
+            "time": "2019-02-22T14:44:28+00:00"
         }
     ],
     "packages-dev": [
