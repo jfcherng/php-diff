@@ -92,9 +92,11 @@ final class Diff
      */
     public function setOld(array $old): self
     {
-        $this->old = $old;
-        $this->sequenceMatcher->setSeq1($old);
-        $this->resetCachedResults();
+        if ($this->old !== $old) {
+            $this->old = $old;
+            $this->sequenceMatcher->setSeq1($old);
+            $this->resetCachedResults();
+        }
 
         return $this;
     }
@@ -108,9 +110,11 @@ final class Diff
      */
     public function setNew(array $new): self
     {
-        $this->new = $new;
-        $this->sequenceMatcher->setSeq2($new);
-        $this->resetCachedResults();
+        if ($this->new !== $new) {
+            $this->new = $new;
+            $this->sequenceMatcher->setSeq2($new);
+            $this->resetCachedResults();
+        }
 
         return $this;
     }
