@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b5a049337079af00fe9714e22d11245d",
+    "content-hash": "ac1f5231d8352f1602b36e1ce357ca0a",
     "packages": [
         {
             "name": "jfcherng/php-mb-string",
