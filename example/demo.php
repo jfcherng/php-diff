@@ -13,8 +13,10 @@
             use Jfcherng\Diff\DiffHelper;
 
             // include two sample files for comparison
-            $old_file = \file_get_contents(__DIR__ . '/old_file.txt');
-            $new_file = \file_get_contents(__DIR__ . '/new_file.txt');
+            $oldFilePath = __DIR__ . '/old_file.txt';
+            $newFilePath = __DIR__ . '/new_file.txt';
+            $oldFile = \file_get_contents($oldFilePath);
+            $newFile = \file_get_contents($newFilePath);
 
             // options for Diff class
             $diffOptions = [
@@ -49,8 +51,8 @@
 
             // demo the no-inline-detail diff
             $result = DiffHelper::calculate(
-                $old_file,
-                $new_file,
+                $oldFile,
+                $newFile,
                 'Inline',
                 $diffOptions,
                 ['detailLevel' => 'none'] + $templateOptions
@@ -65,8 +67,8 @@
 
             // demo the word-level diff
             $result = DiffHelper::calculate(
-                $old_file,
-                $new_file,
+                $oldFile,
+                $newFile,
                 'Inline',
                 $diffOptions,
                 ['detailLevel' => 'line'] + $templateOptions
@@ -81,8 +83,8 @@
 
             // demo the word-level diff
             $result = DiffHelper::calculate(
-                $old_file,
-                $new_file,
+                $oldFile,
+                $newFile,
                 'Inline',
                 $diffOptions,
                 ['detailLevel' => 'word'] + $templateOptions
@@ -97,8 +99,8 @@
 
             // demo the character-level diff
             $result = DiffHelper::calculate(
-                $old_file,
-                $new_file,
+                $oldFile,
+                $newFile,
                 'Inline',
                 $diffOptions,
                 ['detailLevel' => 'char'] + $templateOptions
@@ -112,9 +114,9 @@
         <?php
 
             // generate a side by side diff
-            $result = DiffHelper::calculate(
-                $old_file,
-                $new_file,
+            $result = DiffHelper::calculateFiles(
+                $oldFilePath,
+                $newFilePath,
                 'SideBySide',
                 $diffOptions,
                 $templateOptions
@@ -128,9 +130,9 @@
         <?php
 
             // generate an inline diff
-            $result = DiffHelper::calculate(
-                $old_file,
-                $new_file,
+            $result = DiffHelper::calculateFiles(
+                $oldFilePath,
+                $newFilePath,
                 'Inline',
                 $diffOptions,
                 $templateOptions
@@ -144,9 +146,9 @@
         <pre><?php
 
             // generate a unified diff
-            $result = DiffHelper::calculate(
-                $old_file,
-                $new_file,
+            $result = DiffHelper::calculateFiles(
+                $oldFilePath,
+                $newFilePath,
                 'Unified',
                 $diffOptions,
                 $templateOptions
@@ -160,9 +162,9 @@
         <pre><?php
 
             // generate a context diff
-            $result = DiffHelper::calculate(
-                $old_file,
-                $new_file,
+            $result = DiffHelper::calculateFiles(
+                $oldFilePath,
+                $newFilePath,
                 'Context',
                 $diffOptions,
                 $templateOptions
@@ -176,9 +178,9 @@
         <pre><?php
 
             // generate a JSON diff
-            $result = DiffHelper::calculate(
-                $old_file,
-                $new_file,
+            $result = DiffHelper::calculateFiles(
+                $oldFilePath,
+                $newFilePath,
                 'Json',
                 $diffOptions,
                 $templateOptions

@@ -43,6 +43,9 @@ use Jfcherng\Diff\Diff;
 use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Factory\RendererFactory;
 
+$oldFile = __DIR__ . '/example/old_file.txt';
+$newFile = __DIR__ . '/example/new_file.txt';
+
 $old = 'This is the old string.';
 $new = 'And this is the new one.';
 
@@ -75,7 +78,9 @@ $templateOptions = [
     'tabSize' => 4,
 ];
 
-// one-line simple usage
+// one-line simply compare two files
+$result = DiffHelper::calculateFiles($oldFile, $newFile, $diffOptions, $templateOptions);
+// one-line simply compare two strings
 $result = DiffHelper::calculate($old, $new, $template, $diffOptions, $templateOptions);
 // or even shorter if you are happy with default options
 $result = DiffHelper::calculate($old, $new, $template);
