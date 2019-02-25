@@ -74,6 +74,23 @@ final class DiffHelper
     }
 
     /**
+     * Get the content of the CSS style sheet for HTML templates.
+     *
+     * @throws \LogicException   path is a directory
+     * @throws \RuntimeException path cannot be opened
+     *
+     * @return string
+     */
+    public static function getStyleSheet(): string
+    {
+        static $filePath = __DIR__ . '/../example/diff-table.css';
+
+        $cssFile = new \SplFileObject($filePath, 'r');
+
+        return $cssFile->fread($cssFile->getSize());
+    }
+
+    /**
      * All-in-one static method to calculate the diff between two strings (or arrays of strings).
      *
      * @param string|string[] $old             the old string (or array of lines)
