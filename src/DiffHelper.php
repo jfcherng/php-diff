@@ -74,7 +74,7 @@ final class DiffHelper
     }
 
     /**
-     * All-in-one static method to calculate the diff.
+     * All-in-one static method to calculate the diff between two strings (or arrays of strings).
      *
      * @param string|string[] $old             the old string (or array of lines)
      * @param string|string[] $new             the new string (or array of lines)
@@ -82,7 +82,7 @@ final class DiffHelper
      * @param array           $diffOptions     the options for Diff object
      * @param array           $templateOptions the options for template object
      *
-     * @return string the difference
+     * @return string the rendered differences
      */
     public static function calculate(
         $old,
@@ -98,9 +98,42 @@ final class DiffHelper
         return Diff::getInstance()
             ->setOldNew($old, $new)
             ->setOptions($diffOptions)
-            ->render(
-                RendererFactory::getInstance($template)
-                    ->setOptions($templateOptions)
-            );
+            ->render(RendererFactory::getInstance($template)->setOptions($templateOptions));
+    }
+
+    /**
+     * All-in-one static method to calculate the diff between two files.
+     *
+     * @param string $old             the path of the old file
+     * @param string $new             the path of the new file
+     * @param string $template        the template name
+     * @param array  $diffOptions     the options for Diff object
+     * @param array  $templateOptions the options for template object
+     *
+     * @throws \LogicException   path is a directory
+     * @throws \RuntimeException path cannot be opened
+     *
+     * @return string the rendered differences
+     */
+    public static function calculateFiles(
+        string $old,
+        string $new,
+        string $template = 'Unified',
+        array $diffOptions = [],
+        array $templateOptions = []
+    ): string {
+        // we want to leave the line-ending problem to static::calculate()
+        // so do not set SplFileObject::DROP_NEW_LINE flag
+        // otherwise, we will lose \r if the line-ending is \r\n
+        $oldFile = new \SplFileObject($old, 'r');
+        $newFile = new \SplFileObject($new, 'r');
+
+        return static::calculate(
+            $oldFile->fread($oldFile->getSize()),
+            $newFile->fread($newFile->getSize()),
+            $template,
+            $diffOptions,
+            $templateOptions
+        );
     }
 }
