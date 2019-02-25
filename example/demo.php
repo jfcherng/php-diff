@@ -1,16 +1,19 @@
+<?php
+
+include __DIR__ . '/../vendor/autoload.php';
+
+use Jfcherng\Diff\DiffHelper;
+
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8" />
         <title>jfcherng/php-diff - Examples</title>
-        <link href="./diff-table.css" rel="stylesheet" type="text/css" />
+        <style><?= DiffHelper::getStyleSheet() ?></style>
     </head>
     <body>
         <?php
-
-            include __DIR__ . '/../vendor/autoload.php';
-
-            use Jfcherng\Diff\DiffHelper;
 
             // include two sample files for comparison
             $oldFilePath = __DIR__ . '/old_file.txt';

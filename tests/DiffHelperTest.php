@@ -85,7 +85,7 @@ EOT
     }
 
     /**
-     * Test the DiffHelper::calculate with the'Context' template.
+     * Test the DiffHelper::calculate with the 'Context' template.
      *
      * @covers       \Jfcherng\Diff\DiffHelper::calculate
      * @dataProvider calculateDataProvider
@@ -100,5 +100,15 @@ EOT
             $expecteds['Context'],
             DiffHelper::calculate($old, $new, 'Context')
         );
+    }
+
+    /**
+     * Test the DiffHelper::getStyleSheet.
+     *
+     * @covers \Jfcherng\Diff\DiffHelper::getStyleSheet
+     */
+    public function testGetStyleSheet(): void
+    {
+        $this->assertIsString(DiffHelper::getStyleSheet());
     }
 }
