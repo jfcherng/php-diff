@@ -1,6 +1,18 @@
 
 ## VERSION 4  AT NOON
 
+ * Version **4.2** - helper methods
+   * 2019-02-26 14:49  **4.2.0**  initial release
+      * 43566f1 php-cs-fixer
+      * be70f5e Add DiffHelper::getProjectDirectory()
+      * 4937417 Add INFO['type'] for renderers
+      * 3ef51f6 Rewrite DiffHelper::getTemplatesInfo() and DiffHelper::getStyleSheet()
+      * 5e0f0da Add DiffHelper::getStyleSheet()
+      * c7e5312 require-dev at least phpunit/phpunit 7.5
+      * 01d52fd Add DiffHelper::calculateFiles()
+      * 4601400 No need to clear cached value if $old/$new does not change
+      * d690144 Code tidy
+
  * Version **4.1** - Allow negative tabSize
    * 2019-02-22 02:51  **4.1.9**  fix Json renderer with empty changes
       * d842546 Fix Json renderer with empty changes
