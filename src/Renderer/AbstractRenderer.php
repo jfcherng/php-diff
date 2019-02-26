@@ -17,6 +17,7 @@ abstract class AbstractRenderer implements RendererInterface
      */
     const INFO = [
         'desc' => 'default_desc',
+        'type' => 'default_type',
     ];
 
     /**

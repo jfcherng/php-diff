@@ -18,6 +18,7 @@ final class Context extends AbstractText
      */
     const INFO = [
         'desc' => 'Context',
+        'type' => 'Text',
     ];
 
     /**

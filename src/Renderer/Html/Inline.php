@@ -16,6 +16,7 @@ final class Inline extends AbstractHtml
      */
     const INFO = [
         'desc' => 'Inline',
+        'type' => 'Html',
     ];
 
     /**
