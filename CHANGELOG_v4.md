@@ -2,6 +2,10 @@
 ## VERSION 4  AT NOON
 
  * Version **4.2** - helper methods
+   * 2019-02-27 01:46  **4.2.1**  fix typo
+      * 37f7f75 Fix DiffHelp::getTemplatesInfo() typos
+      * 3a3c276 Revise phpdoc
+      * c221c25 Add (private) Diff::finalize() to help maintain cache vadility
    * 2019-02-26 14:49  **4.2.0**  initial release
       * 43566f1 php-cs-fixer
       * be70f5e Add DiffHelper::getProjectDirectory()
