@@ -1,6 +1,24 @@
 
 ## VERSION 5  AFTERNOON
 
+ * Version **5.1** - helper methods
+   * 2019-02-26 14:57  **5.1.0**  initial release
+      * 00ae199 Fix .rmt.yml
+      * 7a700fa Release of new version 4.2.0
+      * 770636a php-cs-fixer
+      * 0304537 Add INFO['type'] for renderers
+      * a9bee51 Rewrite DiffHelper::getTemplatesInfo() and DiffHelper::getStyleSheet()
+      * 9f9809e Add DiffHelper::getProjectDirectory()
+      * 4d739c4 Add DiffHelper::getStyleSheet()
+      * ec11495 require-dev at least phpunit/phpunit 7.5
+      * 2553620 Add DiffHelper::calculateFiles()
+      * a4f07c0 No need to clear cached value if $old/$new does not change
+      * ff019a9 Code tidy
+      * 02b30c8 Update deps
+      * 742c096 Update UPGRADING_v5.md
+      * 0ffd644 Code tidy
+      * b619f91 Update readme
+
  * Version **5.0** - AFTERNOON
    * 2019-02-22 02:55  **5.0.2**  fix Json renderer with empty changes
       * 6ca5b97 Fix Json renderer with empty changes
