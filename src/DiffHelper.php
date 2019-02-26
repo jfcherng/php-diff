@@ -17,6 +17,18 @@ final class DiffHelper
     }
 
     /**
+     * Get the absolute path of the project root directory.
+     *
+     * @return string
+     */
+    public static function getProjectDirectory(): string
+    {
+        static $path;
+
+        return $path = $path ?? realpath(__DIR__ . '/..');
+    }
+
+    /**
      * Get the information about available templates.
      *
      * @return array
