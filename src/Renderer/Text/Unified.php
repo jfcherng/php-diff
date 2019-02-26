@@ -18,6 +18,7 @@ final class Unified extends AbstractText
      */
     const INFO = [
         'desc' => 'Unified',
+        'type' => 'Text',
     ];
 
     /**

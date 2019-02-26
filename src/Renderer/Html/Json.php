@@ -16,6 +16,7 @@ final class Json extends AbstractHtml
      */
     const INFO = [
         'desc' => 'Json',
+        'type' => 'Html',
     ];
 
     /**
