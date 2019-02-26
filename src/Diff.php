@@ -18,6 +18,13 @@ use Jfcherng\Diff\Renderer\AbstractRenderer;
 final class Diff
 {
     /**
+     * @var array cached properties and their default values
+     */
+    private const CACHED_PROPERTIES = [
+        'groupedCodes' => null,
+    ];
+
+    /**
      * @var array array of the options that have been applied for generating the diff
      */
     public $options = [];
@@ -31,6 +38,11 @@ final class Diff
      * @var string[] the "new" sequence to generate the changes for
      */
     private $new = [];
+
+    /**
+     * @var bool is any of cached properties dirty?
+     */
+    private $isCacheDirty = true;
 
     /**
      * @var null|SequenceMatcher the sequence matcher
@@ -94,8 +106,7 @@ final class Diff
     {
         if ($this->old !== $old) {
             $this->old = $old;
-            $this->sequenceMatcher->setSeq1($old);
-            $this->resetCachedResults();
+            $this->isCacheDirty = true;
         }
 
         return $this;
@@ -112,8 +123,7 @@ final class Diff
     {
         if ($this->new !== $new) {
             $this->new = $new;
-            $this->sequenceMatcher->setSeq2($new);
-            $this->resetCachedResults();
+            $this->isCacheDirty = true;
         }
 
         return $this;
@@ -128,10 +138,12 @@ final class Diff
      */
     public function setOptions(array $options): self
     {
-        $this->options = $options + static::$defaultOptions;
+        $mergedOptions = $options + static::$defaultOptions;
 
-        $this->sequenceMatcher->setOptions($this->options);
-        $this->resetCachedResults();
+        if ($this->options !== $mergedOptions) {
+            $this->options = $mergedOptions;
+            $this->isCacheDirty = true;
+        }
 
         return $this;
     }
@@ -198,20 +210,10 @@ final class Diff
      */
     public function getGroupedOpcodes(): array
     {
+        $this->finalize();
+
         return $this->groupedCodes = $this->groupedCodes ??
             $this->sequenceMatcher->getGroupedOpcodes($this->options['context']);
-    }
-
-    /**
-     * Reset cached results.
-     *
-     * @return self
-     */
-    public function resetCachedResults(): self
-    {
-        $this->groupedCodes = null;
-
-        return $this;
     }
 
     /**
@@ -223,6 +225,8 @@ final class Diff
      */
     public function render(AbstractRenderer $renderer): string
     {
+        $this->finalize();
+
         $renderer->setDiff($this);
 
         // the "no difference" situation may happen frequently
@@ -230,6 +234,43 @@ final class Diff
         return $this->old === $this->new
             ? $renderer::getIdenticalResult()
             : $renderer->render();
+    }
+
+    /**
+     * Claim this class is all set.
+     *
+     * Properties will be propagated to other classes. You must re-call
+     * this method after any property changed before doing calculation.
+     *
+     * @return self
+     */
+    private function finalize(): self
+    {
+        if ($this->isCacheDirty) {
+            $this->resetCachedResults();
+
+            $this->sequenceMatcher
+                ->setOptions($this->options)
+                ->setSequences($this->old, $this->new);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Reset cached results.
+     *
+     * @return self
+     */
+    private function resetCachedResults(): self
+    {
+        foreach (static::CACHED_PROPERTIES as $property => $value) {
+            $this->$property = $value;
+        }
+
+        $this->isCacheDirty = false;
+
+        return $this;
     }
 
     /**
