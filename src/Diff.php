@@ -71,7 +71,7 @@ final class Diff
      *
      * @param string[] $old     array containing the lines of the old string to compare
      * @param string[] $new     array containing the lines for the new string to compare
-     * @param array    $options
+     * @param array    $options the options
      */
     public function __construct(array $old, array $new, array $options = [])
     {
@@ -274,7 +274,7 @@ final class Diff
     }
 
     /**
-     * The work horse of getA() and getB().
+     * The work horse of getOld() and getNew().
      *
      * If $end is null, it returns array sliced from the $start to the end.
      *
