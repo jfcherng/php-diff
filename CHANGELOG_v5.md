@@ -2,6 +2,10 @@
 ## VERSION 5  AFTERNOON
 
  * Version **5.1** - helper methods
+   * 2019-02-27 01:47  **5.1.1**  fix typo
+      * 868c542 Fix DiffHelp::getTemplatesInfo() typos
+      * 80cd8e7 Revise phpdoc
+      * 0a202c8 Add (private) Diff::finalize() to help maintain cache vadility
    * 2019-02-26 14:57  **5.1.0**  initial release
       * 00ae199 Fix .rmt.yml
       * 7a700fa Release of new version 4.2.0
