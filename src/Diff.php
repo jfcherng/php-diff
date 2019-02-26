@@ -274,7 +274,7 @@ final class Diff
     }
 
     /**
-     * The work horse of getA() and getB().
+     * The work horse of getOld() and getNew().
      *
      * If $end is null, it returns array sliced from the $start to the end.
      *
