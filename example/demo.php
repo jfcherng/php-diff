@@ -10,7 +10,7 @@ use Jfcherng\Diff\DiffHelper;
     <head>
         <meta charset="UTF-8" />
         <title>jfcherng/php-diff - Examples</title>
-        <style><?= DiffHelper::getStyleSheet() ?></style>
+        <style><?php echo DiffHelper::getStyleSheet(); ?></style>
     </head>
     <body>
         <?php
