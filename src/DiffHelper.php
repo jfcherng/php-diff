@@ -41,30 +41,32 @@ final class DiffHelper
             return $info;
         }
 
-        $glob = \implode(
-            \DIRECTORY_SEPARATOR,
-            [
-                __DIR__,
-                'Renderer',
-                '{' . \implode(',', RendererConstant::TEMPLATE_TYPES) . '}',
-                '*.php',
-            ]
-        );
+        $glob = \implode(\DIRECTORY_SEPARATOR, [
+            static::getProjectDirectory(),
+            'src',
+            'Renderer',
+            '{' . \implode(',', RendererConstant::TEMPLATE_TYPES) . '}',
+            '*.php',
+        ]);
 
-        $files = \array_filter(
-            \glob($glob, \GLOB_BRACE),
-            // not an abstact class
-            function (string $file): bool {
-                return \substr($file, 0, 8) !== 'Abstract';
-            }
-        );
-
-        // class name = file name without the extension
-        $templates = \array_map(
+        $fileNames = \array_map(
+            // get basename without file extension
             function (string $file): string {
                 return \pathinfo($file, \PATHINFO_FILENAME);
             },
-            $files
+            // paths of all Renderer files
+            \glob($glob, \GLOB_BRACE)
+        );
+
+        $templates = \array_filter(
+            $fileNames,
+            // only normal class files are wanted
+            function (string $fileName): bool {
+                return
+                    \substr($fileName, 0, 8) !== 'Abstract' &&
+                    \substr($fileName, 0, -9) !== 'Interface' &&
+                    \substr($fileName, 0, -5) !== 'Trait';
+            }
         );
 
         $info = [];
@@ -95,11 +97,17 @@ final class DiffHelper
      */
     public static function getStyleSheet(): string
     {
-        static $filePath = __DIR__ . '/../example/diff-table.css';
+        static $fileContent;
 
-        $cssFile = new \SplFileObject($filePath, 'r');
+        if (isset($fileContent)) {
+            return $fileContent;
+        }
 
-        return $cssFile->fread($cssFile->getSize());
+        $filePath = static::getProjectDirectory() . '/example/diff-table.css';
+
+        $file = new \SplFileObject($filePath, 'r');
+
+        return $fileContent = $file->fread($file->getSize());
     }
 
     /**
