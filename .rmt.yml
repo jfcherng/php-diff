@@ -38,7 +38,7 @@ v4:
       tag-prefix: ''         # No more prefix for tags
   pre-release-actions:
     changelog-update:          # Update a CHANGELOG file before the release
-      file: CHANGELOG_v4.md
+      file: CHANGELOG/CHANGELOG_v4.md
       format: markdown
       dump-commits: true
       exclude-merge-commits: true
