@@ -39,7 +39,7 @@ See [example/demo.php](https://github.com/jfcherng/php-diff/blob/master/example/
 
 include __DIR__ . '/vendor/autoload.php';
 
-use Jfcherng\Diff\Diff;
+use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Factory\RendererFactory;
 
@@ -53,7 +53,7 @@ $new = 'And this is the new one.';
 $template = 'Unified';
 
 // the Diff class options
-$diffOptions = [
+$differOptions = [
     // show how many neighbor lines
     'context' => 3,
     // ignore case difference
@@ -82,16 +82,16 @@ $templateOptions = [
 ];
 
 // one-line simply compare two files
-$result = DiffHelper::calculateFiles($oldFile, $newFile, $diffOptions, $templateOptions);
+$result = DiffHelper::calculateFiles($oldFile, $newFile, $differOptions, $templateOptions);
 // one-line simply compare two strings
-$result = DiffHelper::calculate($old, $new, $template, $diffOptions, $templateOptions);
+$result = DiffHelper::calculate($old, $new, $template, $differOptions, $templateOptions);
 // or even shorter if you are happy with default options
 $result = DiffHelper::calculate($old, $new, $template);
 
 // custom usage
-$diff = new Diff(explode("\n", $old), explode("\n", $new), $diffOptions);
+$differ = new Differ(explode("\n", $old), explode("\n", $new), $differOptions);
 $renderer = RendererFactory::make($template, $templateOptions); // or your own renderers
-$result = $renderer->render($diff);
+$result = $renderer->render($differ);
 ```
 
 

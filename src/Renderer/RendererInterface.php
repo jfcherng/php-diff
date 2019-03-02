@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer;
 
-use Jfcherng\Diff\Diff;
+use Jfcherng\Diff\Differ;
 
 /**
  * Renderer Interface.
@@ -12,11 +12,11 @@ use Jfcherng\Diff\Diff;
 interface RendererInterface
 {
     /**
-     * Render and return diff.
+     * Render the differ and return the result.
      *
-     * @param Diff $diff the diff object to be rendered
+     * @param Differ $differ the Differ object to be rendered
      *
      * @return string
      */
-    public function render(Diff $diff): string;
+    public function render(Differ $differ): string;
 }

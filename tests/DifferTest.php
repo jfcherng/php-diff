@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Test;
 
-use Jfcherng\Diff\Diff;
+use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\SequenceMatcher;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @coversNothing
  */
-class DiffTest extends TestCase
+class DifferTest extends TestCase
 {
     /**
-     * Data provider for Diff::getGroupedOpcodes.
+     * Data provider for Differ::getGroupedOpcodes.
      *
      * @return array the data provider
      */
@@ -49,9 +49,9 @@ EOT
     }
 
     /**
-     * Test the Diff::getGroupedOpcodes.
+     * Test the Differ::getGroupedOpcodes.
      *
-     * @covers       \Jfcherng\Diff\Diff::getGroupedOpcodes
+     * @covers       \Jfcherng\Diff\Differ::getGroupedOpcodes
      * @dataProvider getGroupedOpcodesDataProvider
      *
      * @param string $old      the old
@@ -65,7 +65,7 @@ EOT
 
         $this->assertSame(
             $expected,
-            (new Diff($old, $new))
+            (new Differ($old, $new))
                 ->finalize()
                 ->getGroupedOpcodes()
         );

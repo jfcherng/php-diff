@@ -17,9 +17,9 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     protected $sequenceMatcher;
 
     /**
-     * @var array the diff options
+     * @var array the differ options
      */
-    protected $diffOptions = [];
+    protected $differOptions = [];
 
     /**
      * @var array the template options
@@ -29,29 +29,29 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     /**
      * The constructor.
      *
-     * @param array $diffOptions     the diff options
+     * @param array $differOptions   the differ options
      * @param array $templateOptions the template options
      */
-    public function __construct(array $diffOptions, array $templateOptions)
+    public function __construct(array $differOptions, array $templateOptions)
     {
         $this->sequenceMatcher = new SequenceMatcher([], []);
 
         $this
-            ->setDiffOptions($diffOptions)
+            ->setDifferOptions($differOptions)
             ->setTemplateOptions($templateOptions);
     }
 
     /**
-     * Set the diff options.
+     * Set the differ options.
      *
-     * @param array $diffOptions the diff options
+     * @param array $differOptions the differ options
      *
      * @return self
      */
-    public function setDiffOptions(array $diffOptions): self
+    public function setDifferOptions(array $differOptions): self
     {
-        $this->diffOptions = $diffOptions;
-        $this->sequenceMatcher->setOptions($diffOptions);
+        $this->differOptions = $differOptions;
+        $this->sequenceMatcher->setOptions($differOptions);
 
         return $this;
     }
@@ -71,13 +71,13 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     }
 
     /**
-     * Gets the diff options.
+     * Gets the differ options.
      *
-     * @return array the diff options
+     * @return array the differ options
      */
-    public function getDiffOptions(): array
+    public function getDifferOptions(): array
     {
-        return $this->diffOptions;
+        return $this->differOptions;
     }
 
     /**

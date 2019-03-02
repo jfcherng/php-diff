@@ -38,7 +38,7 @@ final class Context extends AbstractText
     {
         $ret = '';
 
-        foreach ($this->diff->getGroupedOpcodes() as $opcodes) {
+        foreach ($this->differ->getGroupedOpcodes() as $opcodes) {
             $lastItem = \count($opcodes) - 1;
 
             $i1 = $opcodes[0][1];
@@ -92,7 +92,7 @@ final class Context extends AbstractText
 
             $ret .= $this->renderContext(
                 self::TAG_MAP[$tag],
-                $this->diff->getOld($i1, $i2)
+                $this->differ->getOld($i1, $i2)
             );
         }
 
@@ -117,7 +117,7 @@ final class Context extends AbstractText
 
             $ret .= $this->renderContext(
                 self::TAG_MAP[$tag],
-                $this->diff->getNew($j1, $j2)
+                $this->differ->getNew($j1, $j2)
             );
         }
 

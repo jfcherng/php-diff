@@ -28,7 +28,7 @@ final class Unified extends AbstractText
     {
         $ret = '';
 
-        foreach ($this->diff->getGroupedOpcodes() as $opcodes) {
+        foreach ($this->differ->getGroupedOpcodes() as $opcodes) {
             $lastItem = \count($opcodes) - 1;
 
             $i1 = $opcodes[0][1];
@@ -44,17 +44,17 @@ final class Unified extends AbstractText
 
             foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
                 if ($tag === SequenceMatcher::OP_EQ) {
-                    $ret .= $this->renderContext(' ', $this->diff->getOld($i1, $i2));
+                    $ret .= $this->renderContext(' ', $this->differ->getOld($i1, $i2));
 
                     continue;
                 }
 
                 if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
-                    $ret .= $this->renderContext('-', $this->diff->getOld($i1, $i2));
+                    $ret .= $this->renderContext('-', $this->differ->getOld($i1, $i2));
                 }
 
                 if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
-                    $ret .= $this->renderContext('+', $this->diff->getNew($j1, $j2));
+                    $ret .= $this->renderContext('+', $this->differ->getNew($j1, $j2));
                 }
             }
         }

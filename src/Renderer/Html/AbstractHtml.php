@@ -42,19 +42,19 @@ abstract class AbstractHtml extends AbstractRenderer
     {
         $lineRenderer = LineRendererFactory::make(
             $this->options['detailLevel'],
-            $this->diff->getOptions(),
+            $this->differ->getOptions(),
             $this->options
         );
 
         // As we'll be modifying old & new to include our change markers,
         // we need to get the contents and store them here. That way
         // we're not going to destroy the original data
-        $old = $this->diff->getOld();
-        $new = $this->diff->getNew();
+        $old = $this->differ->getOld();
+        $new = $this->differ->getNew();
 
         $changes = [];
 
-        foreach ($this->diff->getGroupedOpcodes() as $opcodes) {
+        foreach ($this->differ->getGroupedOpcodes() as $opcodes) {
             $blocks = [];
             $lastTag = SequenceMatcher::OP_NOP;
             $lastBlock = 0;

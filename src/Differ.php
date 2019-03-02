@@ -15,7 +15,7 @@ use Jfcherng\Diff\Renderer\AbstractRenderer;
  *
  * @see http://github.com/chrisboulton/php-diff
  */
-final class Diff
+final class Differ
 {
     /**
      * @var array cached properties and their default values
@@ -61,7 +61,7 @@ final class Diff
     private $groupedCodes = [];
 
     /**
-     * @var array associative array of the default options available for the diff class and their default value
+     * @var array associative array of the default options available for the Differ class and their default value
      */
     private static $defaultOptions = [
         // show how many neighbor lines
@@ -218,7 +218,7 @@ final class Diff
      * Generate a list of the compiled and grouped opcodes for the differences between the
      * two strings. Generally called by the renderer, this class instantiates the sequence
      * matcher and performs the actual diff generation and return an array of the opcodes
-     * for it. Once generated, the results are cached in the diff class instance.
+     * for it. Once generated, the results are cached in the Differ class instance.
      *
      * @return array[] array of the grouped opcodes for the generated diff
      */

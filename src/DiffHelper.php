@@ -116,7 +116,7 @@ final class DiffHelper
      * @param string|string[] $old             the old string (or array of lines)
      * @param string|string[] $new             the new string (or array of lines)
      * @param string          $template        the template name
-     * @param array           $diffOptions     the options for Diff object
+     * @param array           $differOptions   the options for Differ object
      * @param array           $templateOptions the options for template object
      *
      * @return string the rendered differences
@@ -125,7 +125,7 @@ final class DiffHelper
         $old,
         $new,
         string $template = 'Unified',
-        array $diffOptions = [],
+        array $differOptions = [],
         array $templateOptions = []
     ): string {
         // always convert into array form
@@ -135,9 +135,9 @@ final class DiffHelper
         return RendererFactory::getInstance($template)
             ->setOptions($templateOptions)
             ->render(
-                Diff::getInstance()
+                Differ::getInstance()
                     ->setOldNew($old, $new)
-                    ->setOptions($diffOptions)
+                    ->setOptions($differOptions)
             );
     }
 
@@ -147,7 +147,7 @@ final class DiffHelper
      * @param string $old             the path of the old file
      * @param string $new             the path of the new file
      * @param string $template        the template name
-     * @param array  $diffOptions     the options for Diff object
+     * @param array  $differOptions   the options for Differ object
      * @param array  $templateOptions the options for template object
      *
      * @throws \LogicException   path is a directory
@@ -159,7 +159,7 @@ final class DiffHelper
         string $old,
         string $new,
         string $template = 'Unified',
-        array $diffOptions = [],
+        array $differOptions = [],
         array $templateOptions = []
     ): string {
         // we want to leave the line-ending problem to static::calculate()
@@ -172,7 +172,7 @@ final class DiffHelper
             $oldFile->fread($oldFile->getSize()),
             $newFile->fread($newFile->getSize()),
             $template,
-            $diffOptions,
+            $differOptions,
             $templateOptions
         );
     }

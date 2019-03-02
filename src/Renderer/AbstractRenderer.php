@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer;
 
-use Jfcherng\Diff\Diff;
+use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\Utility\Language;
 
 /**
@@ -26,9 +26,9 @@ abstract class AbstractRenderer implements RendererInterface
     const IS_HTML_TEMPLATE = true;
 
     /**
-     * @var Diff the instance of the diff class that this renderer is generating the rendered diff for
+     * @var Differ the instance of the Differ class that this renderer is generating the rendered diff for
      */
-    protected $diff;
+    protected $differ;
 
     /**
      * @var Language the language translation object
@@ -73,15 +73,15 @@ abstract class AbstractRenderer implements RendererInterface
     }
 
     /**
-     * Set the diff object.
+     * Set the Differ object.
      *
-     * @param Diff $diff the diff object
+     * @param Differ $differ the Differ object
      *
      * @return self
      */
-    public function setDiff(Diff $diff): self
+    public function setDiff(Differ $differ): self
     {
-        $this->diff = $diff;
+        $this->differ = $differ;
 
         return $this;
     }
@@ -107,13 +107,13 @@ abstract class AbstractRenderer implements RendererInterface
     }
 
     /**
-     * Get the diff object.
+     * Get the Differ object.
      *
-     * @return Diff the diff object
+     * @return Differ the Differ object
      */
-    public function getDiff(): Diff
+    public function getDiffer(): Differ
     {
-        return $this->diff;
+        return $this->differ;
     }
 
     /**
@@ -139,12 +139,12 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * {@inheritdoc}
      */
-    public function render(Diff $diff): string
+    public function render(Differ $differ): string
     {
-        $this->diff = $diff->finalize();
+        $this->differ = $differ->finalize();
 
         // the "no difference" situation may happen frequently
-        return $this->diff->getOldNewComparison() === 0
+        return $this->differ->getOldNewComparison() === 0
             ? static::getIdenticalResult()
             : $this->renderWoker();
     }
