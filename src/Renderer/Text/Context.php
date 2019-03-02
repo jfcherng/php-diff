@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Text;
 
+use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\SequenceMatcher;
 
 /**
@@ -34,11 +35,11 @@ final class Context extends AbstractText
     /**
      * {@inheritdoc}
      */
-    protected function renderWoker(): string
+    protected function renderWoker(Differ $differ): string
     {
         $ret = '';
 
-        foreach ($this->differ->getGroupedOpcodes() as $opcodes) {
+        foreach ($differ->getGroupedOpcodes() as $opcodes) {
             $lastItem = \count($opcodes) - 1;
 
             $i1 = $opcodes[0][1];
@@ -49,9 +50,9 @@ final class Context extends AbstractText
             $ret .=
                 "***************\n" .
                 $this->renderBlockHeader('*', $i1, $i2) .
-                $this->renderBlockOld($opcodes) .
+                $this->renderBlockOld($opcodes, $differ) .
                 $this->renderBlockHeader('-', $j1, $j2) .
-                $this->renderBlockNew($opcodes);
+                $this->renderBlockNew($opcodes, $differ);
         }
 
         return $ret;
@@ -77,11 +78,12 @@ final class Context extends AbstractText
     /**
      * Render the old block.
      *
-     * @param array $opcodes the opcodes
+     * @param array  $opcodes the opcodes
+     * @param Differ $differ  the differ object
      *
      * @return string
      */
-    protected function renderBlockOld(array $opcodes): string
+    protected function renderBlockOld(array $opcodes, Differ $differ): string
     {
         $ret = '';
 
@@ -92,7 +94,7 @@ final class Context extends AbstractText
 
             $ret .= $this->renderContext(
                 self::TAG_MAP[$tag],
-                $this->differ->getOld($i1, $i2)
+                $differ->getOld($i1, $i2)
             );
         }
 
@@ -102,11 +104,12 @@ final class Context extends AbstractText
     /**
      * Render the new block.
      *
-     * @param array $opcodes the opcodes
+     * @param array  $opcodes the opcodes
+     * @param Differ $differ  the differ object
      *
      * @return string
      */
-    protected function renderBlockNew(array $opcodes): string
+    protected function renderBlockNew(array $opcodes, Differ $differ): string
     {
         $ret = '';
 
@@ -117,7 +120,7 @@ final class Context extends AbstractText
 
             $ret .= $this->renderContext(
                 self::TAG_MAP[$tag],
-                $this->differ->getNew($j1, $j2)
+                $differ->getNew($j1, $j2)
             );
         }
 

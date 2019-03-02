@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html;
 
+use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\SequenceMatcher;
 
 /**
@@ -35,9 +36,9 @@ final class Json extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    protected function renderWoker(): string
+    protected function renderWoker(Differ $differ): string
     {
-        $changes = $this->getChanges();
+        $changes = $this->getChanges($differ);
 
         if ($this->options['outputTagAsString']) {
             $this->convertTagToString($changes);

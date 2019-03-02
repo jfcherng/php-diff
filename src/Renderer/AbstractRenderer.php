@@ -26,11 +26,6 @@ abstract class AbstractRenderer implements RendererInterface
     const IS_HTML_TEMPLATE = true;
 
     /**
-     * @var Differ the instance of the Differ class that this renderer is generating the rendered diff for
-     */
-    protected $differ;
-
-    /**
      * @var Language the language translation object
      */
     protected $t;
@@ -73,20 +68,6 @@ abstract class AbstractRenderer implements RendererInterface
     }
 
     /**
-     * Set the Differ object.
-     *
-     * @param Differ $differ the Differ object
-     *
-     * @return self
-     */
-    public function setDiff(Differ $differ): self
-    {
-        $this->differ = $differ;
-
-        return $this;
-    }
-
-    /**
      * Set the options of the renderer to those supplied in the passed in array.
      * Options are merged with the default to ensure that there aren't any missing
      * options.
@@ -104,16 +85,6 @@ abstract class AbstractRenderer implements RendererInterface
         $this->options = $newOptions;
 
         return $this;
-    }
-
-    /**
-     * Get the Differ object.
-     *
-     * @return Differ the Differ object
-     */
-    public function getDiffer(): Differ
-    {
-        return $this->differ;
     }
 
     /**
@@ -141,20 +112,22 @@ abstract class AbstractRenderer implements RendererInterface
      */
     public function render(Differ $differ): string
     {
-        $this->differ = $differ->finalize();
+        $differ->finalize();
 
         // the "no difference" situation may happen frequently
-        return $this->differ->getOldNewComparison() === 0
+        return $differ->getOldNewComparison() === 0
             ? static::getIdenticalResult()
-            : $this->renderWoker();
+            : $this->renderWoker($differ);
     }
 
     /**
      * The real worker for self::render().
      *
+     * @param Differ $differ the differ object
+     *
      * @return string
      */
-    abstract protected function renderWoker(): string;
+    abstract protected function renderWoker(Differ $differ): string;
 
     /**
      * Update the Language object.

@@ -52,6 +52,7 @@ final class Differ
 
     /**
      * @var int the result of comparing the old and the new with the spaceship operator
+     *          -1 means old < new, 0 means old == new, 1 means old > new
      */
     private $oldNewComparison = 0;
 

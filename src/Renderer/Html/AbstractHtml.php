@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html;
 
+use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\Factory\LineRendererFactory;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Renderer\Html\LineRenderer\AbstractLineRenderer;
@@ -38,23 +39,23 @@ abstract class AbstractHtml extends AbstractRenderer
      *
      * @return array an array of the generated changes, suitable for presentation in HTML
      */
-    public function getChanges(): array
+    public function getChanges(Differ $differ): array
     {
         $lineRenderer = LineRendererFactory::make(
             $this->options['detailLevel'],
-            $this->differ->getOptions(),
+            $differ->getOptions(),
             $this->options
         );
 
         // As we'll be modifying old & new to include our change markers,
         // we need to get the contents and store them here. That way
         // we're not going to destroy the original data
-        $old = $this->differ->getOld();
-        $new = $this->differ->getNew();
+        $old = $differ->getOld();
+        $new = $differ->getNew();
 
         $changes = [];
 
-        foreach ($this->differ->getGroupedOpcodes() as $opcodes) {
+        foreach ($differ->getGroupedOpcodes() as $opcodes) {
             $blocks = [];
             $lastTag = SequenceMatcher::OP_NOP;
             $lastBlock = 0;
