@@ -90,9 +90,7 @@ final class Diff
      */
     public function setOldNew(array $old, array $new): self
     {
-        $this->setOld($old)->setNew($new);
-
-        return $this;
+        return $this->setOld($old)->setNew($new);
     }
 
     /**
@@ -239,7 +237,7 @@ final class Diff
     /**
      * Set a and b.
      *
-     * @deprecated 5.0.0
+     * @deprecated 5.0.0 use setOldNew() instead
      *
      * @param string[] $a the a
      * @param string[] $b the b
@@ -254,7 +252,7 @@ final class Diff
     /**
      * Set a.
      *
-     * @deprecated 5.0.0
+     * @deprecated 5.0.0 use setOld() instead
      *
      * @param string[] $a the a
      *
@@ -268,7 +266,7 @@ final class Diff
     /**
      * Set b.
      *
-     * @deprecated 5.0.0
+     * @deprecated 5.0.0 use setNew() instead
      *
      * @param string[] $b the b
      *
@@ -285,7 +283,7 @@ final class Diff
      *
      * If $end is null, it returns array sliced from the $start to the end.
      *
-     * @deprecated 5.0.0
+     * @deprecated 5.0.0 use getOld() instead
      *
      * @param int      $start the starting number. If null, the whole array will be returned.
      * @param null|int $end   the ending number. If null, only the item in $start will be returned.
@@ -303,7 +301,7 @@ final class Diff
      *
      * If $end is null, it returns array sliced from the $start to the end.
      *
-     * @deprecated 5.0.0
+     * @deprecated 5.0.0 use getNew() instead
      *
      * @param int      $start the starting number
      * @param null|int $end   the ending number
