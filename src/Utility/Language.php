@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Utility;
 
-use Jfcherng\Diff\Exception\FileNotFoundException;
-
 final class Language
 {
     /**
@@ -22,9 +20,6 @@ final class Language
      * The constructor.
      *
      * @param string|string[] $langOrTrans the language string or translations array
-     *
-     * @throws \InvalidArgumentException
-     * @throws FileNotFoundException     language file not found
      */
     public function __construct($langOrTrans = 'eng')
     {
@@ -37,7 +32,6 @@ final class Language
      * @param string|string[] $langOrTrans the language string or translations array
      *
      * @throws \InvalidArgumentException
-     * @throws FileNotFoundException     language file not found
      *
      * @return self
      */
@@ -83,19 +77,24 @@ final class Language
      *
      * @param string $language the language
      *
-     * @throws FileNotFoundException language file not found
+     * @throws \Exception        fail to decode the JSON file
+     * @throws \LogicException   path is a directory
+     * @throws \RuntimeException path cannot be opened
      *
      * @return string[]
      */
     public function getTranslationsByLanguage(string $language): array
     {
-        $file = __DIR__ . "/../languages/{$language}.json";
+        $filePath = __DIR__ . "/../languages/{$language}.json";
+        $file = new \SplFileObject($filePath, 'r');
+        $fileContent = $file->fread($file->getSize());
 
-        if (!\is_file($file)) {
-            throw new FileNotFoundException($file);
+        /** @todo PHP ^7.3 JSON_THROW_ON_ERROR */
+        if (($decoded = \json_decode($fileContent, true)) === null) {
+            throw new \Exception("Fail to decode JSON file: {$filePath}");
         }
 
-        return \json_decode(\file_get_contents($file), true);
+        return $decoded;
     }
 
     /**
@@ -114,8 +113,6 @@ final class Language
      * Set the language name.
      *
      * @param string $language the language name
-     *
-     * @throws FileNotFoundException language file not found
      *
      * @return self
      */
