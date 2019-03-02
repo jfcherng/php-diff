@@ -23,7 +23,7 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * @var bool Is this template pure text?
      */
-    const IS_HTML_TEMPLATE = true;
+    const IS_TEXT_TEMPLATE = true;
 
     /**
      * @var Diff the instance of the diff class that this renderer is generating the rendered diff for
