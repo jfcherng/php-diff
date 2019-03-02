@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Utility\Test;
 
-use Jfcherng\Diff\Exception\FileNotFoundException;
 use Jfcherng\Diff\Utility\Language;
 use PHPUnit\Framework\TestCase;
 
@@ -63,7 +62,7 @@ class LanguageTest extends TestCase
             $this->languageObj->getTranslationsByLanguage('eng')
         );
 
-        $this->expectException(FileNotFoundException::class);
+        $this->expectException(\RuntimeException::class);
         $this->languageObj->getTranslationsByLanguage('a_non_existing_language');
     }
 
