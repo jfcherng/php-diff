@@ -21,7 +21,8 @@ final class Diff
      * @var array cached properties and their default values
      */
     private const CACHED_PROPERTIES = [
-        'groupedCodes' => null,
+        'groupedOpcodes' => [],
+        'oldNewComparison' => 0,
     ];
 
     /**
@@ -45,14 +46,20 @@ final class Diff
     private $isCacheDirty = true;
 
     /**
-     * @var null|SequenceMatcher the sequence matcher
+     * @var SequenceMatcher the sequence matcher
      */
     private $sequenceMatcher;
 
     /**
-     * @var null|array array containing the generated opcodes for the differences between the two items
+     * @var int the result of comparing the old and the new with the spaceship operator
+     *          -1 means old < new, 0 means old == new, 1 means old > new
      */
-    private $groupedCodes;
+    private $oldNewComparison = 0;
+
+    /**
+     * @var array array containing the generated opcodes for the differences between the two items
+     */
+    private $groupedOpcodes = [];
 
     /**
      * @var array associative array of the default options available for the diff class and their default value
@@ -187,6 +194,16 @@ final class Diff
     }
 
     /**
+     * Compare the old and the new with the spaceship operator.
+     *
+     * @return int
+     */
+    public function getOldNewComparison(): int
+    {
+        return $this->oldNewComparison;
+    }
+
+    /**
      * Get the singleton.
      *
      * @return self
@@ -210,8 +227,12 @@ final class Diff
     {
         $this->finalize();
 
-        return $this->groupedCodes = $this->groupedCodes ??
-            $this->sequenceMatcher->getGroupedOpcodes($this->options['context']);
+        if (!empty($this->groupedOpcodes)) {
+            return $this->groupedOpcodes;
+        }
+
+        return $this->groupedOpcodes = $this->sequenceMatcher
+            ->getGroupedOpcodes($this->options['context']);
     }
 
     /**
@@ -228,8 +249,7 @@ final class Diff
         $renderer->setDiff($this);
 
         // the "no difference" situation may happen frequently
-        // let's save some calculation if possible
-        return $this->old === $this->new
+        return $this->oldNewComparison === 0
             ? $renderer::getIdenticalResult()
             : $renderer->render();
     }
@@ -246,6 +266,8 @@ final class Diff
     {
         if ($this->isCacheDirty) {
             $this->resetCachedResults();
+
+            $this->oldNewComparison = $this->old <=> $this->new;
 
             $this->sequenceMatcher
                 ->setOptions($this->options)
