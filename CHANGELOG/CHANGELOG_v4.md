@@ -2,6 +2,11 @@
 ## VERSION 4  AT NOON
 
  * Version **4.2** - helper methods
+   * 2019-03-03 06:36  **4.2.3**  tiny fixes
+      * c3d1512 Make Language::getTranslationsByLanguage() safer
+      * df4488e Fix a typo
+      * 8a41e9a Use native class name
+      * fa48647 Fix a typo in readme
    * 2019-03-03 04:03  **4.2.2**  final release for v4
       * 86e32c0 Adapt some non-breaking changes from the master branch
       * 35c1303 nits
