@@ -13,7 +13,7 @@ use Jfcherng\Diff\Utility\Language;
 abstract class AbstractRenderer implements RendererInterface
 {
     /**
-     * @var array information about this template
+     * @var array information about this renderer
      */
     const INFO = [
         'desc' => 'default_desc',
@@ -21,9 +21,9 @@ abstract class AbstractRenderer implements RendererInterface
     ];
 
     /**
-     * @var bool Is this template pure text?
+     * @var bool Is this renderer pure text?
      */
-    const IS_HTML_TEMPLATE = true;
+    const IS_TEXT_RENDERER = true;
 
     /**
      * @var Language the language translation object
@@ -36,12 +36,12 @@ abstract class AbstractRenderer implements RendererInterface
     protected static $defaultOptions = [
         // how detailed the rendered HTML in-line diff is? (none, line, word, char)
         'detailLevel' => 'line',
-        // template language: eng, cht, chs, jpn, ...
+        // renderer language: eng, cht, chs, jpn, ...
         // or an array which has the same keys with a language file
         'language' => 'eng',
-        // HTML template tab width (negative = do not convert into spaces)
+        // HTML renderer tab width (negative = do not convert into spaces)
         'tabSize' => 4,
-        // show a separator between different diff hunks in HTML templates
+        // show a separator between different diff hunks in HTML renderers
         'separateBlock' => true,
         // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
         // but if you want to visualize them in the backend with "&nbsp;", you can set this to true

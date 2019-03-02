@@ -29,11 +29,11 @@ final class DiffHelper
     }
 
     /**
-     * Get the information about available templates.
+     * Get the information about available renderers.
      *
      * @return array
      */
-    public static function getTemplatesInfo(): array
+    public static function getRenderersInfo(): array
     {
         static $info;
 
@@ -45,7 +45,7 @@ final class DiffHelper
             static::getProjectDirectory(),
             'src',
             'Renderer',
-            '{' . \implode(',', RendererConstant::TEMPLATE_TYPES) . '}',
+            '{' . \implode(',', RendererConstant::RENDERER_TYPES) . '}',
             '*.php',
         ]);
 
@@ -58,7 +58,7 @@ final class DiffHelper
             \glob($glob, \GLOB_BRACE)
         );
 
-        $templates = \array_filter(
+        $renderers = \array_filter(
             $fileNames,
             // only normal class files are wanted
             function (string $fileName): bool {
@@ -70,25 +70,25 @@ final class DiffHelper
         );
 
         $info = [];
-        foreach ($templates as $template) {
-            $info[$template] = RendererFactory::resolveTemplate($template)::INFO;
+        foreach ($renderers as $renderer) {
+            $info[$renderer] = RendererFactory::resolveRenderer($renderer)::INFO;
         }
 
         return $info;
     }
 
     /**
-     * Get the available templates.
+     * Get the available renderers.
      *
-     * @return string[] the available templates
+     * @return string[] the available renderers
      */
-    public static function getAvailableTemplates(): array
+    public static function getAvailableRenderers(): array
     {
-        return \array_keys(self::getTemplatesInfo());
+        return \array_keys(self::getRenderersInfo());
     }
 
     /**
-     * Get the content of the CSS style sheet for HTML templates.
+     * Get the content of the CSS style sheet for HTML renderers.
      *
      * @throws \LogicException   path is a directory
      * @throws \RuntimeException path cannot be opened
@@ -115,25 +115,25 @@ final class DiffHelper
      *
      * @param string|string[] $old             the old string (or array of lines)
      * @param string|string[] $new             the new string (or array of lines)
-     * @param string          $template        the template name
+     * @param string          $renderer        the renderer name
      * @param array           $differOptions   the options for Differ object
-     * @param array           $templateOptions the options for template object
+     * @param array           $rendererOptions the options for renderer object
      *
      * @return string the rendered differences
      */
     public static function calculate(
         $old,
         $new,
-        string $template = 'Unified',
+        string $renderer = 'Unified',
         array $differOptions = [],
-        array $templateOptions = []
+        array $rendererOptions = []
     ): string {
         // always convert into array form
         \is_string($old) && ($old = \explode("\n", $old));
         \is_string($new) && ($new = \explode("\n", $new));
 
-        return RendererFactory::getInstance($template)
-            ->setOptions($templateOptions)
+        return RendererFactory::getInstance($renderer)
+            ->setOptions($rendererOptions)
             ->render(
                 Differ::getInstance()
                     ->setOldNew($old, $new)
@@ -146,9 +146,9 @@ final class DiffHelper
      *
      * @param string $old             the path of the old file
      * @param string $new             the path of the new file
-     * @param string $template        the template name
+     * @param string $renderer        the renderer name
      * @param array  $differOptions   the options for Differ object
-     * @param array  $templateOptions the options for template object
+     * @param array  $rendererOptions the options for renderer object
      *
      * @throws \LogicException   path is a directory
      * @throws \RuntimeException path cannot be opened
@@ -158,9 +158,9 @@ final class DiffHelper
     public static function calculateFiles(
         string $old,
         string $new,
-        string $template = 'Unified',
+        string $renderer = 'Unified',
         array $differOptions = [],
-        array $templateOptions = []
+        array $rendererOptions = []
     ): string {
         // we want to leave the line-ending problem to static::calculate()
         // so do not set SplFileObject::DROP_NEW_LINE flag
@@ -171,9 +171,9 @@ final class DiffHelper
         return static::calculate(
             $oldFile->fread($oldFile->getSize()),
             $newFile->fread($newFile->getSize()),
-            $template,
+            $renderer,
             $differOptions,
-            $templateOptions
+            $rendererOptions
         );
     }
 }

@@ -49,8 +49,8 @@ $newFile = __DIR__ . '/example/new_file.txt';
 $old = 'This is the old string.';
 $new = 'And this is the new one.';
 
-// template class name: Unified, Context, Json, Inline, SideBySide
-$template = 'Unified';
+// renderer class name: Unified, Context, Json, Inline, SideBySide
+$rendererName = 'Unified';
 
 // the Diff class options
 $differOptions = [
@@ -62,19 +62,19 @@ $differOptions = [
     'ignoreWhitespace' => false,
 ];
 
-// the template class options
-$templateOptions = [
+// the renderer class options
+$rendererOptions = [
     // how detailed the rendered HTML in-line diff is? (none, line, word, char)
     'detailLevel' => 'line',
-    // template language: eng, cht, chs, jpn, ...
+    // renderer language: eng, cht, chs, jpn, ...
     // or an array which has the same keys with a language file
     'language' => 'eng',
-    // show a separator between different diff hunks in HTML templates
+    // show a separator between different diff hunks in HTML renderers
     'separateBlock' => true,
     // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
     // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
     'spacesToNbsp' => false,
-    // HTML template tab width (negative = do not convert into spaces)
+    // HTML renderer tab width (negative = do not convert into spaces)
     'tabSize' => 4,
     // internally, ops (tags) are all int type but this is not good for human reading.
     // set this to "true" to convert them into string form before outputting.
@@ -82,15 +82,15 @@ $templateOptions = [
 ];
 
 // one-line simply compare two files
-$result = DiffHelper::calculateFiles($oldFile, $newFile, $differOptions, $templateOptions);
+$result = DiffHelper::calculateFiles($oldFile, $newFile, $rendererName, $differOptions, $rendererOptions);
 // one-line simply compare two strings
-$result = DiffHelper::calculate($old, $new, $template, $differOptions, $templateOptions);
+$result = DiffHelper::calculate($old, $new, $rendererName, $differOptions, $rendererOptions);
 // or even shorter if you are happy with default options
-$result = DiffHelper::calculate($old, $new, $template);
+$result = DiffHelper::calculate($old, $new, $rendererName);
 
 // custom usage
 $differ = new Differ(explode("\n", $old), explode("\n", $new), $differOptions);
-$renderer = RendererFactory::make($template, $templateOptions); // or your own renderers
+$renderer = RendererFactory::make($rendererName, $rendererOptions); // or your own renderers
 $result = $renderer->render($differ);
 ```
 

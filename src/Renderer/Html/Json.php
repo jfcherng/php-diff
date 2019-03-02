@@ -23,7 +23,7 @@ final class Json extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    const IS_TEXT_TEMPLATE = true;
+    const IS_TEXT_RENDERER = true;
 
     /**
      * {@inheritdoc}

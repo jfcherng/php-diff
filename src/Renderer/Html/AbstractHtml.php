@@ -18,9 +18,9 @@ use Jfcherng\Utility\MbString;
 abstract class AbstractHtml extends AbstractRenderer
 {
     /**
-     * @var bool is this template pure text?
+     * @var bool is this renderer pure text?
      */
-    const IS_TEXT_TEMPLATE = false;
+    const IS_TEXT_RENDERER = false;
 
     /**
      * @var array array of the different opcode tags and how they map to the HTML class

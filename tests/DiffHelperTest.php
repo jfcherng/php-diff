@@ -67,7 +67,7 @@ EOT
     }
 
     /**
-     * Test the DiffHelper::calculate with the 'Unified' template.
+     * Test the DiffHelper::calculate with the 'Unified' renderer.
      *
      * @covers       \Jfcherng\Diff\DiffHelper::calculate
      * @dataProvider calculateDataProvider
@@ -85,7 +85,7 @@ EOT
     }
 
     /**
-     * Test the DiffHelper::calculate with the 'Context' template.
+     * Test the DiffHelper::calculate with the 'Context' renderer.
      *
      * @covers       \Jfcherng\Diff\DiffHelper::calculate
      * @dataProvider calculateDataProvider

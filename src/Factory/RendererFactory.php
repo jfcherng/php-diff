@@ -24,60 +24,60 @@ final class RendererFactory
     }
 
     /**
-     * Get a singleton of a template.
+     * Get a singleton of a renderer.
      *
-     * @param string $template    the template
+     * @param string $renderer    the renderer
      * @param mixed  ...$ctorArgs the constructor arguments
      *
      * @return AbstractRenderer
      */
-    public static function getInstance(string $template, ...$ctorArgs): AbstractRenderer
+    public static function getInstance(string $renderer, ...$ctorArgs): AbstractRenderer
     {
-        if (!isset(self::$singletons[$template])) {
-            self::$singletons[$template] = self::make($template, ...$ctorArgs);
+        if (!isset(self::$singletons[$renderer])) {
+            self::$singletons[$renderer] = self::make($renderer, ...$ctorArgs);
         }
 
-        return self::$singletons[$template];
+        return self::$singletons[$renderer];
     }
 
     /**
-     * Make a new instance of a template.
+     * Make a new instance of a renderer.
      *
-     * @param string $template    the template
+     * @param string $renderer    the renderer
      * @param mixed  ...$ctorArgs the constructor arguments
      *
      * @throws \InvalidArgumentException
      *
      * @return AbstractRenderer
      */
-    public static function make(string $template, ...$ctorArgs): AbstractRenderer
+    public static function make(string $renderer, ...$ctorArgs): AbstractRenderer
     {
-        $className = self::resolveTemplate($template);
+        $className = self::resolveRenderer($renderer);
 
         if (!isset($className)) {
-            throw new \InvalidArgumentException("Template not found: {$template}");
+            throw new \InvalidArgumentException("Renderer not found: {$renderer}");
         }
 
         return new $className(...$ctorArgs);
     }
 
     /**
-     * Resolve the template name into a FQCN.
+     * Resolve the renderer name into a FQCN.
      *
-     * @param string $template The template
+     * @param string $renderer the renderer
      *
      * @return null|string
      */
-    public static function resolveTemplate(string $template): ?string
+    public static function resolveRenderer(string $renderer): ?string
     {
         static $cache = [];
 
-        if (isset($cache[$template])) {
-            return $cache[$template];
+        if (isset($cache[$renderer])) {
+            return $cache[$renderer];
         }
 
-        foreach (RendererConstant::TEMPLATE_TYPES as $type) {
-            $className = RendererConstant::RENDERER_NAMESPACE . "\\{$type}\\{$template}";
+        foreach (RendererConstant::RENDERER_TYPES as $type) {
+            $className = RendererConstant::RENDERER_NAMESPACE . "\\{$type}\\{$renderer}";
 
             if (\class_exists($className)) {
                 $result = $className;
@@ -86,6 +86,6 @@ final class RendererFactory
             }
         }
 
-        return isset($result) ? ($cache[$template] = $result) : null;
+        return isset($result) ? ($cache[$renderer] = $result) : null;
     }
 }

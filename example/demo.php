@@ -31,19 +31,19 @@ use Jfcherng\Diff\DiffHelper;
                 'ignoreWhitespace' => false,
             ];
 
-            // options for template class
-            $templateOptions = [
+            // options for renderer class
+            $rendererOptions = [
                 // how detailed the rendered HTML is? (line, word, char)
                 'detailLevel' => 'line',
-                // template language: eng, cht, chs, jpn, ...
+                // renderer language: eng, cht, chs, jpn, ...
                 // or an array which has the same keys with a language file
                 'language' => 'eng',
-                // show a separator between different diff hunks in HTML templates
+                // show a separator between different diff hunks in HTML renderers
                 'separateBlock' => true,
                 // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
                 // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
                 'spacesToNbsp' => false,
-                // HTML template tab width (negative = do not convert into spaces)
+                // HTML renderer tab width (negative = do not convert into spaces)
                 'tabSize' => 4,
                 // internally, ops (tags) are all int type but this is not good for human reading.
                 // set this to "true" to convert them into string form before outputting.
@@ -61,7 +61,7 @@ use Jfcherng\Diff\DiffHelper;
                 $newFile,
                 'Inline',
                 $diffOptions,
-                ['detailLevel' => 'none'] + $templateOptions
+                ['detailLevel' => 'none'] + $rendererOptions
             );
 
             echo $result;
@@ -77,7 +77,7 @@ use Jfcherng\Diff\DiffHelper;
                 $newFile,
                 'Inline',
                 $diffOptions,
-                ['detailLevel' => 'line'] + $templateOptions
+                ['detailLevel' => 'line'] + $rendererOptions
             );
 
             echo $result;
@@ -93,7 +93,7 @@ use Jfcherng\Diff\DiffHelper;
                 $newFile,
                 'Inline',
                 $diffOptions,
-                ['detailLevel' => 'word'] + $templateOptions
+                ['detailLevel' => 'word'] + $rendererOptions
             );
 
             echo $result;
@@ -109,7 +109,7 @@ use Jfcherng\Diff\DiffHelper;
                 $newFile,
                 'Inline',
                 $diffOptions,
-                ['detailLevel' => 'char'] + $templateOptions
+                ['detailLevel' => 'char'] + $rendererOptions
             );
 
             echo $result;
@@ -125,7 +125,7 @@ use Jfcherng\Diff\DiffHelper;
                 $newFilePath,
                 'SideBySide',
                 $diffOptions,
-                $templateOptions
+                $rendererOptions
             );
 
             echo $result;
@@ -141,7 +141,7 @@ use Jfcherng\Diff\DiffHelper;
                 $newFilePath,
                 'Inline',
                 $diffOptions,
-                $templateOptions
+                $rendererOptions
             );
 
             echo $result;
@@ -157,7 +157,7 @@ use Jfcherng\Diff\DiffHelper;
                 $newFilePath,
                 'Unified',
                 $diffOptions,
-                $templateOptions
+                $rendererOptions
             );
 
             echo \htmlspecialchars($result);
@@ -173,7 +173,7 @@ use Jfcherng\Diff\DiffHelper;
                 $newFilePath,
                 'Context',
                 $diffOptions,
-                $templateOptions
+                $rendererOptions
             );
 
             echo \htmlspecialchars($result);
@@ -189,7 +189,7 @@ use Jfcherng\Diff\DiffHelper;
                 $newFilePath,
                 'Json',
                 $diffOptions,
-                ['outputTagAsString' => true] + $templateOptions
+                ['outputTagAsString' => true] + $rendererOptions
             );
 
             $beautified = \json_encode(

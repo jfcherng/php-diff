@@ -12,7 +12,7 @@ use Jfcherng\Diff\Renderer\AbstractRenderer;
 abstract class AbstractText extends AbstractRenderer
 {
     /**
-     * @var bool is this template pure text?
+     * @var bool is this renderer pure text?
      */
-    const IS_TEXT_TEMPLATE = true;
+    const IS_TEXT_RENDERER = true;
 }

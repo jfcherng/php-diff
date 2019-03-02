@@ -22,23 +22,23 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     protected $differOptions = [];
 
     /**
-     * @var array the template options
+     * @var array the renderer options
      */
-    protected $templateOptions = [];
+    protected $rendererOptions = [];
 
     /**
      * The constructor.
      *
      * @param array $differOptions   the differ options
-     * @param array $templateOptions the template options
+     * @param array $rendererOptions the renderer options
      */
-    public function __construct(array $differOptions, array $templateOptions)
+    public function __construct(array $differOptions, array $rendererOptions)
     {
         $this->sequenceMatcher = new SequenceMatcher([], []);
 
         $this
             ->setDifferOptions($differOptions)
-            ->setTemplateOptions($templateOptions);
+            ->setRendererOptions($rendererOptions);
     }
 
     /**
@@ -57,15 +57,15 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     }
 
     /**
-     * Set the template options.
+     * Set the renderer options.
      *
-     * @param array $templateOptions the template options
+     * @param array $rendererOptions the renderer options
      *
      * @return self
      */
-    public function setTemplateOptions(array $templateOptions): self
+    public function setRendererOptions(array $rendererOptions): self
     {
-        $this->templateOptions = $templateOptions;
+        $this->rendererOptions = $rendererOptions;
 
         return $this;
     }
@@ -81,13 +81,13 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     }
 
     /**
-     * Gets the template options.
+     * Gets the renderer options.
      *
-     * @return array the template options
+     * @return array the renderer options
      */
-    public function getTemplateOptions(): array
+    public function getRendererOptions(): array
     {
-        return $this->templateOptions;
+        return $this->rendererOptions;
     }
 
     /**

@@ -130,7 +130,7 @@ final class Inline extends AbstractHtml
         // the old and the new may not be exactly the same
         // because of ignoreCase, ignoreWhitespace, etc
         foreach ($change['old']['lines'] as $no => $oldLine) {
-            // hmm... but this is a inline template
+            // hmm... but this is a inline renderer
             // we could only pick a line from the old or the new to show
             $oldLineNum = $change['old']['offset'] + $no + 1;
             $newLineNum = $change['new']['offset'] + $no + 1;
