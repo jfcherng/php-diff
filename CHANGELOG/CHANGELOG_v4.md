@@ -2,6 +2,11 @@
 ## VERSION 4  AT NOON
 
  * Version **4.2** - helper methods
+   * 2019-03-03 04:03  **4.2.2**  final release for v4
+      * 86e32c0 Adapt some non-breaking changes from the master branch
+      * 35c1303 nits
+      * 637e07e Update deps
+      * 80c1861 Move CHANGELOG and UPGRADING
    * 2019-02-27 01:46  **4.2.1**  fix typo
       * 37f7f75 Fix DiffHelp::getTemplatesInfo() typos
       * 3a3c276 Revise phpdoc
