@@ -90,9 +90,7 @@ final class Diff
      */
     public function setOldNew(array $old, array $new): self
     {
-        $this->setOld($old)->setNew($new);
-
-        return $this;
+        return $this->setOld($old)->setNew($new);
     }
 
     /**
