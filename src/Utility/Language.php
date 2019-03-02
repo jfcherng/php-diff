@@ -90,7 +90,9 @@ final class Language
         $fileContent = $file->fread($file->getSize());
 
         /** @todo PHP ^7.3 JSON_THROW_ON_ERROR */
-        if (($decoded = \json_decode($fileContent, true)) === null) {
+        $decoded = \json_decode($fileContent, true);
+
+        if (\json_last_error() !== \JSON_ERROR_NONE) {
             throw new \Exception("Fail to decode JSON file: {$filePath}");
         }
 
