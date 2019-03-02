@@ -46,9 +46,6 @@ abstract class AbstractHtml extends AbstractRenderer
             $this->options
         );
 
-        // As we'll be modifying old & new to include our change markers,
-        // we need to get the contents and store them here. That way
-        // we're not going to destroy the original data
         $old = $this->diff->getOld();
         $new = $this->diff->getNew();
 
