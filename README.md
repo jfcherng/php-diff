@@ -82,7 +82,7 @@ $templateOptions = [
 ];
 
 // one-line simply compare two files
-$result = DiffHelper::calculateFiles($oldFile, $newFile, $diffOptions, $templateOptions);
+$result = DiffHelper::calculateFiles($oldFile, $newFile, $template, $diffOptions, $templateOptions);
 // one-line simply compare two strings
 $result = DiffHelper::calculate($old, $new, $template, $diffOptions, $templateOptions);
 // or even shorter if you are happy with default options
