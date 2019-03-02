@@ -9,7 +9,7 @@ there is no breaking change for you so you do not have to do anything.
 
 ### External Breaking Changes
 
-- `Diff` has been renamed to `Differ`.
+- The `Diff` class has been renamed to `Differ`.
   It's easy to adapt to this by changing the class name.
 
 - Now a `Renderer` has `render()` API, but a `Differ` does not.

@@ -44,7 +44,7 @@ final class Differ
     private $isCacheDirty = true;
 
     /**
-     * @var null|SequenceMatcher the sequence matcher
+     * @var SequenceMatcher the sequence matcher
      */
     private $sequenceMatcher;
 

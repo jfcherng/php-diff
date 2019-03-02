@@ -37,6 +37,8 @@ abstract class AbstractHtml extends AbstractRenderer
      * based differences. Generally called by subclasses that generate a
      * HTML based diff and return an array of the changes to show in the diff.
      *
+     * @param Differ $differ the differ object
+     *
      * @return array an array of the generated changes, suitable for presentation in HTML
      */
     public function getChanges(Differ $differ): array
@@ -47,9 +49,6 @@ abstract class AbstractHtml extends AbstractRenderer
             $this->options
         );
 
-        // As we'll be modifying old & new to include our change markers,
-        // we need to get the contents and store them here. That way
-        // we're not going to destroy the original data
         $old = $differ->getOld();
         $new = $differ->getNew();
 
