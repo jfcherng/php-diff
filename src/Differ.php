@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff;
 
-use Jfcherng\Diff\Renderer\AbstractRenderer;
-
 /**
  * A comprehensive library for generating differences between two strings
  * in multiple formats (unified, side by side HTML etc).
