@@ -21,7 +21,7 @@ final class Differ
      * @var array cached properties and their default values
      */
     private const CACHED_PROPERTIES = [
-        'groupedCodes' => [],
+        'groupedOpcodes' => [],
         'oldNewComparison' => 0,
     ];
 
@@ -59,7 +59,7 @@ final class Differ
     /**
      * @var array array containing the generated opcodes for the differences between the two items
      */
-    private $groupedCodes = [];
+    private $groupedOpcodes = [];
 
     /**
      * @var array associative array of the default options available for the Differ class and their default value
@@ -225,11 +225,11 @@ final class Differ
      */
     public function getGroupedOpcodes(): array
     {
-        if (!empty($this->groupedCodes)) {
-            return $this->groupedCodes;
+        if (!empty($this->groupedOpcodes)) {
+            return $this->groupedOpcodes;
         }
 
-        return $this->groupedCodes = $this->sequenceMatcher
+        return $this->groupedOpcodes = $this->sequenceMatcher
             ->getGroupedOpcodes($this->options['context']);
     }
 
