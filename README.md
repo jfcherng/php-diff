@@ -91,7 +91,7 @@ $result = DiffHelper::calculate($old, $new, $template);
 // custom usage
 $diff = new Diff(explode("\n", $old), explode("\n", $new), $diffOptions);
 $renderer = RendererFactory::make($template, $templateOptions); // or your own renderers
-$result = $diff->render($renderer);
+$result = $renderer->render($diff);
 ```
 
 

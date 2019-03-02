@@ -27,7 +27,15 @@ final class Json extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public function render(): string
+    public static function getIdenticalResult(): string
+    {
+        return '[]';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function renderWoker(): string
     {
         $changes = $this->getChanges();
 
@@ -39,14 +47,6 @@ final class Json extends AbstractHtml
             $changes,
             \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public static function getIdenticalResult(): string
-    {
-        return '[]';
     }
 
     /**

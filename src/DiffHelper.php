@@ -132,10 +132,13 @@ final class DiffHelper
         \is_string($old) && ($old = \explode("\n", $old));
         \is_string($new) && ($new = \explode("\n", $new));
 
-        return Diff::getInstance()
-            ->setOldNew($old, $new)
-            ->setOptions($diffOptions)
-            ->render(RendererFactory::getInstance($template)->setOptions($templateOptions));
+        return RendererFactory::getInstance($template)
+            ->setOptions($templateOptions)
+            ->render(
+                Diff::getInstance()
+                    ->setOldNew($old, $new)
+                    ->setOptions($diffOptions)
+            );
     }
 
     /**

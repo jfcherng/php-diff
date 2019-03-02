@@ -34,7 +34,7 @@ final class Context extends AbstractText
     /**
      * {@inheritdoc}
      */
-    public function render(): string
+    protected function renderWoker(): string
     {
         $ret = '';
 

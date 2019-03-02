@@ -137,6 +137,26 @@ abstract class AbstractRenderer implements RendererInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function render(Diff $diff): string
+    {
+        $this->diff = $diff->finalize();
+
+        // the "no difference" situation may happen frequently
+        return $this->diff->getOldNewComparison() === 0
+            ? static::getIdenticalResult()
+            : $this->renderWoker();
+    }
+
+    /**
+     * The real worker for self::render().
+     *
+     * @return string
+     */
+    abstract protected function renderWoker(): string;
+
+    /**
      * Update the Language object.
      *
      * @param string $old the old language

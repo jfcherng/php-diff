@@ -22,7 +22,7 @@ final class Inline extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public function render(): string
+    protected function renderWoker(): string
     {
         $changes = $this->getChanges();
 

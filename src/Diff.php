@@ -21,7 +21,8 @@ final class Diff
      * @var array cached properties and their default values
      */
     private const CACHED_PROPERTIES = [
-        'groupedCodes' => null,
+        'groupedCodes' => [],
+        'oldNewComparison' => 0,
     ];
 
     /**
@@ -50,9 +51,14 @@ final class Diff
     private $sequenceMatcher;
 
     /**
-     * @var null|array array containing the generated opcodes for the differences between the two items
+     * @var int the result of comparing the old and the new with the spaceship operator
      */
-    private $groupedCodes;
+    private $oldNewComparison = 0;
+
+    /**
+     * @var array array containing the generated opcodes for the differences between the two items
+     */
+    private $groupedCodes = [];
 
     /**
      * @var array associative array of the default options available for the diff class and their default value
@@ -187,6 +193,16 @@ final class Diff
     }
 
     /**
+     * Compare the old and the new with the spaceship operator.
+     *
+     * @return int
+     */
+    public function getOldNewComparison(): int
+    {
+        return $this->oldNewComparison;
+    }
+
+    /**
      * Get the singleton.
      *
      * @return self
@@ -208,44 +224,31 @@ final class Diff
      */
     public function getGroupedOpcodes(): array
     {
-        $this->finalize();
+        if (!empty($this->groupedCodes)) {
+            return $this->groupedCodes;
+        }
 
-        return $this->groupedCodes = $this->groupedCodes ??
-            $this->sequenceMatcher->getGroupedOpcodes($this->options['context']);
+        return $this->groupedCodes = $this->sequenceMatcher
+            ->getGroupedOpcodes($this->options['context']);
     }
 
     /**
-     * Render a diff using the supplied rendering class and return it.
+     * Claim this class has settled down which means properties will not
+     * be changed before doing diff calculations.
      *
-     * @param AbstractRenderer $renderer an instance of the rendering object to use for generating the diff
+     * Properties will be re-propagated to other classes. This method must be
+     * re-called after any property changed before doing calculations.
      *
-     * @return string the generated diff
-     */
-    public function render(AbstractRenderer $renderer): string
-    {
-        $this->finalize();
-
-        $renderer->setDiff($this);
-
-        // the "no difference" situation may happen frequently
-        // let's save some calculation if possible
-        return $this->old === $this->new
-            ? $renderer::getIdenticalResult()
-            : $renderer->render();
-    }
-
-    /**
-     * Claim this class is all set.
-     *
-     * Properties will be propagated to other classes. You must re-call
-     * this method after any property changed before doing calculation.
+     * This method is called in AbstractRenderer::render() automatically.
      *
      * @return self
      */
-    private function finalize(): self
+    public function finalize(): self
     {
         if ($this->isCacheDirty) {
             $this->resetCachedResults();
+
+            $this->oldNewComparison = $this->old <=> $this->new;
 
             $this->sequenceMatcher
                 ->setOptions($this->options)
