@@ -101,11 +101,9 @@ abstract class AbstractRenderer implements RendererInterface
     }
 
     /**
-     * Get the renderer result when the old and the new are the same.
-     *
-     * @return string
+     * {@inheritdoc}
      */
-    public static function getIdenticalResult(): string
+    public function getResultForIdenticals(): string
     {
         return '';
     }
@@ -119,7 +117,7 @@ abstract class AbstractRenderer implements RendererInterface
 
         // the "no difference" situation may happen frequently
         return $differ->getOldNewComparison() === 0
-            ? static::getIdenticalResult()
+            ? $this->getResultForIdenticals()
             : $this->renderWoker($differ);
     }
 

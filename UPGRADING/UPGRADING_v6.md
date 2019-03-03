@@ -34,6 +34,12 @@ there is no breaking change for you so you do not have to do anything.
 - If you call `Differ::getGroupedOpcodes()` by yourself,
   you must call `Differ::finalize()` before it.
 
+- Add `RendererInterface::getResultForIdenticals()`.
+  `AbstractRenderer::getResultForIdenticals()` returns an empty string by default.
+
+- Remove the deprecated `AbstractRenderer::getIdenticalResult()`.
+  Use/implement the `AbstractRenderer::getResultForIdenticals()` instead.
+
 
 ### Internal Breaking Changes
 
