@@ -10,6 +10,8 @@ $config = PhpCsFixer\Config::create()
         '@PSR2' => true,
         '@Symfony' => true,
         '@Symfony:risky' => true,
+        '@PhpCsFixer' => true,
+        '@PhpCsFixer:risky' => true,
         'align_multiline_comment' => true,
         'array_indentation' => true,
         'array_syntax' => ['syntax' => 'short'],
@@ -47,14 +49,16 @@ $config = PhpCsFixer\Config::create()
         'phpdoc_types_order' => true,
         'pow_to_exponentiation' => true,
         'random_api_migration' => true,
+        'return_assignment' => false,
         'single_line_comment_style' => true,
-        'string_line_ending' => true,
         'strict_comparison' => false,
         'strict_param' => false,
+        'string_line_ending' => true,
         'yoda_style' => false,
     ])
     ->setFinder(
         PhpCsFixer\Finder::create()
+            ->notPath('/branch-\\w+/') // git worktree
             ->exclude('libs')
             ->exclude('tests/Fixtures')
             ->exclude('var')
