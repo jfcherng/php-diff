@@ -130,7 +130,18 @@ abstract class AbstractRenderer implements RendererInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function getResultForIdenticals(): string
+    {
+        /** @phan-suppress-next-line PhanDeprecatedFunction */
+        return static::getIdenticalResult();
+    }
+
+    /**
      * Get the renderer result when the old and the new are the same.
+     *
+     * @deprecated 6.0.0 use $this->getResultForIdenticals() instead
      *
      * @return string
      */

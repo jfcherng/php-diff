@@ -27,7 +27,7 @@ final class Inline extends AbstractHtml
         $changes = $this->getChanges();
 
         if (empty($changes)) {
-            return self::getIdenticalResult();
+            return $this->getResultForIdenticals();
         }
 
         $html = '<table class="diff diff-html diff-inline">';

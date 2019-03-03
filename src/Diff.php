@@ -250,7 +250,8 @@ final class Diff
 
         // the "no difference" situation may happen frequently
         return $this->oldNewComparison === 0
-            ? $renderer::getIdenticalResult()
+            /** @phan-suppress-next-line PhanDeprecatedFunction */
+            ? $renderer->getResultForIdenticals()
             : $renderer->render();
     }
 
