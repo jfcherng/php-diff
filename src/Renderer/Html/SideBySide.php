@@ -94,18 +94,22 @@ final class SideBySide extends AbstractHtml
             // equal changes should be shown on both sides of the diff
             case SequenceMatcher::OP_EQ:
                 $html .= $this->renderTableEqual($change);
+
                 break;
             // added lines only on the r side
             case SequenceMatcher::OP_INS:
                 $html .= $this->renderTableInsert($change);
+
                 break;
             // show deleted lines only on the l side
             case SequenceMatcher::OP_DEL:
                 $html .= $this->renderTableDelete($change);
+
                 break;
             // show modified lines on both sides
             case SequenceMatcher::OP_REP:
                 $html .= $this->renderTableReplace($change);
+
                 break;
         }
 

@@ -65,7 +65,7 @@ final class RendererConstant
         // @see https://unicode-table.com/en/blocks/ideographic-symbols-and-punctuation/
         "\u{16FE0}-\u{16FFF}" .
         // hmm... these seem to be no rule
-        " \t$,.:;!?'\"()\[\]{}%@<=>_+\-*\/~\\\\|" .
+        " \t$,.:;!?'\"()\\[\\]{}%@<=>_+\\-*\\/~\\\\|" .
         '　＄，．：；！？’＂（）［］｛｝％＠＜＝＞＿＋－＊／～＼｜' .
         '「」『』〈〉《》【】()（）‘’“”' .
         '．‧・･•·¿'
