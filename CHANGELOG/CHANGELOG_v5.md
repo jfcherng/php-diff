@@ -1,6 +1,25 @@
 
 ## VERSION 5  AFTERNOON
 
+ * Version **5.2** - clean up
+   * 2019-03-04 04:05  **5.2.0**  initial release
+      * ef500d0 Deprecate AbstractRenderer::getIdenticalResult()
+      * 88648e3 nits
+      * 0861774 $ php-cs-fix fix
+      * bfbdd3d [php-cs-fixer] Add new rules: @PhpCsFixer, @PhpCsFixer:risky
+      * dfeb1b8 Improve JSON decoding in Language::getTranslationsByLanguage()
+      * 414eb29 Release of new version 4.2.3
+      * 9d51c33 Make Language::getTranslationsByLanguage() safer
+      * 8acb535 Fix a typo
+      * 2b620b3 Use native class name
+      * b76301a Fix a typo in readme
+      * 8745678 Release of new version 4.2.2
+      * 6117ab9 Adapt some non-breaking changes from the master branch
+      * 8b06983 nits
+      * 5659dc4 Update deps
+      * cfb2652 Move CHANGELOG and UPGRADING
+      * 28216ed Release of new version 4.2.1
+
  * Version **5.1** - helper methods
    * 2019-02-27 01:47  **5.1.1**  fix typo
       * 868c542 Fix DiffHelp::getTemplatesInfo() typos
