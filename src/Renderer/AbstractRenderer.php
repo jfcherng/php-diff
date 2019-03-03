@@ -80,7 +80,10 @@ abstract class AbstractRenderer implements RendererInterface
     {
         $newOptions = $options + static::$defaultOptions;
 
-        $this->updateLanguage($this->options['language'] ?? '', $newOptions['language']);
+        $this->updateLanguage(
+            $this->options['language'] ?? '',
+            $newOptions['language']
+        );
 
         $this->options = $newOptions;
 

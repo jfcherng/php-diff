@@ -19,8 +19,8 @@ there is no breaking change for you so you do not have to do anything.
   - Constant `RendererConstant::RENDERER_TYPES`
   - Constant `AbstractRenderer::IS_TEXT_RENDERER`
 
-- Now a `Renderer` has `render()` API, but a `Differ` does not.
-  But if you use those classes by yourself, it should be written like below.
+- Now a `Renderer` has `render()` method, but a `Differ` does not.
+  If you use those classes by yourself, it should be written like below.
 
   ```php
   use Jfcherng\Diff\Differ;
