@@ -9,8 +9,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @coversNothing
+ *
+ * @internal
  */
-class DiffHelperTest extends TestCase
+final class DiffHelperTest extends TestCase
 {
     /**
      * Data provider for DiffHelper::calculate.

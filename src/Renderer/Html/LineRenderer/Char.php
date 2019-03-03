@@ -23,13 +23,16 @@ final class Char extends AbstractLineRenderer
             switch ($tag) {
                 case SequenceMatcher::OP_DEL:
                     $mbOld->str_enclose_i(RendererConstant::HTML_CLOSURES, $i1, $i2 - $i1);
+
                     break;
                 case SequenceMatcher::OP_INS:
                     $mbNew->str_enclose_i(RendererConstant::HTML_CLOSURES, $j1, $j2 - $j1);
+
                     break;
                 case SequenceMatcher::OP_REP:
                     $mbOld->str_enclose_i(RendererConstant::HTML_CLOSURES, $i1, $i2 - $i1);
                     $mbNew->str_enclose_i(RendererConstant::HTML_CLOSURES, $j1, $j2 - $j1);
+
                     break;
                 default:
                     continue 2;

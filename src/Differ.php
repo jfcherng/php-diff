@@ -265,7 +265,7 @@ final class Differ
     private function resetCachedResults(): self
     {
         foreach (static::CACHED_PROPERTIES as $property => $value) {
-            $this->$property = $value;
+            $this->{$property} = $value;
         }
 
         $this->isCacheDirty = false;

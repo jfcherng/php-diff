@@ -10,8 +10,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @coversNothing
+ *
+ * @internal
  */
-class DifferTest extends TestCase
+final class DifferTest extends TestCase
 {
     /**
      * Data provider for Differ::getGroupedOpcodes.

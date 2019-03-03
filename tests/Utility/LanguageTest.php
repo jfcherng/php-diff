@@ -9,8 +9,10 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @coversNothing
+ *
+ * @internal
  */
-class LanguageTest extends TestCase
+final class LanguageTest extends TestCase
 {
     /**
      * The Language object.
