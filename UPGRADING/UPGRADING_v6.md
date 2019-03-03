@@ -19,7 +19,7 @@ there is no breaking change for you so you do not have to do anything.
   - Constant `RendererConstant::RENDERER_TYPES`
   - Constant `AbstractRenderer::IS_TEXT_RENDERER`
 
-- Now a `Renderer` has `render()` method, but a `Differ` does not.
+- Now a `Renderer` has a `render()` method, but a `Differ` does not.
   If you use those classes by yourself, it should be written like below.
 
   ```php
@@ -30,7 +30,7 @@ there is no breaking change for you so you do not have to do anything.
   $renderer = RendererFactory::make($renderer, $rendererOptions);
   $result = $renderer->render($differ); // <-- this has been changed
   ```
-  
+
 - If you call `Differ::getGroupedOpcodes()` by yourself,
   you must call `Differ::finalize()` before it.
 
@@ -44,5 +44,5 @@ there is no breaking change for you so you do not have to do anything.
 ### Internal Breaking Changes
 
 - Now a `Renderer` should implement `protected function renderWoker(Differ $differ): string`
-  rather than previous `public function render(): string`. Note that `$this->diff` no longer
-  works in `Renderer`s as they are now injected as the parameter of `Renderer::renderWoker()`.
+  rather than the previous `public function render(): string`. Note that `$this->diff` no longer
+  works in `Renderer`s as it is now injected as the parameter to `Renderer::renderWoker()`.
