@@ -111,10 +111,8 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * {@inheritdoc}
      */
-    public function render(Differ $differ): string
+    final public function render(Differ $differ): string
     {
-        $differ->finalize();
-
         // the "no difference" situation may happen frequently
         return $differ->getOldNewComparison() === 0
             ? $this->getResultForIdenticals()

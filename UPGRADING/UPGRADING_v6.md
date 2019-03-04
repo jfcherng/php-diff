@@ -31,9 +31,6 @@ there is no breaking change for you so you do not have to do anything.
   $result = $renderer->render($differ); // <-- this has been changed
   ```
 
-- If you call `Differ::getGroupedOpcodes()` by yourself,
-  you must call `Differ::finalize()` before it.
-
 - Add `RendererInterface::getResultForIdenticals()`.
   `AbstractRenderer::getResultForIdenticals()` returns an empty string by default.
 

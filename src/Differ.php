@@ -198,7 +198,7 @@ final class Differ
      */
     public function getOldNewComparison(): int
     {
-        return $this->oldNewComparison;
+        return $this->finalize()->oldNewComparison;
     }
 
     /**
@@ -223,6 +223,8 @@ final class Differ
      */
     public function getGroupedOpcodes(): array
     {
+        $this->finalize();
+
         if (!empty($this->groupedOpcodes)) {
             return $this->groupedOpcodes;
         }
@@ -232,17 +234,17 @@ final class Differ
     }
 
     /**
-     * Claim this class has settled down which means properties will not
-     * be changed before doing diff calculations.
+     * Claim this class has settled down and we could calculate cached
+     * properties by current properties.
      *
-     * Properties will be re-propagated to other classes. This method must be
-     * re-called after any property changed before doing calculations.
+     * This method must be called before accessing cached properties to
+     * make suer that you will not get a outdated cached value.
      *
-     * This method is called in AbstractRenderer::render() automatically.
+     * @internal
      *
      * @return self
      */
-    public function finalize(): self
+    private function finalize(): self
     {
         if ($this->isCacheDirty) {
             $this->resetCachedResults();
