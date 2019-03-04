@@ -19,37 +19,33 @@ final class Language
     /**
      * The constructor.
      *
-     * @param string|string[] $langOrTrans the language string or translations array
+     * @param string|string[] $target the language string or translations dict
      */
-    public function __construct($langOrTrans = 'eng')
+    public function __construct($target = 'eng')
     {
-        $this->setLanguageOrTranslations($langOrTrans);
+        $this->setLanguageOrTranslations($target);
     }
 
     /**
-     * Set the language name.
+     * Set up this class.
      *
-     * @param string|string[] $langOrTrans the language string or translations array
+     * @param string|string[] $target the language string or translations array
      *
      * @throws \InvalidArgumentException
      *
      * @return self
      */
-    public function setLanguageOrTranslations($langOrTrans): self
+    public function setLanguageOrTranslations($target): self
     {
-        if (\is_string($langOrTrans)) {
-            $this->setLanguage($langOrTrans);
-
-            return $this;
+        if (\is_string($target)) {
+            $this->setUpWithLanguage($target);
+        } elseif (\is_array($target)) {
+            $this->setUpWithTranslations($target);
+        } else {
+            throw new \InvalidArgumentException('$target must be the type of string|string[]');
         }
 
-        if (\is_array($langOrTrans)) {
-            $this->setTranslations($langOrTrans);
-
-            return $this;
-        }
-
-        throw new \InvalidArgumentException('$langOrTrans must be either string or array');
+        return $this;
     }
 
     /**
@@ -83,7 +79,7 @@ final class Language
      *
      * @return string[]
      */
-    public function getTranslationsByLanguage(string $language): array
+    public static function getTranslationsByLanguage(string $language): array
     {
         $filePath = __DIR__ . "/../languages/{$language}.json";
         $file = new \SplFileObject($filePath, 'r');
@@ -93,7 +89,11 @@ final class Language
         $decoded = \json_decode($fileContent, true);
 
         if (\json_last_error() !== \JSON_ERROR_NONE) {
-            throw new \Exception("Fail to decode JSON file: {$filePath}");
+            throw new \Exception(\sprintf(
+                'Fail to decode JSON file (code %d): %s',
+                \json_last_error(),
+                \realpath($filePath)
+            ));
         }
 
         return (array) $decoded;
@@ -112,31 +112,32 @@ final class Language
     }
 
     /**
-     * Set the language name.
+     * Set up this class by language name.
      *
      * @param string $language the language name
      *
      * @return self
      */
-    private function setLanguage(string $language): self
+    private function setUpWithLanguage(string $language): self
     {
-        $this->language = $language;
-        $this->translations = $this->getTranslationsByLanguage($language);
-
-        return $this;
+        return $this->setUpWithTranslations(
+            self::getTranslationsByLanguage($language),
+            $language
+        );
     }
 
     /**
-     * Set the translations.
+     * Set up this class by translations.
      *
-     * @param string[] $translations the language translations array
+     * @param string[] $translations the translations dict
+     * @param string   $language     the language name
      *
      * @return self
      */
-    private function setTranslations(array $translations): self
+    private function setUpWithTranslations(array $translations, string $language = '_custom_'): self
     {
-        $this->language = '_custom_';
-        $this->translations = $translations;
+        $this->language = $language;
+        $this->translations = \array_map('strval', $translations);
 
         return $this;
     }
