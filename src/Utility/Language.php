@@ -96,7 +96,7 @@ final class Language
             throw new \Exception("Fail to decode JSON file: {$filePath}");
         }
 
-        return $decoded;
+        return (array) $decoded;
     }
 
     /**
