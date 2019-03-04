@@ -39,13 +39,17 @@ final class Language
     {
         if (\is_string($target)) {
             $this->setUpWithLanguage($target);
-        } elseif (\is_array($target)) {
-            $this->setUpWithTranslations($target);
-        } else {
-            throw new \InvalidArgumentException('$target must be the type of string|string[]');
+
+            return $this;
         }
 
-        return $this;
+        if (\is_array($target)) {
+            $this->setUpWithTranslations($target);
+
+            return $this;
+        }
+
+        throw new \InvalidArgumentException('$target must be the type of string|string[]');
     }
 
     /**
