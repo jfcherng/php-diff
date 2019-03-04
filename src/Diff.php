@@ -200,7 +200,7 @@ final class Diff
      */
     public function getOldNewComparison(): int
     {
-        return $this->oldNewComparison;
+        return $this->finalize()->oldNewComparison;
     }
 
     /**
@@ -255,10 +255,13 @@ final class Diff
     }
 
     /**
-     * Claim this class is all set.
+     * Claim this class has settled down and we could calculate cached
+     * properties by current properties.
      *
-     * Properties will be propagated to other classes. You must re-call
-     * this method after any property changed before doing calculation.
+     * This method must be called before accessing cached properties to
+     * make suer that you will not get a outdated cached value.
+     *
+     * @internal
      *
      * @return self
      */
