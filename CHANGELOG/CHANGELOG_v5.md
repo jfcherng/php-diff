@@ -2,6 +2,13 @@
 ## VERSION 5  AFTERNOON
 
  * Version **5.2** - clean up
+   * 2019-03-04 23:03  **5.2.1**  tiny fixes
+      * ed2bf46 Fix Diff::getOldNewComparison() should use finalize()
+      * ecde729 Fix codacy's complaint
+      * 5efa215 Revise the Language class (no BC break)
+      * 3b369f8 Type-safe for Language::getTranslationsByLanguage()
+      * d442360 Remove unneccesary phan error suppression
+      * 8dffcb3 Fix readme badge
    * 2019-03-04 04:05  **5.2.0**  initial release
       * ef500d0 Deprecate AbstractRenderer::getIdenticalResult()
       * 88648e3 nits
