@@ -67,9 +67,7 @@ EOT
 
         $this->assertSame(
             $expected,
-            (new Differ($old, $new))
-                ->finalize()
-                ->getGroupedOpcodes()
+            (new Differ($old, $new))->getGroupedOpcodes()
         );
     }
 }
