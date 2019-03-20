@@ -30,7 +30,7 @@ _default:
 
 # BRANCH SPECIFIC CONFIG
 #  On master, we override the general config
-v5:
+master:
   version-generator: semantic  # More complex versionning (semantic)
   version-persister:
     vcs-tag:
