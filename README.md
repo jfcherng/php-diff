@@ -106,28 +106,28 @@ $result = $diff->render($renderer);
     <td>Line-level (Default)</td>
   </tr>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-none-level-diff.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-line-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v5/example/images/inline-none-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v5/example/images/inline-line-level-diff.png"></td>
   </tr>
   <tr>
     <td>Word-level</td>
     <td>Char-level</td>
   </tr>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-word-level-diff.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-char-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v5/example/images/inline-word-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v5/example/images/inline-char-level-diff.png"></td>
   </tr>
 </table>
 
 
 ## Renderer: Inline
 
-![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-renderer.png)
+![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/v5/example/images/inline-renderer.png)
 
 
 ## Renderer: Side By Side
 
-![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/side-by-side-renderer.png)
+![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v5/example/images/side-by-side-renderer.png)
 
 
 ## Renderer: Unified
