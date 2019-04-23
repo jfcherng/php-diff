@@ -1,7 +1,7 @@
 ## Upgrading to v6
 
 
-### For Simple User
+### For Simple Users
 
 If you only use the `DiffHelper` and built-in `Renderer`s,
 there is no breaking change for you so you do not have to do anything.
