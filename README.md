@@ -16,11 +16,14 @@ Generated diff can be rendered in all of the standard formats including:
 - Inline (HTML)
 - Side by Side (HTML)
 
+Note that for HTML rendered results, you have to add CSS for a better visualization.
+You may modify one from `example/diff-table.css` or write your own from zero.
+
 
 # Requirements
 
 - PHP >= 7.1.3
-- Extension: `iconv`
+- Extension: `iconv` (usually as a built-in in PHP)
 
 
 # Installation
