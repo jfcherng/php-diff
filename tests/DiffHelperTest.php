@@ -80,7 +80,7 @@ EOT
      */
     public function testCalculateUnified(string $old, string $new, array $expecteds): void
     {
-        $this->assertSame(
+        static::assertSame(
             $expecteds['Unified'],
             DiffHelper::calculate($old, $new, 'Unified')
         );
@@ -98,7 +98,7 @@ EOT
      */
     public function testCalculateContext(string $old, string $new, array $expecteds): void
     {
-        $this->assertSame(
+        static::assertSame(
             $expecteds['Context'],
             DiffHelper::calculate($old, $new, 'Context')
         );
@@ -111,6 +111,6 @@ EOT
      */
     public function testGetStyleSheet(): void
     {
-        $this->assertIsString(DiffHelper::getStyleSheet());
+        static::assertIsString(DiffHelper::getStyleSheet());
     }
 }

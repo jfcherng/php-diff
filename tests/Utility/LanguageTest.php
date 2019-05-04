@@ -37,13 +37,13 @@ final class LanguageTest extends TestCase
     public function testSetLanguageOrTranslations(): void
     {
         $this->languageObj->setLanguageOrTranslations('eng');
-        $this->assertArrayHasKey(
+        static::assertArrayHasKey(
             'differences',
             $this->languageObj->getTranslations()
         );
 
         $this->languageObj->setLanguageOrTranslations(['hahaha' => '哈哈哈']);
-        $this->assertArrayHasKey(
+        static::assertArrayHasKey(
             'hahaha',
             $this->languageObj->getTranslations()
         );
@@ -59,7 +59,7 @@ final class LanguageTest extends TestCase
      */
     public function testGetTranslationsByLanguage(): void
     {
-        $this->assertArrayHasKey(
+        static::assertArrayHasKey(
             'differences',
             $this->languageObj->getTranslationsByLanguage('eng')
         );
@@ -75,12 +75,12 @@ final class LanguageTest extends TestCase
      */
     public function testTranslate(): void
     {
-        $this->assertSame(
+        static::assertSame(
             'Differences',
             $this->languageObj->translate('differences')
         );
 
-        $this->assertStringMatchesFormat(
+        static::assertStringMatchesFormat(
             '![%s]',
             $this->languageObj->translate('a_non_existing_translation')
         );
