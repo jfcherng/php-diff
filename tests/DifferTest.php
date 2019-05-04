@@ -65,7 +65,7 @@ EOT
         $old = \explode("\n", $old);
         $new = \explode("\n", $new);
 
-        $this->assertSame(
+        static::assertSame(
             $expected,
             (new Differ($old, $new))->getGroupedOpcodes()
         );
