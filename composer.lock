@@ -691,16 +691,16 @@
         },
         {
             "name": "phan/phan",
-            "version": "2.0.0-RC1",
+            "version": "2.0.0-RC2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phan/phan.git",
-                "reference": "02a43333c18665e95efe17eac9c471d9bbec8290"
+                "reference": "c1484bcdd41672cbe63a35a31f5ead67d53768a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phan/phan/zipball/02a43333c18665e95efe17eac9c471d9bbec8290",
-                "reference": "02a43333c18665e95efe17eac9c471d9bbec8290",
+                "url": "https://api.github.com/repos/phan/phan/zipball/c1484bcdd41672cbe63a35a31f5ead67d53768a5",
+                "reference": "c1484bcdd41672cbe63a35a31f5ead67d53768a5",
                 "shasum": ""
             },
             "require": {
@@ -756,7 +756,7 @@
                 "php",
                 "static"
             ],
-            "time": "2019-05-10T00:31:10+00:00"
+            "time": "2019-05-13T23:46:56+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -1380,16 +1380,16 @@
         },
         {
             "name": "phpunit/phpunit",
-            "version": "8.1.4",
+            "version": "8.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "b534b017daaef2d7f60c6ee61e6aa2e13fdc6910"
+                "reference": "01392d4b5878aa617e8d9bc7a529e5febc8fe956"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/b534b017daaef2d7f60c6ee61e6aa2e13fdc6910",
-                "reference": "b534b017daaef2d7f60c6ee61e6aa2e13fdc6910",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/01392d4b5878aa617e8d9bc7a529e5febc8fe956",
+                "reference": "01392d4b5878aa617e8d9bc7a529e5febc8fe956",
                 "shasum": ""
             },
             "require": {
@@ -1458,7 +1458,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2019-05-09T05:13:39+00:00"
+            "time": "2019-05-14T04:57:31+00:00"
         },
         {
             "name": "psr/log",
