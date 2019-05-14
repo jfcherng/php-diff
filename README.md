@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/jfcherng/php-diff.svg?branch=master)](https://travis-ci.org/jfcherng/php-diff)
+[![Build Status](https://travis-ci.org/jfcherng/php-diff.svg?branch=v6)](https://travis-ci.org/jfcherng/php-diff)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3a7a07d2ed67434e8e8582ea4ec9867b)](https://app.codacy.com/app/jfcherng/php-diff?utm_source=github.com&utm_medium=referral&utm_content=jfcherng/php-diff&utm_campaign=Badge_Grade_Dashboard)
 
 # php-diff
@@ -35,7 +35,7 @@ $ composer require jfcherng/php-diff
 
 # Example
 
-See [example/demo.php](https://github.com/jfcherng/php-diff/blob/master/example/demo.php) and files under `tests/`.
+See [example/demo.php](https://github.com/jfcherng/php-diff/blob/v6/example/demo.php) and files under `tests/`.
 
 ```php
 <?php
@@ -109,28 +109,28 @@ $result = $renderer->render($differ);
     <td>Line-level (Default)</td>
   </tr>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-none-level-diff.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-line-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-none-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-line-level-diff.png"></td>
   </tr>
   <tr>
     <td>Word-level</td>
     <td>Char-level</td>
   </tr>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-word-level-diff.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-char-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-word-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-char-level-diff.png"></td>
   </tr>
 </table>
 
 
 ## Renderer: Inline
 
-![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/inline-renderer.png)
+![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-renderer.png)
 
 
 ## Renderer: Side By Side
 
-![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/gh-pages/images/side-by-side-renderer.png)
+![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/side-by-side-renderer.png)
 
 
 ## Renderer: Unified
