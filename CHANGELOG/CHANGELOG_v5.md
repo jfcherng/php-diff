@@ -2,6 +2,20 @@
 ## VERSION 5  AFTERNOON
 
  * Version **5.2** - clean up
+   * 2019-05-15 00:17  **5.2.2**  Final Release for v5
+      * 2bd27d4 Update deps
+      * fa189fa Update deps
+      * 6b30019 Update deps
+      * abc0d8a $ composer fix
+      * 7cb5a75 Update deps
+      * 70f66a2 Update .travis.yml for 7.4snapshot
+      * e7e1839 Update deps
+      * 1cee802 Update readme
+      * 756970a Add .editorconfig
+      * e6350bc Change screenshot size
+      * 55748a5 Update deps
+      * 03b0c55 Freeze documentation assets for v5
+      * bd61843 Freeze documentation assets for v4
    * 2019-03-04 23:03  **5.2.1**  tiny fixes
       * ed2bf46 Fix Diff::getOldNewComparison() should use finalize()
       * ecde729 Fix codacy's complaint
