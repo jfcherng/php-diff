@@ -24,7 +24,7 @@ final class RendererFactory
     }
 
     /**
-     * Get a singleton of a renderer.
+     * Get the singleton of a renderer.
      *
      * @param string $renderer    the renderer
      * @param mixed  ...$ctorArgs the constructor arguments

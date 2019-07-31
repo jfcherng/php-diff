@@ -24,7 +24,7 @@ final class LineRendererFactory
     }
 
     /**
-     * Get a singleton of a line renderer.
+     * Get the singleton of a line renderer.
      *
      * @param string $type        the type
      * @param mixed  ...$ctorArgs the constructor arguments
