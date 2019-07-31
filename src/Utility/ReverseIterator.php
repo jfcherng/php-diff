@@ -6,6 +6,7 @@ namespace Jfcherng\Diff\Utility;
 
 final class ReverseIterator
 {
+    const ITERATOR_GET_VALUE = 0;
     const ITERATOR_GET_KEY = 1 << 0;
     const ITERATOR_GET_BOTH = 1 << 1;
 
@@ -24,7 +25,7 @@ final class ReverseIterator
      *
      * @return \Generator
      */
-    public static function fromArray(array $array, int $flags = 0): \Generator
+    public static function fromArray(array $array, int $flags = self::ITERATOR_GET_VALUE): \Generator
     {
         // iterate [key => value] pair
         if ($flags & self::ITERATOR_GET_BOTH) {
