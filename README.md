@@ -187,7 +187,7 @@ $result = $renderer->render($differ);
 
 <details><summary>Click to expand</summary>
 
-```javascript
+```json
 [
     [
         {
