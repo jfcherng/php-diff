@@ -58,8 +58,8 @@ final class Line extends AbstractLineRenderer
         $start = 0;
         $startMax = \min($mbOld->strlen(), $mbNew->strlen());
         while (
-            $start < $startMax && // index out of range
-            $mbOld->getAtRaw($start) === $mbNew->getAtRaw($start)
+            $start < $startMax // index out of range
+            && $mbOld->getAtRaw($start) === $mbNew->getAtRaw($start)
         ) {
             ++$start;
         }
@@ -68,8 +68,8 @@ final class Line extends AbstractLineRenderer
         $end = -1; // trick
         $endMin = $startMax - $start;
         while (
-            -$end <= $endMin && // index out of range
-            $mbOld->getAtRaw($end) === $mbNew->getAtRaw($end)
+            -$end <= $endMin // index out of range
+            && $mbOld->getAtRaw($end) === $mbNew->getAtRaw($end)
         ) {
             --$end;
         }

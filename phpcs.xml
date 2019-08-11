@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <ruleset name="php-diff">
-    <description>php-diff</description>
+  <description>php-diff</description>
 
-    <!-- <arg name="report" value="summary" /> -->
-    <!-- <arg name="colors" /> -->
-    <arg value="sp" />
+  <!-- <arg name="report" value="summary" /> -->
+  <!-- <arg name="colors" /> -->
+  <arg value="sp" />
 
-    <file>./src/</file>
+  <file>./src/</file>
 
-    <exclude-pattern>*/tests/*</exclude-pattern>
+  <exclude-pattern>*/tests/*</exclude-pattern>
 
-    <rule ref="PSR1" />
-    <rule ref="PSR2">
-        <!-- hmm... multiline IF statement -->
-        <exclude name="PSR2.ControlStructures.ControlStructureSpacing.SpacingAfterOpenBrace" />
-    </rule>
+  <rule ref="PSR1" />
+  <rule ref="PSR12" />
 </ruleset>
