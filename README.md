@@ -1,12 +1,17 @@
-[![Build Status](https://travis-ci.org/jfcherng/php-diff.svg?branch=v6)](https://travis-ci.org/jfcherng/php-diff)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3a7a07d2ed67434e8e8582ea4ec9867b)](https://app.codacy.com/app/jfcherng/php-diff?utm_source=github.com&utm_medium=referral&utm_content=jfcherng/php-diff&utm_campaign=Badge_Grade_Dashboard)
-
 # php-diff
+
+<a href="https://travis-ci.org/jfcherng/php-diff"><img alt="Travis (.org) branch" src="https://img.shields.io/travis/jfcherng/php-diff/v6"></a>
+<a href="https://app.codacy.com/project/jfcherng/php-diff/dashboard"><img alt="Codacy grade" src="https://img.shields.io/codacy/grade/3a7a07d2ed67434e8e8582ea4ec9867b/v6"></a>
+<a href="https://packagist.org/packages/jfcherng/php-diff"><img alt="Packagist" src="https://img.shields.io/packagist/dt/jfcherng/php-diff"></a>
+<a href="https://packagist.org/packages/jfcherng/php-diff"><img alt="Packagist Version" src="https://img.shields.io/packagist/v/jfcherng/php-diff"></a>
+<a href="https://github.com/jfcherng/php-diff/blob/v6/LICENSE"><img alt="Project license" src="https://img.shields.io/github/license/jfcherng/php-diff"></a>
+<a href="https://github.com/jfcherng/php-diff/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/jfcherng/php-diff?logo=github"></a>
+<a href="https://www.paypal.me/jfcherng/5usd" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg?logo=paypal" /></a>
 
 A comprehensive library for generating diff between two strings.
 
 
-# Introduction
+## Introduction
 
 Generated diff can be rendered in all of the standard formats including:
 
@@ -20,20 +25,20 @@ Note that for HTML rendered results, you have to add CSS for a better visualizat
 You may modify one from `example/diff-table.css` or write your own from zero.
 
 
-# Requirements
+## Requirements
 
-- PHP >= 7.1.3
-- Extension: `iconv` (usually as a built-in in PHP)
+![php](https://img.shields.io/badge/php-%5E7.1.3-blue)
+![ext-iconv](https://img.shields.io/badge/ext-iconv-brightgreen)
 
 
-# Installation
+## Installation
 
-```
+```bash
 $ composer require jfcherng/php-diff
 ```
 
 
-# Example
+## Example
 
 See [example/demo.php](https://github.com/jfcherng/php-diff/blob/v6/example/demo.php) and files under `tests/`.
 
@@ -98,10 +103,10 @@ $result = $renderer->render($differ);
 ```
 
 
-# Rendered Results
+## Rendered Results
 
 
-## HTML Diff In-line Detailed Rendering
+### HTML Diff In-line Detailed Rendering
 
 <table>
   <tr>
@@ -123,17 +128,17 @@ $result = $renderer->render($differ);
 </table>
 
 
-## Renderer: Inline
+### Renderer: Inline
 
 ![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-renderer.png)
 
 
-## Renderer: Side By Side
+### Renderer: Side By Side
 
 ![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/side-by-side-renderer.png)
 
 
-## Renderer: Unified
+### Renderer: Unified
 
 ```diff
 @@ -1,3 +1,4 @@
@@ -153,7 +158,9 @@ $result = $renderer->render($differ);
 ```
 
 
-## Renderer: Context
+### Renderer: Context
+
+<details><summary>Click to expand</summary>
 
 ```
 ***************
@@ -182,8 +189,10 @@ $result = $renderer->render($differ);
   Say hello to my neighbors.
 ```
 
+</details>
 
-## Renderer: JSON
+
+### Renderer: JSON
 
 <details><summary>Click to expand</summary>
 
@@ -328,17 +337,12 @@ $result = $renderer->render($differ);
     ]
 ]
 ```
+
 </details>
 
 
-# Acknowledgment
+## Acknowledgment
 
 This package is built on the top of [chrisboulton/php-diff](https://github.com/chrisboulton/php-diff) initially.
 But the original repository looks like no longer maintained.
 Here have been quite lots of rewrites and new features since then, hence I re-started this as a new package for better visibility.
-
-
-Supporters <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=ATXYY9Y78EQ3Y" target="_blank"><img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif" /></a>
-==========
-
-Thank you guys for sending me some cups of coffee.
