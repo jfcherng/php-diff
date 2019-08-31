@@ -1,23 +1,36 @@
-@import "compass/css3";
+/**
+ * You can compile this by https://www.sassmeister.com with
+ *
+ * - dart-sass v1.18.0
+ */
 
 .diff {
-  $bgcolor: #fff;
-  $bgcolor-edit-highlight: #88e;
-  $bgcolor-insert-highlight: #8e8;
-  $bgcolor-delete-highlight: #e88;
+  $bg-color: #fff;
+  $text-color: invert($bg-color);
 
-  $bgcolor-edit: tint($bgcolor-edit-highlight, 75%);
-  $bgcolor-insert: tint($bgcolor-insert-highlight, 75%);
-  $bgcolor-delete: tint($bgcolor-delete-highlight, 75%);
+  $bg-color-edit-base: #88e;
+  $bg-color-insert-base: #8e8;
+  $bg-color-delete-base: #e88;
 
-  $table-head-color: #aaa;
-  $table-sidebar-color: #ccc;
-  $border-color: #000;
+  // emphasized colors for detailed inline difference
+  $bg-color-edit-highlight: mix($bg-color-edit-base, $bg-color, 80%);
+  $bg-color-insert-highlight: mix($bg-color-insert-base, $bg-color, 80%);
+  $bg-color-delete-highlight: mix($bg-color-delete-base, $bg-color, 80%);
 
+  // colors for operation rows
+  $bg-color-edit: mix($bg-color-edit-base, $bg-color, 25%);
+  $bg-color-insert: mix($bg-color-insert-base, $bg-color, 25%);
+  $bg-color-delete: mix($bg-color-delete-base, $bg-color, 25%);
+
+  $table-head-color: mix($bg-color, $text-color, 65%);
+  $table-sidebar-color: mix($bg-color, $text-color, 80%);
+  $border-color: $text-color;
+
+  background-color: $bg-color;
   border-collapse: collapse;
   border-spacing: 0;
   border: 1px solid $border-color;
-  color: #000;
+  color: $text-color;
   empty-cells: show;
   font-family: monospace;
   font-size: 13px;
@@ -33,7 +46,7 @@
     border-collapse: separate;
     border: none;
     padding: 1px 2px;
-    background: $bgcolor;
+    background: $bg-color;
 
     a {
       color: #000;
@@ -51,7 +64,7 @@
 
   tbody {
     &.skipped {
-      border-top: 1px solid #000;
+      border-top: 1px solid $border-color;
 
       td,
       th {
@@ -67,18 +80,18 @@
       width: 4em;
 
       &.sign {
-        background: $bgcolor;
+        background: $bg-color;
         border-right: none;
         padding: 1px 0;
         text-align: center;
         width: 1em;
 
         &.del {
-          background: $bgcolor-delete;
+          background: $bg-color-delete;
         }
 
         &.ins {
-          background: $bgcolor-insert;
+          background: $bg-color-insert;
         }
       }
     }
@@ -91,16 +104,16 @@
       &.change-eq {
         .old,
         .new {
-          background: $bgcolor;
+          background: $bg-color;
         }
       }
 
       .old {
-        background: $bgcolor-delete;
+        background: $bg-color-delete;
       }
 
       .new {
-        background: $bgcolor-insert;
+        background: $bg-color-insert;
       }
 
       ins,
@@ -110,11 +123,11 @@
       }
 
       ins {
-        background: $bgcolor-insert-highlight;
+        background: $bg-color-insert-highlight;
       }
 
       del {
-        background: $bgcolor-delete-highlight;
+        background: $bg-color-delete-highlight;
       }
     }
 
@@ -126,7 +139,7 @@
       }
 
       &.edited {
-        background: $bgcolor-edit;
+        background: $bg-color-edit;
       }
     }
 

@@ -1,13 +1,14 @@
 /**
- * compiled by https://www.sassmeister.com with
+ * You can compile this by https://www.sassmeister.com with
  *
- * - Sass v3.4.25
+ * - dart-sass v1.18.0
  */
 .diff {
+  background-color: #fff;
   border-collapse: collapse;
   border-spacing: 0;
-  border: 1px solid #000;
-  color: #000;
+  border: 1px solid black;
+  color: black;
   empty-cells: show;
   font-family: monospace;
   font-size: 13px;
@@ -31,21 +32,21 @@
   pointer-events: none;
 }
 .diff thead th {
-  background: #aaa;
-  border-bottom: 1px solid #000;
+  background: #a6a6a6;
+  border-bottom: 1px solid black;
   padding: 4px;
   text-align: left;
 }
 .diff tbody.skipped {
-  border-top: 1px solid #000;
+  border-top: 1px solid black;
 }
 .diff tbody.skipped td,
 .diff tbody.skipped th {
   display: none;
 }
 .diff tbody th {
-  background: #ccc;
-  border-right: 1px solid #000;
+  background: #cccccc;
+  border-right: 1px solid black;
   text-align: right;
   vertical-align: top;
   width: 4em;
@@ -82,10 +83,10 @@
   text-decoration: none;
 }
 .diff.diff-html .change ins {
-  background: #8e8;
+  background: #a0f1a0;
 }
 .diff.diff-html .change del {
-  background: #e88;
+  background: #f1a0a0;
 }
 .diff.diff-html .edit-container:hover {
   box-shadow: 0 0 8px 2px #888;
