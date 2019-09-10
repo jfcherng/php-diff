@@ -8,7 +8,6 @@
 .travis.yml export-ignore
 docs/ export-ignore
 example/images/ export-ignore
-FUNDING.yml export-ignore
 phpcs.xml export-ignore
 phpunit.xml export-ignore
 pyproject.toml export-ignore
