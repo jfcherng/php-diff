@@ -1,6 +1,12 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.1** - Resolve CSS conflict
+   * 2019-09-10 17:24  **6.1.0**  initial release
+      * f9400d3 Add renderer option: wrapperClasses
+      * f2f613c Update readme (nits)
+      * fdead6f Update readme (flat-square style badges)
+
  * Version **6.0** - Unified
    * 2019-09-10 14:30  **6.0.1**  Fix jpn wording
       * 00b59ef Fix jpn wording
