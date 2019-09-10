@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.1** - Resolve CSS conflict
+   * 2019-09-11 00:19  **6.1.1**  Fix "language" cannot be an array
+      * 98085b6 Fix renderer option "language" cannot be an array
+      * 3518068 Update .gitattributes
    * 2019-09-10 17:24  **6.1.0**  initial release
       * f9400d3 Add renderer option: wrapperClasses
       * f2f613c Update readme (nits)
