@@ -24,6 +24,9 @@ Generated diff can be rendered in all of the standard formats including:
 Note that for HTML rendered results, you have to add CSS for a better visualization.
 You may modify one from `example/diff-table.css` or write your own from zero.
 
+If you are okay with the default CSS, there is `\Jfcherng\Diff\DiffHelper::getStyleSheet()`
+which can be used to get the content of the `example/diff-table.css`.
+
 
 ## Requirements
 
@@ -32,6 +35,8 @@ You may modify one from `example/diff-table.css` or write your own from zero.
 
 
 ## Installation
+
+This package is available on `Packagist` by the name of [jfcherng/php-diff](https://packagist.org/packages/jfcherng/php-diff).
 
 ```bash
 $ composer require jfcherng/php-diff
@@ -98,7 +103,7 @@ $result = DiffHelper::calculate($old, $new, $rendererName);
 
 // custom usage
 $differ = new Differ(explode("\n", $old), explode("\n", $new), $differOptions);
-$renderer = RendererFactory::make($rendererName, $rendererOptions); // or your own renderers
+$renderer = RendererFactory::make($rendererName, $rendererOptions); // or your own renderer object
 $result = $renderer->render($differ);
 ```
 
@@ -110,16 +115,16 @@ $result = $renderer->render($differ);
 
 <table>
   <tr>
-    <td>None-level</td>
-    <td>Line-level (Default)</td>
+    <th>None-level</th>
+    <th>Line-level (Default)</th>
   </tr>
   <tr>
     <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-none-level-diff.png"></td>
     <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-line-level-diff.png"></td>
   </tr>
   <tr>
-    <td>Word-level</td>
-    <td>Char-level</td>
+    <th>Word-level</th>
+    <th>Char-level</th>
   </tr>
   <tr>
     <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-word-level-diff.png"></td>
