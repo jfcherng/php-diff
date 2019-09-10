@@ -133,12 +133,12 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * Update the Language object.
      *
-     * @param string $old the old language
-     * @param string $new the new language
+     * @param string|string[] $old the old language
+     * @param string|string[] $new the new language
      *
      * @return self
      */
-    protected function updateLanguage(string $old, string $new): self
+    protected function updateLanguage($old, $new): self
     {
         if (!isset($this->t) || $old !== $new) {
             $this->t = new Language($new);
