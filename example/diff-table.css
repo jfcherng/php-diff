@@ -3,7 +3,7 @@
  *
  * - dart-sass v1.18.0
  */
-.diff {
+.diff-wrapper.diff {
   background-color: #fff;
   border-collapse: collapse;
   border-spacing: 0;
@@ -15,88 +15,88 @@
   width: 100%;
   word-break: break-all;
 }
-.diff th {
+.diff-wrapper.diff th {
   font-weight: 700;
 }
-.diff td,
-.diff th {
+.diff-wrapper.diff td,
+.diff-wrapper.diff th {
   border-collapse: separate;
   border: none;
   padding: 1px 2px;
   background: #fff;
 }
-.diff td a,
-.diff th a {
+.diff-wrapper.diff td a,
+.diff-wrapper.diff th a {
   color: #000;
   cursor: inherit;
   pointer-events: none;
 }
-.diff thead th {
+.diff-wrapper.diff thead th {
   background: #a6a6a6;
   border-bottom: 1px solid black;
   padding: 4px;
   text-align: left;
 }
-.diff tbody.skipped {
+.diff-wrapper.diff tbody.skipped {
   border-top: 1px solid black;
 }
-.diff tbody.skipped td,
-.diff tbody.skipped th {
+.diff-wrapper.diff tbody.skipped td,
+.diff-wrapper.diff tbody.skipped th {
   display: none;
 }
-.diff tbody th {
+.diff-wrapper.diff tbody th {
   background: #cccccc;
   border-right: 1px solid black;
   text-align: right;
   vertical-align: top;
   width: 4em;
 }
-.diff tbody th.sign {
+.diff-wrapper.diff tbody th.sign {
   background: #fff;
   border-right: none;
   padding: 1px 0;
   text-align: center;
   width: 1em;
 }
-.diff tbody th.sign.del {
+.diff-wrapper.diff tbody th.sign.del {
   background: #fbe1e1;
 }
-.diff tbody th.sign.ins {
+.diff-wrapper.diff tbody th.sign.ins {
   background: #e1fbe1;
 }
-.diff.diff-html {
+.diff-wrapper.diff.diff-html {
   white-space: pre-wrap;
 }
-.diff.diff-html .change.change-eq .old,
-.diff.diff-html .change.change-eq .new {
+.diff-wrapper.diff.diff-html .change.change-eq .old,
+.diff-wrapper.diff.diff-html .change.change-eq .new {
   background: #fff;
 }
-.diff.diff-html .change .old {
+.diff-wrapper.diff.diff-html .change .old {
   background: #fbe1e1;
 }
-.diff.diff-html .change .new {
+.diff-wrapper.diff.diff-html .change .new {
   background: #e1fbe1;
 }
-.diff.diff-html .change ins,
-.diff.diff-html .change del {
+.diff-wrapper.diff.diff-html .change ins,
+.diff-wrapper.diff.diff-html .change del {
   font-weight: 700;
   text-decoration: none;
 }
-.diff.diff-html .change ins {
+.diff-wrapper.diff.diff-html .change ins {
   background: #a0f1a0;
 }
-.diff.diff-html .change del {
+.diff-wrapper.diff.diff-html .change del {
   background: #f1a0a0;
 }
-.diff.diff-html .edit-container:hover {
+.diff-wrapper.diff.diff-html .edit-container:hover {
   box-shadow: 0 0 8px 2px #888;
   position: relative;
   z-index: 5;
 }
-.diff.diff-html .edit-container.edited {
+.diff-wrapper.diff.diff-html .edit-container.edited {
   background: #e1e1fb;
 }
-.diff.diff-html .edit {
+.diff-wrapper.diff.diff-html .edit {
   display: block;
   outline: none;
 }

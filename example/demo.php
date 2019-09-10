@@ -48,6 +48,8 @@ use Jfcherng\Diff\DiffHelper;
                 // internally, ops (tags) are all int type but this is not good for human reading.
                 // set this to "true" to convert them into string form before outputting.
                 'outputTagAsString' => false,
+                // extra HTML classes added to the DOM of the diff container
+                'wrapperClasses' => ['diff-wrapper'],
             ];
 
         ?>

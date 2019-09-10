@@ -31,7 +31,12 @@ final class SideBySide extends AbstractHtml
             return $this->getResultForIdenticals();
         }
 
-        $html = '<table class="diff diff-html diff-side-by-side">';
+        $wrapperClasses = \array_merge(
+            $this->options['wrapperClasses'],
+            ['diff', 'diff-html', 'diff-side-by-side']
+        );
+
+        $html = '<table class="' . \implode(' ', $wrapperClasses) . '">';
 
         $html .= $this->renderTableHeader();
 
