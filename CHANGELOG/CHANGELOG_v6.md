@@ -2,6 +2,34 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.0** - Unified
+   * 2019-09-10 14:30  **6.0.1**  Fix jpn wording
+      * 00b59ef Fix jpn wording
+      * d04814e Sass: replace compass/css3 functions with dart-sass built-in
+      * a3b05d9 Update readme to use badges from shields.io
+      * 5dbdf21 Update readme: nits
+      * db4439c Slightly improve code readability
+      * 682fb39 nits
+      * 2b13e8e Update deps
+      * 0c9b79b Add .gitattributes
+      * fa9f3a6 Create FUNDING.yml
+      * f81b823 Move documentation assets to the current branch
+      * 4c2c11d Release of new version 5.2.2
+      * 2bd27d4 Update deps
+      * fa189fa Update deps
+      * 6b30019 Update deps
+      * abc0d8a $ composer fix
+      * 7cb5a75 Update deps
+      * 70f66a2 Update .travis.yml for 7.4snapshot
+      * e7e1839 Update deps
+      * 1cee802 Update readme
+      * bf14c89 Update deps
+      * c52f66b Fix typo in UPGRADING_v6.md
+      * 756970a Add .editorconfig
+      * e6350bc Change screenshot size
+      * 55748a5 Update deps
+      * d8644db Update deps
+      * 03b0c55 Freeze documentation assets for v5
+      * bd61843 Freeze documentation assets for v4
    * 2019-03-20 11:31  **6.0.0**  initial release
       * 46d8e1b Update .rmt.yml
       * f3f209c Fix tests
