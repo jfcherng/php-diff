@@ -2,6 +2,13 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.1** - Resolve CSS conflict
+   * 2019-10-11 06:34  **6.1.2**  Add Portuguese translation
+      * a07dea9 Rename pt_BR.json -> por.json
+      * d89a7b3 Replace "switch" statements with callback function tables
+      * 5b9a828 Create pt_BR.json
+      * 896df76 Follow PSR-12
+      * 6d3ae95 Move FUNDING.yml to .github/
+      * cf9032a Add test for renderer custom language array
    * 2019-09-11 00:19  **6.1.1**  Fix "language" cannot be an array
       * 98085b6 Fix renderer option "language" cannot be an array
       * 3518068 Update .gitattributes
