@@ -93,33 +93,17 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableBlock(array $change): string
     {
-        $html = '<tbody class="change change-' . self::TAG_CLASS_MAP[$change['tag']] . '">';
+        static $callbacks = [
+            SequenceMatcher::OP_EQ => 'renderTableEqual',
+            SequenceMatcher::OP_INS => 'renderTableInsert',
+            SequenceMatcher::OP_DEL => 'renderTableDelete',
+            SequenceMatcher::OP_REP => 'renderTableReplace',
+        ];
 
-        switch ($change['tag']) {
-            default:
-            // equal changes should be shown on both sides of the diff
-            case SequenceMatcher::OP_EQ:
-                $html .= $this->renderTableEqual($change);
-
-                break;
-            // added lines only on the r side
-            case SequenceMatcher::OP_INS:
-                $html .= $this->renderTableInsert($change);
-
-                break;
-            // show deleted lines only on the l side
-            case SequenceMatcher::OP_DEL:
-                $html .= $this->renderTableDelete($change);
-
-                break;
-            // show modified lines on both sides
-            case SequenceMatcher::OP_REP:
-                $html .= $this->renderTableReplace($change);
-
-                break;
-        }
-
-        return $html . '</tbody>';
+        return
+            '<tbody class="change change-' . self::TAG_CLASS_MAP[$change['tag']] . '">' .
+                $this->{$callbacks[$change['tag']]}($change) .
+            '</tbody>';
     }
 
     /**
