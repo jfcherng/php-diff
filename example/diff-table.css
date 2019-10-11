@@ -83,20 +83,8 @@
   text-decoration: none;
 }
 .diff-wrapper.diff.diff-html .change ins {
-  background: #a0f1a0;
+  background: #94f094;
 }
 .diff-wrapper.diff.diff-html .change del {
-  background: #f1a0a0;
-}
-.diff-wrapper.diff.diff-html .edit-container:hover {
-  box-shadow: 0 0 8px 2px #888;
-  position: relative;
-  z-index: 5;
-}
-.diff-wrapper.diff.diff-html .edit-container.edited {
-  background: #e1e1fb;
-}
-.diff-wrapper.diff.diff-html .edit {
-  display: block;
-  outline: none;
+  background: #f09494;
 }

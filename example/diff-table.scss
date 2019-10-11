@@ -8,19 +8,19 @@
   $bg-color: #fff;
   $text-color: invert($bg-color);
 
-  $bg-color-edit-base: #88e;
   $bg-color-insert-base: #8e8;
   $bg-color-delete-base: #e88;
 
+  $op-highlight-ratio: 90%;
+  $op-normal-ratio: 25%;
+
   // emphasized colors for detailed inline difference
-  $bg-color-edit-highlight: mix($bg-color-edit-base, $bg-color, 80%);
-  $bg-color-insert-highlight: mix($bg-color-insert-base, $bg-color, 80%);
-  $bg-color-delete-highlight: mix($bg-color-delete-base, $bg-color, 80%);
+  $bg-color-insert-highlight: mix($bg-color-insert-base, $bg-color, $op-highlight-ratio);
+  $bg-color-delete-highlight: mix($bg-color-delete-base, $bg-color, $op-highlight-ratio);
 
   // colors for operation rows
-  $bg-color-edit: mix($bg-color-edit-base, $bg-color, 25%);
-  $bg-color-insert: mix($bg-color-insert-base, $bg-color, 25%);
-  $bg-color-delete: mix($bg-color-delete-base, $bg-color, 25%);
+  $bg-color-insert: mix($bg-color-insert-base, $bg-color, $op-normal-ratio);
+  $bg-color-delete: mix($bg-color-delete-base, $bg-color, $op-normal-ratio);
 
   $table-head-color: mix($bg-color, $text-color, 65%);
   $table-sidebar-color: mix($bg-color, $text-color, 80%);
@@ -129,23 +129,6 @@
       del {
         background: $bg-color-delete-highlight;
       }
-    }
-
-    .edit-container {
-      &:hover {
-        box-shadow: 0 0 8px 2px #888;
-        position: relative;
-        z-index: 5;
-      }
-
-      &.edited {
-        background: $bg-color-edit;
-      }
-    }
-
-    .edit {
-      display: block;
-      outline: none;
     }
   }
 }
