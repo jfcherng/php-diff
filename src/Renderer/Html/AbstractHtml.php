@@ -33,6 +33,14 @@ abstract class AbstractHtml extends AbstractRenderer
     ];
 
     /**
+     * {@inheritdoc}
+     */
+    public function getResultForIdenticalsDefault(): string
+    {
+        return '';
+    }
+
+    /**
      * Render and return an array structure suitable for generating HTML
      * based differences. Generally called by subclasses that generate a
      * HTML based diff and return an array of the changes to show in the diff.

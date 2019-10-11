@@ -44,4 +44,28 @@ final class RendererTest extends TestCase
             'Rederer options: "language" array should work.'
         );
     }
+
+    /**
+     * Test the AbstractRenderer::setOptions with result for identicals.
+     *
+     * @covers \Jfcherng\Diff\Renderer\AbstractRenderer::setOptions
+     */
+    public function testSetOptionsWithResultForIdenticals(): void
+    {
+        $testMarker = '_TEST_MARKER_';
+
+        $diffResult = DiffHelper::calculate(
+            'we are the same',
+            'we are the same',
+            'Inline',
+            [],
+            ['resultForIdenticals' => $testMarker]
+        );
+
+        static::assertSame(
+            $testMarker,
+            $diffResult,
+            'Rederer options: result for identicals should work.'
+        );
+    }
 }

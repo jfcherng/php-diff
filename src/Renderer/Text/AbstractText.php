@@ -15,4 +15,12 @@ abstract class AbstractText extends AbstractRenderer
      * @var bool is this renderer pure text?
      */
     const IS_TEXT_RENDERER = true;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getResultForIdenticalsDefault(): string
+    {
+        return '';
+    }
 }
