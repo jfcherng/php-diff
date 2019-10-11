@@ -19,14 +19,16 @@ use PHPUnit\Framework\TestCase;
 final class RendererTest extends TestCase
 {
     /**
-     * Test the AbstractRenderer::setOptions with custom language array.
+     * Test the AbstractRenderer::setOptions with language array.
      *
      * @covers \Jfcherng\Diff\Renderer\AbstractRenderer::setOptions
      */
-    public function testSetOptionsWithCustomLanguageArray(): void
+    public function testSetOptionsWithLanguageArray(): void
     {
+        $testMarker = '_TEST_MARKER_';
+
         $languageArrayDefault = (new Language('eng'))->getTranslations();
-        $languageArrayTest = ['differences' => '_TEST_MARKER_'] + $languageArrayDefault;
+        $languageArrayTest = ['differences' => $testMarker] + $languageArrayDefault;
 
         $diffResult = DiffHelper::calculate(
             'foo',
@@ -37,9 +39,9 @@ final class RendererTest extends TestCase
         );
 
         static::assertStringContainsString(
-            '_TEST_MARKER_',
+            $testMarker,
             $diffResult,
-            'Rederer options: custom "language" array should work.'
+            'Rederer options: "language" array should work.'
         );
     }
 }
