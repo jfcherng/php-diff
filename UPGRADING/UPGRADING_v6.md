@@ -38,10 +38,10 @@ there is no breaking change for you so you do not have to do anything.
 - Remove the deprecated `AbstractRenderer::getIdenticalResult()` and
   add `RendererInterface::getResultForIdenticals()`. The returned value will be
   directly used before actually starting to calculate diff if we find that the
-  two strings are the same. `AbstractRenderer::getResultForIdenticals()` 
+  two strings are the same. `AbstractRenderer::getResultForIdenticals()`
   returns an empty string by default.
 
 - Now a `Renderer` should implement `protected function renderWoker(Differ $differ): string`
-  rather than the previous `public function render(): string`. Note that 
-  `$this->diff` no longer works in `Renderer`s as it is now injected as a 
+  rather than the previous `public function render(): string`. Note that
+  `$this->diff` no longer works in `Renderer`s as it is now injected as a
   parameter to `Renderer::renderWoker()`.

@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<ruleset name="php-diff">
-  <description>php-diff</description>
-
+<ruleset name="my-rules">
+  <description>my-rules</description>
   <!-- <arg name="report" value="summary" /> -->
   <!-- <arg name="colors" /> -->
   <arg value="sp" />
-
-  <file>./src/</file>
-
-  <exclude-pattern>*/tests/*</exclude-pattern>
-
+  <file>example/</file>
+  <file>src/</file>
+  <file>tests/</file>
   <rule ref="PSR1" />
   <rule ref="PSR12" />
 </ruleset>

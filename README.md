@@ -39,7 +39,7 @@ which can be used to get the content of the `example/diff-table.css`.
 This package is available on `Packagist` by the name of [jfcherng/php-diff](https://packagist.org/packages/jfcherng/php-diff).
 
 ```bash
-$ composer require jfcherng/php-diff
+composer require jfcherng/php-diff
 ```
 
 
