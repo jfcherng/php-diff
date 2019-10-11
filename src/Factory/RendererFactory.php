@@ -80,12 +80,10 @@ final class RendererFactory
             $className = RendererConstant::RENDERER_NAMESPACE . "\\{$type}\\{$renderer}";
 
             if (\class_exists($className)) {
-                $result = $className;
-
-                break;
+                return $cache[$renderer] = $className;
             }
         }
 
-        return isset($result) ? ($cache[$renderer] = $result) : null;
+        return null;
     }
 }
