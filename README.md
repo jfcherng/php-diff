@@ -92,7 +92,7 @@ $rendererOptions = [
     // internally, ops (tags) are all int type but this is not good for human reading.
     // set this to "true" to convert them into string form before outputting.
     'outputTagAsString' => true,
-    // change this value to a non-null one as the the returned diff
+    // change this value to a string as the the returned diff
     // if the two input strings are identical
     'resultForIdenticals' => null,
     // extra HTML classes added to the DOM of the diff container

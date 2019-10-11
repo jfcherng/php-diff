@@ -49,7 +49,7 @@ abstract class AbstractRenderer implements RendererInterface
         // internally, ops (tags) are all int type but this is not good for human reading.
         // set this to "true" to convert them into string form before outputting.
         'outputTagAsString' => false,
-        // change this value to a non-null one as the the returned diff
+        // change this value to a string as the the returned diff
         // if the two input strings are identical
         'resultForIdenticals' => null,
         // extra HTML classes added to the DOM of the diff container
@@ -111,10 +111,20 @@ abstract class AbstractRenderer implements RendererInterface
      * @final
      *
      * @todo mark this method with "final" in the next major release
+     *
+     * @throws \InvalidArgumentException
      */
     public function getResultForIdenticals(): string
     {
-        return $this->options['resultForIdenticals'] ?? $this->getResultForIdenticalsDefault();
+        $custom = $this->options['resultForIdenticals'];
+
+        if (isset($custom) && !\is_string($custom)) {
+            throw new \InvalidArgumentException(
+                'renderer option `resultForIdenticals` must be null or string.'
+            );
+        }
+
+        return $custom ?? $this->getResultForIdenticalsDefault();
     }
 
     /**

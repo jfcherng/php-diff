@@ -68,4 +68,22 @@ final class RendererTest extends TestCase
             'Rederer options: result for identicals should work.'
         );
     }
+
+    /**
+     * Test the AbstractRenderer::setOptions with an invalid result for identicals.
+     *
+     * @covers \Jfcherng\Diff\Renderer\AbstractRenderer::setOptions
+     */
+    public function testSetOptionsWithInvalidResultForIdenticals(): void
+    {
+        static::expectException(\InvalidArgumentException::class);
+
+        $diffResult = DiffHelper::calculate(
+            'we are the same',
+            'we are the same',
+            'Inline',
+            [],
+            ['resultForIdenticals' => 50]
+        );
+    }
 }
