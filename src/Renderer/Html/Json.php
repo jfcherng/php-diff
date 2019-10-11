@@ -28,7 +28,7 @@ final class Json extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public function getResultForIdenticals(): string
+    public function getResultForIdenticalsDefault(): string
     {
         return '[]';
     }
