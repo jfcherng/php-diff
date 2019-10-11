@@ -1,6 +1,17 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.2** - Add renderer option: resultForIdenticals
+   * 2019-10-12 05:33  **6.2.0**  initial release
+      * f7aba88 Optimize RendererFactory::resolveRenderer()
+      * 288adb2 Fix typos
+      * 601cf86 Throw an exception for invalid "resultForIdenticals"
+      * 9a71712 Add renderer option: resultForIdenticals
+      * 53ac441 nits: tests
+      * d1a7479 Update deps
+      * 31b4916 Remove unnecessary CSS
+      * f05f4a3 Tidy files
+
  * Version **6.1** - Resolve CSS conflict
    * 2019-10-11 06:34  **6.1.2**  Add Portuguese translation
       * a07dea9 Rename pt_BR.json -> por.json
