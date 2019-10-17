@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "23ac8d513d99c1be94794082be98716c",
+    "content-hash": "39d27b488e6637b37ab5d440a43363bd",
     "packages": [
         {
             "name": "jfcherng/php-mb-string",
@@ -92,6 +92,47 @@
             ],
             "description": "A longest sequence matcher.",
             "time": "2019-02-22T14:44:28+00:00"
+        },
+        {
+            "name": "nicmart/string-template",
+            "version": "v0.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nicmart/StringTemplate.git",
+                "reference": "8761d258a5fd1cbf105a24ffcef8ea36ad158206"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nicmart/StringTemplate/zipball/8761d258a5fd1cbf105a24ffcef8ea36ad158206",
+                "reference": "8761d258a5fd1cbf105a24ffcef8ea36ad158206",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8",
+                "satooshi/php-coveralls": "~1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "StringTemplate": "src/",
+                    "StringTemplate\\Test": "tests"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolò Martini",
+                    "email": "nicmartnic@gmail.com"
+                }
+            ],
+            "description": "StringTemplate is a very simple string template engine for php. I've written it to have a thing like sprintf, but with named and nested substutions.",
+            "time": "2016-10-23T19:52:41+00:00"
         }
     ],
     "packages-dev": [
@@ -699,16 +740,16 @@
         },
         {
             "name": "phan/phan",
-            "version": "2.2.13",
+            "version": "2.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phan/phan.git",
-                "reference": "60cc2642c5f6fd7e920d8f501e9bb95d0c6442e8"
+                "reference": "cd72de4bde30606a8da3aaec7dd1b1ba365e8627"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phan/phan/zipball/60cc2642c5f6fd7e920d8f501e9bb95d0c6442e8",
-                "reference": "60cc2642c5f6fd7e920d8f501e9bb95d0c6442e8",
+                "url": "https://api.github.com/repos/phan/phan/zipball/cd72de4bde30606a8da3aaec7dd1b1ba365e8627",
+                "reference": "cd72de4bde30606a8da3aaec7dd1b1ba365e8627",
                 "shasum": ""
             },
             "require": {
@@ -716,6 +757,7 @@
                 "composer/xdebug-handler": "^1.3.2",
                 "ext-filter": "*",
                 "ext-json": "*",
+                "ext-tokenizer": "*",
                 "felixfbecker/advanced-json-rpc": "^3.0.4",
                 "microsoft/tolerant-php-parser": "0.0.18",
                 "php": "^7.1.0",
@@ -729,7 +771,9 @@
             },
             "suggest": {
                 "ext-ast": "Needed for parsing ASTs (unless --use-fallback-parser is used). 1.0.1+ is needed.",
+                "ext-iconv": "Either iconv or mbstring is needed to ensure issue messages are valid utf-8",
                 "ext-igbinary": "Improves performance of polyfill when ext-ast is unavailable",
+                "ext-mbstring": "Either iconv or mbstring is needed to ensure issue messages are valid utf-8",
                 "ext-tokenizer": "Needed for non-AST support and file/line-based suppressions."
             },
             "bin": [
@@ -764,7 +808,7 @@
                 "php",
                 "static"
             ],
-            "time": "2019-10-03T13:44:29+00:00"
+            "time": "2019-10-14T02:32:36+00:00"
         },
         {
             "name": "phar-io/manifest",
@@ -2240,16 +2284,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.5.0",
+            "version": "3.5.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "0afebf16a2e7f1e434920fa976253576151effe9"
+                "reference": "82cd0f854ceca17731d6d019c7098e3755c45060"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/0afebf16a2e7f1e434920fa976253576151effe9",
-                "reference": "0afebf16a2e7f1e434920fa976253576151effe9",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/82cd0f854ceca17731d6d019c7098e3755c45060",
+                "reference": "82cd0f854ceca17731d6d019c7098e3755c45060",
                 "shasum": ""
             },
             "require": {
@@ -2287,7 +2331,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-09-26T23:12:26+00:00"
+            "time": "2019-10-16T21:14:26+00:00"
         },
         {
             "name": "symfony/console",

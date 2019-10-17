@@ -173,14 +173,15 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * A shorthand to do translation.
      *
-     * @param string $text       The text
-     * @param bool   $escapeHtml Escape the translated text for HTML?
+     * @param string $text         The text
+     * @param array  $placeholders The placeholders
+     * @param bool   $escapeHtml   Escape the translated text for HTML?
      *
      * @return string the translated text
      */
-    protected function _(string $text, bool $escapeHtml = true): string
+    protected function _(string $text, array $placeholders = [], bool $escapeHtml = true): string
     {
-        $text = $this->t->translate($text);
+        $text = $this->t->translate($text, $placeholders);
 
         return $escapeHtml ? \htmlspecialchars($text) : $text;
     }

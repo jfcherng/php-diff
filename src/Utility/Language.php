@@ -4,8 +4,15 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Utility;
 
+use StringTemplate\Engine as StringTemplateEngine;
+
 final class Language
 {
+    /**
+     * @var \StringTemplate\Engine
+     */
+    private $stringEngine;
+
     /**
      * @var string[] the translation dict
      */
@@ -23,6 +30,7 @@ final class Language
      */
     public function __construct($target = 'eng')
     {
+        $this->stringEngine = new StringTemplateEngine('{', '}');
         $this->setLanguageOrTranslations($target);
     }
 
@@ -106,13 +114,16 @@ final class Language
     /**
      * Translation the text.
      *
-     * @param string $text the text
+     * @param string $text         the text
+     * @param array  $placeholders the placeholders
      *
      * @return string
      */
-    public function translate(string $text): string
+    public function translate(string $text, array $placeholders = []): string
     {
-        return $this->translations[$text] ?? "![{$text}]";
+        return isset($this->translations[$text])
+            ? $this->stringEngine->render($this->translations[$text], $placeholders)
+            : "![{$text}]";
     }
 
     /**
