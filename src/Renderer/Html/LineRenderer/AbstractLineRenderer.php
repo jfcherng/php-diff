@@ -45,8 +45,6 @@ abstract class AbstractLineRenderer implements LineRendererInterface
      * Set the differ options.
      *
      * @param array $differOptions the differ options
-     *
-     * @return self
      */
     public function setDifferOptions(array $differOptions): self
     {
@@ -60,8 +58,6 @@ abstract class AbstractLineRenderer implements LineRendererInterface
      * Set the renderer options.
      *
      * @param array $rendererOptions the renderer options
-     *
-     * @return self
      */
     public function setRendererOptions(array $rendererOptions): self
     {

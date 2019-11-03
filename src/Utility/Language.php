@@ -40,8 +40,6 @@ final class Language
      * @param string|string[] $target the language string or translations array
      *
      * @throws \InvalidArgumentException
-     *
-     * @return self
      */
     public function setLanguageOrTranslations($target): self
     {
@@ -101,11 +99,7 @@ final class Language
         $decoded = \json_decode($fileContent, true);
 
         if (\json_last_error() !== \JSON_ERROR_NONE) {
-            throw new \Exception(\sprintf(
-                'Fail to decode JSON file (code %d): %s',
-                \json_last_error(),
-                \realpath($filePath)
-            ));
+            throw new \Exception(\sprintf('Fail to decode JSON file (code %d): %s', \json_last_error(), \realpath($filePath)));
         }
 
         return (array) $decoded;
@@ -116,8 +110,6 @@ final class Language
      *
      * @param string $text         the text
      * @param array  $placeholders the placeholders
-     *
-     * @return string
      */
     public function translate(string $text, array $placeholders = []): string
     {
@@ -130,8 +122,6 @@ final class Language
      * Set up this class by language name.
      *
      * @param string $language the language name
-     *
-     * @return self
      */
     private function setUpWithLanguage(string $language): self
     {
@@ -146,8 +136,6 @@ final class Language
      *
      * @param string[] $translations the translations dict
      * @param string   $language     the language name
-     *
-     * @return self
      */
     private function setUpWithTranslations(array $translations, string $language = '_custom_'): self
     {

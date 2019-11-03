@@ -90,8 +90,6 @@ final class Differ
      *
      * @param string[] $old the old
      * @param string[] $new the new
-     *
-     * @return self
      */
     public function setOldNew(array $old, array $new): self
     {
@@ -102,8 +100,6 @@ final class Differ
      * Set old.
      *
      * @param string[] $old the old
-     *
-     * @return self
      */
     public function setOld(array $old): self
     {
@@ -119,8 +115,6 @@ final class Differ
      * Set new.
      *
      * @param string[] $new the new
-     *
-     * @return self
      */
     public function setNew(array $new): self
     {
@@ -136,8 +130,6 @@ final class Differ
      * Set the options.
      *
      * @param array $options the options
-     *
-     * @return self
      */
     public function setOptions(array $options): self
     {
@@ -193,8 +185,6 @@ final class Differ
 
     /**
      * Compare the old and the new with the spaceship operator.
-     *
-     * @return int
      */
     public function getOldNewComparison(): int
     {
@@ -203,8 +193,6 @@ final class Differ
 
     /**
      * Get the singleton.
-     *
-     * @return self
      */
     public static function getInstance(): self
     {
@@ -241,8 +229,6 @@ final class Differ
      * make suer that you will not get a outdated cached value.
      *
      * @internal
-     *
-     * @return self
      */
     private function finalize(): self
     {
@@ -261,8 +247,6 @@ final class Differ
 
     /**
      * Reset cached results.
-     *
-     * @return self
      */
     private function resetCachedResults(): self
     {

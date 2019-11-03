@@ -18,8 +18,6 @@ final class DiffHelper
 
     /**
      * Get the absolute path of the project root directory.
-     *
-     * @return string
      */
     public static function getProjectDirectory(): string
     {
@@ -30,8 +28,6 @@ final class DiffHelper
 
     /**
      * Get the information about available renderers.
-     *
-     * @return array
      */
     public static function getRenderersInfo(): array
     {
@@ -92,8 +88,6 @@ final class DiffHelper
      *
      * @throws \LogicException   path is a directory
      * @throws \RuntimeException path cannot be opened
-     *
-     * @return string
      */
     public static function getStyleSheet(): string
     {

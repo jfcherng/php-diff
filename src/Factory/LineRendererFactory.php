@@ -28,8 +28,6 @@ final class LineRendererFactory
      *
      * @param string $type        the type
      * @param mixed  ...$ctorArgs the constructor arguments
-     *
-     * @return AbstractLineRenderer
      */
     public static function getInstance(string $type, ...$ctorArgs): AbstractLineRenderer
     {
@@ -47,8 +45,6 @@ final class LineRendererFactory
      * @param mixed  ...$ctorArgs the constructor arguments
      *
      * @throws \InvalidArgumentException
-     *
-     * @return AbstractLineRenderer
      */
     public static function make(string $type, ...$ctorArgs): AbstractLineRenderer
     {

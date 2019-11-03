@@ -55,8 +55,6 @@ final class Inline extends AbstractHtml
 
     /**
      * Renderer the table header.
-     *
-     * @return string
      */
     protected function renderTableHeader(): string
     {
@@ -73,8 +71,6 @@ final class Inline extends AbstractHtml
 
     /**
      * Renderer the table separate block.
-     *
-     * @return string
      */
     protected function renderTableSeparateBlock(): string
     {
@@ -90,8 +86,6 @@ final class Inline extends AbstractHtml
      * Renderer the table block.
      *
      * @param array $change the change
-     *
-     * @return string
      */
     protected function renderTableBlock(array $change): string
     {
@@ -112,8 +106,6 @@ final class Inline extends AbstractHtml
      * Renderer the table block: equal.
      *
      * @param array $change the change
-     *
-     * @return string
      */
     protected function renderTableEqual(array $change): string
     {
@@ -144,8 +136,6 @@ final class Inline extends AbstractHtml
      * Renderer the table block: insert.
      *
      * @param array $change the change
-     *
-     * @return string
      */
     protected function renderTableInsert(array $change): string
     {
@@ -170,8 +160,6 @@ final class Inline extends AbstractHtml
      * Renderer the table block: delete.
      *
      * @param array $change the change
-     *
-     * @return string
      */
     protected function renderTableDelete(array $change): string
     {
@@ -196,8 +184,6 @@ final class Inline extends AbstractHtml
      * Renderer the table block: replace.
      *
      * @param array $change the change
-     *
-     * @return string
      */
     protected function renderTableReplace(array $change): string
     {

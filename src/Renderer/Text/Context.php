@@ -64,8 +64,6 @@ final class Context extends AbstractText
      * @param string $delimiter the delimiter
      * @param int    $a1        the a1
      * @param int    $a2        the a2
-     *
-     * @return string
      */
     protected function renderBlockHeader(string $delimiter, int $a1, int $a2): string
     {
@@ -80,8 +78,6 @@ final class Context extends AbstractText
      *
      * @param array  $opcodes the opcodes
      * @param Differ $differ  the differ object
-     *
-     * @return string
      */
     protected function renderBlockOld(array $opcodes, Differ $differ): string
     {
@@ -106,8 +102,6 @@ final class Context extends AbstractText
      *
      * @param array  $opcodes the opcodes
      * @param Differ $differ  the differ object
-     *
-     * @return string
      */
     protected function renderBlockNew(array $opcodes, Differ $differ): string
     {
@@ -132,8 +126,6 @@ final class Context extends AbstractText
      *
      * @param string $symbol  the symbol
      * @param array  $context the context
-     *
-     * @return string
      */
     protected function renderContext(string $symbol, array $context): string
     {

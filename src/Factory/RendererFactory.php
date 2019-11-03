@@ -28,8 +28,6 @@ final class RendererFactory
      *
      * @param string $renderer    the renderer
      * @param mixed  ...$ctorArgs the constructor arguments
-     *
-     * @return AbstractRenderer
      */
     public static function getInstance(string $renderer, ...$ctorArgs): AbstractRenderer
     {
@@ -47,8 +45,6 @@ final class RendererFactory
      * @param mixed  ...$ctorArgs the constructor arguments
      *
      * @throws \InvalidArgumentException
-     *
-     * @return AbstractRenderer
      */
     public static function make(string $renderer, ...$ctorArgs): AbstractRenderer
     {
@@ -65,8 +61,6 @@ final class RendererFactory
      * Resolve the renderer name into a FQCN.
      *
      * @param string $renderer the renderer
-     *
-     * @return null|string
      */
     public static function resolveRenderer(string $renderer): ?string
     {

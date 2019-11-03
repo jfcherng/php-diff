@@ -70,8 +70,6 @@ final class Unified extends AbstractText
      * @param int $a2 the a2
      * @param int $b1 the b1
      * @param int $b2 the b2
-     *
-     * @return string
      */
     protected function renderBlockHeader(int $a1, int $a2, int $b1, int $b2): string
     {
@@ -83,8 +81,6 @@ final class Unified extends AbstractText
      *
      * @param string $symbol  the symbol
      * @param array  $context the context
-     *
-     * @return string
      */
     protected function renderContext(string $symbol, array $context): string
     {

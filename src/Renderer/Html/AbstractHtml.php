@@ -135,8 +135,6 @@ abstract class AbstractHtml extends AbstractRenderer
      * @param string               $new          the new line
      *
      * @throws \InvalidArgumentException
-     *
-     * @return self
      */
     protected function renderChangedExtent(AbstractLineRenderer $lineRenderer, string &$old, string &$new): self
     {

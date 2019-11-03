@@ -22,8 +22,6 @@ final class ReverseIterator
      *
      * @param array $array the array
      * @param int   $flags the flags
-     *
-     * @return \Generator
      */
     public static function fromArray(array $array, int $flags = self::ITERATOR_GET_VALUE): \Generator
     {

@@ -77,8 +77,6 @@ abstract class AbstractRenderer implements RendererInterface
      * options.
      *
      * @param array $options the options
-     *
-     * @return self
      */
     public function setOptions(array $options): self
     {
@@ -118,9 +116,7 @@ abstract class AbstractRenderer implements RendererInterface
         $custom = $this->options['resultForIdenticals'];
 
         if (isset($custom) && !\is_string($custom)) {
-            throw new \InvalidArgumentException(
-                'renderer option `resultForIdenticals` must be null or string.'
-            );
+            throw new \InvalidArgumentException('renderer option `resultForIdenticals` must be null or string.');
         }
 
         return $custom ?? $this->getResultForIdenticalsDefault();
@@ -128,8 +124,6 @@ abstract class AbstractRenderer implements RendererInterface
 
     /**
      * Get the renderer default result when the old and the new are the same.
-     *
-     * @return string
      */
     abstract public function getResultForIdenticalsDefault(): string;
 
@@ -148,8 +142,6 @@ abstract class AbstractRenderer implements RendererInterface
      * The real worker for self::render().
      *
      * @param Differ $differ the differ object
-     *
-     * @return string
      */
     abstract protected function renderWoker(Differ $differ): string;
 
@@ -158,8 +150,6 @@ abstract class AbstractRenderer implements RendererInterface
      *
      * @param string|string[] $old the old language
      * @param string|string[] $new the new language
-     *
-     * @return self
      */
     protected function updateLanguage($old, $new): self
     {
