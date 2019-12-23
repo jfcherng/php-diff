@@ -77,6 +77,8 @@ abstract class AbstractRenderer implements RendererInterface
      * options.
      *
      * @param array $options the options
+     *
+     * @return static
      */
     public function setOptions(array $options): self
     {
@@ -150,6 +152,8 @@ abstract class AbstractRenderer implements RendererInterface
      *
      * @param string|string[] $old the old language
      * @param string|string[] $new the new language
+     *
+     * @return static
      */
     protected function updateLanguage($old, $new): self
     {

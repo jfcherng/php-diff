@@ -13,6 +13,8 @@ interface LineRendererInterface
      *
      * @param MbString $mbOld the old megabytes line
      * @param MbString $mbNew the new megabytes line
+     *
+     * @return static
      */
     public function render(MbString $mbOld, MbString $mbNew): self;
 }
