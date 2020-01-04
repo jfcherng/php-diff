@@ -27,7 +27,7 @@ final class SideBySide extends AbstractHtml
     {
         $changes = $this->getChanges($differ);
 		
-		return $this->baseWoker($changes);
+        return $this->baseWoker($changes);
     }
 	
 	/**
@@ -36,8 +36,8 @@ final class SideBySide extends AbstractHtml
     protected function renderArrayWoker(array $differArray): string
     {
         $changes = $differArray;
-		
-		return $this->baseWoker($changes);
+        
+        return $this->baseWoker($changes);
     }
 	
 	/**
