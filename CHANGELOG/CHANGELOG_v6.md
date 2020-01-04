@@ -2,6 +2,15 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.2** - Add renderer option: resultForIdenticals
+   * 2020-01-05 01:19  **6.2.1**  Add Turkish translation
+      * f86585a Update deps
+      * 858625f Create tur.json
+      * eae8262 Add some @return static
+      * caaaba7 Add .phpstorm.meta.php
+      * 1067679 Update .travis.yml to PHP 7.4 stable
+      * 6a5cd7b $ composer fix
+      * d69a153 Update deps
+      * 3e1b965 Use string template engine to render language translations
    * 2019-10-12 05:33  **6.2.0**  initial release
       * f7aba88 Optimize RendererFactory::resolveRenderer()
       * 288adb2 Fix typos
