@@ -53,7 +53,7 @@ final class Json extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public function arrayRenderWoker(): string
+    public function arrayRenderWoker(array $differArray): string
     {
         return '';
     }
@@ -61,7 +61,7 @@ final class Json extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public function baseWoker(): string
+    public function baseWoker(array $changes): string
     {
         return '';
     }
