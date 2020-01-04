@@ -33,7 +33,7 @@ final class Inline extends AbstractHtml
 	/**
      * {@inheritdoc}
      */
-    protected function arrayRenderWoker(array $differArray): string
+    protected function renderArrayWoker(array $differArray): string
     {
 		$changes = $differArray;
 
