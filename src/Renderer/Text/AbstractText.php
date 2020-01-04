@@ -27,7 +27,7 @@ abstract class AbstractText extends AbstractRenderer
 	/**
      * {@inheritdoc}
      */
-    public function arrayRenderWoker(): string
+    public function arrayRenderWoker(array $differArray): string
     {
         return '';
     }
@@ -35,7 +35,7 @@ abstract class AbstractText extends AbstractRenderer
 	/**
      * {@inheritdoc}
      */
-    public function baseWoker(): string
+    public function baseWoker(array $changes): string
     {
         return '';
     }
