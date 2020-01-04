@@ -23,4 +23,20 @@ abstract class AbstractText extends AbstractRenderer
     {
         return '';
     }
+	
+	/**
+     * {@inheritdoc}
+     */
+    public function arrayRenderWoker(): string
+    {
+        return '';
+    }
+	
+	/**
+     * {@inheritdoc}
+     */
+    public function baseWoker(): string
+    {
+        return '';
+    }
 }
