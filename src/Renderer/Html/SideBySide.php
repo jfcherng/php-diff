@@ -26,8 +26,26 @@ final class SideBySide extends AbstractHtml
     protected function renderWoker(Differ $differ): string
     {
         $changes = $this->getChanges($differ);
+		
+		return $this->baseWoker($changes);
+    }
+	
+	/**
+     * {@inheritdoc}
+     */
+    protected function arrayRenderWoker(array $differArray): string
+    {
+        $changes = $differArray;
 
-        if (empty($changes)) {
+        return $this->baseWoker($changes);
+    }
+	
+	/**
+     * {@inheritdoc}
+     */
+    protected function baseWoker(array $changes): string
+    {
+		if (empty($changes)) {
             return $this->getResultForIdenticals();
         }
 
@@ -51,7 +69,7 @@ final class SideBySide extends AbstractHtml
         }
 
         return $html . '</table>';
-    }
+	}
 
     /**
      * Renderer the table header.
