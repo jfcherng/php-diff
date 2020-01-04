@@ -26,11 +26,11 @@ final class SideBySide extends AbstractHtml
     protected function renderWoker(Differ $differ): string
     {
         $changes = $this->getChanges($differ);
-		
+        
         return $this->baseWoker($changes);
     }
-	
-	/**
+    
+    /**
      * {@inheritdoc}
      */
     protected function renderArrayWoker(array $differArray): string
@@ -39,13 +39,13 @@ final class SideBySide extends AbstractHtml
         
         return $this->baseWoker($changes);
     }
-	
-	/**
+    
+    /**
      * {@inheritdoc}
      */
     protected function baseWoker(array $changes): string
     {
-		if (empty($changes)) {
+        if (empty($changes)) {
             return $this->getResultForIdenticals();
         }
 
@@ -69,7 +69,7 @@ final class SideBySide extends AbstractHtml
         }
 
         return $html . '</table>';
-	}
+    }
 
     /**
      * Renderer the table header.

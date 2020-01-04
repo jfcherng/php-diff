@@ -23,16 +23,16 @@ abstract class AbstractText extends AbstractRenderer
     {
         return '';
     }
-	
-	/**
+    
+    /**
      * {@inheritdoc}
      */
     public function renderArrayWoker(array $differArray): string
     {
         return '';
     }
-	
-	/**
+    
+    /**
      * {@inheritdoc}
      */
     public function baseWoker(array $changes): string

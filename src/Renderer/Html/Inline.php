@@ -26,29 +26,29 @@ final class Inline extends AbstractHtml
     protected function renderWoker(Differ $differ): string
     {
         $changes = $this->getChanges($differ);
-		
-		return $this->baseWoker($changes);
+        
+        return $this->baseWoker($changes);
     }
-	
-	/**
+    
+    /**
      * {@inheritdoc}
      */
     protected function renderArrayWoker(array $differArray): string
     {
-		$changes = $differArray;
+        $changes = $differArray;
 
         return $this->baseWoker($changes);
     }
-	
-	/**
+    
+    /**
      * {@inheritdoc}
      */
     protected function baseWoker(array $changes): string
     {
-		if (empty($changes)) {
+        if (empty($changes)) {
             return $this->getResultForIdenticals();
         }
-		
+        
         $wrapperClasses = \array_merge(
             $this->options['wrapperClasses'],
             ['diff', 'diff-html', 'diff-inline']
@@ -69,7 +69,7 @@ final class Inline extends AbstractHtml
         }
 
         return $html . '</table>';
-	}
+    }
 
     /**
      * Renderer the table header.

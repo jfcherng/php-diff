@@ -163,8 +163,8 @@ abstract class AbstractRenderer implements RendererInterface
      * @return string
      */
     abstract protected function renderArrayWoker(array $differArray): string;
-	
-	/**
+    
+    /**
      * Woker's base function.
      *
      * @param array $changes the changes array
