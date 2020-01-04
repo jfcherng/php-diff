@@ -51,6 +51,22 @@ final class Json extends AbstractHtml
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function arrayRenderWoker(): string
+    {
+        return '';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function baseWoker(): string
+    {
+        return '';
+    }
+
+    /**
      * Convert tags of changes to their string form for better readability.
      *
      * @param array $changes the changes
