@@ -32,16 +32,6 @@ abstract class AbstractText extends AbstractRenderer
     {
         throw new UnsupportedFunctionException(__METHOD__);
 
-        return '';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function baseWoker(array $changes): string
-    {
-        throw new UnsupportedFunctionException(__METHOD__);
-
-        return '';
+        return ''; // make IDE not complain
     }
 }
