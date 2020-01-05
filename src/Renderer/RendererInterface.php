@@ -22,4 +22,13 @@ interface RendererInterface
      * @param Differ $differ the Differ object to be rendered
      */
     public function render(Differ $differ): string;
+    
+    /**
+     * Render the differ array and return the result.
+     *
+     * @param array $differArray the Differ array to be rendered
+     *
+     * @return string
+     */
+    public function renderArray(array $differArray): string;
 }

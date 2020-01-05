@@ -141,11 +141,37 @@ abstract class AbstractRenderer implements RendererInterface
     }
 
     /**
+     * {@inheritdoc}
+     */
+    final public function renderArray(array $differArray): string
+    {
+        return $this->renderArrayWoker($differArray);
+    }
+
+    /**
      * The real worker for self::render().
      *
      * @param Differ $differ the differ object
      */
     abstract protected function renderWoker(Differ $differ): string;
+    
+    /**
+     * The worker for array render.
+     *
+     * @param array $differArray the differ array
+     *
+     * @return string
+     */
+    abstract protected function renderArrayWoker(array $differArray): string;
+    
+    /**
+     * Woker's base function.
+     *
+     * @param array $changes the changes array
+     *
+     * @return string
+     */
+    abstract protected function baseWoker(array $changes): string;
 
     /**
      * Update the Language object.

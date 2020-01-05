@@ -51,6 +51,22 @@ final class Json extends AbstractHtml
     }
 
     /**
+     * {@inheritdoc}
+     */
+    public function renderArrayWoker(array $differArray): string
+    {
+        return '';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function baseWoker(array $changes): string
+    {
+        return '';
+    }
+
+    /**
      * Convert tags of changes to their string form for better readability.
      *
      * @param array $changes the changes
