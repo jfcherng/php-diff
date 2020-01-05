@@ -1,6 +1,17 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.3** - Render HTML with JSON result
+   * 2020-01-05 16:21  **6.3.0**  initial release
+      * 91a6180 Update deps
+      * c713a0a Update examples and README
+      * 3c6d9a3 Variables renaming (example/demo.php)
+      * ce71a93 Add tests for \Jfcherng\Diff\Renderer\AbstractRenderer::renderArray
+      * f497539 Tidy codes
+      * caec927 Require jfcherng/php-sequence-matcher ^3.2
+      * 3111605 Let text renderers throw exception for renderArray()
+      * 8235504 Ability to render HTML from JSON (#17)
+
  * Version **6.2** - Add renderer option: resultForIdenticals
    * 2020-01-05 01:19  **6.2.1**  Add Turkish translation
       * f86585a Update deps
