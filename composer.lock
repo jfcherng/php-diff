@@ -54,12 +54,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-sequence-matcher.git",
-                "reference": "7658ff94b51ed8c91ed31f0255259ea627e162e3"
+                "reference": "98e2d0ebfa20c7fb4b43e85eb74f072d54934cba"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/7658ff94b51ed8c91ed31f0255259ea627e162e3",
-                "reference": "7658ff94b51ed8c91ed31f0255259ea627e162e3",
+                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/98e2d0ebfa20c7fb4b43e85eb74f072d54934cba",
+                "reference": "98e2d0ebfa20c7fb4b43e85eb74f072d54934cba",
                 "shasum": ""
             },
             "require": {
@@ -92,7 +92,7 @@
                 }
             ],
             "description": "A longest sequence matcher. The logic is primarily based on the Python difflib package.",
-            "time": "2020-01-05T07:34:53+00:00"
+            "time": "2020-01-05T07:34:57+00:00"
         },
         {
             "name": "nicmart/string-template",
@@ -686,9 +686,9 @@
             "authors": [
                 {
                     "name": "Christian Weiske",
-                    "role": "Developer",
                     "email": "cweiske@cweiske.de",
-                    "homepage": "http://github.com/cweiske/jsonmapper/"
+                    "homepage": "http://github.com/cweiske/jsonmapper/",
+                    "role": "Developer"
                 }
             ],
             "description": "Map nested JSON structures onto PHP classes",
@@ -1695,9 +1695,9 @@
             "authors": [
                 {
                     "name": "Evert Pot",
-                    "role": "Developer",
                     "email": "me@evertpot.com",
-                    "homepage": "http://evertpot.com/"
+                    "homepage": "http://evertpot.com/",
+                    "role": "Developer"
                 }
             ],
             "description": "sabre/event is a library for lightweight event-based programming",
