@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Jfcherng\Diff\Test\Renderer;
 
 use Jfcherng\Diff\DiffHelper;
+use Jfcherng\Diff\Exception\UnsupportedFunctionException;
+use Jfcherng\Diff\Factory\RendererFactory;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Utility\Language;
 use PHPUnit\Framework\TestCase;
@@ -85,5 +87,65 @@ final class RendererTest extends TestCase
             [],
             ['resultForIdenticals' => 50]
         );
+    }
+
+    /**
+     * Test HTML renderers should be able to render with JSON renderer's result.
+     *
+     * @covers \Jfcherng\Diff\Renderer\AbstractRenderer::renderArray
+     */
+    public function testHtmlRendererRenderWithResultFromJsonRenderer(): void
+    {
+        $htmlRenderer = RendererFactory::make('Inline');
+
+        // test "outputTagAsString" is false
+        $jsonResult = DiffHelper::calculate(
+            'old marker',
+            'new marker',
+            'Json',
+            [],
+            ['outputTagAsString' => false]
+        );
+        $jsonArray = \json_decode($jsonResult, true);
+        $inlineResult = $htmlRenderer->renderArray($jsonArray);
+
+        static::assertStringContainsString(
+            '><del>old</del> marker<',
+            $inlineResult,
+            "HTML renderers should be able to render with JSON result. ('outputTagAsString' => false)"
+        );
+
+        // test "outputTagAsString" is true
+        $jsonResult = DiffHelper::calculate(
+            'old marker',
+            'new marker',
+            'Json',
+            [],
+            ['outputTagAsString' => true]
+        );
+        $jsonArray = \json_decode($jsonResult, true);
+        $inlineResult = $htmlRenderer->renderArray($jsonArray);
+
+        static::assertStringContainsString(
+            '><del>old</del> marker<',
+            $inlineResult,
+            "HTML renderers should be able to render with JSON result. ('outputTagAsString' => true)"
+        );
+    }
+
+    /**
+     * Test text renderers are not able to render with JSON renderer's result.
+     *
+     * @covers \Jfcherng\Diff\Renderer\AbstractRenderer::renderArray
+     */
+    public function testTextRendererRenderWithResultFromJsonRenderer(): void
+    {
+        static::expectException(UnsupportedFunctionException::class);
+
+        $jsonResult = DiffHelper::calculate('old marker', 'new marker', 'Json');
+        $jsonArray = \json_decode($jsonResult, true);
+
+        $textRenderer = RendererFactory::make('Unified');
+        $UnifiedResult = $textRenderer->renderArray($jsonArray);
     }
 }
