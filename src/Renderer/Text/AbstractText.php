@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Text;
 
+use Jfcherng\Diff\Exception\UnsupportedFunctionException;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 
 /**
@@ -23,20 +24,24 @@ abstract class AbstractText extends AbstractRenderer
     {
         return '';
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function renderArrayWoker(array $differArray): string
     {
+        throw new UnsupportedFunctionException(__METHOD__);
+
         return '';
     }
-    
+
     /**
      * {@inheritdoc}
      */
     public function baseWoker(array $changes): string
     {
+        throw new UnsupportedFunctionException(__METHOD__);
+
         return '';
     }
 }
