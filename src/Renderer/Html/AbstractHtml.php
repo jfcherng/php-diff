@@ -128,6 +128,29 @@ abstract class AbstractHtml extends AbstractRenderer
     }
 
     /**
+     * {@inheritdoc}
+     */
+    protected function renderWoker(Differ $differ): string
+    {
+        return $this->redererChanges($this->getChanges($differ));
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function renderArrayWoker(array $differArray): string
+    {
+        return $this->redererChanges($this->ensureChangesUseIntTag($differArray));
+    }
+
+    /**
+     * Render the array of changes.
+     *
+     * @param array $changes the changes
+     */
+    abstract protected function redererChanges(array $changes): string;
+
+    /**
      * Renderer the changed extent.
      *
      * @param AbstractLineRenderer $lineRenderer the line renderer
@@ -283,5 +306,41 @@ abstract class AbstractHtml extends AbstractRenderer
             },
             $string
         );
+    }
+
+    /**
+     * Make sure the "changes" array uses int "tag".
+     *
+     * Internally, we would like always int form for better performance.
+     *
+     * @param array $changes the changes
+     */
+    protected function ensureChangesUseIntTag(array $changes): array
+    {
+        if (empty($changes)) {
+            return [];
+        }
+
+        $isTagInt = true;
+        foreach ($changes as $blocks) {
+            foreach ($blocks as $change) {
+                $isTagInt = \is_int($change['tag']);
+
+                break 2;
+            }
+        }
+
+        if (!$isTagInt) {
+            // convert string tags into their int forms
+            foreach ($changes as &$blocks) {
+                foreach ($blocks as &$change) {
+                    $change['tag'] = SequenceMatcher::opStrToInt($change['tag']);
+                }
+            }
+
+            unset($blocks, $change);
+        }
+
+        return $changes;
     }
 }

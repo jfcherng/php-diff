@@ -3,6 +3,7 @@
 include __DIR__ . '/../vendor/autoload.php';
 
 use Jfcherng\Diff\DiffHelper;
+use Jfcherng\Diff\Factory\RendererFactory;
 
 ?>
 <!DOCTYPE html>
@@ -60,7 +61,7 @@ use Jfcherng\Diff\DiffHelper;
         <?php
 
         // demo the no-inline-detail diff
-        $result = DiffHelper::calculate(
+        $inlineResult = DiffHelper::calculate(
             $oldFile,
             $newFile,
             'Inline',
@@ -68,7 +69,7 @@ use Jfcherng\Diff\DiffHelper;
             ['detailLevel' => 'none'] + $rendererOptions
         );
 
-        echo $result;
+        echo $inlineResult;
 
         ?>
 
@@ -76,7 +77,7 @@ use Jfcherng\Diff\DiffHelper;
         <?php
 
         // demo the word-level diff
-        $result = DiffHelper::calculate(
+        $inlineResult = DiffHelper::calculate(
             $oldFile,
             $newFile,
             'Inline',
@@ -84,7 +85,7 @@ use Jfcherng\Diff\DiffHelper;
             ['detailLevel' => 'line'] + $rendererOptions
         );
 
-        echo $result;
+        echo $inlineResult;
 
         ?>
 
@@ -92,7 +93,7 @@ use Jfcherng\Diff\DiffHelper;
         <?php
 
         // demo the word-level diff
-        $result = DiffHelper::calculate(
+        $inlineResult = DiffHelper::calculate(
             $oldFile,
             $newFile,
             'Inline',
@@ -100,7 +101,7 @@ use Jfcherng\Diff\DiffHelper;
             ['detailLevel' => 'word'] + $rendererOptions
         );
 
-        echo $result;
+        echo $inlineResult;
 
         ?>
 
@@ -108,7 +109,7 @@ use Jfcherng\Diff\DiffHelper;
         <?php
 
         // demo the character-level diff
-        $result = DiffHelper::calculate(
+        $inlineResult = DiffHelper::calculate(
             $oldFile,
             $newFile,
             'Inline',
@@ -116,7 +117,7 @@ use Jfcherng\Diff\DiffHelper;
             ['detailLevel' => 'char'] + $rendererOptions
         );
 
-        echo $result;
+        echo $inlineResult;
 
         ?>
 
@@ -124,7 +125,7 @@ use Jfcherng\Diff\DiffHelper;
         <?php
 
         // generate a side by side diff
-        $result = DiffHelper::calculateFiles(
+        $sideBySideResult = DiffHelper::calculateFiles(
             $oldFilePath,
             $newFilePath,
             'SideBySide',
@@ -132,7 +133,7 @@ use Jfcherng\Diff\DiffHelper;
             $rendererOptions
         );
 
-        echo $result;
+        echo $sideBySideResult;
 
         ?>
 
@@ -140,7 +141,7 @@ use Jfcherng\Diff\DiffHelper;
         <?php
 
         // generate an inline diff
-        $result = DiffHelper::calculateFiles(
+        $inlineResult = DiffHelper::calculateFiles(
             $oldFilePath,
             $newFilePath,
             'Inline',
@@ -148,7 +149,7 @@ use Jfcherng\Diff\DiffHelper;
             $rendererOptions
         );
 
-        echo $result;
+        echo $inlineResult;
 
         ?>
 
@@ -156,7 +157,7 @@ use Jfcherng\Diff\DiffHelper;
         <pre><?php
 
         // generate a unified diff
-        $result = DiffHelper::calculateFiles(
+        $unifiedResult = DiffHelper::calculateFiles(
             $oldFilePath,
             $newFilePath,
             'Unified',
@@ -164,7 +165,7 @@ use Jfcherng\Diff\DiffHelper;
             $rendererOptions
         );
 
-        echo \htmlspecialchars($result);
+        echo \htmlspecialchars($unifiedResult);
 
         ?></pre>
 
@@ -172,7 +173,7 @@ use Jfcherng\Diff\DiffHelper;
         <pre><?php
 
         // generate a context diff
-        $result = DiffHelper::calculateFiles(
+        $contextResult = DiffHelper::calculateFiles(
             $oldFilePath,
             $newFilePath,
             'Context',
@@ -180,7 +181,7 @@ use Jfcherng\Diff\DiffHelper;
             $rendererOptions
         );
 
-        echo \htmlspecialchars($result);
+        echo \htmlspecialchars($contextResult);
 
         ?></pre>
 
@@ -188,7 +189,7 @@ use Jfcherng\Diff\DiffHelper;
         <pre><?php
 
         // generate a JSON diff
-        $result = DiffHelper::calculateFiles(
+        $jsonResult = DiffHelper::calculateFiles(
             $oldFilePath,
             $newFilePath,
             'Json',
@@ -197,11 +198,23 @@ use Jfcherng\Diff\DiffHelper;
         );
 
         $beautified = \json_encode(
-            \json_decode($result, true),
+            \json_decode($jsonResult, true),
             \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT
         );
 
         echo $beautified;
+
+        ?></pre>
+
+        <h1>HTML Diff from the Result of JSON Diff</h1>
+        <pre><?php
+
+        $jsonArray = \json_decode($jsonResult, true);
+
+        $htmlRenderer = RendererFactory::make('Inline');
+        $inlineResult = $htmlRenderer->renderArray($jsonArray);
+
+        echo $inlineResult;
 
         ?></pre>
     </body>

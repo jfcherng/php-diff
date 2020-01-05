@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jfcherng\Diff\Renderer;
 
 use Jfcherng\Diff\Differ;
+use Jfcherng\Diff\Exception\UnsupportedFunctionException;
 
 /**
  * Renderer Interface.
@@ -22,13 +23,13 @@ interface RendererInterface
      * @param Differ $differ the Differ object to be rendered
      */
     public function render(Differ $differ): string;
-    
+
     /**
      * Render the differ array and return the result.
      *
      * @param array $differArray the Differ array to be rendered
      *
-     * @return string
+     * @throws UnsupportedFunctionException if the renderer does not support this method
      */
     public function renderArray(array $differArray): string;
 }

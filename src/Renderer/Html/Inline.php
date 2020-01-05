@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html;
 
-use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\SequenceMatcher;
 
 /**
@@ -23,32 +22,12 @@ final class Inline extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    protected function renderWoker(Differ $differ): string
-    {
-        $changes = $this->getChanges($differ);
-        
-        return $this->baseWoker($changes);
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    protected function renderArrayWoker(array $differArray): string
-    {
-        $changes = $differArray;
-
-        return $this->baseWoker($changes);
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    protected function baseWoker(array $changes): string
+    protected function redererChanges(array $changes): string
     {
         if (empty($changes)) {
             return $this->getResultForIdenticals();
         }
-        
+
         $wrapperClasses = \array_merge(
             $this->options['wrapperClasses'],
             ['diff', 'diff-html', 'diff-inline']

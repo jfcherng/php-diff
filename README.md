@@ -109,6 +109,11 @@ $result = DiffHelper::calculate($old, $new, $rendererName);
 $differ = new Differ(explode("\n", $old), explode("\n", $new), $differOptions);
 $renderer = RendererFactory::make($rendererName, $rendererOptions); // or your own renderer object
 $result = $renderer->render($differ);
+
+// use the JSON result to render in HTML
+$jsonResult = DiffHelper::calculate($old, $new, 'Json'); // may store the JSON result in your Database
+$htmlRenderer = RendererFactory::make('Inline');
+$result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 ```
 
 
