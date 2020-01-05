@@ -3,6 +3,7 @@
 include __DIR__ . '/../vendor/autoload.php';
 
 use Jfcherng\Diff\DiffHelper;
+use Jfcherng\Diff\Factory\RendererFactory;
 
 ?>
 <!DOCTYPE html>
@@ -202,6 +203,18 @@ use Jfcherng\Diff\DiffHelper;
         );
 
         echo $beautified;
+
+        ?></pre>
+
+        <h1>HTML Diff from the Result of JSON Diff</h1>
+        <pre><?php
+
+        $jsonArray = \json_decode($jsonResult, true);
+
+        $htmlRenderer = RendererFactory::make('Inline');
+        $inlineResult = $htmlRenderer->renderArray($jsonArray);
+
+        echo $inlineResult;
 
         ?></pre>
     </body>
