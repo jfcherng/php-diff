@@ -96,41 +96,54 @@ final class RendererTest extends TestCase
      */
     public function testHtmlRendererRenderWithResultFromJsonRenderer(): void
     {
-        $htmlRenderer = RendererFactory::make('Inline');
+        static $rendererNames = ['Inline', 'SideBySide', 'Json'];
 
-        // test "outputTagAsString" is false
-        $jsonResult = DiffHelper::calculate(
-            'old marker',
-            'new marker',
-            'Json',
-            [],
-            ['outputTagAsString' => false]
-        );
-        $jsonArray = \json_decode($jsonResult, true);
-        $inlineResult = $htmlRenderer->renderArray($jsonArray);
+        $old = '_TEST_MARKER_OLD_';
+        $new = '_TEST_MARKER_NEW_';
+        $differOptions = [];
+        $rendererOptions = [];
 
-        static::assertStringContainsString(
-            '><del>old</del> marker<',
-            $inlineResult,
-            "HTML renderers should be able to render with JSON result. ('outputTagAsString' => false)"
-        );
+        foreach ($rendererNames as $rendererName) {
+            $renerer = RendererFactory::make($rendererName, $rendererOptions);
 
-        // test "outputTagAsString" is true
-        $jsonResult = DiffHelper::calculate(
-            'old marker',
-            'new marker',
-            'Json',
-            [],
-            ['outputTagAsString' => true]
-        );
-        $jsonArray = \json_decode($jsonResult, true);
-        $inlineResult = $htmlRenderer->renderArray($jsonArray);
+            $goldenResult = DiffHelper::calculate(
+                $old,
+                $new,
+                $rendererName,
+                $differOptions,
+                $rendererOptions
+            );
 
-        static::assertStringContainsString(
-            '><del>old</del> marker<',
-            $inlineResult,
-            "HTML renderers should be able to render with JSON result. ('outputTagAsString' => true)"
-        );
+            // test "outputTagAsString" is false
+            $jsonResult = DiffHelper::calculate(
+                $old,
+                $new,
+                'Json',
+                $differOptions,
+                ['outputTagAsString' => false] + $rendererOptions
+            );
+
+            static::assertSame(
+                $goldenResult,
+                $renerer->renderArray(\json_decode($jsonResult, true)),
+                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => false)"
+            );
+
+            // test "outputTagAsString" is true
+            $jsonResult = DiffHelper::calculate(
+                $old,
+                $new,
+                'Json',
+                $differOptions,
+                ['outputTagAsString' => true] + $rendererOptions
+            );
+
+            static::assertSame(
+                $goldenResult,
+                $renerer->renderArray(\json_decode($jsonResult, true)),
+                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => true)"
+            );
+        }
     }
 
     /**
@@ -142,10 +155,9 @@ final class RendererTest extends TestCase
     {
         static::expectException(UnsupportedFunctionException::class);
 
-        $jsonResult = DiffHelper::calculate('old marker', 'new marker', 'Json');
-        $jsonArray = \json_decode($jsonResult, true);
+        $jsonResult = DiffHelper::calculate('_TEST_MARKER_OLD_', '_TEST_MARKER_NEW_', 'Json');
 
         $textRenderer = RendererFactory::make('Unified');
-        $UnifiedResult = $textRenderer->renderArray($jsonArray);
+        $UnifiedResult = $textRenderer->renderArray(\json_decode($jsonResult, true));
     }
 }
