@@ -18,7 +18,6 @@ return [
         'src',
         'vendor/jfcherng/php-mb-string/src',
         'vendor/jfcherng/php-sequence-matcher/src',
-        'vendor/nicmart/string-template/src',
     ],
 
     // A directory list that defines files that will be excluded
