@@ -2,6 +2,11 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.3** - Render HTML with JSON result
+   * 2020-01-12 01:08  **6.3.1**  Remove dep: nicmart/string-template
+      * 82259d0 Update dev require
+      * d83f3ac Update readme [skip ci]
+      * b36aeec Revert "Use string template engine to render language translations"
+      * 0a991e7 Update tests
    * 2020-01-05 16:21  **6.3.0**  initial release
       * 91a6180 Update deps
       * c713a0a Update examples and README
