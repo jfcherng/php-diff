@@ -2,6 +2,8 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.3** - Render HTML with JSON result
+   * 2020-01-16 13:00  **6.3.2**  Add French (fra) translation
+      * 41d571f Add French language file
    * 2020-01-12 01:08  **6.3.1**  Remove dep: nicmart/string-template
       * 82259d0 Update dev require
       * d83f3ac Update readme [skip ci]
