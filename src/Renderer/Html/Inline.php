@@ -66,7 +66,7 @@ final class Inline extends AbstractHtml
                         '<th></th>'
                         : ''
                     ) .
-                    '<th'.$colspan.'>' . $this->_('differences') . '</th>' .
+                    '<th' . $colspan . '>' . $this->_('differences') . '</th>' .
                 '</tr>' .
             '</thead>';
     }
@@ -81,7 +81,7 @@ final class Inline extends AbstractHtml
         return
             '<tbody class="skipped">' .
                 '<tr>' .
-                    '<td colspan="'.$colspan.'"></td>' .
+                    '<td colspan="' . $colspan . '"></td>' .
                 '</tr>' .
             '</tbody>';
     }

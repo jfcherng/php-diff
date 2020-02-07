@@ -60,8 +60,8 @@ final class SideBySide extends AbstractHtml
         return
             '<thead>' .
                 '<tr>' .
-                    '<th'.$colspan.'>' . $this->_('old_version') . '</th>' .
-                    '<th'.$colspan.'>' . $this->_('new_version') . '</th>' .
+                    '<th' . $colspan . '>' . $this->_('old_version') . '</th>' .
+                    '<th' . $colspan . '>' . $this->_('new_version') . '</th>' .
                 '</tr>' .
             '</thead>';
     }
@@ -76,7 +76,7 @@ final class SideBySide extends AbstractHtml
         return
             '<tbody class="skipped">' .
                 '<tr>' .
-                    '<td colspan="'.$colspan.'"></td>' .
+                    '<td colspan="' . $colspan . '"></td>' .
                 '</tr>' .
             '</tbody>';
     }
