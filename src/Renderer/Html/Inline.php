@@ -55,13 +55,18 @@ final class Inline extends AbstractHtml
      */
     protected function renderTableHeader(): string
     {
+        $colspan = (!$this->options['lineNumbers'] ? ' colspan="2"' : '');
+
         return
             '<thead>' .
                 '<tr>' .
-                    '<th>' . $this->_('old_version') . '</th>' .
-                    '<th>' . $this->_('new_version') . '</th>' .
-                    '<th></th>' .
-                    '<th>' . $this->_('differences') . '</th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th>' . $this->_('old_version') . '</th>' .
+                        '<th>' . $this->_('new_version') . '</th>' .
+                        '<th></th>'
+                        : ''
+                    ) .
+                    '<th'.$colspan.'>' . $this->_('differences') . '</th>' .
                 '</tr>' .
             '</thead>';
     }
@@ -71,10 +76,12 @@ final class Inline extends AbstractHtml
      */
     protected function renderTableSeparateBlock(): string
     {
+        $colspan = (!$this->options['lineNumbers'] ? '2' : '4');
+
         return
             '<tbody class="skipped">' .
                 '<tr>' .
-                    '<td colspan="4"></td>' .
+                    '<td colspan="'.$colspan.'"></td>' .
                 '</tr>' .
             '</tbody>';
     }
@@ -112,15 +119,20 @@ final class Inline extends AbstractHtml
         // the old and the new may not be exactly the same
         // because of ignoreCase, ignoreWhitespace, etc
         foreach ($change['old']['lines'] as $no => $oldLine) {
-            // hmm... but this is a inline renderer
-            // we could only pick a line from the old or the new to show
-            $oldLineNum = $change['old']['offset'] + $no + 1;
-            $newLineNum = $change['new']['offset'] + $no + 1;
+            if ($this->options['lineNumbers']) {
+                // hmm... but this is a inline renderer
+                // we could only pick a line from the old or the new to show
+                $oldLineNum = $change['old']['offset'] + $no + 1;
+                $newLineNum = $change['new']['offset'] + $no + 1;
+            }
 
             $html .=
                 '<tr data-type="=">' .
-                    '<th class="n-old">' . $oldLineNum . '</th>' .
-                    '<th class="n-new">' . $newLineNum . '</th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th class="n-old">' . $oldLineNum . '</th>' .
+                        '<th class="n-old">' . $newLineNum . '</th>'
+                        : ''
+                    ) .
                     '<th class="sign"></th>' .
                     '<td class="old">' . $oldLine . '</td>' .
                 '</tr>';
@@ -139,12 +151,17 @@ final class Inline extends AbstractHtml
         $html = '';
 
         foreach ($change['new']['lines'] as $no => $newLine) {
-            $newLineNum = $change['new']['offset'] + $no + 1;
+            if ($this->options['lineNumbers']) {
+                $newLineNum = $change['new']['offset'] + $no + 1;
+            }
 
             $html .=
                 '<tr data-type="+">' .
-                    '<th></th>' .
-                    '<th class="n-new">' . $newLineNum . '</th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th></th>' .
+                        '<th class="n-new">' . $newLineNum . '</th>'
+                        : ''
+                    ) .
                     '<th class="sign ins">+</th>' .
                     '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
@@ -163,12 +180,17 @@ final class Inline extends AbstractHtml
         $html = '';
 
         foreach ($change['old']['lines'] as $no => $oldLine) {
-            $oldLineNum = $change['old']['offset'] + $no + 1;
+            if ($this->options['lineNumbers']) {
+                $oldLineNum = $change['old']['offset'] + $no + 1;
+            }
 
             $html .=
                 '<tr data-type="-">' .
-                    '<th class="n-old">' . $oldLineNum . '</th>' .
-                    '<th></th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th class="n-old">' . $oldLineNum . '</th>' .
+                        '<th></th>'
+                        : ''
+                    ) .
                     '<th class="sign del">-</th>' .
                     '<td class="old">' . $oldLine . '</td>' .
                 '</tr>';
@@ -187,24 +209,34 @@ final class Inline extends AbstractHtml
         $html = '';
 
         foreach ($change['old']['lines'] as $no => $oldLine) {
-            $oldLineNum = $change['old']['offset'] + $no + 1;
+            if ($this->options['lineNumbers']) {
+                $oldLineNum = $change['old']['offset'] + $no + 1;
+            }
 
             $html .=
                 '<tr data-type="-">' .
-                    '<th class="n-old">' . $oldLineNum . '</th>' .
-                    '<th></th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th class="n-old">' . $oldLineNum . '</th>' .
+                        '<th></th>'
+                        : ''
+                    ) .
                     '<th class="sign del">-</th>' .
                     '<td class="old">' . $oldLine . '</td>' .
                 '</tr>';
         }
 
         foreach ($change['new']['lines'] as $no => $newLine) {
-            $newLineNum = $change['new']['offset'] + $no + 1;
+            if ($this->options['lineNumbers']) {
+                $newLineNum = $change['new']['offset'] + $no + 1;
+            }
 
             $html .=
                 '<tr data-type="+">' .
-                    '<th></th>' .
-                    '<th class="n-new">' . $newLineNum . '</th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th></th>' .
+                        '<th class="n-new">' . $newLineNum . '</th>'
+                        : ''
+                    ) .
                     '<th class="sign ins">+</th>' .
                     '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
