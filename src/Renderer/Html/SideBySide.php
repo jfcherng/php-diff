@@ -55,11 +55,13 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableHeader(): string
     {
+        $colspan = ($this->options['lineNumbers'] ? ' colspan="2"' : '');
+
         return
             '<thead>' .
                 '<tr>' .
-                    '<th colspan="2">' . $this->_('old_version') . '</th>' .
-                    '<th colspan="2">' . $this->_('new_version') . '</th>' .
+                    '<th' . $colspan . '>' . $this->_('old_version') . '</th>' .
+                    '<th' . $colspan . '>' . $this->_('new_version') . '</th>' .
                 '</tr>' .
             '</thead>';
     }
@@ -69,10 +71,12 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableSeparateBlock(): string
     {
+        $colspan = (!$this->options['lineNumbers'] ? '2' : '4');
+
         return
             '<tbody class="skipped">' .
                 '<tr>' .
-                    '<td colspan="4"></td>' .
+                    '<td colspan="' . $colspan . '"></td>' .
                 '</tr>' .
             '</tbody>';
     }
@@ -117,9 +121,15 @@ final class SideBySide extends AbstractHtml
 
             $html .=
                 '<tr>' .
-                    '<th class="n-old">' . $oldLineNum . '</th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th class="n-old">' . $oldLineNum . '</th>'
+                        : ''
+                    ) .
                     '<td class="old">' . $oldLine . '</td>' .
-                    '<th class="n-new">' . $newLineNum . '</th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th class="n-new">' . $newLineNum . '</th>'
+                        : ''
+                    ) .
                     '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
@@ -141,9 +151,15 @@ final class SideBySide extends AbstractHtml
 
             $html .=
                 '<tr>' .
-                    '<th></th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th></th>'
+                        : ''
+                    ) .
                     '<td class="old"></td>' .
-                    '<th class="n-new">' . $newLineNum . '</th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th class="n-new">' . $newLineNum . '</th>'
+                        : ''
+                    ) .
                     '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
@@ -165,9 +181,15 @@ final class SideBySide extends AbstractHtml
 
             $html .=
                 '<tr>' .
-                    '<th class="n-old">' . $oldLineNum . '</th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th class="n-old">' . $oldLineNum . '</th>'
+                        : ''
+                    ) .
                     '<td class="old">' . $oldLine . '</td>' .
-                    '<th></th>' .
+                    ($this->options['lineNumbers'] ?
+                        '<th></th>'
+                        : ''
+                    ) .
                     '<td class="new"></td>' .
                 '</tr>';
         }
@@ -198,9 +220,15 @@ final class SideBySide extends AbstractHtml
 
                 $html .=
                     '<tr>' .
-                        '<th class="n-old">' . $oldLineNum . '</th>' .
+                        ($this->options['lineNumbers'] ?
+                            '<th class="n-old">' . $oldLineNum . '</th>'
+                            : ''
+                        ) .
                         '<td class="old"><span>' . $oldLine . '</span></td>' .
-                        '<th class="n-new">' . $newLineNum . '</th>' .
+                        ($this->options['lineNumbers'] ?
+                            '<th class="n-new">' . $newLineNum . '</th>'
+                            : ''
+                        ) .
                         '<td class="new">' . $newLine . '</td>' .
                     '</tr>';
             }
@@ -218,9 +246,15 @@ final class SideBySide extends AbstractHtml
 
                 $html .=
                     '<tr>' .
-                        '<th class="n-old">' . $oldLineNum . '</th>' .
+                        ($this->options['lineNumbers'] ?
+                            '<th class="n-old">' . $oldLineNum . '</th>'
+                            : ''
+                        ) .
                         '<td class="old"><span>' . $oldLine . '</span></td>' .
-                        '<th class="n-new">' . $newLineNum . '</th>' .
+                        ($this->options['lineNumbers'] ?
+                            '<th class="n-new">' . $newLineNum . '</th>'
+                            : ''
+                        ) .
                         '<td class="new">' . $newLine . '</td>' .
                     '</tr>';
             }
