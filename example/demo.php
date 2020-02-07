@@ -39,6 +39,8 @@ use Jfcherng\Diff\Factory\RendererFactory;
             // renderer language: eng, cht, chs, jpn, ...
             // or an array which has the same keys with a language file
             'language' => 'eng',
+            // show line numbers in HTML renderers
+            'lineNumbers' => true,
             // show a separator between different diff hunks in HTML renderers
             'separateBlock' => true,
             // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
