@@ -55,7 +55,7 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableHeader(): string
     {
-        $colspan = ($this->options['lineNumbers'] ? ' colspan="2"' : '');
+        $colspan = $this->options['lineNumbers'] ? ' colspan="2"' : '';
 
         return
             '<thead>' .
@@ -71,7 +71,7 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableSeparateBlock(): string
     {
-        $colspan = (!$this->options['lineNumbers'] ? '2' : '4');
+        $colspan = $this->options['lineNumbers'] ? '4' : '2';
 
         return
             '<tbody class="skipped">' .
@@ -121,15 +121,9 @@ final class SideBySide extends AbstractHtml
 
             $html .=
                 '<tr>' .
-                    ($this->options['lineNumbers'] ?
-                        '<th class="n-old">' . $oldLineNum . '</th>'
-                        : ''
-                    ) .
+                    $this->renderLineNumberColumn('old', $oldLineNum) .
                     '<td class="old">' . $oldLine . '</td>' .
-                    ($this->options['lineNumbers'] ?
-                        '<th class="n-new">' . $newLineNum . '</th>'
-                        : ''
-                    ) .
+                    $this->renderLineNumberColumn('new', $newLineNum) .
                     '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
@@ -151,15 +145,9 @@ final class SideBySide extends AbstractHtml
 
             $html .=
                 '<tr>' .
-                    ($this->options['lineNumbers'] ?
-                        '<th></th>'
-                        : ''
-                    ) .
+                    $this->renderLineNumberColumn('', null) .
                     '<td class="old"></td>' .
-                    ($this->options['lineNumbers'] ?
-                        '<th class="n-new">' . $newLineNum . '</th>'
-                        : ''
-                    ) .
+                    $this->renderLineNumberColumn('new', $newLineNum) .
                     '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
@@ -181,15 +169,9 @@ final class SideBySide extends AbstractHtml
 
             $html .=
                 '<tr>' .
-                    ($this->options['lineNumbers'] ?
-                        '<th class="n-old">' . $oldLineNum . '</th>'
-                        : ''
-                    ) .
+                    $this->renderLineNumberColumn('old', $oldLineNum) .
                     '<td class="old">' . $oldLine . '</td>' .
-                    ($this->options['lineNumbers'] ?
-                        '<th></th>'
-                        : ''
-                    ) .
+                    $this->renderLineNumberColumn('', null) .
                     '<td class="new"></td>' .
                 '</tr>';
         }
@@ -220,15 +202,9 @@ final class SideBySide extends AbstractHtml
 
                 $html .=
                     '<tr>' .
-                        ($this->options['lineNumbers'] ?
-                            '<th class="n-old">' . $oldLineNum . '</th>'
-                            : ''
-                        ) .
+                        $this->renderLineNumberColumn('old', $oldLineNum) .
                         '<td class="old"><span>' . $oldLine . '</span></td>' .
-                        ($this->options['lineNumbers'] ?
-                            '<th class="n-new">' . $newLineNum . '</th>'
-                            : ''
-                        ) .
+                        $this->renderLineNumberColumn('new', $oldLineNum) .
                         '<td class="new">' . $newLine . '</td>' .
                     '</tr>';
             }
@@ -246,20 +222,31 @@ final class SideBySide extends AbstractHtml
 
                 $html .=
                     '<tr>' .
-                        ($this->options['lineNumbers'] ?
-                            '<th class="n-old">' . $oldLineNum . '</th>'
-                            : ''
-                        ) .
+                        $this->renderLineNumberColumn('old', $oldLineNum) .
                         '<td class="old"><span>' . $oldLine . '</span></td>' .
-                        ($this->options['lineNumbers'] ?
-                            '<th class="n-new">' . $newLineNum . '</th>'
-                            : ''
-                        ) .
+                        $this->renderLineNumberColumn('new', $newLineNum) .
                         '<td class="new">' . $newLine . '</td>' .
                     '</tr>';
             }
         }
 
         return $html;
+    }
+
+    /**
+     * Renderer the line number column.
+     *
+     * @param string   $type    The diff type
+     * @param null|int $lineNum The line number
+     */
+    protected function renderLineNumberColumn(string $type, ?int $lineNum): string
+    {
+        if (!$this->options['lineNumbers']) {
+            return '';
+        }
+
+        return isset($lineNum)
+            ? '<th class="n-' . $type . '">' . $lineNum . '</th>'
+            : '<th></th>';
     }
 }
