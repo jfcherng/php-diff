@@ -13,6 +13,8 @@ final class Char extends AbstractLineRenderer
 {
     /**
      * {@inheritdoc}
+     *
+     * @return static
      */
     public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
     {
