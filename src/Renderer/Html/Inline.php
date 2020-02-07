@@ -119,12 +119,10 @@ final class Inline extends AbstractHtml
         // the old and the new may not be exactly the same
         // because of ignoreCase, ignoreWhitespace, etc
         foreach ($change['old']['lines'] as $no => $oldLine) {
-            if ($this->options['lineNumbers']) {
-                // hmm... but this is a inline renderer
-                // we could only pick a line from the old or the new to show
-                $oldLineNum = $change['old']['offset'] + $no + 1;
-                $newLineNum = $change['new']['offset'] + $no + 1;
-            }
+            // hmm... but this is a inline renderer
+            // we could only pick a line from the old or the new to show
+            $oldLineNum = $change['old']['offset'] + $no + 1;
+            $newLineNum = $change['new']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="=">' .
@@ -151,9 +149,7 @@ final class Inline extends AbstractHtml
         $html = '';
 
         foreach ($change['new']['lines'] as $no => $newLine) {
-            if ($this->options['lineNumbers']) {
-                $newLineNum = $change['new']['offset'] + $no + 1;
-            }
+            $newLineNum = $change['new']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="+">' .
@@ -180,9 +176,7 @@ final class Inline extends AbstractHtml
         $html = '';
 
         foreach ($change['old']['lines'] as $no => $oldLine) {
-            if ($this->options['lineNumbers']) {
-                $oldLineNum = $change['old']['offset'] + $no + 1;
-            }
+            $oldLineNum = $change['old']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="-">' .
@@ -209,9 +203,7 @@ final class Inline extends AbstractHtml
         $html = '';
 
         foreach ($change['old']['lines'] as $no => $oldLine) {
-            if ($this->options['lineNumbers']) {
-                $oldLineNum = $change['old']['offset'] + $no + 1;
-            }
+            $oldLineNum = $change['old']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="-">' .
@@ -226,9 +218,7 @@ final class Inline extends AbstractHtml
         }
 
         foreach ($change['new']['lines'] as $no => $newLine) {
-            if ($this->options['lineNumbers']) {
-                $newLineNum = $change['new']['offset'] + $no + 1;
-            }
+            $newLineNum = $change['new']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="+">' .
