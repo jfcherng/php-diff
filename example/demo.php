@@ -211,7 +211,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         $jsonArray = \json_decode($jsonResult, true);
 
-        $htmlRenderer = RendererFactory::make('Inline');
+        $htmlRenderer = RendererFactory::make('Inline', $rendererOptions);
         $inlineResult = $htmlRenderer->renderArray($jsonArray);
 
         echo $inlineResult;
