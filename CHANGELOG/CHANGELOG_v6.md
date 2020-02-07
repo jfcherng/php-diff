@@ -1,6 +1,16 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.4** - Add renderer option: lineNumbers
+   * 2020-02-07 17:51  **6.4.0**  initial release
+      * 802a7cb Tidy codes
+      * 52045f3 Update documents
+      * 69f42a1 lineNumber option (#19)
+      * 1140ec2 Fix phan errors
+      * 10cc545 Fix documentation about rendering from JSON diff
+      * 4072992 Update deps
+      * 90a86e0 ++year
+
  * Version **6.3** - Render HTML with JSON result
    * 2020-01-16 13:00  **6.3.2**  Add French (fra) translation
       * 41d571f Add French language file
