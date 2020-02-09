@@ -116,16 +116,23 @@ final class SideBySide extends AbstractHtml
         foreach ($change['old']['lines'] as $no => $oldLine) {
             $newLine = $change['new']['lines'][$no];
 
-            $oldLineNum = $change['old']['offset'] + $no + 1;
-            $newLineNum = $change['new']['offset'] + $no + 1;
+            if ($this->options['lineNumbers']) {
+                $oldLineNum = $change['old']['offset'] + $no + 1;
+                $newLineNum = $change['new']['offset'] + $no + 1;
 
-            $html .=
-                '<tr>' .
-                    $this->renderLineNumberColumn('old', $oldLineNum) .
-                    '<td class="old">' . $oldLine . '</td>' .
-                    $this->renderLineNumberColumn('new', $newLineNum) .
-                    '<td class="new">' . $newLine . '</td>' .
-                '</tr>';
+                $html .=
+                    '<tr>' .
+                        $this->renderLineNumberColumn('old', $oldLineNum) .
+                        '<td class="old">' . $oldLine . '</td>' .
+                        $this->renderLineNumberColumn('new', $newLineNum) .
+                        '<td class="new">' . $newLine . '</td>' .
+                    '</tr>';
+            } else {
+                $html .=
+                    '<tr>' .
+                        '<td class="new" colspan="2">' . $newLine . '</td>' .
+                    '</tr>';
+            }
         }
 
         return $html;
@@ -141,15 +148,22 @@ final class SideBySide extends AbstractHtml
         $html = '';
 
         foreach ($change['new']['lines'] as $no => $newLine) {
-            $newLineNum = $change['new']['offset'] + $no + 1;
+            if ($this->options['lineNumbers']) {
+                $newLineNum = $change['new']['offset'] + $no + 1;
 
-            $html .=
-                '<tr>' .
-                    $this->renderLineNumberColumn('', null) .
-                    '<td class="old"></td>' .
-                    $this->renderLineNumberColumn('new', $newLineNum) .
-                    '<td class="new">' . $newLine . '</td>' .
-                '</tr>';
+                $html .=
+                    '<tr>' .
+                        $this->renderLineNumberColumn('', null) .
+                        '<td class="old"></td>' .
+                        $this->renderLineNumberColumn('new', $newLineNum) .
+                        '<td class="new">' . $newLine . '</td>' .
+                    '</tr>';
+            } else {
+                $html .=
+                    '<tr>' .
+                        '<td class="new" colspan="2">' . $newLine . '</td>' .
+                    '</tr>';
+            }
         }
 
         return $html;
@@ -165,15 +179,22 @@ final class SideBySide extends AbstractHtml
         $html = '';
 
         foreach ($change['old']['lines'] as $no => $oldLine) {
-            $oldLineNum = $change['old']['offset'] + $no + 1;
+            if ($this->options['lineNumbers']) {
+                $oldLineNum = $change['old']['offset'] + $no + 1;
 
-            $html .=
-                '<tr>' .
-                    $this->renderLineNumberColumn('old', $oldLineNum) .
-                    '<td class="old">' . $oldLine . '</td>' .
-                    $this->renderLineNumberColumn('', null) .
-                    '<td class="new"></td>' .
-                '</tr>';
+                $html .=
+                    '<tr>' .
+                        $this->renderLineNumberColumn('old', $oldLineNum) .
+                        '<td class="old">' . $oldLine . '</td>' .
+                        $this->renderLineNumberColumn('', null) .
+                        '<td class="new"></td>' .
+                    '</tr>';
+            } else {
+                $html .=
+                    '<tr>' .
+                        '<td class="old" colspan="2">' . $oldLine . '</td>' .
+                    '</tr>';
+            }
         }
 
         return $html;
