@@ -28,7 +28,7 @@ abstract class AbstractText extends AbstractRenderer
     /**
      * {@inheritdoc}
      */
-    public function renderArrayWoker(array $differArray): string
+    protected function renderArrayWorker(array $differArray): string
     {
         throw new UnsupportedFunctionException(__METHOD__);
 

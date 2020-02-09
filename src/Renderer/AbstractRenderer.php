@@ -139,7 +139,7 @@ abstract class AbstractRenderer implements RendererInterface
         // the "no difference" situation may happen frequently
         return $differ->getOldNewComparison() === 0
             ? $this->getResultForIdenticals()
-            : $this->renderWoker($differ);
+            : $this->renderWorker($differ);
     }
 
     /**
@@ -147,7 +147,7 @@ abstract class AbstractRenderer implements RendererInterface
      */
     final public function renderArray(array $differArray): string
     {
-        return $this->renderArrayWoker($differArray);
+        return $this->renderArrayWorker($differArray);
     }
 
     /**
@@ -155,14 +155,14 @@ abstract class AbstractRenderer implements RendererInterface
      *
      * @param Differ $differ the differ object
      */
-    abstract protected function renderWoker(Differ $differ): string;
+    abstract protected function renderWorker(Differ $differ): string;
 
     /**
      * The real worker for self::renderArray().
      *
      * @param array $differArray the differ array
      */
-    abstract protected function renderArrayWoker(array $differArray): string;
+    abstract protected function renderArrayWorker(array $differArray): string;
 
     /**
      * Update the Language object.

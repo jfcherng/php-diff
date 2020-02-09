@@ -35,7 +35,7 @@ final class Context extends AbstractText
     /**
      * {@inheritdoc}
      */
-    protected function renderWoker(Differ $differ): string
+    protected function renderWorker(Differ $differ): string
     {
         $ret = '';
 

@@ -41,7 +41,7 @@ there is no breaking change for you so you do not have to do anything.
   two strings are the same. `AbstractRenderer::getResultForIdenticals()`
   returns an empty string by default.
 
-- Now a `Renderer` should implement `protected function renderWoker(Differ $differ): string`
+- Now a `Renderer` should implement `protected function renderWorker(Differ $differ): string`
   rather than the previous `public function render(): string`. Note that
   `$this->diff` no longer works in `Renderer`s as it is now injected as a
-  parameter to `Renderer::renderWoker()`.
+  parameter to `Renderer::renderWorker()`.

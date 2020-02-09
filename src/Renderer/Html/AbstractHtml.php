@@ -130,7 +130,7 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * {@inheritdoc}
      */
-    protected function renderWoker(Differ $differ): string
+    protected function renderWorker(Differ $differ): string
     {
         return $this->redererChanges($this->getChanges($differ));
     }
@@ -138,7 +138,7 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * {@inheritdoc}
      */
-    protected function renderArrayWoker(array $differArray): string
+    protected function renderArrayWorker(array $differArray): string
     {
         return $this->redererChanges($this->ensureChangesUseIntTag($differArray));
     }
