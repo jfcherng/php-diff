@@ -2,6 +2,8 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.4** - Add renderer option: lineNumbers
+   * 2020-02-09 18:27  **6.4.2**  Fix SidebySide fatal error
+      * 4e74cc5 Fix SideBySide renderer fatal error
    * 2020-02-09 17:43  **6.4.1**  Fix typo
       * f2afe14 Fix typo: Woker -> Worker
    * 2020-02-07 17:51  **6.4.0**  initial release
