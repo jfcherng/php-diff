@@ -2,6 +2,8 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.4** - Add renderer option: lineNumbers
+   * 2020-02-10 05:40  **6.4.3**  Better SideBySide output without line numbers
+      * 067c715 Merge SideBySide insert/delete columns when lineNumbers is false
    * 2020-02-09 18:27  **6.4.2**  Fix SidebySide fatal error
       * 4e74cc5 Fix SideBySide renderer fatal error
    * 2020-02-09 17:43  **6.4.1**  Fix typo
