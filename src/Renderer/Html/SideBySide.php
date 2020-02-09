@@ -196,7 +196,7 @@ final class SideBySide extends AbstractHtml
                     $newLineNum = $change['old']['offset'] + $no + 1;
                     $newLine = '<span>' . $change['new']['lines'][$no] . '</span>';
                 } else {
-                    $newLineNum = '';
+                    $newLineNum = null;
                     $newLine = '';
                 }
 
@@ -216,7 +216,7 @@ final class SideBySide extends AbstractHtml
                     $oldLineNum = $change['old']['offset'] + $no + 1;
                     $oldLine = '<span>' . $change['old']['lines'][$no] . '</span>';
                 } else {
-                    $oldLineNum = '';
+                    $oldLineNum = null;
                     $oldLine = '';
                 }
 
