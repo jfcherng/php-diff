@@ -91,9 +91,10 @@ $rendererOptions = [
     'spacesToNbsp' => false,
     // HTML renderer tab width (negative = do not convert into spaces)
     'tabSize' => 4,
+    // this option is currently only for the Json renderer.
     // internally, ops (tags) are all int type but this is not good for human reading.
     // set this to "true" to convert them into string form before outputting.
-    'outputTagAsString' => true,
+    'outputTagAsString' => false,
     // change this value to a string as the returned diff if the two input strings are identical
     'resultForIdenticals' => null,
     // extra HTML classes added to the DOM of the diff container
