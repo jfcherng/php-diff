@@ -209,46 +209,32 @@ final class SideBySide extends AbstractHtml
     {
         $html = '';
 
-        if (\count($change['old']['lines']) >= \count($change['new']['lines'])) {
-            foreach ($change['old']['lines'] as $no => $oldLine) {
+        $lineCountMax = \max(\count($change['old']['lines']), \count($change['new']['lines']));
+
+        for ($no = 0; $no < $lineCountMax; ++$no) {
+            if (isset($change['old']['lines'][$no])) {
                 $oldLineNum = $change['old']['offset'] + $no + 1;
-
-                if (isset($change['new']['lines'][$no])) {
-                    $newLineNum = $change['new']['offset'] + $no + 1;
-                    $newLine = '<span>' . $change['new']['lines'][$no] . '</span>';
-                } else {
-                    $newLineNum = null;
-                    $newLine = '';
-                }
-
-                $html .=
-                    '<tr>' .
-                        $this->renderLineNumberColumn('old', $oldLineNum) .
-                        '<td class="old"><span>' . $oldLine . '</span></td>' .
-                        $this->renderLineNumberColumn('new', $newLineNum) .
-                        '<td class="new">' . $newLine . '</td>' .
-                    '</tr>';
+                $oldLine = $change['old']['lines'][$no];
+            } else {
+                $oldLineNum = null;
+                $oldLine = '';
             }
-        } else {
-            foreach ($change['new']['lines'] as $no => $newLine) {
+
+            if (isset($change['new']['lines'][$no])) {
                 $newLineNum = $change['new']['offset'] + $no + 1;
-
-                if (isset($change['old']['lines'][$no])) {
-                    $oldLineNum = $change['old']['offset'] + $no + 1;
-                    $oldLine = '<span>' . $change['old']['lines'][$no] . '</span>';
-                } else {
-                    $oldLineNum = null;
-                    $oldLine = '';
-                }
-
-                $html .=
-                    '<tr>' .
-                        $this->renderLineNumberColumn('old', $oldLineNum) .
-                        '<td class="old"><span>' . $oldLine . '</span></td>' .
-                        $this->renderLineNumberColumn('new', $newLineNum) .
-                        '<td class="new">' . $newLine . '</td>' .
-                    '</tr>';
+                $newLine = $change['new']['lines'][$no];
+            } else {
+                $newLineNum = null;
+                $newLine = '';
             }
+
+            $html .=
+                '<tr>' .
+                    $this->renderLineNumberColumn('old', $oldLineNum) .
+                    '<td class="old">' . $oldLine . '</td>' .
+                    $this->renderLineNumberColumn('new', $newLineNum) .
+                    '<td class="new">' . $newLine . '</td>' .
+                '</tr>';
         }
 
         return $html;
