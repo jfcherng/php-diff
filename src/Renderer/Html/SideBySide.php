@@ -214,7 +214,7 @@ final class SideBySide extends AbstractHtml
                 $oldLineNum = $change['old']['offset'] + $no + 1;
 
                 if (isset($change['new']['lines'][$no])) {
-                    $newLineNum = $change['old']['offset'] + $no + 1;
+                    $newLineNum = $change['new']['offset'] + $no + 1;
                     $newLine = '<span>' . $change['new']['lines'][$no] . '</span>';
                 } else {
                     $newLineNum = null;
@@ -225,7 +225,7 @@ final class SideBySide extends AbstractHtml
                     '<tr>' .
                         $this->renderLineNumberColumn('old', $oldLineNum) .
                         '<td class="old"><span>' . $oldLine . '</span></td>' .
-                        $this->renderLineNumberColumn('new', $oldLineNum) .
+                        $this->renderLineNumberColumn('new', $newLineNum) .
                         '<td class="new">' . $newLine . '</td>' .
                     '</tr>';
             }
