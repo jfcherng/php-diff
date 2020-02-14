@@ -209,15 +209,14 @@ final class Combined extends AbstractHtml
 
             $mergeDiffs = $this->mergeDiffs($newLine, $oldLine);
 
-            if ($mergeDiffs != '')
-            {
-              $html .=
+            if ($mergeDiffs != '') {
+                $html .=
                 '<tr>' .
                   $this->renderLineNumberColumns($oldLineNum, $newLineNum) .
                   '<td class="rep">' . $mergeDiffs . '</td>' .
                 '</tr>';
             } else {
-              $html .=
+                $html .=
                 (isset($oldLineNum)
                   ?
                     '<tr>' .
@@ -294,24 +293,23 @@ final class Combined extends AbstractHtml
 
         // can they not be equal, though?
         // if not, we can check $oldParts with strpos
-        if(!empty($newParts) && !empty($oldParts) &&
+        if (!empty($newParts) && !empty($oldParts) &&
               (count($newParts) == count($oldParts))) {
+            $offset = 0;
 
-          $offset = 0;
+            return preg_replace_callback(
+                '/' . preg_quote(RendererConstant::HTML_CLOSURES_DEL[1], '/') . '/',
+                function ($match) use ($newParts, &$offset) {
+                      $replaceWith =
+                      RendererConstant::HTML_CLOSURES_DEL[1] .
+                      RendererConstant::HTML_CLOSURES_INS[0] .
+                      $newParts[$offset++] .
+                      RendererConstant::HTML_CLOSURES_INS[1];
 
-          return preg_replace_callback(
-              '/' . preg_quote(RendererConstant::HTML_CLOSURES_DEL[1], '/') . '/',
-              function($match) use($newParts, &$offset)
-              {
-                $replaceWith =
-                  RendererConstant::HTML_CLOSURES_DEL[1] .
-                  RendererConstant::HTML_CLOSURES_INS[0] .
-                  $newParts[$offset++] .
-                  RendererConstant::HTML_CLOSURES_INS[1];
-
-                return $replaceWith;
-              }, $oldLine
-          );
+                      return $replaceWith;
+                },
+                $oldLine
+            );
         }
 
         return '';
@@ -326,12 +324,11 @@ final class Combined extends AbstractHtml
      * @param string $rightDelim Right delimiter
      * @param string $line Line
      */
-     protected function getPartsByClosures(
-         string $leftDelim,
-         string $rightDelim,
-         string $line
-     ): array
-     {
+    protected function getPartsByClosures(
+        string $leftDelim,
+        string $rightDelim,
+        string $line
+    ): array {
         $contents = [];
         $leftDelimLength = \strlen($leftDelim);
         $rightDelimLength = \strlen($rightDelim);
@@ -342,7 +339,7 @@ final class Combined extends AbstractHtml
             $contentEnd = \strpos($line, $rightDelim, $contentStart);
 
             if ($contentEnd === false) {
-              break;
+                break;
             }
 
             $contents[] =
