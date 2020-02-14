@@ -293,8 +293,8 @@ final class Combined extends AbstractHtml
 
         // can they not be equal, though?
         // if not, we can check $oldParts with strpos
-        if (!empty($newParts) && !empty($oldParts) &&
-              (count($newParts) == count($oldParts))) {
+        if (!empty($newParts) && !empty($oldParts) && (count($newParts) == count($oldParts))
+        ) {
             $offset = 0;
 
             return preg_replace_callback(
@@ -320,9 +320,9 @@ final class Combined extends AbstractHtml
      * This one is adapted from:
      * https://stackoverflow.com/a/27078384/12866913
      *
-     * @param string $leftDelim Left delimiter
+     * @param string $leftDelim  Left delimiter
      * @param string $rightDelim Right delimiter
-     * @param string $line Line
+     * @param string $line       Line
      */
     protected function getPartsByClosures(
         string $leftDelim,
