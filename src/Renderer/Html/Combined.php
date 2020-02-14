@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html;
 
-use Jfcherng\Diff\SequenceMatcher;
 use Jfcherng\Diff\Renderer\RendererConstant;
+use Jfcherng\Diff\SequenceMatcher;
 
 /**
- * Combined HTML diff generator
+ * Combined HTML diff generator.
  */
 final class Combined extends AbstractHtml
 {
@@ -77,7 +77,7 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableSeparateBlock(): string
     {
-        $colspan = $this->options['lineNumbers'] ? '3' : '';
+        $colspan = $this->options['lineNumbers'] ? ' colspan="3"' : '';
 
         return
             '<tbody class="skipped">' .
@@ -209,44 +209,45 @@ final class Combined extends AbstractHtml
 
             $mergeDiffs = $this->mergeDiffs($newLine, $oldLine);
 
-            if ($mergeDiffs != '') {
+            if ($mergeDiffs !== '') {
                 $html .=
-                '<tr>' .
-                  $this->renderLineNumberColumns($oldLineNum, $newLineNum) .
-                  '<td class="rep">' . $mergeDiffs . '</td>' .
-                '</tr>';
+                    '<tr>' .
+                        $this->renderLineNumberColumns($oldLineNum, $newLineNum) .
+                        '<td class="rep">' . $mergeDiffs . '</td>' .
+                    '</tr>';
             } else {
                 $html .=
-                (isset($oldLineNum)
-                  ?
-                    '<tr>' .
-                      $this->renderLineNumberColumns($oldLineNum, null) .
-                      '<td class="old">' . $oldLine . '</td>' .
-                    '</tr>'
-                  : ''
+                (
+                    isset($oldLineNum)
+                    ?
+                        '<tr>' .
+                            $this->renderLineNumberColumns($oldLineNum, null) .
+                            '<td class="old">' . $oldLine . '</td>' .
+                        '</tr>'
+                    :
+                        ''
                 ) .
-                (isset($newLineNum)
-                  ?
-                    '<tr>' .
-                      $this->renderLineNumberColumns(null, $newLineNum) .
-                      '<td class="new">' . $newLine . '</td>' .
-                    '</tr>'
-                  : ''
+                (
+                    isset($newLineNum)
+                    ?
+                        '<tr>' .
+                            $this->renderLineNumberColumns(null, $newLineNum) .
+                            '<td class="new">' . $newLine . '</td>' .
+                        '</tr>'
+                    :
+                        ''
                 );
             }
         }
 
         return $html;
-
-
-        $html = '';
     }
 
     /**
      * Renderer the line number columns.
      *
-     * @param null|int $oldLineNum The old line number
-     * @param null|int $newLineNum The new line number
+     * @param null|int $oldLineNum the old line number
+     * @param null|int $newLineNum the new line number
      */
     protected function renderLineNumberColumns(?int $oldLineNum, ?int $newLineNum): string
     {
@@ -274,8 +275,8 @@ final class Combined extends AbstractHtml
      * Replaces <del>oldPart</del> with
      * <del>oldPart</del><ins>newPart</ins>
      *
-     * @param string $newLine New line
-     * @param string $oldLine Old line
+     * @param string $newLine the new line
+     * @param string $oldLine the old line
      */
     protected function mergeDiffs(string $newLine, string $oldLine): string
     {
@@ -293,19 +294,21 @@ final class Combined extends AbstractHtml
 
         // can they not be equal, though?
         // if not, we can check $oldParts with strpos
-        if ((count($newParts) == count($oldParts)) && !empty($newParts) && !empty($oldParts)) {
+        if (
+            \count($newParts) === \count($oldParts)
+            && !empty($newParts)
+            && !empty($oldParts)
+        ) {
             $offset = 0;
 
-            return preg_replace_callback(
-                '/' . preg_quote(RendererConstant::HTML_CLOSURES_DEL[1], '/') . '/',
-                function ($match) use ($newParts, &$offset) {
-                      $replaceWith =
-                      RendererConstant::HTML_CLOSURES_DEL[1] .
-                      RendererConstant::HTML_CLOSURES_INS[0] .
-                      $newParts[$offset++] .
-                      RendererConstant::HTML_CLOSURES_INS[1];
-
-                      return $replaceWith;
+            return \preg_replace_callback(
+                '/' . \preg_quote(RendererConstant::HTML_CLOSURES_DEL[1], '/') . '/',
+                function (array $match) use ($newParts, &$offset): string {
+                    return
+                        RendererConstant::HTML_CLOSURES_DEL[1] .
+                        RendererConstant::HTML_CLOSURES_INS[0] .
+                        $newParts[$offset++] .
+                        RendererConstant::HTML_CLOSURES_INS[1];
                 },
                 $oldLine
             );
@@ -315,13 +318,13 @@ final class Combined extends AbstractHtml
     }
 
     /**
-     * Get the parts of the line
-     * This one is adapted from:
-     * https://stackoverflow.com/a/27078384/12866913
+     * Get the parts of the line.
      *
-     * @param string $leftDelim  Left delimiter
-     * @param string $rightDelim Right delimiter
-     * @param string $line       Line
+     * @param string $leftDelim  the left delimiter
+     * @param string $rightDelim the right delimiter
+     * @param string $line       the line
+     *
+     * @see https://stackoverflow.com/a/27078384/12866913
      */
     protected function getPartsByClosures(
         string $leftDelim,
@@ -341,12 +344,7 @@ final class Combined extends AbstractHtml
                 break;
             }
 
-            $contents[] =
-                \substr(
-                    $line,
-                    $contentStart,
-                    $contentEnd - $contentStart
-                );
+            $contents[] = \substr($line, $contentStart, $contentEnd - $contentStart);
 
             $startFrom = $contentEnd + $rightDelimLength;
         }

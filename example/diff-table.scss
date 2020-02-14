@@ -10,6 +10,7 @@
 
   $bg-color-insert-base: #8e8;
   $bg-color-delete-base: #e88;
+  $bg-color-replace-base: #fbdb65;
 
   $op-highlight-ratio: 90%;
   $op-normal-ratio: 25%;
@@ -21,6 +22,7 @@
   // colors for operation rows
   $bg-color-insert: mix($bg-color-insert-base, $bg-color, $op-normal-ratio);
   $bg-color-delete: mix($bg-color-delete-base, $bg-color, $op-normal-ratio);
+  $bg-color-replace: mix($bg-color-replace-base, $bg-color, $op-normal-ratio);
 
   $table-head-color: mix($bg-color, $text-color, 65%);
   $table-sidebar-color: mix($bg-color, $text-color, 80%);
@@ -114,6 +116,10 @@
 
       .new {
         background: $bg-color-insert;
+      }
+
+      .rep {
+        background: $bg-color-replace;
       }
 
       ins,

@@ -77,6 +77,9 @@
 .diff-wrapper.diff.diff-html .change .new {
   background: #e1fbe1;
 }
+.diff-wrapper.diff.diff-html .change .rep {
+  background: #fef6d9;
+}
 .diff-wrapper.diff.diff-html .change ins,
 .diff-wrapper.diff.diff-html .change del {
   font-weight: 700;
