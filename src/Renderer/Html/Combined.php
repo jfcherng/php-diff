@@ -293,8 +293,7 @@ final class Combined extends AbstractHtml
 
         // can they not be equal, though?
         // if not, we can check $oldParts with strpos
-        if (!empty($newParts) && !empty($oldParts) && (count($newParts) == count($oldParts))
-        ) {
+        if ((count($newParts) == count($oldParts)) && !empty($newParts) && !empty($oldParts)) {
             $offset = 0;
 
             return preg_replace_callback(
