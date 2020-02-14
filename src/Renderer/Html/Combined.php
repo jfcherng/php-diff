@@ -318,13 +318,13 @@ final class Combined extends AbstractHtml
     }
 
     /**
-     * Get new parts of line with </del><ins></ins> closures.
+     * Get the parts of the line
      * This one is adapted from:
      * https://stackoverflow.com/a/27078384/12866913
      *
-     * @param string $line Line
      * @param string $leftDelim Left delimiter
      * @param string $rightDelim Right delimiter
+     * @param string $line Line
      */
      protected function getPartsByClosures(
          string $leftDelim,
