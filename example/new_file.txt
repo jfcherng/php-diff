@@ -3,10 +3,18 @@
 Let's add a new line here.
 X
 Y
-I am the context separator.
+Just a context separator. 1
 M
 N
 Do you know in Japanese, "魚の缶詰" means fish can.
 	  	Tab visulization test.
 G
 Say hello to my neighbors.
+A
+Just a context separator. 2
+B
+Donec rutrum test.
+There is a new inserted line.
+C
+gravida aliquet test.
+Sed dictum test.
