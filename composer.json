@@ -44,6 +44,10 @@
             "phan --color",
             "phpcs --colors -n"
         ],
+        "example": [
+            "Composer\\Config::disableProcessTimeout",
+            "@php -S localhost:12388 -t example/"
+        ],
         "fix": [
             "php-cs-fixer fix --verbose"
         ],
