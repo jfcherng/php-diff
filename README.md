@@ -45,7 +45,7 @@ composer require jfcherng/php-diff
 
 ## Example
 
-See [example/demo.php](https://github.com/jfcherng/php-diff/blob/v6/example/demo.php) and files under `tests/`.
+See `demo.php` in the [example/](https://github.com/jfcherng/php-diff/blob/v6/example) and files under `tests/`.
 
 ```php
 <?php
