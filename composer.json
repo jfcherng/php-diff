@@ -3,6 +3,12 @@
     "description": "A comprehensive library for generating differences between two strings in multiple formats (unified, side by side HTML etc).",
     "type": "library",
     "license": "BSD-3-Clause",
+    "keywords": [
+        "diff",
+        "udiff",
+        "unidiff",
+        "unified diff"
+    ],
     "minimum-stability": "beta",
     "prefer-stable": true,
     "authors": [
