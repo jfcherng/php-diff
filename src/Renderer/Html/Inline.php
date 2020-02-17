@@ -33,21 +33,11 @@ final class Inline extends AbstractHtml
             ['diff', 'diff-html', 'diff-inline']
         );
 
-        $html = '<table class="' . \implode(' ', $wrapperClasses) . '">';
-
-        $html .= $this->renderTableHeader();
-
-        foreach ($changes as $i => $blocks) {
-            if ($i > 0 && $this->options['separateBlock']) {
-                $html .= $this->renderTableSeparateBlock();
-            }
-
-            foreach ($blocks as $change) {
-                $html .= $this->renderTableBlock($change);
-            }
-        }
-
-        return $html . '</table>';
+        return
+            '<table class="' . \implode(' ', $wrapperClasses) . '">' .
+                $this->renderTableHeader() .
+                $this->renderTableHunks($changes) .
+            '</table>';
     }
 
     /**
@@ -90,48 +80,70 @@ final class Inline extends AbstractHtml
     }
 
     /**
+     * Renderer table hunks.
+     *
+     * @param array $hunks each hunk has many blocks
+     */
+    protected function renderTableHunks(array $hunks): string
+    {
+        $html = '';
+
+        foreach ($hunks as $i => $hunk) {
+            if ($i > 0 && $this->options['separateBlock']) {
+                $html .= $this->renderTableSeparateBlock();
+            }
+
+            foreach ($hunk as $block) {
+                $html .= $this->renderTableBlock($block);
+            }
+        }
+
+        return $html;
+    }
+
+    /**
      * Renderer the table block.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableBlock(array $change): string
+    protected function renderTableBlock(array $block): string
     {
         static $callbacks = [
-            SequenceMatcher::OP_EQ => 'renderTableEqual',
-            SequenceMatcher::OP_INS => 'renderTableInsert',
-            SequenceMatcher::OP_DEL => 'renderTableDelete',
-            SequenceMatcher::OP_REP => 'renderTableReplace',
+            SequenceMatcher::OP_EQ => 'renderTableBlockEqual',
+            SequenceMatcher::OP_INS => 'renderTableBlockInsert',
+            SequenceMatcher::OP_DEL => 'renderTableBlockDelete',
+            SequenceMatcher::OP_REP => 'renderTableBlockReplace',
         ];
 
         return
-            '<tbody class="change change-' . self::TAG_CLASS_MAP[$change['tag']] . '">' .
-                $this->{$callbacks[$change['tag']]}($change) .
+            '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' .
+                $this->{$callbacks[$block['tag']]}($block) .
             '</tbody>';
     }
 
     /**
      * Renderer the table block: equal.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableEqual(array $change): string
+    protected function renderTableBlockEqual(array $block): string
     {
         $html = '';
 
         // note that although we are in a OP_EQ situation,
         // the old and the new may not be exactly the same
         // because of ignoreCase, ignoreWhitespace, etc
-        foreach ($change['old']['lines'] as $no => $oldLine) {
-            // hmm... but this is a inline renderer
-            // we could only pick a line from the old or the new to show
-            $oldLineNum = $change['old']['offset'] + $no + 1;
-            $newLineNum = $change['new']['offset'] + $no + 1;
+        foreach ($block['new']['lines'] as $no => $newLine) {
+            // hmm... but there is only space for one line
+            // we could only pick either the old or the new to show
+            $oldLineNum = $block['old']['offset'] + $no + 1;
+            $newLineNum = $block['new']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="=">' .
                     $this->renderLineNumberColumns($oldLineNum, $newLineNum) .
                     '<th class="sign"></th>' .
-                    '<td class="old">' . $oldLine . '</td>' .
+                    '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
 
@@ -141,14 +153,14 @@ final class Inline extends AbstractHtml
     /**
      * Renderer the table block: insert.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableInsert(array $change): string
+    protected function renderTableBlockInsert(array $block): string
     {
         $html = '';
 
-        foreach ($change['new']['lines'] as $no => $newLine) {
-            $newLineNum = $change['new']['offset'] + $no + 1;
+        foreach ($block['new']['lines'] as $no => $newLine) {
+            $newLineNum = $block['new']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="+">' .
@@ -164,14 +176,14 @@ final class Inline extends AbstractHtml
     /**
      * Renderer the table block: delete.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableDelete(array $change): string
+    protected function renderTableBlockDelete(array $block): string
     {
         $html = '';
 
-        foreach ($change['old']['lines'] as $no => $oldLine) {
-            $oldLineNum = $change['old']['offset'] + $no + 1;
+        foreach ($block['old']['lines'] as $no => $oldLine) {
+            $oldLineNum = $block['old']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="-">' .
@@ -187,14 +199,14 @@ final class Inline extends AbstractHtml
     /**
      * Renderer the table block: replace.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableReplace(array $change): string
+    protected function renderTableBlockReplace(array $block): string
     {
         $html = '';
 
-        foreach ($change['old']['lines'] as $no => $oldLine) {
-            $oldLineNum = $change['old']['offset'] + $no + 1;
+        foreach ($block['old']['lines'] as $no => $oldLine) {
+            $oldLineNum = $block['old']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="-">' .
@@ -204,8 +216,8 @@ final class Inline extends AbstractHtml
                 '</tr>';
         }
 
-        foreach ($change['new']['lines'] as $no => $newLine) {
-            $newLineNum = $change['new']['offset'] + $no + 1;
+        foreach ($block['new']['lines'] as $no => $newLine) {
+            $newLineNum = $block['new']['offset'] + $no + 1;
 
             $html .=
                 '<tr data-type="+">' .

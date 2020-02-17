@@ -41,7 +41,7 @@ final class Unified extends AbstractText
                 $i1 = $i2 = -1;
             }
 
-            $ret .= $this->renderBlockHeader($i1 + 1, $i2 - $i1, $j1 + 1, $j2 - $j1);
+            $ret .= $this->renderHunkHeader($i1 + 1, $i2 - $i1, $j1 + 1, $j2 - $j1);
 
             foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
                 if ($tag === SequenceMatcher::OP_EQ) {
@@ -71,7 +71,7 @@ final class Unified extends AbstractText
      * @param int $b1 the b1
      * @param int $b2 the b2
      */
-    protected function renderBlockHeader(int $a1, int $a2, int $b1, int $b2): string
+    protected function renderHunkHeader(int $a1, int $a2, int $b1, int $b2): string
     {
         return "@@ -{$a1},{$a2} +{$b1},{$b2} @@\n";
     }

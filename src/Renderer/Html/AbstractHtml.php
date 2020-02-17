@@ -47,7 +47,7 @@ abstract class AbstractHtml extends AbstractRenderer
      *
      * @param Differ $differ the differ object
      *
-     * @return array an array of the generated changes, suitable for presentation in HTML
+     * @return array generated changes, suitable for presentation in HTML
      */
     public function getChanges(Differ $differ): array
     {
@@ -60,10 +60,10 @@ abstract class AbstractHtml extends AbstractRenderer
         $old = $differ->getOld();
         $new = $differ->getNew();
 
-        $changes = [];
+        $hunks = [];
 
         foreach ($differ->getGroupedOpcodes() as $opcodes) {
-            $blocks = [];
+            $hunk = [];
             $lastTag = SequenceMatcher::OP_NOP;
             $lastBlock = 0;
 
@@ -78,8 +78,8 @@ abstract class AbstractHtml extends AbstractRenderer
                 }
 
                 if ($tag !== $lastTag) {
-                    $blocks[] = $this->getDefaultBlock($tag, $i1, $j1);
-                    $lastBlock = \count($blocks) - 1;
+                    $hunk[] = $this->getDefaultBlock($tag, $i1, $j1);
+                    $lastBlock = \count($hunk) - 1;
                 }
 
                 $lastTag = $tag;
@@ -89,9 +89,9 @@ abstract class AbstractHtml extends AbstractRenderer
                     // the old and the new may not be exactly the same
                     // because of ignoreCase, ignoreWhitespace, etc
                     $lines = \array_slice($old, $i1, $i2 - $i1);
-                    $blocks[$lastBlock]['old']['lines'] += $this->formatLines($lines);
+                    $hunk[$lastBlock]['old']['lines'] += $this->formatLines($lines);
                     $lines = \array_slice($new, $j1, $j2 - $j1);
-                    $blocks[$lastBlock]['new']['lines'] += $this->formatLines($lines);
+                    $hunk[$lastBlock]['new']['lines'] += $this->formatLines($lines);
 
                     continue;
                 }
@@ -105,7 +105,7 @@ abstract class AbstractHtml extends AbstractRenderer
                         $lines
                     );
 
-                    $blocks[$lastBlock]['old']['lines'] += $lines;
+                    $hunk[$lastBlock]['old']['lines'] += $lines;
                 }
 
                 if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
@@ -117,14 +117,14 @@ abstract class AbstractHtml extends AbstractRenderer
                         $lines
                     );
 
-                    $blocks[$lastBlock]['new']['lines'] += $lines;
+                    $hunk[$lastBlock]['new']['lines'] += $lines;
                 }
             }
 
-            $changes[] = $blocks;
+            $hunks[] = $hunk;
         }
 
-        return $changes;
+        return $hunks;
     }
 
     /**
@@ -219,10 +219,12 @@ abstract class AbstractHtml extends AbstractRenderer
          */
         return \explode(
             RendererConstant::IMPLODE_DELIMITER,
-            $this->formatStringFromLines(\implode(
-                RendererConstant::IMPLODE_DELIMITER,
-                $lines
-            ))
+            $this->formatStringFromLines(
+                \implode(
+                    RendererConstant::IMPLODE_DELIMITER,
+                    $lines
+                )
+            )
         );
     }
 

@@ -33,21 +33,11 @@ final class SideBySide extends AbstractHtml
             ['diff', 'diff-html', 'diff-side-by-side']
         );
 
-        $html = '<table class="' . \implode(' ', $wrapperClasses) . '">';
-
-        $html .= $this->renderTableHeader();
-
-        foreach ($changes as $i => $blocks) {
-            if ($i > 0 && $this->options['separateBlock']) {
-                $html .= $this->renderTableSeparateBlock();
-            }
-
-            foreach ($blocks as $change) {
-                $html .= $this->renderTableBlock($change);
-            }
-        }
-
-        return $html . '</table>';
+        return
+            '<table class="' . \implode(' ', $wrapperClasses) . '">' .
+                $this->renderTableHeader() .
+                $this->renderTableHunks($changes) .
+            '</table>';
     }
 
     /**
@@ -82,43 +72,65 @@ final class SideBySide extends AbstractHtml
     }
 
     /**
+     * Renderer table hunks.
+     *
+     * @param array $hunks each hunk has many blocks
+     */
+    protected function renderTableHunks(array $hunks): string
+    {
+        $html = '';
+
+        foreach ($hunks as $i => $hunk) {
+            if ($i > 0 && $this->options['separateBlock']) {
+                $html .= $this->renderTableSeparateBlock();
+            }
+
+            foreach ($hunk as $block) {
+                $html .= $this->renderTableBlock($block);
+            }
+        }
+
+        return $html;
+    }
+
+    /**
      * Renderer the table block.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableBlock(array $change): string
+    protected function renderTableBlock(array $block): string
     {
         static $callbacks = [
-            SequenceMatcher::OP_EQ => 'renderTableEqual',
-            SequenceMatcher::OP_INS => 'renderTableInsert',
-            SequenceMatcher::OP_DEL => 'renderTableDelete',
-            SequenceMatcher::OP_REP => 'renderTableReplace',
+            SequenceMatcher::OP_EQ => 'renderTableBlockEqual',
+            SequenceMatcher::OP_INS => 'renderTableBlockInsert',
+            SequenceMatcher::OP_DEL => 'renderTableBlockDelete',
+            SequenceMatcher::OP_REP => 'renderTableBlockReplace',
         ];
 
         return
-            '<tbody class="change change-' . self::TAG_CLASS_MAP[$change['tag']] . '">' .
-                $this->{$callbacks[$change['tag']]}($change) .
+            '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' .
+                $this->{$callbacks[$block['tag']]}($block) .
             '</tbody>';
     }
 
     /**
      * Renderer the table block: equal.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableEqual(array $change): string
+    protected function renderTableBlockEqual(array $block): string
     {
         $html = '';
 
         // note that although we are in a OP_EQ situation,
         // the old and the new may not be exactly the same
         // because of ignoreCase, ignoreWhitespace, etc
-        foreach ($change['old']['lines'] as $no => $oldLine) {
-            $newLine = $change['new']['lines'][$no];
-
+        foreach ($block['new']['lines'] as $no => $newLine) {
             if ($this->options['lineNumbers']) {
-                $oldLineNum = $change['old']['offset'] + $no + 1;
-                $newLineNum = $change['new']['offset'] + $no + 1;
+                $oldLine = $block['old']['lines'][$no];
+
+                $oldLineNum = $block['old']['offset'] + $no + 1;
+                $newLineNum = $block['new']['offset'] + $no + 1;
 
                 $html .=
                     '<tr>' .
@@ -128,6 +140,8 @@ final class SideBySide extends AbstractHtml
                         '<td class="new">' . $newLine . '</td>' .
                     '</tr>';
             } else {
+                // hmm... but there is only space for one line
+                // we could only pick either the old or the new to show
                 $html .=
                     '<tr>' .
                         '<td class="new" colspan="2">' . $newLine . '</td>' .
@@ -141,15 +155,15 @@ final class SideBySide extends AbstractHtml
     /**
      * Renderer the table block: insert.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableInsert(array $change): string
+    protected function renderTableBlockInsert(array $block): string
     {
         $html = '';
 
-        foreach ($change['new']['lines'] as $no => $newLine) {
+        foreach ($block['new']['lines'] as $no => $newLine) {
             if ($this->options['lineNumbers']) {
-                $newLineNum = $change['new']['offset'] + $no + 1;
+                $newLineNum = $block['new']['offset'] + $no + 1;
 
                 $html .=
                     '<tr>' .
@@ -172,15 +186,15 @@ final class SideBySide extends AbstractHtml
     /**
      * Renderer the table block: delete.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableDelete(array $change): string
+    protected function renderTableBlockDelete(array $block): string
     {
         $html = '';
 
-        foreach ($change['old']['lines'] as $no => $oldLine) {
+        foreach ($block['old']['lines'] as $no => $oldLine) {
             if ($this->options['lineNumbers']) {
-                $oldLineNum = $change['old']['offset'] + $no + 1;
+                $oldLineNum = $block['old']['offset'] + $no + 1;
 
                 $html .=
                     '<tr>' .
@@ -203,26 +217,26 @@ final class SideBySide extends AbstractHtml
     /**
      * Renderer the table block: replace.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableReplace(array $change): string
+    protected function renderTableBlockReplace(array $block): string
     {
         $html = '';
 
-        $lineCountMax = \max(\count($change['old']['lines']), \count($change['new']['lines']));
+        $lineCountMax = \max(\count($block['old']['lines']), \count($block['new']['lines']));
 
         for ($no = 0; $no < $lineCountMax; ++$no) {
-            if (isset($change['old']['lines'][$no])) {
-                $oldLineNum = $change['old']['offset'] + $no + 1;
-                $oldLine = $change['old']['lines'][$no];
+            if (isset($block['old']['lines'][$no])) {
+                $oldLineNum = $block['old']['offset'] + $no + 1;
+                $oldLine = $block['old']['lines'][$no];
             } else {
                 $oldLineNum = null;
                 $oldLine = '';
             }
 
-            if (isset($change['new']['lines'][$no])) {
-                $newLineNum = $change['new']['offset'] + $no + 1;
-                $newLine = $change['new']['lines'][$no];
+            if (isset($block['new']['lines'][$no])) {
+                $newLineNum = $block['new']['offset'] + $no + 1;
+                $newLine = $block['new']['lines'][$no];
             } else {
                 $newLineNum = null;
                 $newLine = '';
