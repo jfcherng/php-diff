@@ -26,6 +26,10 @@
   $table-sidebar-color: mix($bg-color, $text-color, 80%);
   $border-color: $text-color;
 
+  // color for the nonexistent block
+  // for example, there are a deleted line that has no corresponding one
+  $bg-color-nonexistent-block: mix($bg-color, $table-sidebar-color, 60%);
+
   background-color: $bg-color;
   border-collapse: collapse;
   border-spacing: 0;
@@ -106,6 +110,12 @@
         .new {
           background: $bg-color;
         }
+      }
+
+      &.change-ins .old,
+      &.change-del .new {
+        cursor: not-allowed;
+        background: $bg-color-nonexistent-block;
       }
 
       .old {

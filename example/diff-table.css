@@ -71,6 +71,10 @@
 .diff-wrapper.diff.diff-html .change.change-eq .new {
   background: #fff;
 }
+.diff-wrapper.diff.diff-html .change.change-ins .old, .diff-wrapper.diff.diff-html .change.change-del .new {
+  cursor: not-allowed;
+  background: #ebebeb;
+}
 .diff-wrapper.diff.diff-html .change .old {
   background: #fbe1e1;
 }
