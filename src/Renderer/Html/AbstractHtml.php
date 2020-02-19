@@ -89,9 +89,9 @@ abstract class AbstractHtml extends AbstractRenderer
                     // the old and the new may not be exactly the same
                     // because of ignoreCase, ignoreWhitespace, etc
                     $lines = \array_slice($old, $i1, $i2 - $i1);
-                    $hunk[$lastBlock]['old']['lines'] += $this->formatLines($lines);
+                    $hunk[$lastBlock]['old']['lines'] = $this->formatLines($lines);
                     $lines = \array_slice($new, $j1, $j2 - $j1);
-                    $hunk[$lastBlock]['new']['lines'] += $this->formatLines($lines);
+                    $hunk[$lastBlock]['new']['lines'] = $this->formatLines($lines);
 
                     continue;
                 }
@@ -105,7 +105,7 @@ abstract class AbstractHtml extends AbstractRenderer
                         $lines
                     );
 
-                    $hunk[$lastBlock]['old']['lines'] += $lines;
+                    $hunk[$lastBlock]['old']['lines'] = $lines;
                 }
 
                 if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
@@ -117,7 +117,7 @@ abstract class AbstractHtml extends AbstractRenderer
                         $lines
                     );
 
-                    $hunk[$lastBlock]['new']['lines'] += $lines;
+                    $hunk[$lastBlock]['new']['lines'] = $lines;
                 }
             }
 
