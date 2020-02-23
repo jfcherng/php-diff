@@ -25,6 +25,11 @@
   padding: 1px 2px;
   background: #fff;
 }
+.diff-wrapper.diff td:empty:after,
+.diff-wrapper.diff th:empty:after {
+  content: " ";
+  visibility: hidden;
+}
 .diff-wrapper.diff td a,
 .diff-wrapper.diff th a {
   color: #000;
