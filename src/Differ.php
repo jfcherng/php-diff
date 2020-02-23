@@ -15,6 +15,9 @@ namespace Jfcherng\Diff;
  */
 final class Differ
 {
+    // a safe number for indicating showing all contexts
+    const CONTEXT_ALL = \PHP_INT_MAX >> 4;
+
     /**
      * @var array cached properties and their default values
      */
