@@ -15,11 +15,16 @@ A comprehensive library for generating diff between two strings.
 
 Generated diff can be rendered in all of the standard formats including:
 
-- Unified (Text)
-- Context (Text)
-- Json (Text)
-- Inline (HTML)
-- Side by Side (HTML)
+**Text** renderers:
+
+- Context
+- Json
+- Unified
+
+**HTML** renderers:
+
+- Inline
+- Side by Side
 
 Note that for HTML rendered results, you have to add CSS for a better visualization.
 You may modify one from `example/diff-table.css` or write your own from zero.
@@ -62,7 +67,9 @@ $newFile = __DIR__ . '/example/new_file.txt';
 $old = 'This is the old string.';
 $new = 'And this is the new one.';
 
-// renderer class name: Unified, Context, Json, Inline, SideBySide
+// renderer class name:
+//     Text renderers: Context, Json, Unified
+//     HTML renderers: Inline, SideBySide
 $rendererName = 'Unified';
 
 // the Diff class options
@@ -147,17 +154,29 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 
 ### Renderer: Inline
 
+```php
+<?php $rendererOptions = ['detailLevel' => 'line'];
+```
+
 ![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-renderer.png)
 
 
 ### Renderer: Side By Side
 
+```php
+<?php $rendererOptions = ['detailLevel' => 'line'];
+```
+
 ![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/side-by-side-renderer.png)
 
 
-### Renderer: Side By Side (`lineNumbers` = `false`)
+### Renderer: Side By Side (no line numbers)
 
-![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/side-by-side-renderer-no-line-numbers.png)
+```php
+<?php $rendererOptions = ['lineNumbers' => false];
+```
+
+![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/side-by-side-renderer-line-numbers-false.png)
 
 
 ### Renderer: Unified
@@ -184,7 +203,7 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 
 <details><summary>Click to expand</summary>
 
-```
+```diff
 ***************
 *** 1,3 ****
 ! <p>Hello World!</p>
