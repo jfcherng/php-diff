@@ -78,7 +78,7 @@
 }
 .diff-wrapper.diff.diff-html .change.change-ins .old, .diff-wrapper.diff.diff-html .change.change-del .new {
   cursor: not-allowed;
-  background: #ebebeb;
+  background: repeating-linear-gradient(-45deg, #ebebeb, #ebebeb 5px, #e0e0e0 5px, #e0e0e0 10px);
 }
 .diff-wrapper.diff.diff-html .change .old {
   background: #fbe1e1;

@@ -170,15 +170,6 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 ![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/side-by-side-renderer.png)
 
 
-### Renderer: Side By Side (no line numbers)
-
-```php
-<?php $rendererOptions = ['lineNumbers' => false];
-```
-
-![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/side-by-side-renderer-line-numbers-false.png)
-
-
 ### Renderer: Unified
 
 ```diff

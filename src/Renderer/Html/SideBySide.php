@@ -126,27 +126,18 @@ final class SideBySide extends AbstractHtml
         // the old and the new may not be exactly the same
         // because of ignoreCase, ignoreWhitespace, etc
         foreach ($block['new']['lines'] as $no => $newLine) {
-            if ($this->options['lineNumbers']) {
-                $oldLine = $block['old']['lines'][$no];
+            $oldLine = $block['old']['lines'][$no];
 
-                $oldLineNum = $block['old']['offset'] + $no + 1;
-                $newLineNum = $block['new']['offset'] + $no + 1;
+            $oldLineNum = $block['old']['offset'] + $no + 1;
+            $newLineNum = $block['new']['offset'] + $no + 1;
 
-                $html .=
-                    '<tr>' .
-                        $this->renderLineNumberColumn('old', $oldLineNum) .
-                        '<td class="old">' . $oldLine . '</td>' .
-                        $this->renderLineNumberColumn('new', $newLineNum) .
-                        '<td class="new">' . $newLine . '</td>' .
-                    '</tr>';
-            } else {
-                // hmm... but there is only space for one line
-                // we could only pick either the old or the new to show
-                $html .=
-                    '<tr>' .
-                        '<td class="new" colspan="2">' . $newLine . '</td>' .
-                    '</tr>';
-            }
+            $html .=
+                '<tr>' .
+                    $this->renderLineNumberColumn('old', $oldLineNum) .
+                    '<td class="old">' . $oldLine . '</td>' .
+                    $this->renderLineNumberColumn('new', $newLineNum) .
+                    '<td class="new">' . $newLine . '</td>' .
+                '</tr>';
         }
 
         return $html;
@@ -162,22 +153,15 @@ final class SideBySide extends AbstractHtml
         $html = '';
 
         foreach ($block['new']['lines'] as $no => $newLine) {
-            if ($this->options['lineNumbers']) {
-                $newLineNum = $block['new']['offset'] + $no + 1;
+            $newLineNum = $block['new']['offset'] + $no + 1;
 
-                $html .=
-                    '<tr>' .
-                        $this->renderLineNumberColumn('', null) .
-                        '<td class="old"></td>' .
-                        $this->renderLineNumberColumn('new', $newLineNum) .
-                        '<td class="new">' . $newLine . '</td>' .
-                    '</tr>';
-            } else {
-                $html .=
-                    '<tr>' .
-                        '<td class="new" colspan="2">' . $newLine . '</td>' .
-                    '</tr>';
-            }
+            $html .=
+                '<tr>' .
+                    $this->renderLineNumberColumn('', null) .
+                    '<td class="old"></td>' .
+                    $this->renderLineNumberColumn('new', $newLineNum) .
+                    '<td class="new">' . $newLine . '</td>' .
+                '</tr>';
         }
 
         return $html;
@@ -193,22 +177,15 @@ final class SideBySide extends AbstractHtml
         $html = '';
 
         foreach ($block['old']['lines'] as $no => $oldLine) {
-            if ($this->options['lineNumbers']) {
-                $oldLineNum = $block['old']['offset'] + $no + 1;
+            $oldLineNum = $block['old']['offset'] + $no + 1;
 
-                $html .=
-                    '<tr>' .
-                        $this->renderLineNumberColumn('old', $oldLineNum) .
-                        '<td class="old">' . $oldLine . '</td>' .
-                        $this->renderLineNumberColumn('', null) .
-                        '<td class="new"></td>' .
-                    '</tr>';
-            } else {
-                $html .=
-                    '<tr>' .
-                        '<td class="old" colspan="2">' . $oldLine . '</td>' .
-                    '</tr>';
-            }
+            $html .=
+                '<tr>' .
+                    $this->renderLineNumberColumn('old', $oldLineNum) .
+                    '<td class="old">' . $oldLine . '</td>' .
+                    $this->renderLineNumberColumn('', null) .
+                    '<td class="new"></td>' .
+                '</tr>';
         }
 
         return $html;
