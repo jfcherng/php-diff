@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.4** - Add renderer option: lineNumbers
+   * 2020-02-25 04:22  **6.4.7**  Fixed SideBySide stripe background
+      * f395759 SideBySide stripes use "background-attachment: fixed;"
+      * a93f7fb Update SideBySide screenshot
    * 2020-02-24 18:52  **6.4.6**  Align stripes
       * bdc3036 Make SideBySide stripe background aligned across lines
    * 2020-02-24 14:47  **6.4.5**  CSS tweaks
