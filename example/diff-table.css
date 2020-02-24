@@ -76,9 +76,9 @@
 .diff-wrapper.diff.diff-html .change.change-eq .new {
   background: #fff;
 }
-.diff-wrapper.diff.diff-html .change.change-ins .old, .diff-wrapper.diff.diff-html .change.change-del .new {
+.diff-wrapper.diff.diff-html .change.change-ins .old, .diff-wrapper.diff.diff-html .change.change-del .new, .diff-wrapper.diff.diff-html .change.change-rep .old:empty, .diff-wrapper.diff.diff-html .change.change-rep .new:empty {
   cursor: not-allowed;
-  background: repeating-linear-gradient(-45deg, #ebebeb, #ebebeb 5px, #e0e0e0 5px, #e0e0e0 10px);
+  background: repeating-linear-gradient(-45deg, whitesmoke, whitesmoke 0.5em, #e8e8e8 0.5em, #e8e8e8 0.9em);
 }
 .diff-wrapper.diff.diff-html .change .old {
   background: #fbe1e1;

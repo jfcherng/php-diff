@@ -28,8 +28,8 @@
 
   // color for the nonexistent block
   // for example, there are a deleted line that has no corresponding one
-  $bg-color-nonexistent-block: mix($bg-color, $table-sidebar-color, 60%);
-  $bg-color-nonexistent-block-alternative: mix($bg-color, $table-sidebar-color, 40%);
+  $bg-color-nonexistent-block: mix($bg-color, $table-sidebar-color, 80%);
+  $bg-color-nonexistent-block-alternative: mix($bg-color, $table-sidebar-color, 55%);
 
   background-color: $bg-color;
   border-collapse: collapse;
@@ -120,15 +120,18 @@
       }
 
       &.change-ins .old,
-      &.change-del .new {
+      &.change-del .new,
+      &.change-rep .old:empty,
+      &.change-rep .new:empty {
         cursor: not-allowed;
         background: repeating-linear-gradient(
           -45deg,
           $bg-color-nonexistent-block,
-          $bg-color-nonexistent-block 5px,
-          $bg-color-nonexistent-block-alternative 5px,
-          $bg-color-nonexistent-block-alternative 10px,
+          $bg-color-nonexistent-block 0.5em,
+          $bg-color-nonexistent-block-alternative 0.5em,
+          $bg-color-nonexistent-block-alternative 0.9em,
         );
+        // background-attachment: fixed;
       }
 
       .old {
