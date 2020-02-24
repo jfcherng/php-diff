@@ -2,6 +2,8 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.4** - Add renderer option: lineNumbers
+   * 2020-02-24 18:52  **6.4.6**  Align stripes
+      * bdc3036 Make SideBySide stripe background aligned across lines
    * 2020-02-24 14:47  **6.4.5**  CSS tweaks
       * 36799b9 SideBySide shows a stripe for nonexistent lines
       * 6b7e36b Update readme
