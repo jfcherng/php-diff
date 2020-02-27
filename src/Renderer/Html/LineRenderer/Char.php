@@ -21,8 +21,8 @@ final class Char extends AbstractLineRenderer
         $opcodes = $this->getChangedExtentSegments($mbOld->toArray(), $mbNew->toArray());
 
         // reversely iterate opcodes
-        foreach (ReverseIterator::fromArray($opcodes) as [$tag, $i1, $i2, $j1, $j2]) {
-            switch ($tag) {
+        foreach (ReverseIterator::fromArray($opcodes) as [$op, $i1, $i2, $j1, $j2]) {
+            switch ($op) {
                 case SequenceMatcher::OP_DEL:
                     $mbOld->str_enclose_i(RendererConstant::HTML_CLOSURES, $i1, $i2 - $i1);
 

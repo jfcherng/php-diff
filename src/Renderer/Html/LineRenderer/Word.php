@@ -26,8 +26,8 @@ final class Word extends AbstractLineRenderer
         $opcodes = $this->getChangedExtentSegments($oldWords, $newWords);
 
         // reversely iterate opcodes
-        foreach (ReverseIterator::fromArray($opcodes) as [$tag, $i1, $i2, $j1, $j2]) {
-            switch ($tag) {
+        foreach (ReverseIterator::fromArray($opcodes) as [$op, $i1, $i2, $j1, $j2]) {
+            switch ($op) {
                 case SequenceMatcher::OP_DEL:
                     $oldWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $oldWords[$i1];
                     $oldWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];

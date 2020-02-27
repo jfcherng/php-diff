@@ -43,18 +43,18 @@ final class Unified extends AbstractText
 
             $ret .= $this->renderHunkHeader($i1 + 1, $i2 - $i1, $j1 + 1, $j2 - $j1);
 
-            foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
-                if ($tag === SequenceMatcher::OP_EQ) {
+            foreach ($opcodes as [$op, $i1, $i2, $j1, $j2]) {
+                if ($op === SequenceMatcher::OP_EQ) {
                     $ret .= $this->renderContext(' ', $differ->getOld($i1, $i2));
 
                     continue;
                 }
 
-                if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
+                if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
                     $ret .= $this->renderContext('-', $differ->getOld($i1, $i2));
                 }
 
-                if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
+                if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
                     $ret .= $this->renderContext('+', $differ->getNew($j1, $j2));
                 }
             }

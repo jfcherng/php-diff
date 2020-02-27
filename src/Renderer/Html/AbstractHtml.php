@@ -23,7 +23,9 @@ abstract class AbstractHtml extends AbstractRenderer
     const IS_TEXT_RENDERER = false;
 
     /**
-     * @var array array of the different opcode tags and how they map to the HTML class
+     * @var array array of the different opcodes and how they are mapped to HTML classes
+     *
+     * @todo rename to OP_CLASS_MAP in v7
      */
     const TAG_CLASS_MAP = [
         SequenceMatcher::OP_DEL => 'del',
@@ -64,12 +66,12 @@ abstract class AbstractHtml extends AbstractRenderer
 
         foreach ($differ->getGroupedOpcodes() as $opcodes) {
             $hunk = [];
-            $lastTag = SequenceMatcher::OP_NOP;
+            $lastOp = SequenceMatcher::OP_NOP;
             $lastBlock = 0;
 
-            foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
+            foreach ($opcodes as [$op, $i1, $i2, $j1, $j2]) {
                 if (
-                    $tag === SequenceMatcher::OP_REP &&
+                    $op === SequenceMatcher::OP_REP &&
                     $i2 - $i1 === $j2 - $j1
                 ) {
                     for ($i = 0; $i < $i2 - $i1; ++$i) {
@@ -77,14 +79,14 @@ abstract class AbstractHtml extends AbstractRenderer
                     }
                 }
 
-                if ($tag !== $lastTag) {
-                    $hunk[] = $this->getDefaultBlock($tag, $i1, $j1);
+                if ($op !== $lastOp) {
+                    $hunk[] = $this->getDefaultBlock($op, $i1, $j1);
                     $lastBlock = \count($hunk) - 1;
                 }
 
-                $lastTag = $tag;
+                $lastOp = $op;
 
-                if ($tag === SequenceMatcher::OP_EQ) {
+                if ($op === SequenceMatcher::OP_EQ) {
                     // note that although we are in a OP_EQ situation,
                     // the old and the new may not be exactly the same
                     // because of ignoreCase, ignoreWhitespace, etc
@@ -96,7 +98,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     continue;
                 }
 
-                if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
+                if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
                     $lines = \array_slice($old, $i1, $i2 - $i1);
                     $lines = $this->formatLines($lines);
                     $lines = \str_replace(
@@ -108,7 +110,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     $hunk[$lastBlock]['old']['lines'] = $lines;
                 }
 
-                if ($tag & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
+                if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
                     $lines = \array_slice($new, $j1, $j2 - $j1);
                     $lines = $this->formatLines($lines);
                     $lines = \str_replace(
@@ -182,16 +184,18 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * Get the default block.
      *
-     * @param int $tag the operation tag
-     * @param int $i1  begin index of the diff of the old array
-     * @param int $j1  begin index of the diff of the new array
+     * @param int $op the operation
+     * @param int $i1 begin index of the diff of the old array
+     * @param int $j1 begin index of the diff of the new array
      *
      * @return array the default block
+     *
+     * @todo rename tag to op in v7
      */
-    protected function getDefaultBlock(int $tag, int $i1, int $j1): array
+    protected function getDefaultBlock(int $op, int $i1, int $j1): array
     {
         return [
-            'tag' => $tag,
+            'tag' => $op,
             'old' => [
                 'offset' => $i1,
                 'lines' => [],

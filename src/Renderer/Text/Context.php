@@ -23,7 +23,7 @@ final class Context extends AbstractText
     ];
 
     /**
-     * @var array array of the different opcode tags and how they map to the context diff equivalent
+     * @var array array of the different opcodes and their context diff equivalents
      */
     const TAG_MAP = [
         SequenceMatcher::OP_DEL => '-',
@@ -83,13 +83,13 @@ final class Context extends AbstractText
     {
         $ret = '';
 
-        foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
-            if ($tag === SequenceMatcher::OP_INS) {
+        foreach ($opcodes as [$op, $i1, $i2, $j1, $j2]) {
+            if ($op === SequenceMatcher::OP_INS) {
                 continue;
             }
 
             $ret .= $this->renderContext(
-                self::TAG_MAP[$tag],
+                self::TAG_MAP[$op],
                 $differ->getOld($i1, $i2)
             );
         }
@@ -107,13 +107,13 @@ final class Context extends AbstractText
     {
         $ret = '';
 
-        foreach ($opcodes as [$tag, $i1, $i2, $j1, $j2]) {
-            if ($tag === SequenceMatcher::OP_DEL) {
+        foreach ($opcodes as [$op, $i1, $i2, $j1, $j2]) {
+            if ($op === SequenceMatcher::OP_DEL) {
                 continue;
             }
 
             $ret .= $this->renderContext(
-                self::TAG_MAP[$tag],
+                self::TAG_MAP[$op],
                 $differ->getNew($j1, $j2)
             );
         }
@@ -124,7 +124,7 @@ final class Context extends AbstractText
     /**
      * Render the context array with the symbol.
      *
-     * @param string $symbol  the symbol
+     * @param string $symbol  the leading symbol
      * @param array  $context the context
      */
     protected function renderContext(string $symbol, array $context): string
