@@ -70,12 +70,11 @@ abstract class AbstractHtml extends AbstractRenderer
             $lastBlock = 0;
 
             foreach ($opcodes as [$op, $i1, $i2, $j1, $j2]) {
-                if (
-                    $op === SequenceMatcher::OP_REP &&
-                    $i2 - $i1 === $j2 - $j1
-                ) {
-                    for ($i = 0; $i < $i2 - $i1; ++$i) {
-                        $this->renderChangedExtent($lineRenderer, $old[$i1 + $i], $new[$j1 + $i]);
+                // if there are same amount of lines replaced
+                // we can render the inner detailed changes with corresponding lines
+                if ($op === SequenceMatcher::OP_REP && $i2 - $i1 === $j2 - $j1) {
+                    for ($k = 0; $k < $i2 - $i1; ++$k) {
+                        $this->renderChangedExtent($lineRenderer, $old[$i1 + $k], $new[$j1 + $k]);
                     }
                 }
 
@@ -142,13 +141,17 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function renderArrayWorker(array $differArray): string
     {
-        return $this->redererChanges($this->ensureChangesUseIntTag($differArray));
+        $this->ensureChangesUseIntTag($differArray);
+
+        return $this->redererChanges($differArray);
     }
 
     /**
      * Render the array of changes.
      *
      * @param array $changes the changes
+     *
+     * @todo rename typo to renderChanges() in v7
      */
     abstract protected function redererChanges(array $changes): string;
 
@@ -158,8 +161,6 @@ abstract class AbstractHtml extends AbstractRenderer
      * @param AbstractLineRenderer $lineRenderer the line renderer
      * @param string               $old          the old line
      * @param string               $new          the new line
-     *
-     * @throws \InvalidArgumentException
      *
      * @return static
      */
@@ -321,32 +322,17 @@ abstract class AbstractHtml extends AbstractRenderer
      *
      * @param array $changes the changes
      */
-    protected function ensureChangesUseIntTag(array $changes): array
+    protected function ensureChangesUseIntTag(array &$changes): void
     {
-        if (empty($changes)) {
-            return [];
+        // check if the tag is already int type
+        if (\is_int($changes[0][0]['tag'] ?? null)) {
+            return;
         }
 
-        $isTagInt = true;
-        foreach ($changes as $blocks) {
-            foreach ($blocks as $change) {
-                $isTagInt = \is_int($change['tag']);
-
-                break 2;
+        foreach ($changes as &$hunks) {
+            foreach ($hunks as &$block) {
+                $block['tag'] = SequenceMatcher::opStrToInt($block['tag']);
             }
         }
-
-        if (!$isTagInt) {
-            // convert string tags into their int forms
-            foreach ($changes as &$blocks) {
-                foreach ($blocks as &$change) {
-                    $change['tag'] = SequenceMatcher::opStrToInt($change['tag']);
-                }
-            }
-
-            unset($blocks, $change);
-        }
-
-        return $changes;
     }
 }

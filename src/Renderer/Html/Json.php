@@ -54,9 +54,9 @@ final class Json extends AbstractHtml
      */
     protected function convertTagToString(array &$changes): void
     {
-        foreach ($changes as &$blocks) {
-            foreach ($blocks as &$change) {
-                $change['tag'] = SequenceMatcher::opIntToStr($change['tag']);
+        foreach ($changes as &$hunks) {
+            foreach ($hunks as &$block) {
+                $block['tag'] = SequenceMatcher::opIntToStr($block['tag']);
             }
         }
     }
