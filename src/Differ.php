@@ -15,8 +15,8 @@ namespace Jfcherng\Diff;
  */
 final class Differ
 {
-    // a safe number for indicating showing all contexts
-    const CONTEXT_ALL = \PHP_INT_MAX >> 4;
+    /** @var int a safe number for indicating showing all contexts */
+    const CONTEXT_ALL = \PHP_INT_MAX >> 3;
 
     /**
      * @var array cached properties and their default values
@@ -32,12 +32,12 @@ final class Differ
     public $options = [];
 
     /**
-     * @var string[] the "old" sequence to use as the basis for the comparison
+     * @var string[] the old sequence
      */
     private $old = [];
 
     /**
-     * @var string[] the "new" sequence to generate the changes for
+     * @var string[] the new sequence
      */
     private $new = [];
 
@@ -67,6 +67,7 @@ final class Differ
      */
     private static $defaultOptions = [
         // show how many neighbor lines
+        // Differ::CONTEXT_ALL can be used to show the whole file
         'context' => 3,
         // ignore case difference
         'ignoreWhitespace' => false,

@@ -2,6 +2,7 @@
 
 include __DIR__ . '/../vendor/autoload.php';
 
+use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Factory\RendererFactory;
 
@@ -25,6 +26,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
         // options for Diff class
         $diffOptions = [
             // show how many neighbor lines
+            // Differ::CONTEXT_ALL can be used to show the whole file
             'context' => 1,
             // ignore case difference
             'ignoreCase' => false,

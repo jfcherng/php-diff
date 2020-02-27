@@ -75,6 +75,7 @@ $rendererName = 'Unified';
 // the Diff class options
 $differOptions = [
     // show how many neighbor lines
+    // Differ::CONTEXT_ALL can be used to show the whole file
     'context' => 3,
     // ignore case difference
     'ignoreCase' => false,
