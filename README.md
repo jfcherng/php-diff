@@ -178,6 +178,8 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 <?php $rendererOptions = ['detailLevel' => 'char'];
 ```
 
+This renderer is suitable for articles and always has no line number information.
+
 ![Combined](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/combined-renderer-char-level.png)
 
 
