@@ -45,7 +45,7 @@ final class Line extends AbstractLineRenderer
      * @param MbString $mbOld the old megabytes line
      * @param MbString $mbNew the new megabytes line
      *
-     * @return array Array containing the starting position (non-negative) and the ending position (negative)
+     * @return int[] Array containing the starting position (non-negative) and the ending position (negative)
      *               [0, 0] if two strings are the same
      */
     protected function getChangedExtentRegion(MbString $mbOld, MbString $mbNew): array

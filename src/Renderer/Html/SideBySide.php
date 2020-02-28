@@ -74,7 +74,7 @@ final class SideBySide extends AbstractHtml
     /**
      * Renderer table hunks.
      *
-     * @param array $hunks each hunk has many blocks
+     * @param array[][] $hunks each hunk has many blocks
      */
     protected function renderTableHunks(array $hunks): string
     {

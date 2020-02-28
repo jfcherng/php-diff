@@ -29,23 +29,23 @@ final class Unified extends AbstractText
     {
         $ret = '';
 
-        foreach ($differ->getGroupedOpcodes() as $opcodes) {
-            $lastItem = \count($opcodes) - 1;
+        foreach ($differ->getGroupedOpcodes() as $hunk) {
+            $lastItem = \count($hunk) - 1;
 
-            $i1 = $opcodes[0][1];
-            $i2 = $opcodes[$lastItem][2];
-            $j1 = $opcodes[0][3];
-            $j2 = $opcodes[$lastItem][4];
+            $i1 = $hunk[0][1];
+            $i2 = $hunk[$lastItem][2];
+            $j1 = $hunk[0][3];
+            $j2 = $hunk[$lastItem][4];
 
             if ($i1 === 0 && $i2 === 0) {
-                $i1 = $i2 = -1;
+                $i1 = $i2 = -1; // trick
             }
 
             $ret .= $this->renderHunkHeader($i1 + 1, $i2 - $i1, $j1 + 1, $j2 - $j1);
 
-            foreach ($opcodes as [$op, $i1, $i2, $j1, $j2]) {
+            foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
                 if ($op === SequenceMatcher::OP_EQ) {
-                    $ret .= $this->renderContext(' ', $differ->getOld($i1, $i2));
+                    $ret .= $this->renderContext(' ', $differ->getNew($j1, $j2));
 
                     continue;
                 }
@@ -64,7 +64,7 @@ final class Unified extends AbstractText
     }
 
     /**
-     * Render the block header.
+     * Render the hunk header.
      *
      * @param int $a1 the a1
      * @param int $a2 the a2
@@ -79,8 +79,8 @@ final class Unified extends AbstractText
     /**
      * Render the context array with the symbol.
      *
-     * @param string $symbol  the symbol
-     * @param array  $context the context
+     * @param string   $symbol  the symbol
+     * @param string[] $context the context
      */
     protected function renderContext(string $symbol, array $context): string
     {

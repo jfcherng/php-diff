@@ -50,7 +50,7 @@ final class Json extends AbstractHtml
     /**
      * Convert tags of changes to their string form for better readability.
      *
-     * @param array $changes the changes
+     * @param array[][] $changes the changes
      */
     protected function convertTagToString(array &$changes): void
     {

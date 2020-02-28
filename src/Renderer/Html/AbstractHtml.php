@@ -49,7 +49,7 @@ abstract class AbstractHtml extends AbstractRenderer
      *
      * @param Differ $differ the differ object
      *
-     * @return array generated changes, suitable for presentation in HTML
+     * @return array[][] generated changes, suitable for presentation in HTML
      */
     public function getChanges(Differ $differ): array
     {
@@ -62,14 +62,14 @@ abstract class AbstractHtml extends AbstractRenderer
         $old = $differ->getOld();
         $new = $differ->getNew();
 
-        $hunks = [];
+        $changes = [];
 
-        foreach ($differ->getGroupedOpcodes() as $opcodes) {
-            $hunk = [];
+        foreach ($differ->getGroupedOpcodes() as $hunk) {
+            $change = [];
             $lastOp = SequenceMatcher::OP_NOP;
             $lastBlock = 0;
 
-            foreach ($opcodes as [$op, $i1, $i2, $j1, $j2]) {
+            foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
                 // if there are same amount of lines replaced
                 // we can render the inner detailed changes with corresponding lines
                 if ($op === SequenceMatcher::OP_REP && $i2 - $i1 === $j2 - $j1) {
@@ -79,8 +79,8 @@ abstract class AbstractHtml extends AbstractRenderer
                 }
 
                 if ($op !== $lastOp) {
-                    $hunk[] = $this->getDefaultBlock($op, $i1, $j1);
-                    $lastBlock = \count($hunk) - 1;
+                    $change[] = $this->getDefaultBlock($op, $i1, $j1);
+                    $lastBlock = \count($change) - 1;
                 }
 
                 $lastOp = $op;
@@ -90,9 +90,9 @@ abstract class AbstractHtml extends AbstractRenderer
                     // the old and the new may not be exactly the same
                     // because of ignoreCase, ignoreWhitespace, etc
                     $lines = \array_slice($old, $i1, $i2 - $i1);
-                    $hunk[$lastBlock]['old']['lines'] = $this->formatLines($lines);
+                    $change[$lastBlock]['old']['lines'] = $this->formatLines($lines);
                     $lines = \array_slice($new, $j1, $j2 - $j1);
-                    $hunk[$lastBlock]['new']['lines'] = $this->formatLines($lines);
+                    $change[$lastBlock]['new']['lines'] = $this->formatLines($lines);
 
                     continue;
                 }
@@ -106,7 +106,7 @@ abstract class AbstractHtml extends AbstractRenderer
                         $lines
                     );
 
-                    $hunk[$lastBlock]['old']['lines'] = $lines;
+                    $change[$lastBlock]['old']['lines'] = $lines;
                 }
 
                 if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
@@ -118,14 +118,14 @@ abstract class AbstractHtml extends AbstractRenderer
                         $lines
                     );
 
-                    $hunk[$lastBlock]['new']['lines'] = $lines;
+                    $change[$lastBlock]['new']['lines'] = $lines;
                 }
             }
 
-            $hunks[] = $hunk;
+            $changes[] = $change;
         }
 
-        return $hunks;
+        return $changes;
     }
 
     /**
@@ -149,7 +149,7 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * Render the array of changes.
      *
-     * @param array $changes the changes
+     * @param array[][] $changes the changes
      *
      * @todo rename typo to renderChanges() in v7
      */
@@ -320,7 +320,7 @@ abstract class AbstractHtml extends AbstractRenderer
      *
      * Internally, we would like always int form for better performance.
      *
-     * @param array $changes the changes
+     * @param array[][] $changes the changes
      */
     protected function ensureChangesUseIntTag(array &$changes): void
     {

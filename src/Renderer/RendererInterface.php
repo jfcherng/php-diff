@@ -27,7 +27,7 @@ interface RendererInterface
     /**
      * Render the differ array and return the result.
      *
-     * @param array $differArray the Differ array to be rendered
+     * @param array[][] $differArray the Differ array to be rendered
      *
      * @throws UnsupportedFunctionException if the renderer does not support this method
      */

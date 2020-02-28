@@ -18,10 +18,10 @@ final class Char extends AbstractLineRenderer
      */
     public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
     {
-        $opcodes = $this->getChangedExtentSegments($mbOld->toArray(), $mbNew->toArray());
+        $hunk = $this->getChangedExtentSegments($mbOld->toArray(), $mbNew->toArray());
 
-        // reversely iterate opcodes
-        foreach (ReverseIterator::fromArray($opcodes) as [$op, $i1, $i2, $j1, $j2]) {
+        // reversely iterate hunk
+        foreach (ReverseIterator::fromArray($hunk) as [$op, $i1, $i2, $j1, $j2]) {
             switch ($op) {
                 case SequenceMatcher::OP_DEL:
                     $mbOld->str_enclose_i(RendererConstant::HTML_CLOSURES, $i1, $i2 - $i1);

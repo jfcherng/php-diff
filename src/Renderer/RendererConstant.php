@@ -6,20 +6,39 @@ namespace Jfcherng\Diff\Renderer;
 
 final class RendererConstant
 {
+    /**
+     * The base namespace of renderers.
+     *
+     * @var string
+     */
     const RENDERER_NAMESPACE = __NAMESPACE__;
+
+    /**
+     * Available renderer types.
+     *
+     * @var string[]
+     */
     const RENDERER_TYPES = ['Html', 'Text'];
 
     /**
-     * Closures that are used to enclose partial strings.
-     *
-     * - a different part in string (class internal)
-     * - a inserted char in output HTML
-     * - a deleted char in output HTML
+     * Closures that are used to enclose different parts in string.
      *
      * @var string[]
      */
     const HTML_CLOSURES = ["\u{fcffc}\u{ff2fb}", "\u{fff41}\u{fcffc}"];
+
+    /**
+     * Closures that are used to enclose inserted chars in output HTML.
+     *
+     * @var string[]
+     */
     const HTML_CLOSURES_INS = ['<ins>', '</ins>'];
+
+    /**
+     * Closures that are used to enclose deleted chars in output HTML.
+     *
+     * @var string[]
+     */
     const HTML_CLOSURES_DEL = ['<del>', '</del>'];
 
     /**

@@ -23,10 +23,10 @@ final class Word extends AbstractLineRenderer
         $oldWords = $mbOld->toArraySplit($splitRegex, -1, \PREG_SPLIT_DELIM_CAPTURE);
         $newWords = $mbNew->toArraySplit($splitRegex, -1, \PREG_SPLIT_DELIM_CAPTURE);
 
-        $opcodes = $this->getChangedExtentSegments($oldWords, $newWords);
+        $hunk = $this->getChangedExtentSegments($oldWords, $newWords);
 
-        // reversely iterate opcodes
-        foreach (ReverseIterator::fromArray($opcodes) as [$op, $i1, $i2, $j1, $j2]) {
+        // reversely iterate hunk
+        foreach (ReverseIterator::fromArray($hunk) as [$op, $i1, $i2, $j1, $j2]) {
             switch ($op) {
                 case SequenceMatcher::OP_DEL:
                     $oldWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $oldWords[$i1];

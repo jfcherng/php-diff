@@ -93,10 +93,10 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     /**
      * Get the changed extent segments.
      *
-     * @param array $old the old array
-     * @param array $new the new array
+     * @param string[] $old the old array
+     * @param string[] $new the new array
      *
-     * @return array the changed extent segments
+     * @return int[][] the changed extent segments
      */
     protected function getChangedExtentSegments(array $old, array $new): array
     {

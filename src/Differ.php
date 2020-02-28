@@ -211,7 +211,7 @@ final class Differ
      * matcher and performs the actual diff generation and return an array of the opcodes
      * for it. Once generated, the results are cached in the Differ class instance.
      *
-     * @return array[] array of the grouped opcodes for the generated diff
+     * @return int[][][] array of the grouped opcodes for the generated diff
      */
     public function getGroupedOpcodes(): array
     {

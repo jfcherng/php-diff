@@ -23,7 +23,7 @@ final class Context extends AbstractText
     ];
 
     /**
-     * @var array array of the different opcodes and their context diff equivalents
+     * @var string[] array of the different opcodes and their context diff equivalents
      */
     const TAG_MAP = [
         SequenceMatcher::OP_DEL => '-',
@@ -39,33 +39,33 @@ final class Context extends AbstractText
     {
         $ret = '';
 
-        foreach ($differ->getGroupedOpcodes() as $opcodes) {
-            $lastItem = \count($opcodes) - 1;
+        foreach ($differ->getGroupedOpcodes() as $hunk) {
+            $lastItem = \count($hunk) - 1;
 
-            $i1 = $opcodes[0][1];
-            $i2 = $opcodes[$lastItem][2];
-            $j1 = $opcodes[0][3];
-            $j2 = $opcodes[$lastItem][4];
+            $i1 = $hunk[0][1];
+            $i2 = $hunk[$lastItem][2];
+            $j1 = $hunk[0][3];
+            $j2 = $hunk[$lastItem][4];
 
             $ret .=
                 "***************\n" .
-                $this->renderBlockHeader('*', $i1, $i2) .
-                $this->renderBlockOld($opcodes, $differ) .
-                $this->renderBlockHeader('-', $j1, $j2) .
-                $this->renderBlockNew($opcodes, $differ);
+                $this->renderHunkHeader('*', $i1, $i2) .
+                $this->renderHunkOld($hunk, $differ) .
+                $this->renderHunkHeader('-', $j1, $j2) .
+                $this->renderHunkNew($hunk, $differ);
         }
 
         return $ret;
     }
 
     /**
-     * Render the block header.
+     * Render the hunk header.
      *
      * @param string $delimiter the delimiter
      * @param int    $a1        the a1
      * @param int    $a2        the a2
      */
-    protected function renderBlockHeader(string $delimiter, int $a1, int $a2): string
+    protected function renderHunkHeader(string $delimiter, int $a1, int $a2): string
     {
         return
             "{$delimiter}{$delimiter}{$delimiter} " .
@@ -74,48 +74,42 @@ final class Context extends AbstractText
     }
 
     /**
-     * Render the old block.
+     * Render the old hunk.
      *
-     * @param array  $opcodes the opcodes
-     * @param Differ $differ  the differ object
+     * @param int[][] $hunk   the hunk
+     * @param Differ  $differ the differ object
      */
-    protected function renderBlockOld(array $opcodes, Differ $differ): string
+    protected function renderHunkOld(array $hunk, Differ $differ): string
     {
         $ret = '';
 
-        foreach ($opcodes as [$op, $i1, $i2, $j1, $j2]) {
+        foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
             if ($op === SequenceMatcher::OP_INS) {
                 continue;
             }
 
-            $ret .= $this->renderContext(
-                self::TAG_MAP[$op],
-                $differ->getOld($i1, $i2)
-            );
+            $ret .= $this->renderContext(self::TAG_MAP[$op], $differ->getOld($i1, $i2));
         }
 
         return $ret;
     }
 
     /**
-     * Render the new block.
+     * Render the new hunk.
      *
-     * @param array  $opcodes the opcodes
-     * @param Differ $differ  the differ object
+     * @param int[][] $hunk   the hunk
+     * @param Differ  $differ the differ object
      */
-    protected function renderBlockNew(array $opcodes, Differ $differ): string
+    protected function renderHunkNew(array $hunk, Differ $differ): string
     {
         $ret = '';
 
-        foreach ($opcodes as [$op, $i1, $i2, $j1, $j2]) {
+        foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
             if ($op === SequenceMatcher::OP_DEL) {
                 continue;
             }
 
-            $ret .= $this->renderContext(
-                self::TAG_MAP[$op],
-                $differ->getNew($j1, $j2)
-            );
+            $ret .= $this->renderContext(self::TAG_MAP[$op], $differ->getNew($j1, $j2));
         }
 
         return $ret;
@@ -124,8 +118,8 @@ final class Context extends AbstractText
     /**
      * Render the context array with the symbol.
      *
-     * @param string $symbol  the leading symbol
-     * @param array  $context the context
+     * @param string   $symbol  the leading symbol
+     * @param string[] $context the context
      */
     protected function renderContext(string $symbol, array $context): string
     {

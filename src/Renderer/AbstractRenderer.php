@@ -161,7 +161,7 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * The real worker for self::renderArray().
      *
-     * @param array $differArray the differ array
+     * @param array[][] $differArray the differ array
      */
     abstract protected function renderArrayWorker(array $differArray): string;
 
