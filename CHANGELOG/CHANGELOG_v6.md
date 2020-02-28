@@ -2,6 +2,11 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.5** - New renderer: Combined
+   * 2020-02-29 02:30  **6.5.1**  Allow overriding SCSS variables
+      * ec4583c Allow overriding SCSS variables
+      * bb5203b Simplify codes for merging lines in Combined renderer
+      * 6da9215 Update example readme
+      * a0b906b Prefer the new if we can only show either old or new
    * 2020-02-28 22:56  **6.5.0**  initial release
       * 98fe251 Update deps
       * 2de0300 Update readme
