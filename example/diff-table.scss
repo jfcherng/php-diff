@@ -4,40 +4,40 @@
  * - dart-sass v1.18.0
  */
 
+$diff-bg-color: #fff !default;
+$diff-text-color: invert($diff-bg-color) !default;
+
+$diff-bg-color-ins-base: #8e8 !default;
+$diff-bg-color-del-base: #e88 !default;
+$diff-bg-color-rep-base: #fbdb65 !default;
+
+$diff-op-highlight-ratio: 90% !default;
+$diff-op-normal-ratio: 25% !default;
+
+// emphasized colors for detailed inline difference
+$diff-bg-color-ins-highlight: mix($diff-bg-color-ins-base, $diff-bg-color, $diff-op-highlight-ratio) !default;
+$diff-bg-color-del-highlight: mix($diff-bg-color-del-base, $diff-bg-color, $diff-op-highlight-ratio) !default;
+
+// colors for operation rows
+$diff-bg-color-ins: mix($diff-bg-color-ins-base, $diff-bg-color, $diff-op-normal-ratio) !default;
+$diff-bg-color-del: mix($diff-bg-color-del-base, $diff-bg-color, $diff-op-normal-ratio) !default;
+$diff-bg-color-rep: mix($diff-bg-color-rep-base, $diff-bg-color, $diff-op-normal-ratio) !default;
+
+$diff-table-head-color: mix($diff-bg-color, $diff-text-color, 65%) !default;
+$diff-table-sidebar-color: mix($diff-bg-color, $diff-text-color, 80%) !default;
+$diff-border-color: $diff-text-color !default;
+
+// color for the nonexistent block
+// for example, there are a deleted line that has no corresponding one
+$diff-bg-color-none-block: mix($diff-bg-color, $diff-table-sidebar-color, 80%) !default;
+$diff-bg-color-none-block-alternative: mix($diff-bg-color, $diff-table-sidebar-color, 55%) !default;
+
 .diff-wrapper.diff {
-  $bg-color: #fff;
-  $text-color: invert($bg-color);
-
-  $bg-color-insert-base: #8e8;
-  $bg-color-delete-base: #e88;
-  $bg-color-replace-base: #fbdb65;
-
-  $op-highlight-ratio: 90%;
-  $op-normal-ratio: 25%;
-
-  // emphasized colors for detailed inline difference
-  $bg-color-insert-highlight: mix($bg-color-insert-base, $bg-color, $op-highlight-ratio);
-  $bg-color-delete-highlight: mix($bg-color-delete-base, $bg-color, $op-highlight-ratio);
-
-  // colors for operation rows
-  $bg-color-insert: mix($bg-color-insert-base, $bg-color, $op-normal-ratio);
-  $bg-color-delete: mix($bg-color-delete-base, $bg-color, $op-normal-ratio);
-  $bg-color-replace: mix($bg-color-replace-base, $bg-color, $op-normal-ratio);
-
-  $table-head-color: mix($bg-color, $text-color, 65%);
-  $table-sidebar-color: mix($bg-color, $text-color, 80%);
-  $border-color: $text-color;
-
-  // color for the nonexistent block
-  // for example, there are a deleted line that has no corresponding one
-  $bg-color-nonexistent-block: mix($bg-color, $table-sidebar-color, 80%);
-  $bg-color-nonexistent-block-alternative: mix($bg-color, $table-sidebar-color, 55%);
-
-  background-color: $bg-color;
+  background-color: $diff-bg-color;
   border-collapse: collapse;
   border-spacing: 0;
-  border: 1px solid $border-color;
-  color: $text-color;
+  border: 1px solid $diff-border-color;
+  color: $diff-text-color;
   empty-cells: show;
   font-family: monospace;
   font-size: 13px;
@@ -53,7 +53,7 @@
     border-collapse: separate;
     border: none;
     padding: 1px 2px;
-    background: $bg-color;
+    background: $diff-bg-color;
 
     // make empty cell has height
     &:empty:after {
@@ -69,15 +69,15 @@
   }
 
   thead th {
-    background: $table-head-color;
-    border-bottom: 1px solid $border-color;
+    background: $diff-table-head-color;
+    border-bottom: 1px solid $diff-border-color;
     padding: 4px;
     text-align: left;
   }
 
   tbody {
     &.skipped {
-      border-top: 1px solid $border-color;
+      border-top: 1px solid $diff-border-color;
 
       td,
       th {
@@ -86,25 +86,25 @@
     }
 
     th {
-      background: $table-sidebar-color;
-      border-right: 1px solid $border-color;
+      background: $diff-table-sidebar-color;
+      border-right: 1px solid $diff-border-color;
       text-align: right;
       vertical-align: top;
       width: 4em;
 
       &.sign {
-        background: $bg-color;
+        background: $diff-bg-color;
         border-right: none;
         padding: 1px 0;
         text-align: center;
         width: 1em;
 
         &.del {
-          background: $bg-color-delete;
+          background: $diff-bg-color-del;
         }
 
         &.ins {
-          background: $bg-color-insert;
+          background: $diff-bg-color-ins;
         }
       }
     }
@@ -117,7 +117,7 @@
       &.change-eq {
         .old,
         .new {
-          background: $bg-color;
+          background: $diff-bg-color;
         }
       }
 
@@ -128,37 +128,37 @@
         cursor: not-allowed;
         background: repeating-linear-gradient(
           -45deg,
-          $bg-color-nonexistent-block,
-          $bg-color-nonexistent-block 0.5em,
-          $bg-color-nonexistent-block-alternative 0.5em,
-          $bg-color-nonexistent-block-alternative 0.9em,
+          $diff-bg-color-none-block,
+          $diff-bg-color-none-block 0.5em,
+          $diff-bg-color-none-block-alternative 0.5em,
+          $diff-bg-color-none-block-alternative 1em,
         ) fixed;
       }
 
       .old {
-        background: $bg-color-delete;
+        background: $diff-bg-color-del;
       }
 
       .new {
-        background: $bg-color-insert;
+        background: $diff-bg-color-ins;
       }
 
       .rep {
-        background: $bg-color-replace;
+        background: $diff-bg-color-rep;
       }
 
       ins,
       del {
-        font-weight: 700;
+        font-weight: bold;
         text-decoration: none;
       }
 
       ins {
-        background: $bg-color-insert-highlight;
+        background: $diff-bg-color-ins-highlight;
       }
 
       del {
-        background: $bg-color-delete-highlight;
+        background: $diff-bg-color-del-highlight;
       }
     }
   }
