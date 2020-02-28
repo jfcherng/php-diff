@@ -134,8 +134,7 @@ final class Inline extends AbstractHtml
         // the old and the new may not be exactly the same
         // because of ignoreCase, ignoreWhitespace, etc
         foreach ($block['new']['lines'] as $no => $newLine) {
-            // hmm... but there is only space for one line
-            // we could only pick either the old or the new to show
+            // but in this renderer, we can only pick either the old or the new to show
             $oldLineNum = $block['old']['offset'] + $no + 1;
             $newLineNum = $block['new']['offset'] + $no + 1;
 

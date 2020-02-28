@@ -126,12 +126,11 @@ final class Combined extends AbstractHtml
         // note that although we are in a OP_EQ situation,
         // the old and the new may not be exactly the same
         // because of ignoreCase, ignoreWhitespace, etc
-        foreach ($block['old']['lines'] as $oldLine) {
-            // hmm... but there is only space for one line
-            // we could only pick either the old or the new to show
+        foreach ($block['new']['lines'] as $newLine) {
+            // but in this renderer, we can only pick either the old or the new to show
             $html .=
                 '<tr data-type="=">' .
-                    '<td class="old">' . $oldLine . '</td>' .
+                    '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
 

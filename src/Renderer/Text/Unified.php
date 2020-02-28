@@ -44,7 +44,11 @@ final class Unified extends AbstractText
             $ret .= $this->renderHunkHeader($i1 + 1, $i2 - $i1, $j1 + 1, $j2 - $j1);
 
             foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
+                // note that although we are in a OP_EQ situation,
+                // the old and the new may not be exactly the same
+                // because of ignoreCase, ignoreWhitespace, etc
                 if ($op === SequenceMatcher::OP_EQ) {
+                    // we could only pick either the old or the new to show
                     $ret .= $this->renderContext(' ', $differ->getNew($j1, $j2));
 
                     continue;

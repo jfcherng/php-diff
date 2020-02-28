@@ -23,7 +23,7 @@ abstract class AbstractHtml extends AbstractRenderer
     const IS_TEXT_RENDERER = false;
 
     /**
-     * @var array array of the different opcodes and how they are mapped to HTML classes
+     * @var string[] array of the different opcodes and how they are mapped to HTML classes
      *
      * @todo rename to OP_CLASS_MAP in v7
      */
