@@ -17,11 +17,11 @@ use Jfcherng\Diff\Factory\RendererFactory;
     <body>
         <?php
 
-        // include two sample files for comparison
-        $oldFilePath = __DIR__ . '/old_file.txt';
-        $newFilePath = __DIR__ . '/new_file.txt';
-        $oldFile = \file_get_contents($oldFilePath);
-        $newFile = \file_get_contents($newFilePath);
+        // the two sample files for comparison
+        $oldFile = __DIR__ . '/old_file.txt';
+        $newFile = __DIR__ . '/new_file.txt';
+        $oldString = \file_get_contents($oldFile);
+        $newString = \file_get_contents($newFile);
 
         // options for Diff class
         $diffOptions = [
@@ -67,8 +67,8 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         // demo the no-inline-detail diff
         $inlineResult = DiffHelper::calculate(
-            $oldFile,
-            $newFile,
+            $oldString,
+            $newString,
             'Inline',
             $diffOptions,
             ['detailLevel' => 'none'] + $rendererOptions
@@ -83,8 +83,8 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         // demo the word-level diff
         $inlineResult = DiffHelper::calculate(
-            $oldFile,
-            $newFile,
+            $oldString,
+            $newString,
             'Inline',
             $diffOptions,
             ['detailLevel' => 'line'] + $rendererOptions
@@ -99,8 +99,8 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         // demo the word-level diff
         $inlineResult = DiffHelper::calculate(
-            $oldFile,
-            $newFile,
+            $oldString,
+            $newString,
             'Inline',
             $diffOptions,
             ['detailLevel' => 'word'] + $rendererOptions
@@ -115,8 +115,8 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         // demo the character-level diff
         $inlineResult = DiffHelper::calculate(
-            $oldFile,
-            $newFile,
+            $oldString,
+            $newString,
             'Inline',
             $diffOptions,
             ['detailLevel' => 'char'] + $rendererOptions
@@ -131,8 +131,8 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         // generate a side by side diff
         $sideBySideResult = DiffHelper::calculateFiles(
-            $oldFilePath,
-            $newFilePath,
+            $oldFile,
+            $newFile,
             'SideBySide',
             $diffOptions,
             $rendererOptions
@@ -147,8 +147,8 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         // generate an inline diff
         $inlineResult = DiffHelper::calculateFiles(
-            $oldFilePath,
-            $newFilePath,
+            $oldFile,
+            $newFile,
             'Inline',
             $diffOptions,
             $rendererOptions
@@ -163,8 +163,8 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         // generate a combined diff
         $sideBySideResult = DiffHelper::calculateFiles(
-            $oldFilePath,
-            $newFilePath,
+            $oldFile,
+            $newFile,
             'Combined',
             $diffOptions,
             $rendererOptions
@@ -179,8 +179,8 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         // generate a unified diff
         $unifiedResult = DiffHelper::calculateFiles(
-            $oldFilePath,
-            $newFilePath,
+            $oldFile,
+            $newFile,
             'Unified',
             $diffOptions,
             $rendererOptions
@@ -195,8 +195,8 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         // generate a context diff
         $contextResult = DiffHelper::calculateFiles(
-            $oldFilePath,
-            $newFilePath,
+            $oldFile,
+            $newFile,
             'Context',
             $diffOptions,
             $rendererOptions
@@ -211,8 +211,8 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         // generate a JSON diff
         $jsonResult = DiffHelper::calculateFiles(
-            $oldFilePath,
-            $newFilePath,
+            $oldFile,
+            $newFile,
             'Json',
             $diffOptions,
             ['outputTagAsString' => true] + $rendererOptions
