@@ -1,6 +1,18 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.5** - New renderer: Combined
+   * 2020-02-28 22:56  **6.5.0**  initial release
+      * 98fe251 Update deps
+      * 2de0300 Update readme
+      * a6ff11a Finish the HTML Combined renderer
+      * 2cf8e84 New Renderer (#22)
+      * 2277a98 Improve type docs and variable naming
+      * d212f41 Update docs
+      * 7a45667 Tidy codes
+      * e96e971 Rename some "tag" to "op"
+      * 2dd547c Update deps
+
  * Version **6.4** - Add renderer option: lineNumbers
    * 2020-02-25 04:22  **6.4.7**  Fixed SideBySide stripe background
       * f395759 SideBySide stripes use "background-attachment: fixed;"
