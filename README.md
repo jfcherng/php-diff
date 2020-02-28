@@ -23,6 +23,7 @@ Generated diff can be rendered in all of the standard formats including:
 
 **HTML** renderers:
 
+- Combined
 - Inline
 - Side by Side
 
@@ -69,7 +70,7 @@ $new = 'And this is the new one.';
 
 // renderer class name:
 //     Text renderers: Context, Json, Unified
-//     HTML renderers: Inline, SideBySide
+//     HTML renderers: Combined, Inline, SideBySide
 $rendererName = 'Unified';
 
 // the Diff class options
@@ -169,6 +170,15 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 ```
 
 ![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/side-by-side-renderer.png)
+
+
+### Renderer: Combined
+
+```php
+<?php $rendererOptions = ['detailLevel' => 'char'];
+```
+
+![Combined](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/combined-renderer-char-level.png)
 
 
 ### Renderer: Unified

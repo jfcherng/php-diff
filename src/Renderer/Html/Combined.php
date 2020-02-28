@@ -4,11 +4,16 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html;
 
+use Jfcherng\Diff\Factory\LineRendererFactory;
 use Jfcherng\Diff\Renderer\RendererConstant;
 use Jfcherng\Diff\SequenceMatcher;
+use Jfcherng\Diff\Utility\ReverseIterator;
+use Jfcherng\Utility\MbString;
 
 /**
  * Combined HTML diff generator.
+ *
+ * Note that this renderer always has no line number.
  */
 final class Combined extends AbstractHtml
 {
@@ -34,21 +39,11 @@ final class Combined extends AbstractHtml
             ['diff', 'diff-html', 'diff-combined']
         );
 
-        $html = '<table class="' . \implode(' ', $wrapperClasses) . '">';
-
-        $html .= $this->renderTableHeader();
-
-        foreach ($changes as $i => $blocks) {
-            if ($i > 0 && $this->options['separateBlock']) {
-                $html .= $this->renderTableSeparateBlock();
-            }
-
-            foreach ($blocks as $change) {
-                $html .= $this->renderTableBlock($change);
-            }
-        }
-
-        return $html . '</table>';
+        return
+            '<table class="' . \implode(' ', $wrapperClasses) . '">' .
+                $this->renderTableHeader() .
+                $this->renderTableHunks($changes) .
+            '</table>';
     }
 
     /**
@@ -59,14 +54,6 @@ final class Combined extends AbstractHtml
         return
             '<thead>' .
                 '<tr>' .
-                    (
-                        $this->options['lineNumbers']
-                        ?
-                            '<th>' . $this->_('old_version') . '</th>' .
-                            '<th>' . $this->_('new_version') . '</th>'
-                        :
-                            ''
-                    ) .
                     '<th>' . $this->_('differences') . '</th>' .
                 '</tr>' .
             '</thead>';
@@ -77,57 +64,73 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableSeparateBlock(): string
     {
-        $colspan = $this->options['lineNumbers'] ? ' colspan="3"' : '';
-
         return
             '<tbody class="skipped">' .
                 '<tr>' .
-                    '<td' . $colspan . '></td>' .
+                    '<td></td>' .
                 '</tr>' .
             '</tbody>';
     }
 
     /**
+     * Renderer table hunks.
+     *
+     * @param array[][] $hunks each hunk has many blocks
+     */
+    protected function renderTableHunks(array $hunks): string
+    {
+        $html = '';
+
+        foreach ($hunks as $i => $hunk) {
+            if ($i > 0 && $this->options['separateBlock']) {
+                $html .= $this->renderTableSeparateBlock();
+            }
+
+            foreach ($hunk as $block) {
+                $html .= $this->renderTableBlock($block);
+            }
+        }
+
+        return $html;
+    }
+
+    /**
      * Renderer the table block.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableBlock(array $change): string
+    protected function renderTableBlock(array $block): string
     {
         static $callbacks = [
-            SequenceMatcher::OP_EQ => 'renderTableEqual',
-            SequenceMatcher::OP_INS => 'renderTableInsert',
-            SequenceMatcher::OP_DEL => 'renderTableDelete',
-            SequenceMatcher::OP_REP => 'renderTableReplace',
+            SequenceMatcher::OP_EQ => 'renderTableBlockEqual',
+            SequenceMatcher::OP_INS => 'renderTableBlockInsert',
+            SequenceMatcher::OP_DEL => 'renderTableBlockDelete',
+            SequenceMatcher::OP_REP => 'renderTableBlockReplace',
         ];
 
         return
-            '<tbody class="change change-' . self::TAG_CLASS_MAP[$change['tag']] . '">' .
-                $this->{$callbacks[$change['tag']]}($change) .
+            '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' .
+                $this->{$callbacks[$block['tag']]}($block) .
             '</tbody>';
     }
 
     /**
      * Renderer the table block: equal.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableEqual(array $change): string
+    protected function renderTableBlockEqual(array $block): string
     {
         $html = '';
 
         // note that although we are in a OP_EQ situation,
         // the old and the new may not be exactly the same
         // because of ignoreCase, ignoreWhitespace, etc
-        foreach ($change['old']['lines'] as $no => $oldLine) {
-            // hmm... but this is a inline renderer
-            // we could only pick a line from the old or the new to show
-            $oldLineNum = $change['old']['offset'] + $no + 1;
-            $newLineNum = $change['new']['offset'] + $no + 1;
-
+        foreach ($block['old']['lines'] as $oldLine) {
+            // hmm... but there is only space for one line
+            // we could only pick either the old or the new to show
             $html .=
                 '<tr data-type="=">' .
-                    $this->renderLineNumberColumns($oldLineNum, $newLineNum) .
                     '<td class="old">' . $oldLine . '</td>' .
                 '</tr>';
         }
@@ -138,18 +141,15 @@ final class Combined extends AbstractHtml
     /**
      * Renderer the table block: insert.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableInsert(array $change): string
+    protected function renderTableBlockInsert(array $block): string
     {
         $html = '';
 
-        foreach ($change['new']['lines'] as $no => $newLine) {
-            $newLineNum = $change['new']['offset'] + $no + 1;
-
+        foreach ($block['new']['lines'] as $newLine) {
             $html .=
                 '<tr data-type="+">' .
-                    $this->renderLineNumberColumns(null, $newLineNum) .
                     '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
         }
@@ -160,18 +160,15 @@ final class Combined extends AbstractHtml
     /**
      * Renderer the table block: delete.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableDelete(array $change): string
+    protected function renderTableBlockDelete(array $block): string
     {
         $html = '';
 
-        foreach ($change['old']['lines'] as $no => $oldLine) {
-            $oldLineNum = $change['old']['offset'] + $no + 1;
-
+        foreach ($block['old']['lines'] as $oldLine) {
             $html .=
                 '<tr data-type="-">' .
-                    $this->renderLineNumberColumns($oldLineNum, null) .
                     '<td class="old">' . $oldLine . '</td>' .
                 '</tr>';
         }
@@ -182,173 +179,208 @@ final class Combined extends AbstractHtml
     /**
      * Renderer the table block: replace.
      *
-     * @param array $change the change
+     * @param array $block the block
      */
-    protected function renderTableReplace(array $change): string
+    protected function renderTableBlockReplace(array $block): string
     {
         $html = '';
 
-        $lineCountMax = \max(\count($change['old']['lines']), \count($change['new']['lines']));
+        $oldLines = $block['old']['lines'];
+        $newLines = $block['new']['lines'];
 
-        for ($no = 0; $no < $lineCountMax; ++$no) {
-            if (isset($change['old']['lines'][$no])) {
-                $oldLineNum = $change['old']['offset'] + $no + 1;
-                $oldLine = $change['old']['lines'][$no];
-            } else {
-                $oldLineNum = null;
-                $oldLine = '';
-            }
+        $oldLinesCount = \count($oldLines);
+        $newLinesCount = \count($newLines);
 
-            if (isset($change['new']['lines'][$no])) {
-                $newLineNum = $change['new']['offset'] + $no + 1;
-                $newLine = $change['new']['lines'][$no];
-            } else {
-                $newLineNum = null;
-                $newLine = '';
-            }
+        // if the line counts changes, we treat the old and the new as
+        // "a line with \n in it" and then do one-line-to-one-line diff
+        if ($oldLinesCount !== $newLinesCount) {
+            [$oldLines, $newLines] = $this->diffReplaceBlock($oldLines, $newLines);
+            $oldLinesCount = $newLinesCount = 1;
+        }
 
-            $mergeDiffs = $this->mergeDiffs($newLine, $oldLine);
+        // fix for "detailLevel" is "none"
+        $this->fixLinesForNoClosure($oldLines, RendererConstant::HTML_CLOSURES_DEL);
+        $this->fixLinesForNoClosure($newLines, RendererConstant::HTML_CLOSURES_INS);
 
-            if ($mergeDiffs !== '') {
-                $html .=
-                    '<tr>' .
-                        $this->renderLineNumberColumns($oldLineNum, $newLineNum) .
-                        '<td class="rep">' . $mergeDiffs . '</td>' .
-                    '</tr>';
-            } else {
-                $html .=
-                (
-                    isset($oldLineNum)
-                    ?
-                        '<tr>' .
-                            $this->renderLineNumberColumns($oldLineNum, null) .
-                            '<td class="old">' . $oldLine . '</td>' .
-                        '</tr>'
-                    :
-                        ''
-                ) .
-                (
-                    isset($newLineNum)
-                    ?
-                        '<tr>' .
-                            $this->renderLineNumberColumns(null, $newLineNum) .
-                            '<td class="new">' . $newLine . '</td>' .
-                        '</tr>'
-                    :
-                        ''
-                );
-            }
+        // now $oldLines must has the same line counts with $newlines
+        for ($no = 0; $no < $newLinesCount; ++$no) {
+            $html .=
+                '<tr data-type="!">' .
+                    '<td class="rep">' .
+                        $this->mergeReplaceLines($oldLines[$no], $newLines[$no]) .
+                    '</td>' .
+                '</tr>';
         }
 
         return $html;
     }
 
     /**
-     * Renderer the line number columns.
+     * Merge two "replace" lines into one line.
      *
-     * @param null|int $oldLineNum the old line number
-     * @param null|int $newLineNum the new line number
-     */
-    protected function renderLineNumberColumns(?int $oldLineNum, ?int $newLineNum): string
-    {
-        if (!$this->options['lineNumbers']) {
-            return '';
-        }
-
-        return
-            (
-                isset($oldLineNum)
-                    ? '<th class="n-old">' . $oldLineNum . '</th>'
-                    : '<th></th>'
-            ) .
-            (
-                isset($newLineNum)
-                    ? '<th class="n-new">' . $newLineNum . '</th>'
-                    : '<th></th>'
-            );
-    }
-
-    /**
-     * Merge diffs between lines.
+     * - Extract newPart in "SOME CONTENT <ins>newPart</ins> SOME CONTENT"
+     * - Place "<ins>newPart</ins>" after "<del>oldPart</del>"
      *
-     * Gets newPart in <ins>newPart</ins>
-     * Replaces <del>oldPart</del> with
-     * <del>oldPart</del><ins>newPart</ins>
-     *
-     * @param string $newLine the new line
      * @param string $oldLine the old line
+     * @param string $newLine the new line
      */
-    protected function mergeDiffs(string $newLine, string $oldLine): string
+    protected function mergeReplaceLines(string $oldLine, string $newLine): string
     {
-        $newParts = $this->getPartsByClosures(
-            RendererConstant::HTML_CLOSURES_INS[0],
-            RendererConstant::HTML_CLOSURES_INS[1],
-            $newLine
-        );
-
-        $oldParts = $this->getPartsByClosures(
+        $delParts = $this->extractClosureParts(
             RendererConstant::HTML_CLOSURES_DEL[0],
             RendererConstant::HTML_CLOSURES_DEL[1],
-            $oldLine
+            $oldLine,
+            SequenceMatcher::OP_DEL
         );
 
-        // can they not be equal, though?
-        // if not, we can check $oldParts with strpos
-        if (
-            \count($newParts) === \count($oldParts)
-            && !empty($newParts)
-            && !empty($oldParts)
-        ) {
-            $offset = 0;
+        $insParts = $this->extractClosureParts(
+            RendererConstant::HTML_CLOSURES_INS[0],
+            RendererConstant::HTML_CLOSURES_INS[1],
+            $newLine,
+            SequenceMatcher::OP_INS
+        );
 
-            return \preg_replace_callback(
-                '/' . \preg_quote(RendererConstant::HTML_CLOSURES_DEL[1], '/') . '/',
-                function (array $match) use ($newParts, &$offset): string {
-                    return
-                        RendererConstant::HTML_CLOSURES_DEL[1] .
-                        RendererConstant::HTML_CLOSURES_INS[0] .
-                        $newParts[$offset++] .
-                        RendererConstant::HTML_CLOSURES_INS[1];
-                },
-                $oldLine
+        // create a sorted merged parts array
+        $mergedParts = \array_merge($delParts, $insParts);
+        \usort($mergedParts, function (array $a, array $b): int {
+            // first sort by "offsetBiased" then by "type"
+            return $a['offsetBiased'] <=> $b['offsetBiased']
+                ?: ($a['type'] === SequenceMatcher::OP_DEL ? -1 : 1);
+        });
+
+        // get the cleaned line by a non-regex way (should be faster)
+        // i.e., remove all "<ins>...</ins>" parts from the new line
+        $line = '';
+        $offset = 0;
+        foreach ($insParts as $insPart) {
+            $line .= \substr($newLine, $offset, $insPart['offset'] - $offset);
+            $offset = $insPart['offset'] + \strlen($insPart['content']);
+        }
+        $line .= \substr($newLine, $offset);
+
+        // insert merged parts into the cleaned line
+        foreach (ReverseIterator::fromArray($mergedParts) as $part) {
+            $line = \substr_replace(
+                $line,
+                $part['content'],
+                $part['offsetBiased'],
+                0 // insertion
             );
         }
 
-        return '';
+        return $line;
     }
 
     /**
-     * Get the parts of the line.
+     * Extract the closure parts of the line.
      *
-     * @param string $leftDelim  the left delimiter
-     * @param string $rightDelim the right delimiter
-     * @param string $line       the line
+     * Such as
+     *     extract "<ins>part 1</ins>" and "<ins>part 2</ins>"
+     *     from "<ins>part 1</ins>SOME OTHER TEXT<ins>part 2</ins>"
      *
-     * @see https://stackoverflow.com/a/27078384/12866913
+     * Note that preg_match_all() is handy but slow.
+     *
+     * @param string $ld   the left delimiter
+     * @param string $rd   the right delimiter
+     * @param string $line the line
+     * @param int    $type the line type
+     *
+     * @see https://stackoverflow.com/a/27078384/12866913 (this method)
+     * @see https://stackoverflow.com/a/27071699/4643765 (preg_match_all)
      */
-    protected function getPartsByClosures(
-        string $leftDelim,
-        string $rightDelim,
-        string $line
-    ): array {
-        $contents = [];
-        $leftDelimLength = \strlen($leftDelim);
-        $rightDelimLength = \strlen($rightDelim);
-        $startFrom = $contentStart = $contentEnd = 0;
+    protected function extractClosureParts(string $ld, string $rd, string $line, int $type): array
+    {
+        $ldLength = \strlen($ld);
+        $rdLength = \strlen($rd);
 
-        while (($contentStart = \strpos($line, $leftDelim, $startFrom)) !== false) {
-            $contentStart += $leftDelimLength;
-            $contentEnd = \strpos($line, $rightDelim, $contentStart);
+        $parts = [];
+        $partStart = $partEnd = 0;
+        $offsetBias = 0;
 
-            if ($contentEnd === false) {
+        while (false !== ($partStart = \strpos($line, $ld, $partEnd))) {
+            if (false === ($partEnd = \strpos($line, $rd, $partStart + $ldLength))) {
                 break;
             }
 
-            $contents[] = \substr($line, $contentStart, $contentEnd - $contentStart);
+            $partEnd += $rdLength;
+            $partLength = $partEnd - $partStart;
 
-            $startFrom = $contentEnd + $rightDelimLength;
+            $parts[] = [
+                'type' => $type,
+                'offset' => $partStart,
+                'offsetBiased' => $partStart - $offsetBias,
+                'content' => \substr($line, $partStart, $partLength),
+            ];
+
+            $offsetBias += $partLength;
         }
 
-        return $contents;
+        return $parts;
+    }
+
+    /**
+     * Mark differences between two "replace" blocks.
+     *
+     * Each of the returned block (lines) is always only one line.
+     *
+     * @param string[] $oldBlock The old block
+     * @param string[] $newBlock The new block
+     *
+     * @return string[][] the value of [[$oldLine], [$newLine]]
+     */
+    protected function diffReplaceBlock(array $oldBlock, array $newBlock): array
+    {
+        static $isInitiated = false, $mbOld, $mbNew, $lineRenderer;
+
+        if (!$isInitiated) {
+            $isInitiated = true;
+
+            $mbOld = new MbString();
+            $mbNew = new MbString();
+            $lineRenderer = LineRendererFactory::make(
+                $this->options['detailLevel'],
+                [], /** @todo is it possible to get the differOptions here? */
+                $this->options
+            );
+        }
+
+        $mbOld->set(\implode("\n", $oldBlock));
+        $mbNew->set(\implode("\n", $newBlock));
+
+        $lineRenderer->render($mbOld, $mbNew);
+
+        $oldLine = \str_replace(
+            RendererConstant::HTML_CLOSURES,
+            RendererConstant::HTML_CLOSURES_DEL,
+            $mbOld->get()
+        );
+
+        $newLine = \str_replace(
+            RendererConstant::HTML_CLOSURES,
+            RendererConstant::HTML_CLOSURES_INS,
+            $mbNew->get()
+        );
+
+        return [
+            [$oldLine], // one-line block for the old
+            [$newLine], // one-line block for the new
+        ];
+    }
+
+    /**
+     * Wrap the whole line with closures if it does not have one.
+     *
+     * @param string[] $lines    the lines
+     * @param string[] $closures the closures
+     */
+    protected function fixLinesForNoClosure(array &$lines, array $closures): void
+    {
+        foreach ($lines as &$line) {
+            // there is no closure in a "replace"-type line
+            // this means that the entire line changes
+            if (false === \strpos($line, $closures[0])) {
+                $line = "{$closures[0]}{$line}{$closures[1]}";
+            }
+        }
     }
 }

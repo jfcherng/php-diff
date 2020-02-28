@@ -16,5 +16,4 @@ B
 Donec rutrum test.
 There is a new inserted line.
 C
-gravida aliquet test.
-Sed dictum test.
+Sed dolor lorem ipsum hendrerit.
