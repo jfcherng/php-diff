@@ -36,7 +36,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         // options for renderer class
         $rendererOptions = [
-            // how detailed the rendered HTML is? (line, word, char)
+            // how detailed the rendered HTML is? (none, line, word, char)
             'detailLevel' => 'line',
             // renderer language: eng, cht, chs, jpn, ...
             // or an array which has the same keys with a language file
@@ -155,6 +155,22 @@ use Jfcherng\Diff\Factory\RendererFactory;
         );
 
         echo $inlineResult;
+
+        ?>
+
+        <h1>Combined Diff</h1>
+        <?php
+
+        // generate a combined diff
+        $sideBySideResult = DiffHelper::calculateFiles(
+            $oldFilePath,
+            $newFilePath,
+            'Combined',
+            $diffOptions,
+            $rendererOptions
+        );
+
+        echo $sideBySideResult;
 
         ?>
 
