@@ -225,14 +225,14 @@ final class Combined extends AbstractHtml
      */
     protected function mergeReplaceLines(string $oldLine, string $newLine): string
     {
-        $delParts = $this->extractClosureParts(
+        $delParts = $this->analyzeClosureParts(
             RendererConstant::HTML_CLOSURES_DEL[0],
             RendererConstant::HTML_CLOSURES_DEL[1],
             $oldLine,
             SequenceMatcher::OP_DEL
         );
 
-        $insParts = $this->extractClosureParts(
+        $insParts = $this->analyzeClosureParts(
             RendererConstant::HTML_CLOSURES_INS[0],
             RendererConstant::HTML_CLOSURES_INS[1],
             $newLine,
@@ -248,33 +248,40 @@ final class Combined extends AbstractHtml
         });
 
         // get the cleaned line by a non-regex way (should be faster)
-        // i.e., remove all "<ins>...</ins>" parts from the new line
-        $line = '';
-        $offset = 0;
-        foreach ($insParts as $insPart) {
-            $line .= \substr($newLine, $offset, $insPart['offset'] - $offset);
-            $offset = $insPart['offset'] + \strlen($insPart['content']);
+        // i.e., the new line with all "<ins>...</ins>" parts removed
+        $mergedLine = $newLine;
+        foreach (ReverseIterator::fromArray($insParts) as $part) {
+            $mergedLine = \substr_replace(
+                $mergedLine,
+                '', // deletion
+                $part['offset'],
+                $part['length']
+            );
         }
-        $line .= \substr($newLine, $offset);
 
         // insert merged parts into the cleaned line
         foreach (ReverseIterator::fromArray($mergedParts) as $part) {
-            $line = \substr_replace(
-                $line,
-                $part['content'],
+            $mergedLine = \substr_replace(
+                $mergedLine,
+                // the closure part from its source string
+                \substr(
+                    $part['type'] === SequenceMatcher::OP_DEL ? $oldLine : $newLine,
+                    $part['offset'],
+                    $part['length']
+                ),
                 $part['offsetBiased'],
                 0 // insertion
             );
         }
 
-        return $line;
+        return $mergedLine;
     }
 
     /**
-     * Extract the closure parts of the line.
+     * Analyze and get the closure parts information of the line.
      *
      * Such as
-     *     extract "<ins>part 1</ins>" and "<ins>part 2</ins>"
+     *     extract informations for "<ins>part 1</ins>" and "<ins>part 2</ins>"
      *     from "<ins>part 1</ins>SOME OTHER TEXT<ins>part 2</ins>"
      *
      * Note that preg_match_all() is handy but slow.
@@ -286,8 +293,10 @@ final class Combined extends AbstractHtml
      *
      * @see https://stackoverflow.com/a/27078384/12866913 (this method)
      * @see https://stackoverflow.com/a/27071699/4643765 (preg_match_all)
+     *
+     * @return array[] the closure informations
      */
-    protected function extractClosureParts(string $ld, string $rd, string $line, int $type): array
+    protected function analyzeClosureParts(string $ld, string $rd, string $line, int $type): array
     {
         $ldLength = \strlen($ld);
         $rdLength = \strlen($rd);
@@ -307,8 +316,9 @@ final class Combined extends AbstractHtml
             $parts[] = [
                 'type' => $type,
                 'offset' => $partStart,
+                'length' => $partLength,
+                // the offset in the cleaned line (i.e., the line with closure parts removed)
                 'offsetBiased' => $partStart - $offsetBias,
-                'content' => \substr($line, $partStart, $partLength),
             ];
 
             $offsetBias += $partLength;
