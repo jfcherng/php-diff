@@ -14,7 +14,7 @@ before_install:
   - pecl install -f ast
 
 install:
-  - rm -f composer.lock  # temporary fix for PHPUnit 8
+  - rm -f composer.lock  # workaround for testing among different PHP versions
   - composer install --prefer-dist --no-progress
 
 script:
