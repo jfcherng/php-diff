@@ -23,6 +23,9 @@ final class RendererConstant
     /**
      * Closures that are used to enclose different parts in string.
      *
+     * Arbitrary chars from the 15-16th Unicode reserved areas
+     * and hopefully, they won't appear in source texts.
+     *
      * @var string[]
      */
     const HTML_CLOSURES = ["\u{fcffc}\u{ff2fb}", "\u{fff41}\u{fcffc}"];
@@ -44,8 +47,8 @@ final class RendererConstant
     /**
      * The delimiter to be used as the glue in string/array functions.
      *
-     * this delimiter contains chars from the 15-16th Unicode reserved areas
-     * hopefully, it won't appear in our lines
+     * Arbitrary chars from the 15-16th Unicode reserved areas
+     * and hopefully, it won't appear in source texts.
      *
      * @var string
      */
@@ -54,7 +57,7 @@ final class RendererConstant
     /**
      * Regex range for punctuations.
      *
-     * Assuming regex delimiter is "/".
+     * Presuming the regex delimiter is "/".
      *
      * @var string
      */

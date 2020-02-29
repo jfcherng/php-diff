@@ -193,13 +193,15 @@ final class Combined extends AbstractHtml
         // if the line counts changes, we treat the old and the new as
         // "a line with \n in it" and then do one-line-to-one-line diff
         if ($oldLinesCount !== $newLinesCount) {
-            [$oldLines, $newLines] = $this->diffReplaceBlock($oldLines, $newLines);
+            [$oldLines, $newLines] = $this->markReplaceBlockDiff($oldLines, $newLines);
             $oldLinesCount = $newLinesCount = 1;
         }
 
         // fix for "detailLevel" is "none"
-        $this->fixLinesForNoClosure($oldLines, RendererConstant::HTML_CLOSURES_DEL);
-        $this->fixLinesForNoClosure($newLines, RendererConstant::HTML_CLOSURES_INS);
+        if ($this->options['detailLevel'] === 'none') {
+            $this->fixLinesForNoClosure($oldLines, RendererConstant::HTML_CLOSURES_DEL);
+            $this->fixLinesForNoClosure($newLines, RendererConstant::HTML_CLOSURES_INS);
+        }
 
         // now $oldLines must has the same line counts with $newlines
         for ($no = 0; $no < $newLinesCount; ++$no) {
@@ -215,10 +217,11 @@ final class Combined extends AbstractHtml
     }
 
     /**
-     * Merge two "replace" lines into one line.
+     * Merge two "replace"-type lines into a single line.
      *
-     * - Extract newPart in "SOME CONTENT <ins>newPart</ins> SOME CONTENT"
-     * - Place "<ins>newPart</ins>" after "<del>oldPart</del>"
+     * The implementation concept is that if we remove all closure parts from
+     * the old and the new, the rest of them (cleaned line) should be the same.
+     * And then, we add back those removed closure parts in a correct order.
      *
      * @param string $oldLine the old line
      * @param string $newLine the new line
@@ -242,8 +245,8 @@ final class Combined extends AbstractHtml
         // create a sorted merged parts array
         $mergedParts = \array_merge($delParts, $insParts);
         \usort($mergedParts, function (array $a, array $b): int {
-            // first sort by "offsetBiased" then by "type"
-            return $a['offsetBiased'] <=> $b['offsetBiased']
+            // first sort by "offsetClean" then by "type"
+            return $a['offsetClean'] <=> $b['offsetClean']
                 ?: ($a['type'] === SequenceMatcher::OP_DEL ? -1 : 1);
         });
 
@@ -269,7 +272,7 @@ final class Combined extends AbstractHtml
                     $part['offset'],
                     $part['length']
                 ),
-                $part['offsetBiased'],
+                $part['offsetClean'],
                 0 // insertion
             );
         }
@@ -282,17 +285,12 @@ final class Combined extends AbstractHtml
      *
      * Such as
      *     extract informations for "<ins>part 1</ins>" and "<ins>part 2</ins>"
-     *     from "<ins>part 1</ins>SOME OTHER TEXT<ins>part 2</ins>"
-     *
-     * Note that preg_match_all() is handy but slow.
+     *     from "Hello <ins>part 1</ins>SOME OTHER TEXT<ins>part 2</ins> World"
      *
      * @param string $ld   the left delimiter
      * @param string $rd   the right delimiter
      * @param string $line the line
      * @param int    $type the line type
-     *
-     * @see https://stackoverflow.com/a/27078384/12866913 (this method)
-     * @see https://stackoverflow.com/a/27071699/4643765 (preg_match_all)
      *
      * @return array[] the closure informations
      */
@@ -303,9 +301,11 @@ final class Combined extends AbstractHtml
 
         $parts = [];
         $partStart = $partEnd = 0;
-        $offsetBias = 0;
+        $partLengthSum = 0;
 
+        // find the next left delimiter
         while (false !== ($partStart = \strpos($line, $ld, $partEnd))) {
+            // find the corresponding right delimiter
             if (false === ($partEnd = \strpos($line, $rd, $partStart + $ldLength))) {
                 break;
             }
@@ -315,13 +315,14 @@ final class Combined extends AbstractHtml
 
             $parts[] = [
                 'type' => $type,
+                // the offset in the line
                 'offset' => $partStart,
                 'length' => $partLength,
                 // the offset in the cleaned line (i.e., the line with closure parts removed)
-                'offsetBiased' => $partStart - $offsetBias,
+                'offsetClean' => $partStart - $partLengthSum,
             ];
 
-            $offsetBias += $partLength;
+            $partLengthSum += $partLength;
         }
 
         return $parts;
@@ -337,7 +338,7 @@ final class Combined extends AbstractHtml
      *
      * @return string[][] the value of [[$oldLine], [$newLine]]
      */
-    protected function diffReplaceBlock(array $oldBlock, array $newBlock): array
+    protected function markReplaceBlockDiff(array $oldBlock, array $newBlock): array
     {
         static $isInitiated = false, $mbOld, $mbNew, $lineRenderer;
 

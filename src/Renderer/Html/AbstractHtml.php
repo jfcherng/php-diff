@@ -72,6 +72,7 @@ abstract class AbstractHtml extends AbstractRenderer
             foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
                 // if there are same amount of lines replaced
                 // we can render the inner detailed changes with corresponding lines
+                // @todo or use LineRenderer to do the job regardless different line counts?
                 if ($op === SequenceMatcher::OP_REP && $i2 - $i1 === $j2 - $j1) {
                     for ($k = 0; $k < $i2 - $i1; ++$k) {
                         $this->renderChangedExtent($lineRenderer, $old[$i1 + $k], $new[$j1 + $k]);
@@ -258,7 +259,7 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * Replace tabs in a string with a number of spaces.
      *
-     * @param string $string          the containing tabs to convert
+     * @param string $string          the input string which may contain tabs
      * @param int    $tabSize         one tab = how many spaces, a negative does nothing
      * @param bool   $onlyLeadingTabs only expand leading tabs
      *

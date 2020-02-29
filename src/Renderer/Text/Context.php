@@ -40,12 +40,12 @@ final class Context extends AbstractText
         $ret = '';
 
         foreach ($differ->getGroupedOpcodes() as $hunk) {
-            $lastItem = \count($hunk) - 1;
+            $lastBlockIdx = \count($hunk) - 1;
 
             $i1 = $hunk[0][1];
-            $i2 = $hunk[$lastItem][2];
+            $i2 = $hunk[$lastBlockIdx][2];
             $j1 = $hunk[0][3];
-            $j2 = $hunk[$lastItem][4];
+            $j2 = $hunk[$lastBlockIdx][4];
 
             $ret .=
                 "***************\n" .
