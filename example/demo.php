@@ -12,7 +12,25 @@ use Jfcherng\Diff\Factory\RendererFactory;
     <head>
         <meta charset="UTF-8" />
         <title>jfcherng/php-diff - Examples</title>
-        <style><?php echo DiffHelper::getStyleSheet(); ?></style>
+
+        <!-- Prism -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/themes/prism-okaidia.min.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/line-numbers/prism-line-numbers.min.css" />
+
+        <style type="text/css">
+            html {
+                font-size: 13px;
+            }
+            .token.coord {
+                color: #6cf;
+            }
+            .token.diff.bold {
+                color: #fb0;
+                font-weight: normal;
+            }
+
+            <?php echo DiffHelper::getStyleSheet(); ?>
+        </style>
     </head>
     <body>
         <?php
@@ -175,7 +193,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
         ?>
 
         <h1>Unified Diff</h1>
-        <pre><?php
+        <pre><code class="language-diff line-numbers"><?php
 
         // generate a unified diff
         $unifiedResult = DiffHelper::calculateFiles(
@@ -188,10 +206,10 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         echo \htmlspecialchars($unifiedResult);
 
-        ?></pre>
+        ?></code></pre>
 
         <h1>Context Diff</h1>
-        <pre><?php
+        <pre><code class="language-diff line-numbers"><?php
 
         // generate a context diff
         $contextResult = DiffHelper::calculateFiles(
@@ -204,10 +222,10 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         echo \htmlspecialchars($contextResult);
 
-        ?></pre>
+        ?></code></pre>
 
         <h1>JSON Diff</h1>
-        <pre><?php
+        <pre><code class="language-json line-numbers"><?php
 
         // generate a JSON diff
         $jsonResult = DiffHelper::calculateFiles(
@@ -225,10 +243,10 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         echo $beautified;
 
-        ?></pre>
+        ?></code></pre>
 
         <h1>HTML Diff from the Result of JSON Diff</h1>
-        <pre><?php
+        <?php
 
         $jsonArray = \json_decode($jsonResult, true);
 
@@ -237,6 +255,12 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         echo $inlineResult;
 
-        ?></pre>
+        ?>
+
+        <!-- Prism -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/prism.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/components/prism-diff.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/components/prism-json.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.19.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
     </body>
 </html>
