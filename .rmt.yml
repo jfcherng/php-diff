@@ -10,11 +10,11 @@ _default:
     - working-copy-check
     - display-last-changes
     - command:
-        cmd: composer test
+        cmd: composer run-script test
     - command:
-        cmd: composer analyze
+        cmd: composer run-script analyze
     - command:
-        cmd: composer fix
+        cmd: composer run-script fix
 
   # GENERAL CONFIG
   #  Apply to all branches except the one from the 'branch-specific' section

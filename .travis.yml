@@ -18,5 +18,5 @@ install:
   - composer install --prefer-dist --no-progress
 
 script:
-  - composer analyze
-  - composer test
+  - composer run-script analyze
+  - composer run-script test
