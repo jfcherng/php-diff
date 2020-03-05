@@ -277,7 +277,7 @@ final class Combined extends AbstractHtml
             );
         }
 
-        return $mergedLine;
+        return \str_replace("\n", '<br>', $mergedLine);
     }
 
     /**
