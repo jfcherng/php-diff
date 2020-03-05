@@ -158,7 +158,7 @@ final class SideBySide extends AbstractHtml
             $html .=
                 '<tr>' .
                     $this->renderLineNumberColumn('', null) .
-                    '<td class="old"></td>' .
+                    '<td class="old none"></td>' .
                     $this->renderLineNumberColumn('new', $newLineNum) .
                     '<td class="new">' . $newLine . '</td>' .
                 '</tr>';
@@ -184,7 +184,7 @@ final class SideBySide extends AbstractHtml
                     $this->renderLineNumberColumn('old', $oldLineNum) .
                     '<td class="old">' . $oldLine . '</td>' .
                     $this->renderLineNumberColumn('', null) .
-                    '<td class="new"></td>' .
+                    '<td class="new none"></td>' .
                 '</tr>';
         }
 
@@ -222,9 +222,13 @@ final class SideBySide extends AbstractHtml
             $html .=
                 '<tr>' .
                     $this->renderLineNumberColumn('old', $oldLineNum) .
-                    '<td class="old">' . $oldLine . '</td>' .
+                    '<td class="old' . (isset($oldLineNum) ? '' : ' none') . '">' .
+                        $oldLine .
+                    '</td>' .
                     $this->renderLineNumberColumn('new', $newLineNum) .
-                    '<td class="new">' . $newLine . '</td>' .
+                    '<td class="new' . (isset($newLineNum) ? '' : ' none') . '">' .
+                        $newLine .
+                    '</td>' .
                 '</tr>';
         }
 

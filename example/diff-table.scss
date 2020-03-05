@@ -121,20 +121,6 @@ $diff-bg-color-none-block-alternative: mix($diff-bg-color, $diff-table-sidebar-c
         }
       }
 
-      &.change-ins .old,
-      &.change-del .new,
-      &.change-rep .old:empty,
-      &.change-rep .new:empty {
-        cursor: not-allowed;
-        background: repeating-linear-gradient(
-          -45deg,
-          $diff-bg-color-none-block,
-          $diff-bg-color-none-block 0.5em,
-          $diff-bg-color-none-block-alternative 0.5em,
-          $diff-bg-color-none-block-alternative 1em,
-        ) fixed;
-      }
-
       .old {
         background: $diff-bg-color-del;
       }
@@ -145,6 +131,19 @@ $diff-bg-color-none-block-alternative: mix($diff-bg-color, $diff-table-sidebar-c
 
       .rep {
         background: $diff-bg-color-rep;
+      }
+
+      .old, .new, .rep {
+        &.none {
+          cursor: not-allowed;
+          background: repeating-linear-gradient(
+            -45deg,
+            $diff-bg-color-none-block,
+            $diff-bg-color-none-block 0.5em,
+            $diff-bg-color-none-block-alternative 0.5em,
+            $diff-bg-color-none-block-alternative 1em,
+          ) fixed;
+        }
       }
 
       ins,

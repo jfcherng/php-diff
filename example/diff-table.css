@@ -76,10 +76,6 @@
 .diff-wrapper.diff.diff-html .change.change-eq .new {
   background: #fff;
 }
-.diff-wrapper.diff.diff-html .change.change-ins .old, .diff-wrapper.diff.diff-html .change.change-del .new, .diff-wrapper.diff.diff-html .change.change-rep .old:empty, .diff-wrapper.diff.diff-html .change.change-rep .new:empty {
-  cursor: not-allowed;
-  background: repeating-linear-gradient(-45deg, whitesmoke, whitesmoke 0.5em, #e8e8e8 0.5em, #e8e8e8 1em) fixed;
-}
 .diff-wrapper.diff.diff-html .change .old {
   background: #fbe1e1;
 }
@@ -88,6 +84,10 @@
 }
 .diff-wrapper.diff.diff-html .change .rep {
   background: #fef6d9;
+}
+.diff-wrapper.diff.diff-html .change .old.none, .diff-wrapper.diff.diff-html .change .new.none, .diff-wrapper.diff.diff-html .change .rep.none {
+  cursor: not-allowed;
+  background: repeating-linear-gradient(-45deg, whitesmoke, whitesmoke 0.5em, #e8e8e8 0.5em, #e8e8e8 1em) fixed;
 }
 .diff-wrapper.diff.diff-html .change ins,
 .diff-wrapper.diff.diff-html .change del {
