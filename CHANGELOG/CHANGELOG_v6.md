@@ -2,6 +2,11 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.5** - New renderer: Combined
+   * 2020-03-05 14:14  **6.5.2**  Fix multiline replaced lines in the Combined renderer
+      * 5c93db2 Stripe background should only work in SideBySide
+      * ea45be3 Fix "\n" should be "<br>" in Combined renderer output
+      * d65c878 Use Prism.js to highlight diff example demos
+      * c4e7d7b Tidy codes
    * 2020-02-29 02:30  **6.5.1**  Allow overriding SCSS variables
       * ec4583c Allow overriding SCSS variables
       * bb5203b Simplify codes for merging lines in Combined renderer
