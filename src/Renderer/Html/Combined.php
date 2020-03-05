@@ -242,14 +242,6 @@ final class Combined extends AbstractHtml
             SequenceMatcher::OP_INS
         );
 
-        // create a sorted merged parts array
-        $mergedParts = \array_merge($delParts, $insParts);
-        \usort($mergedParts, function (array $a, array $b): int {
-            // first sort by "offsetClean" then by "type"
-            return $a['offsetClean'] <=> $b['offsetClean']
-                ?: ($a['type'] === SequenceMatcher::OP_DEL ? -1 : 1);
-        });
-
         // get the cleaned line by a non-regex way (should be faster)
         // i.e., the new line with all "<ins>...</ins>" parts removed
         $mergedLine = $newLine;
@@ -262,16 +254,24 @@ final class Combined extends AbstractHtml
             );
         }
 
+        // before building the $mergedParts, we do some adjustments
+        $this->revisePartsForBoundaryNewlines($delParts, RendererConstant::HTML_CLOSURES_DEL);
+        $this->revisePartsForBoundaryNewlines($insParts, RendererConstant::HTML_CLOSURES_INS);
+
+        // create a sorted merged parts array
+        $mergedParts = \array_merge($delParts, $insParts);
+        \usort($mergedParts, function (array $a, array $b): int {
+            // first sort by "offsetClean", "order" then by "type"
+            return $a['offsetClean'] <=> $b['offsetClean']
+                ?: $a['order'] <=> $b['order']
+                ?: ($a['type'] === SequenceMatcher::OP_DEL ? -1 : 1);
+        });
+
         // insert merged parts into the cleaned line
         foreach (ReverseIterator::fromArray($mergedParts) as $part) {
             $mergedLine = \substr_replace(
                 $mergedLine,
-                // the closure part from its source string
-                \substr(
-                    $part['type'] === SequenceMatcher::OP_DEL ? $oldLine : $newLine,
-                    $part['offset'],
-                    $part['length']
-                ),
+                $part['content'],
                 $part['offsetClean'],
                 0 // insertion
             );
@@ -315,11 +315,15 @@ final class Combined extends AbstractHtml
 
             $parts[] = [
                 'type' => $type,
+                // the sorting order used when both "offsetClean" are the same
+                'order' => 0,
                 // the offset in the line
                 'offset' => $partStart,
                 'length' => $partLength,
                 // the offset in the cleaned line (i.e., the line with closure parts removed)
                 'offsetClean' => $partStart - $partLengthSum,
+                // the content of the part
+                'content' => \substr($line, $partStart, $partLength),
             ];
 
             $partLengthSum += $partLength;
@@ -391,6 +395,50 @@ final class Combined extends AbstractHtml
             if (false === \strpos($line, $closures[0])) {
                 $line = "{$closures[0]}{$line}{$closures[1]}";
             }
+        }
+    }
+
+    /**
+     * Move boundary newline chars in parts to be extra new parts.
+     *
+     * @param array[]  $parts    the parts
+     * @param string[] $closures the closures
+     *
+     * @see https://git.io/JvVXH
+     */
+    protected function revisePartsForBoundaryNewlines(array &$parts, array $closures): void
+    {
+        $closureRegexL = \preg_quote($closures[0], '/');
+        $closureRegexR = \preg_quote($closures[1], '/');
+
+        for ($i = \count($parts) - 1; $i >= 0; --$i) {
+            $part = &$parts[$i];
+
+            $part['content'] = \preg_replace_callback(
+                "/(?P<closure>{$closureRegexL})(?P<nl>[\r\n]++)/u",
+                function (array $matches) use (&$parts, $part, $closures): string {
+                    // add a new part for the extract newline chars
+                    $part['order'] = -1;
+                    $part['content'] = "{$closures[0]}{$matches['nl']}{$closures[1]}";
+                    $parts[] = $part;
+
+                    return $matches['closure'];
+                },
+                $part['content']
+            );
+
+            $part['content'] = \preg_replace_callback(
+                "/(?P<nl>[\r\n]++)(?P<closure>{$closureRegexR})/u",
+                function (array $matches) use (&$parts, $part, $closures): string {
+                    // add a new part for the extract newline chars
+                    $part['order'] = 1;
+                    $part['content'] = "{$closures[0]}{$matches['nl']}{$closures[1]}";
+                    $parts[] = $part;
+
+                    return $matches['closure'];
+                },
+                $part['content']
+            );
         }
     }
 }
