@@ -20,8 +20,9 @@ final class Word extends AbstractLineRenderer
     {
         static $splitRegex = '/([' . RendererConstant::PUNCTUATIONS_RANGE . ']++)/uS';
 
-        $oldWords = $mbOld->toArraySplit($splitRegex, -1, \PREG_SPLIT_DELIM_CAPTURE);
-        $newWords = $mbNew->toArraySplit($splitRegex, -1, \PREG_SPLIT_DELIM_CAPTURE);
+        $pregFlag = \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY;
+        $oldWords = $mbOld->toArraySplit($splitRegex, -1, $pregFlag);
+        $newWords = $mbNew->toArraySplit($splitRegex, -1, $pregFlag);
 
         $hunk = $this->getChangedExtentSegments($oldWords, $newWords);
 
