@@ -2,6 +2,11 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.5** - New renderer: Combined
+   * 2020-03-06 01:29  **6.5.3**  Improve Combined renderer output for newlines
+      * 745199a Update deps
+      * e531cdc Combined: better boundary newline chars visualization
+      * bf09969 Tidy codes
+      * 42366b1 Add "run-script" to custom composer commands
    * 2020-03-05 14:14  **6.5.2**  Fix multiline replaced lines in the Combined renderer
       * 5c93db2 Stripe background should only work in SideBySide
       * ea45be3 Fix "\n" should be "<br>" in Combined renderer output
