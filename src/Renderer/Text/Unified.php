@@ -47,19 +47,29 @@ final class Unified extends AbstractText
     {
         $lastBlockIdx = \count($hunk) - 1;
 
+        // note that these line number variables are 0-based
         $i1 = $hunk[0][1];
         $i2 = $hunk[$lastBlockIdx][2];
         $j1 = $hunk[0][3];
         $j2 = $hunk[$lastBlockIdx][4];
 
-        if ($i1 === 0 && $i2 === 0) {
-            $i1 = $i2 = -1; // trick
-        }
+        $oldLinesCount = $i2 - $i1;
+        $newLinesCount = $j2 - $j1;
 
         return
             '@@ ' .
-            '-' . ($i1 + 1) . ',' . ($i2 - $i1) . ' ' .
-            '+' . ($j1 + 1) . ',' . ($j2 - $j1) . ' ' .
+            '-' .
+                // the line number in GNU diff is 1-based, so we add 1
+                // a special case is when a hunk has only changed blocks,
+                // i.e., context is set to 0, we do not need the adding
+                ($i1 === $i2 ? $i1 : $i1 + 1) .
+                // if the line counts is 1, it can (and mostly) be omitted
+                ($oldLinesCount === 1 ? '' : ",{$oldLinesCount}") .
+                ' ' .
+            '+' .
+                ($j1 === $j2 ? $j1 : $j1 + 1) .
+                ($newLinesCount === 1 ? '' : ",{$newLinesCount}") .
+                ' ' .
             "@@\n";
     }
 
