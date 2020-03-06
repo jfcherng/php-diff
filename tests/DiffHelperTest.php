@@ -6,6 +6,8 @@ namespace Jfcherng\Diff\Test;
 
 use Jfcherng\Diff\DiffHelper;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 
 /**
  * @coversNothing
@@ -15,92 +17,34 @@ use PHPUnit\Framework\TestCase;
 final class DiffHelperTest extends TestCase
 {
     /**
-     * Data provider for DiffHelper::calculate.
+     * Test renderer output.
      *
-     * @return array the data provider
+     * @covers \Jfcherng\Diff\DiffHelper::calculate
+     * @covers \Jfcherng\Diff\Renderer\Text\Context
+     * @covers \Jfcherng\Diff\Renderer\Text\Unified
+     *
+     * @dataProvider rendererOutputDataProvider
+     *
+     * @param string        $rendererName The renderer name
+     * @param int           $idx          The index
+     * @param SplFileInfo[] $testFiles    The test files
      */
-    public function calculateDataProvider(): array
+    public function testRendererOutput(string $rendererName, int $idx, array $testFiles): void
     {
-        return [
-            [
-                <<<'EOT'
-apples
-oranges
-kiwis
-carrots
-EOT
-                ,
-                <<<'EOT'
-apples
-kiwis
-carrots
-grapefruits
-EOT
-                ,
-                [
-                    'Unified' => <<<'EOT'
-@@ -1,4 +1,4 @@
- apples
--oranges
- kiwis
- carrots
-+grapefruits
+        if (!isset($testFiles['old'], $testFiles['new'], $testFiles['result'])) {
+            static::markTestSkipped("Renderer output test '{$rendererName}' #{$idx} is imcomplete.");
+        }
 
-EOT
-                    ,
-                    'Context' => <<<'EOT'
-***************
-*** 1,4 ****
-  apples
-- oranges
-  kiwis
-  carrots
---- 1,4 ----
-  apples
-  kiwis
-  carrots
-+ grapefruits
-
-EOT
-                    ,
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * Test the DiffHelper::calculate with the 'Unified' renderer.
-     *
-     * @covers       \Jfcherng\Diff\DiffHelper::calculate
-     * @dataProvider calculateDataProvider
-     *
-     * @param string $old       the old
-     * @param string $new       the new
-     * @param array  $expecteds the expecteds
-     */
-    public function testCalculateUnified(string $old, string $new, array $expecteds): void
-    {
-        static::assertSame(
-            $expecteds['Unified'],
-            DiffHelper::calculate($old, $new, 'Unified')
+        $result = DiffHelper::calculate(
+            $testFiles['old']->getContents(),
+            $testFiles['new']->getContents(),
+            $rendererName
         );
-    }
 
-    /**
-     * Test the DiffHelper::calculate with the 'Context' renderer.
-     *
-     * @covers       \Jfcherng\Diff\DiffHelper::calculate
-     * @dataProvider calculateDataProvider
-     *
-     * @param string $old       the old
-     * @param string $new       the new
-     * @param array  $expecteds the expecteds
-     */
-    public function testCalculateContext(string $old, string $new, array $expecteds): void
-    {
         static::assertSame(
-            $expecteds['Context'],
-            DiffHelper::calculate($old, $new, 'Context')
+            $testFiles['result']->getContents(),
+            $result,
+            "Renderer output test '{$rendererName}' #{$idx} failed..."
         );
     }
 
@@ -112,5 +56,60 @@ EOT
     public function testGetStyleSheet(): void
     {
         static::assertIsString(DiffHelper::getStyleSheet());
+    }
+
+    /**
+     * Data provider for self::testRendererOutput.
+     */
+    public function rendererOutputDataProvider(): array
+    {
+        $rendererNames = DiffHelper::getAvailableRenderers();
+
+        $data = [];
+
+        foreach ($rendererNames as $rendererName) {
+            $tests = $this->findRendererOutputTestFiles($rendererName);
+
+            foreach ($tests as $idx => $files) {
+                $data[] = [$rendererName, $idx, $files];
+            }
+        }
+
+        return $data;
+    }
+
+    /**
+     * Find renderer output test files.
+     *
+     * The structure is like [
+     *     1 => ['old' => SplFileInfo, 'new' => SplFileInfo, 'result' => SplFileInfo],
+     *     ...
+     * ]
+     *
+     * @param string $rendererName The renderer name
+     */
+    protected function findRendererOutputTestFiles(string $rendererName): array
+    {
+        $rendererNameRegex = \preg_quote($rendererName, '/');
+        $fileNameRegex = "/{$rendererNameRegex}-(?P<idx>[0-9]+)-(?P<name>[^.\-]+)\.txt$/u";
+
+        $finder = (new Finder())
+            ->files()
+            ->name($fileNameRegex)
+            ->in(__DIR__ . '/data/renderer_outputs');
+
+        $ret = [];
+
+        /** @var SplFileInfo $file */
+        foreach ($finder as $file) {
+            \preg_match($fileNameRegex, $file->getFilename(), $matches);
+            $idx = (int) $matches['idx'];
+            $name = $matches['name'];
+
+            $ret[$idx] = $ret[$idx] ?? [];
+            $ret[$idx][$name] = $file;
+        }
+
+        return $ret;
     }
 }

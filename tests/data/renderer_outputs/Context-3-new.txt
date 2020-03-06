@@ -1,0 +1,4 @@
+; test EOL at EOF
+A
+C
+X

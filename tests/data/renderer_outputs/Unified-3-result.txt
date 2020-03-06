@@ -1,0 +1,8 @@
+@@ -1,4 +1,4 @@
+ ; test EOL at EOF
+ A
+-B
+-X
+\ No newline at end of file
++C
++X

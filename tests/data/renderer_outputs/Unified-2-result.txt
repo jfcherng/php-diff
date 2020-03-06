@@ -1,0 +1,8 @@
+@@ -1,6 +1,6 @@
+ ; test trailing OP_EQ EOL at EOF should be removed from the diff
+ apples
+-oranges
+ kiwis
+ carrots
++grapefruits
+ equal-line

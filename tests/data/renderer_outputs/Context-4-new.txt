@@ -1,0 +1,6 @@
+; pure OP_EQ blocks should be omitted
+A
+B
+M
+X
+Y

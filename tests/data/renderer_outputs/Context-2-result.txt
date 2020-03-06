@@ -1,0 +1,15 @@
+***************
+*** 1,6 ****
+  ; simple test
+  apples
+- oranges
+  kiwis
+  carrots
+  equal-line
+--- 1,6 ----
+  ; simple test
+  apples
+  kiwis
+  carrots
++ grapefruits
+  equal-line

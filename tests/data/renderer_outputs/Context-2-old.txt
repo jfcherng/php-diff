@@ -1,0 +1,6 @@
+; simple test
+apples
+oranges
+kiwis
+carrots
+equal-line
