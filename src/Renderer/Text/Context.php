@@ -33,21 +33,13 @@ final class Context extends AbstractText
     ];
 
     /**
-     * @var int the union of OPs that indicate there is a change
-     */
-    const OP_BLOCK_CHANGED =
-        SequenceMatcher::OP_INS |
-        SequenceMatcher::OP_DEL |
-        SequenceMatcher::OP_REP;
-
-    /**
      * {@inheritdoc}
      */
     protected function renderWorker(Differ $differ): string
     {
         $ret = '';
 
-        foreach ($differ->getGroupedOpcodes() as $hunk) {
+        foreach ($differ->getGroupedOpcodesGnu() as $hunk) {
             $lastBlockIdx = \count($hunk) - 1;
 
             // note that these line number variables are 0-based
@@ -70,16 +62,16 @@ final class Context extends AbstractText
     /**
      * Render the hunk header.
      *
-     * @param string $delimiter the delimiter
-     * @param int    $a1        the a1
-     * @param int    $a2        the a2
+     * @param string $symbol the symbol
+     * @param int    $a1     the begin index
+     * @param int    $a2     the end index
      */
-    protected function renderHunkHeader(string $delimiter, int $a1, int $a2): string
+    protected function renderHunkHeader(string $symbol, int $a1, int $a2): string
     {
         return
-            "{$delimiter}{$delimiter}{$delimiter} " .
+            "{$symbol}{$symbol}{$symbol} " .
             ($a2 - $a1 >= 2 ? ($a1 + 1) . ',' . $a2 : $a2) .
-            " {$delimiter}{$delimiter}{$delimiter}{$delimiter}\n";
+            " {$symbol}{$symbol}{$symbol}{$symbol}\n";
     }
 
     /**
@@ -98,11 +90,11 @@ final class Context extends AbstractText
                 continue;
             }
 
-            if ($op & self::OP_BLOCK_CHANGED) {
+            if ($op !== SequenceMatcher::OP_EQ) {
                 $hasChangeInHunk = true;
             }
 
-            $ret .= $this->renderContext(self::TAG_MAP[$op], $differ->getOld($i1, $i2));
+            $ret .= $this->renderContext(self::TAG_MAP[$op], $differ, self::OLD_AS_SOURCE, $i1, $i2);
         }
 
         return $hasChangeInHunk ? $ret : '';
@@ -124,11 +116,11 @@ final class Context extends AbstractText
                 continue;
             }
 
-            if ($op & self::OP_BLOCK_CHANGED) {
+            if ($op !== SequenceMatcher::OP_EQ) {
                 $hasChangeInHunk = true;
             }
 
-            $ret .= $this->renderContext(self::TAG_MAP[$op], $differ->getNew($j1, $j2));
+            $ret .= $this->renderContext(self::TAG_MAP[$op], $differ, self::NEW_AS_SOURCE, $j1, $j2);
         }
 
         return $hasChangeInHunk ? $ret : '';
@@ -137,13 +129,31 @@ final class Context extends AbstractText
     /**
      * Render the context array with the symbol.
      *
-     * @param string   $symbol  the leading symbol
-     * @param string[] $context the context
+     * @param string $symbol the symbol
+     * @param Differ $differ the differ
+     * @param int    $source the source type
+     * @param int    $a1     the begin index
+     * @param int    $a2     the end index
      */
-    protected function renderContext(string $symbol, array $context): string
+    protected function renderContext(string $symbol, Differ $differ, int $source, int $a1, int $a2): string
     {
-        return empty($context)
-            ? ''
-            : "{$symbol} " . \implode("\n{$symbol} ", $context) . "\n";
+        $context = $source === self::OLD_AS_SOURCE
+            ? $differ->getOld($a1, $a2)
+            : $differ->getNew($a1, $a2);
+
+        if (empty($context)) {
+            return '';
+        }
+
+        $ret = "{$symbol} " . \implode("\n{$symbol} ", $context) . "\n";
+
+        if (
+            ($source === self::OLD_AS_SOURCE && $a2 === $differ->getOldNoEolAtEofIdx()) ||
+            ($source === self::NEW_AS_SOURCE && $a2 === $differ->getNewNoEolAtEofIdx())
+        ) {
+            $ret .= self::GNU_OUTPUT_NO_EOL_AT_EOF . "\n";
+        }
+
+        return $ret;
     }
 }

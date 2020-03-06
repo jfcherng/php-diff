@@ -23,6 +23,9 @@ final class Differ
      */
     private const CACHED_PROPERTIES = [
         'groupedOpcodes' => [],
+        'groupedOpcodesGnu' => [],
+        'oldNoEolAtEofIdx' => -1,
+        'newNoEolAtEofIdx' => -1,
         'oldNewComparison' => 0,
     ];
 
@@ -52,15 +55,32 @@ final class Differ
     private $sequenceMatcher;
 
     /**
+     * @var int the end index for the old if the old has no EOL at EOF
+     *          -1 means the old has an EOL at EOF
+     */
+    private $oldNoEolAtEofIdx = -1;
+
+    /**
+     * @var int the end index for the new if the new has no EOL at EOF
+     *          -1 means the new has an EOL at EOF
+     */
+    private $newNoEolAtEofIdx = -1;
+
+    /**
      * @var int the result of comparing the old and the new with the spaceship operator
      *          -1 means old < new, 0 means old == new, 1 means old > new
      */
     private $oldNewComparison = 0;
 
     /**
-     * @var array array containing the generated opcodes for the differences between the two items
+     * @var int[][][] array containing the generated opcodes for the differences between the two items
      */
     private $groupedOpcodes = [];
+
+    /**
+     * @var int[][][] array containing the generated opcodes for the differences between the two items (GNU version)
+     */
+    private $groupedOpcodesGnu = [];
 
     /**
      * @var array associative array of the default options available for the Differ class and their default value
@@ -188,6 +208,26 @@ final class Differ
     }
 
     /**
+     * Get the old no EOL at EOF index.
+     *
+     * @return int the old no EOL at EOF index
+     */
+    public function getOldNoEolAtEofIdx(): int
+    {
+        return $this->finalize()->oldNoEolAtEofIdx;
+    }
+
+    /**
+     * Get the new no EOL at EOF index.
+     *
+     * @return int the new no EOL at EOF index
+     */
+    public function getNewNoEolAtEofIdx(): int
+    {
+        return $this->finalize()->newNoEolAtEofIdx;
+    }
+
+    /**
      * Compare the old and the new with the spaceship operator.
      */
     public function getOldNewComparison(): int
@@ -222,6 +262,61 @@ final class Differ
         }
 
         return $this->groupedOpcodes = $this->sequenceMatcher
+            ->setSequences($this->old, $this->new)
+            ->getGroupedOpcodes($this->options['context']);
+    }
+
+    /**
+     * A EOL-at-EOF-sensitve version of getGroupedOpcodes().
+     *
+     * @return int[][][] array of the grouped opcodes for the generated diff (GNU version)
+     */
+    public function getGroupedOpcodesGnu(): array
+    {
+        $this->finalize();
+
+        if (!empty($this->groupedOpcodesGnu)) {
+            return $this->groupedOpcodesGnu;
+        }
+
+        $old = \array_map(
+            function (string $line): string {
+                return "{$line}\n";
+            },
+            $this->old
+        );
+
+        $new = \array_map(
+            function (string $line): string {
+                return "{$line}\n";
+            },
+            $this->new
+        );
+
+        // note that the old and the new are never empty at this point
+        // they have at least one element "\n" in the array because explode("\n", "") === [""]
+        $oldLastIdx = \count($old) - 1;
+        $newLastIdx = \count($new) - 1;
+        $oldLast = &$old[$oldLastIdx];
+        $newLast = &$new[$newLastIdx];
+
+        if ($oldLast === "\n") {
+            // remove the last plain "\n" line since we don't need it anymore
+            unset($old[$oldLastIdx]);
+        } else {
+            // this means the original source has no EOL at EOF
+            // we have to remove the trailing \n from the last line
+            $oldLast = \substr($oldLast, 0, -1);
+        }
+
+        if ($newLast === "\n") {
+            unset($new[$newLastIdx]);
+        } else {
+            $newLast = \substr($newLast, 0, -1);
+        }
+
+        return $this->groupedOpcodesGnu = $this->sequenceMatcher
+            ->setSequences($old, $new)
             ->getGroupedOpcodes($this->options['context']);
     }
 
@@ -239,11 +334,11 @@ final class Differ
         if ($this->isCacheDirty) {
             $this->resetCachedResults();
 
+            $this->oldNoEolAtEofIdx = $this->getOld(-1) === [''] ? -1 : \count($this->old);
+            $this->newNoEolAtEofIdx = $this->getNew(-1) === [''] ? -1 : \count($this->new);
             $this->oldNewComparison = $this->old <=> $this->new;
 
-            $this->sequenceMatcher
-                ->setOptions($this->options)
-                ->setSequences($this->old, $this->new);
+            $this->sequenceMatcher->setOptions($this->options);
         }
 
         return $this;
