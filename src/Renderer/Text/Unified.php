@@ -30,38 +30,8 @@ final class Unified extends AbstractText
         $ret = '';
 
         foreach ($differ->getGroupedOpcodes() as $hunk) {
-            $lastBlockIdx = \count($hunk) - 1;
-
-            $i1 = $hunk[0][1];
-            $i2 = $hunk[$lastBlockIdx][2];
-            $j1 = $hunk[0][3];
-            $j2 = $hunk[$lastBlockIdx][4];
-
-            if ($i1 === 0 && $i2 === 0) {
-                $i1 = $i2 = -1; // trick
-            }
-
-            $ret .= $this->renderHunkHeader($i1 + 1, $i2 - $i1, $j1 + 1, $j2 - $j1);
-
-            foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
-                // note that although we are in a OP_EQ situation,
-                // the old and the new may not be exactly the same
-                // because of ignoreCase, ignoreWhitespace, etc
-                if ($op === SequenceMatcher::OP_EQ) {
-                    // we could only pick either the old or the new to show
-                    $ret .= $this->renderContext(' ', $differ->getNew($j1, $j2));
-
-                    continue;
-                }
-
-                if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
-                    $ret .= $this->renderContext('-', $differ->getOld($i1, $i2));
-                }
-
-                if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
-                    $ret .= $this->renderContext('+', $differ->getNew($j1, $j2));
-                }
-            }
+            $ret .= $this->renderHunkHeader($differ, $hunk);
+            $ret .= $this->renderHunkBlocks($differ, $hunk);
         }
 
         return $ret;
@@ -70,14 +40,60 @@ final class Unified extends AbstractText
     /**
      * Render the hunk header.
      *
-     * @param int $a1 the a1
-     * @param int $a2 the a2
-     * @param int $b1 the b1
-     * @param int $b2 the b2
+     * @param Differ  $differ the differ
+     * @param int[][] $hunk   the hunk
      */
-    protected function renderHunkHeader(int $a1, int $a2, int $b1, int $b2): string
+    protected function renderHunkHeader(Differ $differ, array $hunk): string
     {
-        return "@@ -{$a1},{$a2} +{$b1},{$b2} @@\n";
+        $lastBlockIdx = \count($hunk) - 1;
+
+        $i1 = $hunk[0][1];
+        $i2 = $hunk[$lastBlockIdx][2];
+        $j1 = $hunk[0][3];
+        $j2 = $hunk[$lastBlockIdx][4];
+
+        if ($i1 === 0 && $i2 === 0) {
+            $i1 = $i2 = -1; // trick
+        }
+
+        return
+            '@@ ' .
+            '-' . ($i1 + 1) . ',' . ($i2 - $i1) . ' ' .
+            '+' . ($j1 + 1) . ',' . ($j2 - $j1) . ' ' .
+            "@@\n";
+    }
+
+    /**
+     * Render the hunk content.
+     *
+     * @param Differ  $differ the differ
+     * @param int[][] $hunk   the hunk
+     */
+    protected function renderHunkBlocks(Differ $differ, array $hunk): string
+    {
+        $html = '';
+
+        foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
+            // note that although we are in a OP_EQ situation,
+            // the old and the new may not be exactly the same
+            // because of ignoreCase, ignoreWhitespace, etc
+            if ($op === SequenceMatcher::OP_EQ) {
+                // we could only pick either the old or the new to show
+                $html .= $this->renderContext(' ', $differ->getNew($j1, $j2));
+
+                continue;
+            }
+
+            if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
+                $html .= $this->renderContext('-', $differ->getOld($i1, $i2));
+            }
+
+            if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
+                $html .= $this->renderContext('+', $differ->getNew($j1, $j2));
+            }
+        }
+
+        return $html;
     }
 
     /**

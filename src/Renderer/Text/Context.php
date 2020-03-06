@@ -50,9 +50,9 @@ final class Context extends AbstractText
             $ret .=
                 "***************\n" .
                 $this->renderHunkHeader('*', $i1, $i2) .
-                $this->renderHunkOld($hunk, $differ) .
+                $this->renderHunkOld($differ, $hunk) .
                 $this->renderHunkHeader('-', $j1, $j2) .
-                $this->renderHunkNew($hunk, $differ);
+                $this->renderHunkNew($differ, $hunk);
         }
 
         return $ret;
@@ -76,10 +76,10 @@ final class Context extends AbstractText
     /**
      * Render the old hunk.
      *
-     * @param int[][] $hunk   the hunk
      * @param Differ  $differ the differ object
+     * @param int[][] $hunk   the hunk
      */
-    protected function renderHunkOld(array $hunk, Differ $differ): string
+    protected function renderHunkOld(Differ $differ, array $hunk): string
     {
         $ret = '';
 
@@ -97,10 +97,10 @@ final class Context extends AbstractText
     /**
      * Render the new hunk.
      *
-     * @param int[][] $hunk   the hunk
      * @param Differ  $differ the differ object
+     * @param int[][] $hunk   the hunk
      */
-    protected function renderHunkNew(array $hunk, Differ $differ): string
+    protected function renderHunkNew(Differ $differ, array $hunk): string
     {
         $ret = '';
 
