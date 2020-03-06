@@ -33,6 +33,14 @@ final class Context extends AbstractText
     ];
 
     /**
+     * @var int the union of OPs that indicate there is a change
+     */
+    const OP_BLOCK_CHANGED =
+        SequenceMatcher::OP_INS |
+        SequenceMatcher::OP_DEL |
+        SequenceMatcher::OP_REP;
+
+    /**
      * {@inheritdoc}
      */
     protected function renderWorker(Differ $differ): string
@@ -42,6 +50,7 @@ final class Context extends AbstractText
         foreach ($differ->getGroupedOpcodes() as $hunk) {
             $lastBlockIdx = \count($hunk) - 1;
 
+            // note that these line number variables are 0-based
             $i1 = $hunk[0][1];
             $i2 = $hunk[$lastBlockIdx][2];
             $j1 = $hunk[0][3];
@@ -82,16 +91,21 @@ final class Context extends AbstractText
     protected function renderHunkOld(Differ $differ, array $hunk): string
     {
         $ret = '';
+        $hasChangeInHunk = false;
 
         foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
             if ($op === SequenceMatcher::OP_INS) {
                 continue;
             }
 
+            if ($op & self::OP_BLOCK_CHANGED) {
+                $hasChangeInHunk = true;
+            }
+
             $ret .= $this->renderContext(self::TAG_MAP[$op], $differ->getOld($i1, $i2));
         }
 
-        return $ret;
+        return $hasChangeInHunk ? $ret : '';
     }
 
     /**
@@ -103,16 +117,21 @@ final class Context extends AbstractText
     protected function renderHunkNew(Differ $differ, array $hunk): string
     {
         $ret = '';
+        $hasChangeInHunk = false;
 
         foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
             if ($op === SequenceMatcher::OP_DEL) {
                 continue;
             }
 
+            if ($op & self::OP_BLOCK_CHANGED) {
+                $hasChangeInHunk = true;
+            }
+
             $ret .= $this->renderContext(self::TAG_MAP[$op], $differ->getNew($j1, $j2));
         }
 
-        return $ret;
+        return $hasChangeInHunk ? $ret : '';
     }
 
     /**
