@@ -163,8 +163,9 @@ final class DiffHelper
         $newFile = new \SplFileObject($new, 'r');
 
         return static::calculate(
-            $oldFile->fread($oldFile->getSize()),
-            $newFile->fread($newFile->getSize()),
+            // fread() requires the length > 0 hence we plus 1 for empty files
+            $oldFile->fread($oldFile->getSize() + 1),
+            $newFile->fread($newFile->getSize() + 1),
             $renderer,
             $differOptions,
             $rendererOptions
