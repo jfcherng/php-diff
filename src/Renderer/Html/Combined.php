@@ -399,7 +399,7 @@ final class Combined extends AbstractHtml
     }
 
     /**
-     * Move boundary newline chars in parts to be extra new parts.
+     * Extract boundary newlines from parts into new parts.
      *
      * @param array[]  $parts    the parts
      * @param string[] $closures the closures
@@ -414,10 +414,11 @@ final class Combined extends AbstractHtml
         for ($i = \count($parts) - 1; $i >= 0; --$i) {
             $part = &$parts[$i];
 
+            // deal with leading newlines
             $part['content'] = \preg_replace_callback(
                 "/(?P<closure>{$closureRegexL})(?P<nl>[\r\n]++)/u",
                 function (array $matches) use (&$parts, $part, $closures): string {
-                    // add a new part for the extract newline chars
+                    // add a new part for the extracted newlines
                     $part['order'] = -1;
                     $part['content'] = "{$closures[0]}{$matches['nl']}{$closures[1]}";
                     $parts[] = $part;
@@ -427,10 +428,11 @@ final class Combined extends AbstractHtml
                 $part['content']
             );
 
+            // deal with trailing newlines
             $part['content'] = \preg_replace_callback(
                 "/(?P<nl>[\r\n]++)(?P<closure>{$closureRegexR})/u",
                 function (array $matches) use (&$parts, $part, $closures): string {
-                    // add a new part for the extract newline chars
+                    // add a new part for the extracted newlines
                     $part['order'] = 1;
                     $part['content'] = "{$closures[0]}{$matches['nl']}{$closures[1]}";
                     $parts[] = $part;
