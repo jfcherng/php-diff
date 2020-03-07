@@ -182,6 +182,10 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlockReplace(array $block): string
     {
+        if ($this->options['detailLevel'] === 'none') {
+            return $this->renderTableBlockDelete($block) . $this->renderTableBlockInsert($block);
+        }
+
         $html = '';
 
         $oldLines = $block['old']['lines'];
@@ -197,12 +201,6 @@ final class Combined extends AbstractHtml
             $oldLinesCount = $newLinesCount = 1;
         }
 
-        // fix for "detailLevel" is "none"
-        if ($this->options['detailLevel'] === 'none') {
-            $this->fixLinesForNoClosure($oldLines, RendererConstant::HTML_CLOSURES_DEL);
-            $this->fixLinesForNoClosure($newLines, RendererConstant::HTML_CLOSURES_INS);
-        }
-
         // now $oldLines must has the same line counts with $newlines
         for ($no = 0; $no < $newLinesCount; ++$no) {
             $mergedLine = $this->mergeReplaceLines($oldLines[$no], $newLines[$no]);
@@ -215,9 +213,7 @@ final class Combined extends AbstractHtml
 
             $html .=
                 '<tr data-type="!">' .
-                    '<td class="rep">' .
-                        $mergedLine .
-                    '</td>' .
+                    '<td class="rep">' . $mergedLine . '</td>' .
                 '</tr>';
         }
 
@@ -394,23 +390,6 @@ final class Combined extends AbstractHtml
             [$oldLine], // one-line block for the old
             [$newLine], // one-line block for the new
         ];
-    }
-
-    /**
-     * Wrap the whole line with closures if it does not have one.
-     *
-     * @param string[] $lines    the lines
-     * @param string[] $closures the closures
-     */
-    protected function fixLinesForNoClosure(array &$lines, array $closures): void
-    {
-        foreach ($lines as &$line) {
-            // there is no closure in a "replace"-type line
-            // this means that the entire line changes
-            if (false === \strpos($line, $closures[0])) {
-                $line = "{$closures[0]}{$line}{$closures[1]}";
-            }
-        }
     }
 
     /**
