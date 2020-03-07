@@ -2,6 +2,12 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.5** - New renderer: Combined
+   * 2020-03-08 00:42  **6.5.5**  Combined: do not merge blocks which change too much
+      * f4f8b25 Tidy codes
+      * 273d1b4 Combined: do not merge blocks which change too much
+      * ac5e1b1 Fix CSS table text alignment for very long lines
+      * 5046910 Tidy codes
+      * 45c0b24 Do not trim trailing whitespaces for .txt files
    * 2020-03-07 18:02  **6.5.4**  Various Context/Unified fixes
       * 4484193 Tidy codes
       * 0a91891 Add some textual renderer tests
