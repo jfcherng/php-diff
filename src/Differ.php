@@ -15,8 +15,18 @@ namespace Jfcherng\Diff;
  */
 final class Differ
 {
-    /** @var int a safe number for indicating showing all contexts */
+    /**
+     * @var int a safe number for indicating showing all contexts
+     */
     const CONTEXT_ALL = \PHP_INT_MAX >> 3;
+
+    /**
+     * @var string used to indicate a line has no EOL
+     *
+     * Arbitrary chars from the 15-16th Unicode reserved areas
+     * and hopefully, they won't appear in source texts
+     */
+    const LINE_NO_EOL = "\u{fcf28}\u{fc231}";
 
     /**
      * @var array cached properties and their default values
@@ -267,7 +277,7 @@ final class Differ
     }
 
     /**
-     * A EOL-at-EOF-sensitve version of getGroupedOpcodes().
+     * A EOL-at-EOF-sensitive version of getGroupedOpcodes().
      *
      * @return int[][][] array of the grouped opcodes for the generated diff (GNU version)
      */
@@ -279,44 +289,11 @@ final class Differ
             return $this->groupedOpcodesGnu;
         }
 
-        $old = \array_map(
-            function (string $line): string {
-                return "{$line}\n";
-            },
-            $this->old
-        );
-
-        $new = \array_map(
-            function (string $line): string {
-                return "{$line}\n";
-            },
-            $this->new
-        );
-
-        // note that the old and the new are never empty at this point
-        // they have at least one element "\n" in the array because explode("\n", "") === [""]
-        $oldLastIdx = \count($old) - 1;
-        $newLastIdx = \count($new) - 1;
-        $oldLast = &$old[$oldLastIdx];
-        $newLast = &$new[$newLastIdx];
-
-        if ($oldLast === "\n") {
-            // remove the last plain "\n" line since we don't need it anymore
-            unset($old[$oldLastIdx]);
-        } else {
-            // this means the original source has no EOL at EOF
-            // we have to remove the trailing \n from the last line
-            $oldLast = \substr($oldLast, 0, -1);
-        }
-
-        if ($newLast === "\n") {
-            unset($new[$newLastIdx]);
-        } else {
-            $newLast = \substr($newLast, 0, -1);
-        }
-
         return $this->groupedOpcodesGnu = $this->sequenceMatcher
-            ->setSequences($old, $new)
+            ->setSequences(
+                $this->makeLinesGnuCompatible($this->old),
+                $this->makeLinesGnuCompatible($this->new)
+            )
             ->getGroupedOpcodes($this->options['context']);
     }
 
@@ -402,5 +379,32 @@ final class Differ
         // now both $start and $end are non-negative
         // hence the length for array_slice() must be non-negative
         return \array_slice($lines, $start, \max(0, $end - $start));
+    }
+
+    /**
+     * Make the lines to be prepared for GNU-style diff.
+     *
+     * This method checks whether $lines has no EOL at EOF and append a special
+     * indicator to the last line.
+     *
+     * @param string[] $lines the lines
+     */
+    private function makeLinesGnuCompatible(array $lines): array
+    {
+        // note that the $lines should not be empty at this point
+        // they have at least one element "" in the array because explode("\n", "") === [""]
+        $lastLineIdx = \count($lines) - 1;
+        $lastLine = &$lines[$lastLineIdx];
+
+        if ($lastLine === '') {
+            // remove the last plain "" line since we don't need it anymore
+            unset($lines[$lastLineIdx]);
+        } else {
+            // this means the original source has no EOL at EOF
+            // we append a special indicator to that line so it no longer matches
+            $lastLine .= self::LINE_NO_EOL;
+        }
+
+        return $lines;
     }
 }
