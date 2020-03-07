@@ -205,10 +205,18 @@ final class Combined extends AbstractHtml
 
         // now $oldLines must has the same line counts with $newlines
         for ($no = 0; $no < $newLinesCount; ++$no) {
+            $mergedLine = $this->mergeReplaceLines($oldLines[$no], $newLines[$no]);
+
+            if (!isset($mergedLine)) {
+                $html .= $this->renderTableBlockDelete($block) . $this->renderTableBlockInsert($block);
+
+                continue;
+            }
+
             $html .=
                 '<tr data-type="!">' .
                     '<td class="rep">' .
-                        $this->mergeReplaceLines($oldLines[$no], $newLines[$no]) .
+                        $mergedLine .
                     '</td>' .
                 '</tr>';
         }
@@ -225,8 +233,10 @@ final class Combined extends AbstractHtml
      *
      * @param string $oldLine the old line
      * @param string $newLine the new line
+     *
+     * @return null|string string if merge-able, null otherwise
      */
-    protected function mergeReplaceLines(string $oldLine, string $newLine): string
+    protected function mergeReplaceLines(string $oldLine, string $newLine): ?string
     {
         $delParts = $this->analyzeClosureParts(
             RendererConstant::HTML_CLOSURES_DEL[0],
@@ -252,6 +262,11 @@ final class Combined extends AbstractHtml
                 $part['offset'],
                 $part['length']
             );
+        }
+
+        // note that $mergedLine is actually a clean line at this point
+        if (!$this->isLinesMergeable($oldLine, $newLine, $mergedLine)) {
+            return null;
         }
 
         // before building the $mergedParts, we do some adjustments
@@ -396,6 +411,26 @@ final class Combined extends AbstractHtml
                 $line = "{$closures[0]}{$line}{$closures[1]}";
             }
         }
+    }
+
+    /**
+     * Determine whether the "replace"-type lines are merge-able or not.
+     *
+     * @param string $oldLine   the old line
+     * @param string $newLine   the new line
+     * @param string $cleanLine the clean line
+     */
+    protected function isLinesMergeable(string $oldLine, string $newLine, string $cleanLine): bool
+    {
+        $oldLine = \str_replace(RendererConstant::HTML_CLOSURES_DEL, '', $oldLine);
+        $newLine = \str_replace(RendererConstant::HTML_CLOSURES_INS, '', $newLine);
+
+        $sumLength = \strlen($oldLine) + \strlen($newLine);
+
+        /** @var float the changed ratio, 0 <= range < 1 */
+        $changedRatio = ($sumLength - (\strlen($cleanLine) << 1)) / ($sumLength + 1);
+
+        return $changedRatio < 0.8;
     }
 
     /**
