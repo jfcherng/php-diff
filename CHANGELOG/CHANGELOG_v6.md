@@ -2,6 +2,17 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.5** - New renderer: Combined
+   * 2020-03-07 18:02  **6.5.4**  Various Context/Unified fixes
+      * 4484193 Tidy codes
+      * 0a91891 Add some textual renderer tests
+      * 3fdad9c Fix Context/Unified output for EOL at EOF
+      * 8ab502f Fix Unified line numbers when context is 0
+      * 795628f Fix all-equal hunk content should be omitted in Context output
+      * 0f2e39a Fix there are extra leading/trailing lines when context is set to 0
+      * 973fecb Add some textual renderer tests
+      * 232356f Fix DiffHelper::calculateFiles() for empty file
+      * 899600c Tidy codes
+      * a81078f Add some comments
    * 2020-03-06 01:29  **6.5.3**  Improve Combined renderer output for newlines
       * 745199a Update deps
       * e531cdc Combined: better boundary newline chars visualization
