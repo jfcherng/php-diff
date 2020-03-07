@@ -48,6 +48,10 @@ $diff-bg-color-none-block-alternative: mix($diff-bg-color, $diff-table-sidebar-c
     font-weight: 700;
   }
 
+  td {
+    vertical-align: baseline;
+  }
+
   td,
   th {
     border-collapse: separate;
