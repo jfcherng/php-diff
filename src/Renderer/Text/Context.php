@@ -23,16 +23,6 @@ final class Context extends AbstractText
     ];
 
     /**
-     * @var string[] array of the different opcodes and their context diff equivalents
-     */
-    const TAG_MAP = [
-        SequenceMatcher::OP_DEL => '-',
-        SequenceMatcher::OP_EQ => ' ',
-        SequenceMatcher::OP_INS => '+',
-        SequenceMatcher::OP_REP => '!',
-    ];
-
-    /**
      * {@inheritdoc}
      */
     protected function renderWorker(Differ $differ): string
@@ -94,7 +84,7 @@ final class Context extends AbstractText
                 $hasChangeInHunk = true;
             }
 
-            $ret .= $this->renderContext(self::TAG_MAP[$op], $differ, self::OLD_AS_SOURCE, $i1, $i2);
+            $ret .= $this->renderContext($op, $differ, self::OLD_AS_SOURCE, $i1, $i2);
         }
 
         return $hasChangeInHunk ? $ret : '';
@@ -120,7 +110,7 @@ final class Context extends AbstractText
                 $hasChangeInHunk = true;
             }
 
-            $ret .= $this->renderContext(self::TAG_MAP[$op], $differ, self::NEW_AS_SOURCE, $j1, $j2);
+            $ret .= $this->renderContext($op, $differ, self::NEW_AS_SOURCE, $j1, $j2);
         }
 
         return $hasChangeInHunk ? $ret : '';
@@ -129,14 +119,21 @@ final class Context extends AbstractText
     /**
      * Render the context array with the symbol.
      *
-     * @param string $symbol the symbol
+     * @param int    $op     the operation
      * @param Differ $differ the differ
      * @param int    $source the source type
      * @param int    $a1     the begin index
      * @param int    $a2     the end index
      */
-    protected function renderContext(string $symbol, Differ $differ, int $source, int $a1, int $a2): string
+    protected function renderContext(int $op, Differ $differ, int $source, int $a1, int $a2): string
     {
+        static $opToSymbol = [
+            SequenceMatcher::OP_DEL => '-',
+            SequenceMatcher::OP_EQ => ' ',
+            SequenceMatcher::OP_INS => '+',
+            SequenceMatcher::OP_REP => '!',
+        ];
+
         $context = $source === self::OLD_AS_SOURCE
             ? $differ->getOld($a1, $a2)
             : $differ->getNew($a1, $a2);
@@ -145,7 +142,7 @@ final class Context extends AbstractText
             return '';
         }
 
-        $ret = "{$symbol} " . \implode("\n{$symbol} ", $context) . "\n";
+        $ret = "{$opToSymbol[$op]} " . \implode("\n{$opToSymbol[$op]} ", $context) . "\n";
 
         if (
             ($source === self::OLD_AS_SOURCE && $a2 === $differ->getOldNoEolAtEofIdx()) ||
