@@ -100,6 +100,10 @@ $rendererOptions = [
     'spacesToNbsp' => false,
     // HTML renderer tab width (negative = do not convert into spaces)
     'tabSize' => 4,
+    // this option is currently only for the Combined renderer.
+    // it determines whether a replace-type block should be merged or not
+    // depending on the content changed ratio, which values between 0 and 1.
+    'mergeThreshold' => 0.8,
     // this option is currently only for the Json renderer.
     // internally, ops (tags) are all int type but this is not good for human reading.
     // set this to "true" to convert them into string form before outputting.

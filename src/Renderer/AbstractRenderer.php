@@ -39,15 +39,19 @@ abstract class AbstractRenderer implements RendererInterface
         // renderer language: eng, cht, chs, jpn, ...
         // or an array which has the same keys with a language file
         'language' => 'eng',
-        // HTML renderer tab width (negative = do not convert into spaces)
-        'tabSize' => 4,
-        // show a separator between different diff hunks in HTML renderers
-        'separateBlock' => true,
         // show line numbers in HTML renderers
         'lineNumbers' => true,
+        // show a separator between different diff hunks in HTML renderers
+        'separateBlock' => true,
         // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
         // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
         'spacesToNbsp' => false,
+        // HTML renderer tab width (negative = do not convert into spaces)
+        'tabSize' => 4,
+        // this option is currently only for the Combined renderer.
+        // it determines whether a replace-type block should be merged or not
+        // depending on the content changed ratio, which values between 0 and 1.
+        'mergeThreshold' => 0.8,
         // this option is currently only for the Json renderer.
         // internally, ops (tags) are all int type but this is not good for human reading.
         // set this to "true" to convert them into string form before outputting.

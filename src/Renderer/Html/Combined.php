@@ -409,7 +409,7 @@ final class Combined extends AbstractHtml
         /** @var float the changed ratio, 0 <= range < 1 */
         $changedRatio = ($sumLength - (\strlen($cleanLine) << 1)) / ($sumLength + 1);
 
-        return $changedRatio < 0.8;
+        return $changedRatio <= $this->options['mergeThreshold'];
     }
 
     /**
