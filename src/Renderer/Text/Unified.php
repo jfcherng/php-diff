@@ -81,23 +81,39 @@ final class Unified extends AbstractText
     {
         $ret = '';
 
+        $oldNoEolAtEofIdx = $differ->getOldNoEolAtEofIdx();
+        $newNoEolAtEofIdx = $differ->getNewNoEolAtEofIdx();
+
         foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
             // note that although we are in a OP_EQ situation,
             // the old and the new may not be exactly the same
             // because of ignoreCase, ignoreWhitespace, etc
             if ($op === SequenceMatcher::OP_EQ) {
                 // we could only pick either the old or the new to show
-                $ret .= $this->renderContext(' ', $differ, self::NEW_AS_SOURCE, $j1, $j2);
+                // here we pick the new one to let the user know what it is now
+                $ret .= $this->renderContext(
+                    ' ',
+                    $differ->getNew($j1, $j2),
+                    $j2 === $newNoEolAtEofIdx
+                );
 
                 continue;
             }
 
             if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
-                $ret .= $this->renderContext('-', $differ, self::OLD_AS_SOURCE, $i1, $i2);
+                $ret .= $this->renderContext(
+                    '-',
+                    $differ->getOld($i1, $i2),
+                    $i2 === $oldNoEolAtEofIdx
+                );
             }
 
             if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
-                $ret .= $this->renderContext('+', $differ, self::NEW_AS_SOURCE, $j1, $j2);
+                $ret .= $this->renderContext(
+                    '+',
+                    $differ->getNew($j1, $j2),
+                    $j2 === $newNoEolAtEofIdx
+                );
             }
         }
 
@@ -107,28 +123,19 @@ final class Unified extends AbstractText
     /**
      * Render the context array with the symbol.
      *
-     * @param string $symbol the symbol
-     * @param Differ $differ the differ
-     * @param int    $source the source type
-     * @param int    $a1     the begin index
-     * @param int    $a2     the end index
+     * @param string   $symbol     the symbol
+     * @param string[] $context    the context
+     * @param bool     $noEolAtEof there is no EOL at EOF in this block
      */
-    protected function renderContext(string $symbol, Differ $differ, int $source, int $a1, int $a2): string
+    protected function renderContext(string $symbol, array $context, bool $noEolAtEof = false): string
     {
-        $context = $source === self::OLD_AS_SOURCE
-            ? $differ->getOld($a1, $a2)
-            : $differ->getNew($a1, $a2);
-
         if (empty($context)) {
             return '';
         }
 
         $ret = $symbol . \implode("\n{$symbol}", $context) . "\n";
 
-        if (
-            ($source === self::OLD_AS_SOURCE && $a2 === $differ->getOldNoEolAtEofIdx()) ||
-            ($source === self::NEW_AS_SOURCE && $a2 === $differ->getNewNoEolAtEofIdx())
-        ) {
+        if ($noEolAtEof) {
             $ret .= self::GNU_OUTPUT_NO_EOL_AT_EOF . "\n";
         }
 

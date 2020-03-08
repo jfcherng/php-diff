@@ -134,7 +134,8 @@ final class Inline extends AbstractHtml
         // the old and the new may not be exactly the same
         // because of ignoreCase, ignoreWhitespace, etc
         foreach ($block['new']['lines'] as $no => $newLine) {
-            // but in this renderer, we can only pick either the old or the new to show
+            // we could only pick either the old or the new to show
+            // here we pick the new one to let the user know what it is now
             $oldLineNum = $block['old']['offset'] + $no + 1;
             $newLineNum = $block['new']['offset'] + $no + 1;
 
@@ -202,31 +203,7 @@ final class Inline extends AbstractHtml
      */
     protected function renderTableBlockReplace(array $block): string
     {
-        $html = '';
-
-        foreach ($block['old']['lines'] as $no => $oldLine) {
-            $oldLineNum = $block['old']['offset'] + $no + 1;
-
-            $html .=
-                '<tr data-type="-">' .
-                    $this->renderLineNumberColumns($oldLineNum, null) .
-                    '<th class="sign del">-</th>' .
-                    '<td class="old">' . $oldLine . '</td>' .
-                '</tr>';
-        }
-
-        foreach ($block['new']['lines'] as $no => $newLine) {
-            $newLineNum = $block['new']['offset'] + $no + 1;
-
-            $html .=
-                '<tr data-type="+">' .
-                    $this->renderLineNumberColumns(null, $newLineNum) .
-                    '<th class="sign ins">+</th>' .
-                    '<td class="new">' . $newLine . '</td>' .
-                '</tr>';
-        }
-
-        return $html;
+        return $this->renderTableBlockDelete($block) . $this->renderTableBlockInsert($block);
     }
 
     /**

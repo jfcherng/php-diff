@@ -66,62 +66,47 @@ abstract class AbstractHtml extends AbstractRenderer
 
         foreach ($differ->getGroupedOpcodes() as $hunk) {
             $change = [];
-            $lastOp = SequenceMatcher::OP_NOP;
-            $lastBlock = 0;
 
             foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
+                $change[] = $this->getDefaultBlock($op, $i1, $j1);
+                $block = &$change[\count($change) - 1];
+
                 // if there are same amount of lines replaced
                 // we can render the inner detailed changes with corresponding lines
                 // @todo or use LineRenderer to do the job regardless different line counts?
                 if ($op === SequenceMatcher::OP_REP && $i2 - $i1 === $j2 - $j1) {
-                    for ($k = 0; $k < $i2 - $i1; ++$k) {
+                    for ($k = $i2 - $i1 - 1; $k >= 0; --$k) {
                         $this->renderChangedExtent($lineRenderer, $old[$i1 + $k], $new[$j1 + $k]);
                     }
                 }
 
-                if ($op !== $lastOp) {
-                    $change[] = $this->getDefaultBlock($op, $i1, $j1);
-                    $lastBlock = \count($change) - 1;
-                }
-
-                $lastOp = $op;
+                $oldLines = $this->formatLines(\array_slice($old, $i1, $i2 - $i1));
+                $newLines = $this->formatLines(\array_slice($new, $j1, $j2 - $j1));
 
                 if ($op === SequenceMatcher::OP_EQ) {
-                    // note that although we are in a OP_EQ situation,
-                    // the old and the new may not be exactly the same
-                    // because of ignoreCase, ignoreWhitespace, etc
-                    $lines = \array_slice($old, $i1, $i2 - $i1);
-                    $change[$lastBlock]['old']['lines'] = $this->formatLines($lines);
-                    $lines = \array_slice($new, $j1, $j2 - $j1);
-                    $change[$lastBlock]['new']['lines'] = $this->formatLines($lines);
+                    $block['old']['lines'] = $oldLines;
+                    $block['new']['lines'] = $newLines;
 
                     continue;
                 }
 
                 if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
-                    $lines = \array_slice($old, $i1, $i2 - $i1);
-                    $lines = $this->formatLines($lines);
-                    $lines = \str_replace(
+                    $block['old']['lines'] = \str_replace(
                         RendererConstant::HTML_CLOSURES,
                         RendererConstant::HTML_CLOSURES_DEL,
-                        $lines
+                        $oldLines
                     );
-
-                    $change[$lastBlock]['old']['lines'] = $lines;
                 }
 
                 if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
-                    $lines = \array_slice($new, $j1, $j2 - $j1);
-                    $lines = $this->formatLines($lines);
-                    $lines = \str_replace(
+                    $block['new']['lines'] = \str_replace(
                         RendererConstant::HTML_CLOSURES,
                         RendererConstant::HTML_CLOSURES_INS,
-                        $lines
+                        $newLines
                     );
-
-                    $change[$lastBlock]['new']['lines'] = $lines;
                 }
             }
+            unset($block);
 
             $changes[] = $change;
         }
@@ -162,10 +147,8 @@ abstract class AbstractHtml extends AbstractRenderer
      * @param AbstractLineRenderer $lineRenderer the line renderer
      * @param string               $old          the old line
      * @param string               $new          the new line
-     *
-     * @return static
      */
-    protected function renderChangedExtent(AbstractLineRenderer $lineRenderer, string &$old, string &$new): self
+    protected function renderChangedExtent(AbstractLineRenderer $lineRenderer, string &$old, string &$new): void
     {
         static $mbOld, $mbNew;
 
@@ -179,8 +162,6 @@ abstract class AbstractHtml extends AbstractRenderer
 
         $old = $mbOld->get();
         $new = $mbNew->get();
-
-        return $this;
     }
 
     /**

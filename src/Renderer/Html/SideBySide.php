@@ -122,9 +122,6 @@ final class SideBySide extends AbstractHtml
     {
         $html = '';
 
-        // note that although we are in a OP_EQ situation,
-        // the old and the new may not be exactly the same
-        // because of ignoreCase, ignoreWhitespace, etc
         foreach ($block['new']['lines'] as $no => $newLine) {
             $oldLine = $block['old']['lines'][$no];
 

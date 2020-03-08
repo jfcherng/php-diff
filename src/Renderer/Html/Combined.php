@@ -127,7 +127,8 @@ final class Combined extends AbstractHtml
         // the old and the new may not be exactly the same
         // because of ignoreCase, ignoreWhitespace, etc
         foreach ($block['new']['lines'] as $newLine) {
-            // but in this renderer, we can only pick either the old or the new to show
+            // we could only pick either the old or the new to show
+            // here we pick the new one to let the user know what it is now
             $html .=
                 '<tr data-type="=">' .
                     '<td class="new">' . $newLine . '</td>' .
@@ -235,16 +236,13 @@ final class Combined extends AbstractHtml
     protected function mergeReplaceLines(string $oldLine, string $newLine): ?string
     {
         $delParts = $this->analyzeClosureParts(
-            RendererConstant::HTML_CLOSURES_DEL[0],
-            RendererConstant::HTML_CLOSURES_DEL[1],
             $oldLine,
+            RendererConstant::HTML_CLOSURES_DEL,
             SequenceMatcher::OP_DEL
         );
-
         $insParts = $this->analyzeClosureParts(
-            RendererConstant::HTML_CLOSURES_INS[0],
-            RendererConstant::HTML_CLOSURES_INS[1],
             $newLine,
+            RendererConstant::HTML_CLOSURES_INS,
             SequenceMatcher::OP_INS
         );
 
@@ -298,15 +296,16 @@ final class Combined extends AbstractHtml
      *     extract informations for "<ins>part 1</ins>" and "<ins>part 2</ins>"
      *     from "Hello <ins>part 1</ins>SOME OTHER TEXT<ins>part 2</ins> World"
      *
-     * @param string $ld   the left delimiter
-     * @param string $rd   the right delimiter
-     * @param string $line the line
-     * @param int    $type the line type
+     * @param string   $line     the line
+     * @param string[] $closures the closures
+     * @param int      $type     the type
      *
      * @return array[] the closure informations
      */
-    protected function analyzeClosureParts(string $ld, string $rd, string $line, int $type): array
+    protected function analyzeClosureParts(string $line, array $closures, int $type): array
     {
+        [$ld, $rd] = $closures;
+
         $ldLength = \strlen($ld);
         $rdLength = \strlen($rd);
 
@@ -355,19 +354,15 @@ final class Combined extends AbstractHtml
      */
     protected function markReplaceBlockDiff(array $oldBlock, array $newBlock): array
     {
-        static $isInitiated = false, $mbOld, $mbNew, $lineRenderer;
+        static $mbOld, $mbNew, $lineRenderer;
 
-        if (!$isInitiated) {
-            $isInitiated = true;
-
-            $mbOld = new MbString();
-            $mbNew = new MbString();
-            $lineRenderer = LineRendererFactory::make(
-                $this->options['detailLevel'],
-                [], /** @todo is it possible to get the differOptions here? */
-                $this->options
-            );
-        }
+        $mbOld = $mbOld ?? new MbString();
+        $mbNew = $mbNew ?? new MbString();
+        $lineRenderer = $lineRenderer ?? LineRendererFactory::make(
+            $this->options['detailLevel'],
+            [], /** @todo is it possible to get the differOptions here? */
+            $this->options
+        );
 
         $mbOld->set(\implode("\n", $oldBlock));
         $mbNew->set(\implode("\n", $newBlock));
@@ -406,7 +401,7 @@ final class Combined extends AbstractHtml
 
         $sumLength = \strlen($oldLine) + \strlen($newLine);
 
-        /** @var float the changed ratio, 0 <= range < 1 */
+        /** @var float the changed ratio, 0 <= value < 1 */
         $changedRatio = ($sumLength - (\strlen($cleanLine) << 1)) / ($sumLength + 1);
 
         return $changedRatio <= $this->options['mergeThreshold'];
@@ -422,19 +417,21 @@ final class Combined extends AbstractHtml
      */
     protected function revisePartsForBoundaryNewlines(array &$parts, array $closures): void
     {
-        $closureRegexL = \preg_quote($closures[0], '/');
-        $closureRegexR = \preg_quote($closures[1], '/');
+        [$ld, $rd] = $closures;
+
+        $ldRegex = \preg_quote($ld, '/');
+        $rdRegex = \preg_quote($rd, '/');
 
         for ($i = \count($parts) - 1; $i >= 0; --$i) {
             $part = &$parts[$i];
 
             // deal with leading newlines
             $part['content'] = \preg_replace_callback(
-                "/(?P<closure>{$closureRegexL})(?P<nl>[\r\n]++)/u",
-                function (array $matches) use (&$parts, $part, $closures): string {
+                "/(?P<closure>{$ldRegex})(?P<nl>[\r\n]++)/u",
+                function (array $matches) use (&$parts, $part, $ld, $rd): string {
                     // add a new part for the extracted newlines
                     $part['order'] = -1;
-                    $part['content'] = "{$closures[0]}{$matches['nl']}{$closures[1]}";
+                    $part['content'] = "{$ld}{$matches['nl']}{$rd}";
                     $parts[] = $part;
 
                     return $matches['closure'];
@@ -444,11 +441,11 @@ final class Combined extends AbstractHtml
 
             // deal with trailing newlines
             $part['content'] = \preg_replace_callback(
-                "/(?P<nl>[\r\n]++)(?P<closure>{$closureRegexR})/u",
-                function (array $matches) use (&$parts, $part, $closures): string {
+                "/(?P<nl>[\r\n]++)(?P<closure>{$rdRegex})/u",
+                function (array $matches) use (&$parts, $part, $ld, $rd): string {
                     // add a new part for the extracted newlines
                     $part['order'] = 1;
-                    $part['content'] = "{$closures[0]}{$matches['nl']}{$closures[1]}";
+                    $part['content'] = "{$ld}{$matches['nl']}{$rd}";
                     $parts[] = $part;
 
                     return $matches['closure'];

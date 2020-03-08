@@ -18,16 +18,6 @@ abstract class AbstractText extends AbstractRenderer
     const IS_TEXT_RENDERER = true;
 
     /**
-     * @var int indicating using the old as the source text
-     */
-    const OLD_AS_SOURCE = 1;
-
-    /**
-     * @var int indicating using the new as the source text
-     */
-    const NEW_AS_SOURCE = 2;
-
-    /**
      * @var string the diff output representing there is no EOL at EOF in the GNU diff tool
      */
     const GNU_OUTPUT_NO_EOL_AT_EOF = '\ No newline at end of file';

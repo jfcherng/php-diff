@@ -28,26 +28,14 @@ final class Word extends AbstractLineRenderer
 
         // reversely iterate hunk
         foreach (ReverseIterator::fromArray($hunk) as [$op, $i1, $i2, $j1, $j2]) {
-            switch ($op) {
-                case SequenceMatcher::OP_DEL:
-                    $oldWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $oldWords[$i1];
-                    $oldWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];
+            if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
+                $oldWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $oldWords[$i1];
+                $oldWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];
+            }
 
-                    break;
-                case SequenceMatcher::OP_INS:
-                    $newWords[$j1] = RendererConstant::HTML_CLOSURES[0] . $newWords[$j1];
-                    $newWords[$j2 - 1] .= RendererConstant::HTML_CLOSURES[1];
-
-                    break;
-                case SequenceMatcher::OP_REP:
-                    $oldWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $oldWords[$i1];
-                    $oldWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];
-                    $newWords[$j1] = RendererConstant::HTML_CLOSURES[0] . $newWords[$j1];
-                    $newWords[$j2 - 1] .= RendererConstant::HTML_CLOSURES[1];
-
-                    break;
-                default:
-                    continue 2;
+            if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
+                $newWords[$j1] = RendererConstant::HTML_CLOSURES[0] . $newWords[$j1];
+                $newWords[$j2 - 1] .= RendererConstant::HTML_CLOSURES[1];
             }
         }
 

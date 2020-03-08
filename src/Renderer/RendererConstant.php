@@ -31,18 +31,18 @@ final class RendererConstant
     const HTML_CLOSURES = ["\u{fcffc}\u{ff2fb}", "\u{fff41}\u{fcffc}"];
 
     /**
-     * Closures that are used to enclose inserted chars in output HTML.
-     *
-     * @var string[]
-     */
-    const HTML_CLOSURES_INS = ['<ins>', '</ins>'];
-
-    /**
      * Closures that are used to enclose deleted chars in output HTML.
      *
      * @var string[]
      */
     const HTML_CLOSURES_DEL = ['<del>', '</del>'];
+
+    /**
+     * Closures that are used to enclose inserted chars in output HTML.
+     *
+     * @var string[]
+     */
+    const HTML_CLOSURES_INS = ['<ins>', '</ins>'];
 
     /**
      * The delimiter to be used as the glue in string/array functions.

@@ -23,6 +23,24 @@ final class Context extends AbstractText
     ];
 
     /**
+     * @var string[] array of the different opcodes and their context diff equivalents
+     */
+    const SYMBOL_MAP = [
+        SequenceMatcher::OP_DEL => '-',
+        SequenceMatcher::OP_EQ => ' ',
+        SequenceMatcher::OP_INS => '+',
+        SequenceMatcher::OP_REP => '!',
+    ];
+
+    /**
+     * @var int the union of OPs that indicate there is a change
+     */
+    const OP_BLOCK_CHANGED =
+        SequenceMatcher::OP_DEL |
+        SequenceMatcher::OP_INS |
+        SequenceMatcher::OP_REP;
+
+    /**
      * {@inheritdoc}
      */
     protected function renderWorker(Differ $differ): string
@@ -58,9 +76,11 @@ final class Context extends AbstractText
      */
     protected function renderHunkHeader(string $symbol, int $a1, int $a2): string
     {
+        $a1x = $a1 + 1; // 1-based begin line number
+
         return
             "{$symbol}{$symbol}{$symbol} " .
-            ($a2 - $a1 >= 2 ? ($a1 + 1) . ',' . $a2 : $a2) .
+            ($a1x < $a2 ? "{$a1x},{$a2}" : $a2) .
             " {$symbol}{$symbol}{$symbol}{$symbol}\n";
     }
 
@@ -73,21 +93,26 @@ final class Context extends AbstractText
     protected function renderHunkOld(Differ $differ, array $hunk): string
     {
         $ret = '';
-        $hasChangeInHunk = false;
+        $hunkOps = 0;
+        $noEolAtEofIdx = $differ->getOldNoEolAtEofIdx();
 
         foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
+            // OP_INS does not belongs to an old hunk
             if ($op === SequenceMatcher::OP_INS) {
                 continue;
             }
 
-            if ($op !== SequenceMatcher::OP_EQ) {
-                $hasChangeInHunk = true;
-            }
+            $hunkOps |= $op;
 
-            $ret .= $this->renderContext($op, $differ, self::OLD_AS_SOURCE, $i1, $i2);
+            $ret .= $this->renderContext(
+                self::SYMBOL_MAP[$op],
+                $differ->getOld($i1, $i2),
+                $i2 === $noEolAtEofIdx
+            );
         }
 
-        return $hasChangeInHunk ? $ret : '';
+        // if there is no content changed, the hunk context should be omitted
+        return $hunkOps & self::OP_BLOCK_CHANGED ? $ret : '';
     }
 
     /**
@@ -99,55 +124,44 @@ final class Context extends AbstractText
     protected function renderHunkNew(Differ $differ, array $hunk): string
     {
         $ret = '';
-        $hasChangeInHunk = false;
+        $hunkOps = 0;
+        $noEolAtEofIdx = $differ->getNewNoEolAtEofIdx();
 
         foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
+            // OP_DEL does not belongs to a new hunk
             if ($op === SequenceMatcher::OP_DEL) {
                 continue;
             }
 
-            if ($op !== SequenceMatcher::OP_EQ) {
-                $hasChangeInHunk = true;
-            }
+            $hunkOps |= $op;
 
-            $ret .= $this->renderContext($op, $differ, self::NEW_AS_SOURCE, $j1, $j2);
+            $ret .= $this->renderContext(
+                self::SYMBOL_MAP[$op],
+                $differ->getNew($j1, $j2),
+                $j2 === $noEolAtEofIdx
+            );
         }
 
-        return $hasChangeInHunk ? $ret : '';
+        // if there is no content changed, the hunk context should be omitted
+        return $hunkOps & self::OP_BLOCK_CHANGED ? $ret : '';
     }
 
     /**
      * Render the context array with the symbol.
      *
-     * @param int    $op     the operation
-     * @param Differ $differ the differ
-     * @param int    $source the source type
-     * @param int    $a1     the begin index
-     * @param int    $a2     the end index
+     * @param string   $symbol     the symbol
+     * @param string[] $context    the context
+     * @param bool     $noEolAtEof there is no EOL at EOF in this block
      */
-    protected function renderContext(int $op, Differ $differ, int $source, int $a1, int $a2): string
+    protected function renderContext(string $symbol, array $context, bool $noEolAtEof = false): string
     {
-        static $opToSymbol = [
-            SequenceMatcher::OP_DEL => '-',
-            SequenceMatcher::OP_EQ => ' ',
-            SequenceMatcher::OP_INS => '+',
-            SequenceMatcher::OP_REP => '!',
-        ];
-
-        $context = $source === self::OLD_AS_SOURCE
-            ? $differ->getOld($a1, $a2)
-            : $differ->getNew($a1, $a2);
-
         if (empty($context)) {
             return '';
         }
 
-        $ret = "{$opToSymbol[$op]} " . \implode("\n{$opToSymbol[$op]} ", $context) . "\n";
+        $ret = "{$symbol} " . \implode("\n{$symbol} ", $context) . "\n";
 
-        if (
-            ($source === self::OLD_AS_SOURCE && $a2 === $differ->getOldNoEolAtEofIdx()) ||
-            ($source === self::NEW_AS_SOURCE && $a2 === $differ->getNewNoEolAtEofIdx())
-        ) {
+        if ($noEolAtEof) {
             $ret .= self::GNU_OUTPUT_NO_EOL_AT_EOF . "\n";
         }
 
