@@ -79,19 +79,19 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableHunks(array $hunks): string
     {
-        $html = '';
+        $ret = '';
 
         foreach ($hunks as $i => $hunk) {
             if ($i > 0 && $this->options['separateBlock']) {
-                $html .= $this->renderTableSeparateBlock();
+                $ret .= $this->renderTableSeparateBlock();
             }
 
             foreach ($hunk as $block) {
-                $html .= $this->renderTableBlock($block);
+                $ret .= $this->renderTableBlock($block);
             }
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -121,7 +121,7 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlockEqual(array $block): string
     {
-        $html = '';
+        $ret = '';
 
         // note that although we are in a OP_EQ situation,
         // the old and the new may not be exactly the same
@@ -129,13 +129,10 @@ final class Combined extends AbstractHtml
         foreach ($block['new']['lines'] as $newLine) {
             // we could only pick either the old or the new to show
             // here we pick the new one to let the user know what it is now
-            $html .=
-                '<tr data-type="=">' .
-                    '<td class="new">' . $newLine . '</td>' .
-                '</tr>';
+            $ret .= $this->renderTableRow('new', SequenceMatcher::OP_EQ, $newLine);
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -145,16 +142,13 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlockInsert(array $block): string
     {
-        $html = '';
+        $ret = '';
 
         foreach ($block['new']['lines'] as $newLine) {
-            $html .=
-                '<tr data-type="+">' .
-                    '<td class="new">' . $newLine . '</td>' .
-                '</tr>';
+            $ret .= $this->renderTableRow('new', SequenceMatcher::OP_INS, $newLine);
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -164,16 +158,13 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlockDelete(array $block): string
     {
-        $html = '';
+        $ret = '';
 
         foreach ($block['old']['lines'] as $oldLine) {
-            $html .=
-                '<tr data-type="-">' .
-                    '<td class="old">' . $oldLine . '</td>' .
-                '</tr>';
+            $ret .= $this->renderTableRow('old', SequenceMatcher::OP_DEL, $oldLine);
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -187,7 +178,7 @@ final class Combined extends AbstractHtml
             return $this->renderTableBlockDelete($block) . $this->renderTableBlockInsert($block);
         }
 
-        $html = '';
+        $ret = '';
 
         $oldLines = $block['old']['lines'];
         $newLines = $block['new']['lines'];
@@ -207,18 +198,30 @@ final class Combined extends AbstractHtml
             $mergedLine = $this->mergeReplaceLines($oldLines[$no], $newLines[$no]);
 
             if (!isset($mergedLine)) {
-                $html .= $this->renderTableBlockDelete($block) . $this->renderTableBlockInsert($block);
+                $ret .= $this->renderTableBlockDelete($block) . $this->renderTableBlockInsert($block);
 
                 continue;
             }
 
-            $html .=
-                '<tr data-type="!">' .
-                    '<td class="rep">' . $mergedLine . '</td>' .
-                '</tr>';
+            $ret .= $this->renderTableRow('rep', SequenceMatcher::OP_REP, $mergedLine);
         }
 
-        return $html;
+        return $ret;
+    }
+
+    /**
+     * Renderer a content row of the output table.
+     *
+     * @param string $tdClass the <td> class
+     * @param int    $op      the operation
+     * @param string $line    the line
+     */
+    protected function renderTableRow(string $tdClass, int $op, string $line): string
+    {
+        return
+            '<tr data-type="' . self::SYMBOL_MAP[$op] . '">' .
+                '<td class="' . $tdClass . '">' . $line . '</td>' .
+            '</tr>';
     }
 
     /**

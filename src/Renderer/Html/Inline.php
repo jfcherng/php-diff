@@ -86,19 +86,19 @@ final class Inline extends AbstractHtml
      */
     protected function renderTableHunks(array $hunks): string
     {
-        $html = '';
+        $ret = '';
 
         foreach ($hunks as $i => $hunk) {
             if ($i > 0 && $this->options['separateBlock']) {
-                $html .= $this->renderTableSeparateBlock();
+                $ret .= $this->renderTableSeparateBlock();
             }
 
             foreach ($hunk as $block) {
-                $html .= $this->renderTableBlock($block);
+                $ret .= $this->renderTableBlock($block);
             }
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -128,7 +128,7 @@ final class Inline extends AbstractHtml
      */
     protected function renderTableBlockEqual(array $block): string
     {
-        $html = '';
+        $ret = '';
 
         // note that although we are in a OP_EQ situation,
         // the old and the new may not be exactly the same
@@ -136,18 +136,16 @@ final class Inline extends AbstractHtml
         foreach ($block['new']['lines'] as $no => $newLine) {
             // we could only pick either the old or the new to show
             // here we pick the new one to let the user know what it is now
-            $oldLineNum = $block['old']['offset'] + $no + 1;
-            $newLineNum = $block['new']['offset'] + $no + 1;
-
-            $html .=
-                '<tr data-type="=">' .
-                    $this->renderLineNumberColumns($oldLineNum, $newLineNum) .
-                    '<th class="sign"></th>' .
-                    '<td class="new">' . $newLine . '</td>' .
-                '</tr>';
+            $ret .= $this->renderTableRow(
+                'new',
+                SequenceMatcher::OP_EQ,
+                $newLine,
+                $block['old']['offset'] + $no + 1,
+                $block['new']['offset'] + $no + 1
+            );
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -157,20 +155,19 @@ final class Inline extends AbstractHtml
      */
     protected function renderTableBlockInsert(array $block): string
     {
-        $html = '';
+        $ret = '';
 
         foreach ($block['new']['lines'] as $no => $newLine) {
-            $newLineNum = $block['new']['offset'] + $no + 1;
-
-            $html .=
-                '<tr data-type="+">' .
-                    $this->renderLineNumberColumns(null, $newLineNum) .
-                    '<th class="sign ins">+</th>' .
-                    '<td class="new">' . $newLine . '</td>' .
-                '</tr>';
+            $ret .= $this->renderTableRow(
+                'new',
+                SequenceMatcher::OP_INS,
+                $newLine,
+                null,
+                $block['new']['offset'] + $no + 1
+            );
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -180,20 +177,19 @@ final class Inline extends AbstractHtml
      */
     protected function renderTableBlockDelete(array $block): string
     {
-        $html = '';
+        $ret = '';
 
         foreach ($block['old']['lines'] as $no => $oldLine) {
-            $oldLineNum = $block['old']['offset'] + $no + 1;
-
-            $html .=
-                '<tr data-type="-">' .
-                    $this->renderLineNumberColumns($oldLineNum, null) .
-                    '<th class="sign del">-</th>' .
-                    '<td class="old">' . $oldLine . '</td>' .
-                '</tr>';
+            $ret .= $this->renderTableRow(
+                'old',
+                SequenceMatcher::OP_DEL,
+                $oldLine,
+                $block['old']['offset'] + $no + 1,
+                null
+            );
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -207,6 +203,34 @@ final class Inline extends AbstractHtml
     }
 
     /**
+     * Renderer a content row of the output table.
+     *
+     * @param string   $tdClass    the <td> class
+     * @param int      $op         the operation
+     * @param string   $line       the line
+     * @param null|int $oldLineNum the old line number
+     * @param null|int $newLineNum the new line number
+     */
+    protected function renderTableRow(
+        string $tdClass,
+        int $op,
+        string $line,
+        ?int $oldLineNum,
+        ?int $newLineNum
+    ): string {
+        return
+            '<tr data-type="' . self::SYMBOL_MAP[$op] . '">' .
+                (
+                    $this->options['lineNumbers']
+                        ? $this->renderLineNumberColumns($oldLineNum, $newLineNum)
+                        : ''
+                ) .
+                '<th class="sign ' . self::TAG_CLASS_MAP[$op] . '">' . self::SYMBOL_MAP[$op] . '</th>' .
+                '<td class="' . $tdClass . '">' . $line . '</td>' .
+            '</tr>';
+    }
+
+    /**
      * Renderer the line number columns.
      *
      * @param null|int $oldLineNum The old line number
@@ -214,10 +238,6 @@ final class Inline extends AbstractHtml
      */
     protected function renderLineNumberColumns(?int $oldLineNum, ?int $newLineNum): string
     {
-        if (!$this->options['lineNumbers']) {
-            return '';
-        }
-
         return
             (
                 isset($oldLineNum)

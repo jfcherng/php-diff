@@ -78,19 +78,19 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableHunks(array $hunks): string
     {
-        $html = '';
+        $ret = '';
 
         foreach ($hunks as $i => $hunk) {
             if ($i > 0 && $this->options['separateBlock']) {
-                $html .= $this->renderTableSeparateBlock();
+                $ret .= $this->renderTableSeparateBlock();
             }
 
             foreach ($hunk as $block) {
-                $html .= $this->renderTableBlock($block);
+                $ret .= $this->renderTableBlock($block);
             }
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -120,24 +120,18 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableBlockEqual(array $block): string
     {
-        $html = '';
+        $ret = '';
 
         foreach ($block['new']['lines'] as $no => $newLine) {
-            $oldLine = $block['old']['lines'][$no];
-
-            $oldLineNum = $block['old']['offset'] + $no + 1;
-            $newLineNum = $block['new']['offset'] + $no + 1;
-
-            $html .=
-                '<tr>' .
-                    $this->renderLineNumberColumn('old', $oldLineNum) .
-                    '<td class="old">' . $oldLine . '</td>' .
-                    $this->renderLineNumberColumn('new', $newLineNum) .
-                    '<td class="new">' . $newLine . '</td>' .
-                '</tr>';
+            $ret .= $this->renderTableRow(
+                $block['old']['lines'][$no], // $oldLine
+                $newLine,
+                $block['old']['offset'] + $no + 1,
+                $block['new']['offset'] + $no + 1
+            );
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -147,21 +141,18 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableBlockInsert(array $block): string
     {
-        $html = '';
+        $ret = '';
 
         foreach ($block['new']['lines'] as $no => $newLine) {
-            $newLineNum = $block['new']['offset'] + $no + 1;
-
-            $html .=
-                '<tr>' .
-                    $this->renderLineNumberColumn('', null) .
-                    '<td class="old none"></td>' .
-                    $this->renderLineNumberColumn('new', $newLineNum) .
-                    '<td class="new">' . $newLine . '</td>' .
-                '</tr>';
+            $ret .= $this->renderTableRow(
+                '',
+                $newLine,
+                null,
+                $block['new']['offset'] + $no + 1
+            );
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -171,21 +162,18 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableBlockDelete(array $block): string
     {
-        $html = '';
+        $ret = '';
 
         foreach ($block['old']['lines'] as $no => $oldLine) {
-            $oldLineNum = $block['old']['offset'] + $no + 1;
-
-            $html .=
-                '<tr>' .
-                    $this->renderLineNumberColumn('old', $oldLineNum) .
-                    '<td class="old">' . $oldLine . '</td>' .
-                    $this->renderLineNumberColumn('', null) .
-                    '<td class="new none"></td>' .
-                '</tr>';
+            $ret .= $this->renderTableRow(
+                $oldLine,
+                '',
+                $block['old']['offset'] + $no + 1,
+                null
+            );
         }
 
-        return $html;
+        return $ret;
     }
 
     /**
@@ -195,7 +183,7 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableBlockReplace(array $block): string
     {
-        $html = '';
+        $ret = '';
 
         $lineCountMax = \max(\count($block['old']['lines']), \count($block['new']['lines']));
 
@@ -216,20 +204,44 @@ final class SideBySide extends AbstractHtml
                 $newLine = '';
             }
 
-            $html .=
-                '<tr>' .
-                    $this->renderLineNumberColumn('old', $oldLineNum) .
-                    '<td class="old' . (isset($oldLineNum) ? '' : ' none') . '">' .
-                        $oldLine .
-                    '</td>' .
-                    $this->renderLineNumberColumn('new', $newLineNum) .
-                    '<td class="new' . (isset($newLineNum) ? '' : ' none') . '">' .
-                        $newLine .
-                    '</td>' .
-                '</tr>';
+            $ret .= $this->renderTableRow($oldLine, $newLine, $oldLineNum, $newLineNum);
         }
 
-        return $html;
+        return $ret;
+    }
+
+    /**
+     * Renderer a content row of the output table.
+     *
+     * @param string   $oldLine    the old line
+     * @param string   $newLine    the new line
+     * @param null|int $oldLineNum the old line number
+     * @param null|int $newLineNum the new line number
+     */
+    protected function renderTableRow(
+        string $oldLine,
+        string $newLine,
+        ?int $oldLineNum,
+        ?int $newLineNum
+    ): string {
+        $hasOldLineNum = isset($oldLineNum);
+        $hasNewLineNum = isset($newLineNum);
+
+        return
+            '<tr>' .
+                (
+                    $this->options['lineNumbers']
+                        ? $this->renderLineNumberColumn($hasOldLineNum ? 'old' : '', $oldLineNum)
+                        : ''
+                ) .
+                '<td class="old' . ($hasOldLineNum ? '' : ' none') . '">' . $oldLine . '</td>' .
+                (
+                    $this->options['lineNumbers']
+                        ? $this->renderLineNumberColumn($hasNewLineNum ? 'new' : '', $newLineNum)
+                        : ''
+                ) .
+                '<td class="new' . ($hasNewLineNum ? '' : ' none') . '">' . $newLine . '</td>' .
+            '</tr>';
     }
 
     /**
@@ -240,10 +252,6 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderLineNumberColumn(string $type, ?int $lineNum): string
     {
-        if (!$this->options['lineNumbers']) {
-            return '';
-        }
-
         return isset($lineNum)
             ? '<th class="n-' . $type . '">' . $lineNum . '</th>'
             : '<th></th>';

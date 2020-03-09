@@ -23,16 +23,6 @@ final class Context extends AbstractText
     ];
 
     /**
-     * @var string[] array of the different opcodes and their context diff equivalents
-     */
-    const SYMBOL_MAP = [
-        SequenceMatcher::OP_DEL => '-',
-        SequenceMatcher::OP_EQ => ' ',
-        SequenceMatcher::OP_INS => '+',
-        SequenceMatcher::OP_REP => '!',
-    ];
-
-    /**
      * @var int the union of OPs that indicate there is a change
      */
     const OP_BLOCK_CHANGED =
