@@ -2,6 +2,12 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.5** - New renderer: Combined
+   * 2020-03-09 16:08  **6.5.6**  Add Combined renderer option: mergeThreshold
+      * 2f85968 Tidy codes (Inline/SideBySide/Combined)
+      * e39d674 Tidy codes
+      * d643094 Add Combined renderer option: mergeThreshold
+      * 92af433 Add more test cases
+      * 570fd51 Update deps
    * 2020-03-08 00:42  **6.5.5**  Combined: do not merge blocks which change too much
       * f4f8b25 Tidy codes
       * 273d1b4 Combined: do not merge blocks which change too much
