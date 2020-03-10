@@ -76,6 +76,10 @@ use Jfcherng\Diff\Factory\RendererFactory;
             // internally, ops (tags) are all int type but this is not good for human reading.
             // set this to "true" to convert them into string form before outputting.
             'outputTagAsString' => false,
+            // this option is currently only for the Json renderer.
+            // it controls how the output JSON is formatted.
+            // see availabe options on https://www.php.net/manual/en/function.json-encode.php
+            'jsonEncodeFlags' => \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE,
             // change this value to a string as the returned diff if the two input strings are identical
             'resultForIdenticals' => null,
             // extra HTML classes added to the DOM of the diff container
@@ -237,15 +241,17 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newFile,
             'Json',
             $diffOptions,
-            ['outputTagAsString' => true] + $rendererOptions
+            [
+                'outputTagAsString' => true,
+                'jsonEncodeFlags' => (
+                    \JSON_PRETTY_PRINT |
+                    \JSON_UNESCAPED_SLASHES |
+                    \JSON_UNESCAPED_UNICODE
+                ),
+            ] + $rendererOptions
         );
 
-        $beautified = \json_encode(
-            \json_decode($jsonResult, true),
-            \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES | \JSON_PRETTY_PRINT
-        );
-
-        echo $beautified;
+        echo $jsonResult;
 
         ?></code></pre>
 

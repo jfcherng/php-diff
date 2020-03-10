@@ -67,6 +67,10 @@ abstract class AbstractRenderer implements RendererInterface
         // internally, ops (tags) are all int type but this is not good for human reading.
         // set this to "true" to convert them into string form before outputting.
         'outputTagAsString' => false,
+        // this option is currently only for the Json renderer.
+        // it controls how the output JSON is formatted.
+        // see availabe options on https://www.php.net/manual/en/function.json-encode.php
+        'jsonEncodeFlags' => \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE,
         // change this value to a string as the returned diff if the two input strings are identical
         'resultForIdenticals' => null,
         // extra HTML classes added to the DOM of the diff container

@@ -41,10 +41,7 @@ final class Json extends AbstractHtml
             $this->convertTagToString($changes);
         }
 
-        return \json_encode(
-            $changes,
-            \JSON_UNESCAPED_UNICODE | \JSON_UNESCAPED_SLASHES
-        );
+        return \json_encode($changes, $this->options['jsonEncodeFlags']);
     }
 
     /**
