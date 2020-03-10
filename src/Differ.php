@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff;
 
+use Jfcherng\Diff\Utility\Arr;
+
 /**
  * A comprehensive library for generating differences between two strings
  * in multiple formats (unified, side by side HTML etc).
@@ -178,33 +180,31 @@ final class Differ
     }
 
     /**
-     * Get a range of lines from $start to $end from the old string and return them as an array.
+     * Get a range of lines from $start to $end from the old.
      *
-     * If $end is null, it returns array sliced from the $start to the end.
-     *
-     * @param int      $start the starting number. If null, the whole array will be returned.
-     * @param null|int $end   the ending number. If null, only the item in $start will be returned.
+     * @param int      $start the starting index (negative = count from backward)
+     * @param null|int $end   the ending index (negative = count from backward)
+     *                        if is null, it returns a slice from $start to the end
      *
      * @return string[] array of all of the lines between the specified range
      */
     public function getOld(int $start = 0, ?int $end = null): array
     {
-        return $this->getText($this->old, $start, $end);
+        return Arr::getPartialByIndex($this->old, $start, $end);
     }
 
     /**
-     * Get a range of lines from $start to $end from the new string and return them as an array.
+     * Get a range of lines from $start to $end from the new.
      *
-     * If $end is null, it returns array sliced from the $start to the end.
-     *
-     * @param int      $start the starting number
-     * @param null|int $end   the ending number
+     * @param int      $start the starting index (negative = count from backward)
+     * @param null|int $end   the ending index (negative = count from backward)
+     *                        if is null, it returns a slice from $start to the end
      *
      * @return string[] array of all of the lines between the specified range
      */
     public function getNew(int $start = 0, ?int $end = null): array
     {
-        return $this->getText($this->new, $start, $end);
+        return Arr::getPartialByIndex($this->new, $start, $end);
     }
 
     /**
@@ -291,8 +291,8 @@ final class Differ
 
         return $this->groupedOpcodesGnu = $this->sequenceMatcher
             ->setSequences(
-                $this->makeLinesGnuCompatible($this->old),
-                $this->makeLinesGnuCompatible($this->new)
+                $this->createGnuCompatibleLines($this->old),
+                $this->createGnuCompatibleLines($this->new)
             )
             ->getGroupedOpcodes($this->options['context']);
     }
@@ -336,60 +336,14 @@ final class Differ
     }
 
     /**
-     * The work horse of getOld() and getNew().
-     *
-     * If $end is null, it returns array sliced from the $start to the end.
-     *
-     * @param string[] $lines the array of lines
-     * @param int      $start the starting number
-     * @param null|int $end   the ending number
-     *
-     * @return string[] array of all of the lines between the specified range
-     */
-    private function getText(array $lines, int $start = 0, ?int $end = null): array
-    {
-        $arrayLength = \count($lines);
-
-        // make $end set
-        $end = $end ?? $arrayLength;
-
-        // make $start non-negative
-        if ($start < 0) {
-            $start += $arrayLength;
-
-            if ($start < 0) {
-                $start = 0;
-            }
-        }
-
-        // may prevent from calling array_slice()
-        if ($start === 0 && $end >= $arrayLength) {
-            return $lines;
-        }
-
-        // make $end non-negative
-        if ($end < 0) {
-            $end += $arrayLength;
-
-            if ($end < 0) {
-                $end = 0;
-            }
-        }
-
-        // now both $start and $end are non-negative
-        // hence the length for array_slice() must be non-negative
-        return \array_slice($lines, $start, \max(0, $end - $start));
-    }
-
-    /**
      * Make the lines to be prepared for GNU-style diff.
      *
      * This method checks whether $lines has no EOL at EOF and append a special
      * indicator to the last line.
      *
-     * @param string[] $lines the lines
+     * @param string[] $lines the lines created by simply explode("\n", $string)
      */
-    private function makeLinesGnuCompatible(array $lines): array
+    private function createGnuCompatibleLines(array $lines): array
     {
         // note that the $lines should not be empty at this point
         // they have at least one element "" in the array because explode("\n", "") === [""]
