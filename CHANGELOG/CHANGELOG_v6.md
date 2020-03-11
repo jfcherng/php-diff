@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.5** - New renderer: Combined
+   * 2020-03-11 16:52  **6.5.7**  Add Json renderer option: jsonEncodeFlags
+      * 9a00a55 Add Json renderer option: jsonEncodeFlags
+      * cb54261 Tidy codes
    * 2020-03-09 16:08  **6.5.6**  Add Combined renderer option: mergeThreshold
       * 2f85968 Tidy codes (Inline/SideBySide/Combined)
       * e39d674 Tidy codes
