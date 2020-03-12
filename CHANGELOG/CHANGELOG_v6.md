@@ -1,6 +1,13 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.6** - Add new renderer option: wordGlues
+   * 2020-03-12 19:53  **6.6.0**  initial release
+      * 05a118a Update deps
+      * 2b68ddc Update screenshots
+      * d227113 Add new renderer option: wordGlues
+      * d24c6ae Tidy codes
+
  * Version **6.5** - New renderer: Combined
    * 2020-03-11 16:52  **6.5.7**  Add Json renderer option: jsonEncodeFlags
       * 9a00a55 Add Json renderer option: jsonEncodeFlags
