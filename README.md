@@ -188,12 +188,12 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 ### Renderer: Combined
 
 ```php
-<?php $rendererOptions = ['detailLevel' => 'char'];
+<?php $rendererOptions = ['detailLevel' => 'word'];
 ```
 
 This renderer is suitable for articles and always has no line number information.
 
-![Combined](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/combined-renderer-char-level.png)
+![Combined](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/combined-renderer-word-level.png)
 
 
 ### Renderer: Unified
