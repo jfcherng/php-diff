@@ -112,6 +112,11 @@ $rendererOptions = [
     // it controls how the output JSON is formatted.
     // see availabe options on https://www.php.net/manual/en/function.json-encode.php
     'jsonEncodeFlags' => \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE,
+    // this option is currently effective when the "detailLevel" is "word"
+    // characters listed in this array can be used to make diff segments into a whole
+    // for example, making "<del>good</del>-<del>looking</del>" into "<del>good-looking</del>"
+    // this should bring better readability but set this to empty array if you do not want it
+    'wordGlues' => [' ', '-'],
     // change this value to a string as the returned diff if the two input strings are identical
     'resultForIdenticals' => null,
     // extra HTML classes added to the DOM of the diff container
