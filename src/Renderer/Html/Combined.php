@@ -257,7 +257,7 @@ final class Combined extends AbstractHtml
                 $mergedLine,
                 '', // deletion
                 $part['offset'],
-                $part['length']
+                \strlen($part['content'])
             );
         }
 
@@ -332,7 +332,6 @@ final class Combined extends AbstractHtml
                 'order' => 0,
                 // the offset in the line
                 'offset' => $partStart,
-                'length' => $partLength,
                 // the offset in the cleaned line (i.e., the line with closure parts removed)
                 'offsetClean' => $partStart - $partLengthSum,
                 // the content of the part
