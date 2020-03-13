@@ -122,10 +122,12 @@ final class SideBySide extends AbstractHtml
     {
         $ret = '';
 
-        foreach ($block['new']['lines'] as $no => $newLine) {
+        $rowCount = \count($block['new']['lines']);
+
+        for ($no = 0; $no < $rowCount; ++$no) {
             $ret .= $this->renderTableRow(
-                $block['old']['lines'][$no], // $oldLine
-                $newLine,
+                $block['old']['lines'][$no],
+                $block['new']['lines'][$no],
                 $block['old']['offset'] + $no + 1,
                 $block['new']['offset'] + $no + 1
             );
@@ -145,7 +147,7 @@ final class SideBySide extends AbstractHtml
 
         foreach ($block['new']['lines'] as $no => $newLine) {
             $ret .= $this->renderTableRow(
-                '',
+                null,
                 $newLine,
                 null,
                 $block['new']['offset'] + $no + 1
@@ -167,7 +169,7 @@ final class SideBySide extends AbstractHtml
         foreach ($block['old']['lines'] as $no => $oldLine) {
             $ret .= $this->renderTableRow(
                 $oldLine,
-                '',
+                null,
                 $block['old']['offset'] + $no + 1,
                 null
             );
@@ -192,16 +194,14 @@ final class SideBySide extends AbstractHtml
                 $oldLineNum = $block['old']['offset'] + $no + 1;
                 $oldLine = $block['old']['lines'][$no];
             } else {
-                $oldLineNum = null;
-                $oldLine = '';
+                $oldLineNum = $oldLine = null;
             }
 
             if (isset($block['new']['lines'][$no])) {
                 $newLineNum = $block['new']['offset'] + $no + 1;
                 $newLine = $block['new']['lines'][$no];
             } else {
-                $newLineNum = null;
-                $newLine = '';
+                $newLineNum = $newLine = null;
             }
 
             $ret .= $this->renderTableRow($oldLine, $newLine, $oldLineNum, $newLineNum);
@@ -213,47 +213,58 @@ final class SideBySide extends AbstractHtml
     /**
      * Renderer a content row of the output table.
      *
-     * @param string   $oldLine    the old line
-     * @param string   $newLine    the new line
-     * @param null|int $oldLineNum the old line number
-     * @param null|int $newLineNum the new line number
+     * @param null|string $oldLine    the old line
+     * @param null|string $newLine    the new line
+     * @param null|int    $oldLineNum the old line number
+     * @param null|int    $newLineNum the new line number
      */
     protected function renderTableRow(
-        string $oldLine,
-        string $newLine,
+        ?string $oldLine,
+        ?string $newLine,
         ?int $oldLineNum,
         ?int $newLineNum
     ): string {
-        $hasOldLineNum = isset($oldLineNum);
-        $hasNewLineNum = isset($newLineNum);
-
         return
             '<tr>' .
                 (
                     $this->options['lineNumbers']
-                        ? $this->renderLineNumberColumn($hasOldLineNum ? 'old' : '', $oldLineNum)
+                        ? $this->renderLineNumberColumn('old', $oldLineNum)
                         : ''
                 ) .
-                '<td class="old' . ($hasOldLineNum ? '' : ' none') . '">' . $oldLine . '</td>' .
+                $this->renderLineContentColumn('old', $oldLine) .
                 (
                     $this->options['lineNumbers']
-                        ? $this->renderLineNumberColumn($hasNewLineNum ? 'new' : '', $newLineNum)
+                        ? $this->renderLineNumberColumn('new', $newLineNum)
                         : ''
                 ) .
-                '<td class="new' . ($hasNewLineNum ? '' : ' none') . '">' . $newLine . '</td>' .
+                $this->renderLineContentColumn('new', $newLine) .
             '</tr>';
     }
 
     /**
      * Renderer the line number column.
      *
-     * @param string   $type    The diff type
-     * @param null|int $lineNum The line number
+     * @param string   $type    the diff type
+     * @param null|int $lineNum the line number
      */
     protected function renderLineNumberColumn(string $type, ?int $lineNum): string
     {
         return isset($lineNum)
             ? '<th class="n-' . $type . '">' . $lineNum . '</th>'
             : '<th></th>';
+    }
+
+    /**
+     * Renderer the line content column.
+     *
+     * @param string      $type    the diff type
+     * @param null|string $content the line content
+     */
+    protected function renderLineContentColumn(string $type, ?string $content): string
+    {
+        return
+            '<td class="' . $type . (isset($content) ? '' : ' none') . '">' .
+                $content .
+            '</td>';
     }
 }

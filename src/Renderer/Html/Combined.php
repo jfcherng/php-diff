@@ -175,7 +175,9 @@ final class Combined extends AbstractHtml
     protected function renderTableBlockReplace(array $block): string
     {
         if ($this->options['detailLevel'] === 'none') {
-            return $this->renderTableBlockDelete($block) . $this->renderTableBlockInsert($block);
+            return
+                $this->renderTableBlockDelete($block) .
+                $this->renderTableBlockInsert($block);
         }
 
         $ret = '';
@@ -197,8 +199,11 @@ final class Combined extends AbstractHtml
         for ($no = 0; $no < $newLinesCount; ++$no) {
             $mergedLine = $this->mergeReplaceLines($oldLines[$no], $newLines[$no]);
 
+            // not merge-able, we fall back to separated form
             if (!isset($mergedLine)) {
-                $ret .= $this->renderTableBlockDelete($block) . $this->renderTableBlockInsert($block);
+                $ret .=
+                    $this->renderTableBlockDelete($block) .
+                    $this->renderTableBlockInsert($block);
 
                 continue;
             }

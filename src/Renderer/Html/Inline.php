@@ -55,7 +55,7 @@ final class Inline extends AbstractHtml
                         ?
                             '<th>' . $this->_('old_version') . '</th>' .
                             '<th>' . $this->_('new_version') . '</th>' .
-                            '<th></th>'
+                            '<th></th>' // diff symbol column
                         :
                             ''
                     ) .
@@ -199,7 +199,9 @@ final class Inline extends AbstractHtml
      */
     protected function renderTableBlockReplace(array $block): string
     {
-        return $this->renderTableBlockDelete($block) . $this->renderTableBlockInsert($block);
+        return
+            $this->renderTableBlockDelete($block) .
+            $this->renderTableBlockInsert($block);
     }
 
     /**
