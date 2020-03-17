@@ -1,12 +1,12 @@
 # php-diff
 
-<a href="https://travis-ci.org/jfcherng/php-diff"><img alt="Travis (.org) branch" src="https://img.shields.io/travis/jfcherng/php-diff/v6?style=flat-square"></a>
-<a href="https://app.codacy.com/project/jfcherng/php-diff/dashboard"><img alt="Codacy grade" src="https://img.shields.io/codacy/grade/3a7a07d2ed67434e8e8582ea4ec9867b/v6?style=flat-square"></a>
-<a href="https://packagist.org/packages/jfcherng/php-diff"><img alt="Packagist" src="https://img.shields.io/packagist/dt/jfcherng/php-diff?style=flat-square"></a>
-<a href="https://packagist.org/packages/jfcherng/php-diff"><img alt="Packagist Version" src="https://img.shields.io/packagist/v/jfcherng/php-diff?style=flat-square"></a>
-<a href="https://github.com/jfcherng/php-diff/blob/v6/LICENSE"><img alt="Project license" src="https://img.shields.io/github/license/jfcherng/php-diff?style=flat-square"></a>
-<a href="https://github.com/jfcherng/php-diff/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/jfcherng/php-diff?style=flat-square&logo=github"></a>
-<a href="https://www.paypal.me/jfcherng/5usd" title="Donate to this project using Paypal"><img src="https://img.shields.io/badge/paypal-donate-blue.svg?style=flat-square&logo=paypal" /></a>
+[![Travis (.org) branch](https://img.shields.io/travis/jfcherng/php-diff/v6?style=flat-square)](https://travis-ci.org/jfcherng/php-diff)
+[![Codacy grade](https://img.shields.io/codacy/grade/3a7a07d2ed67434e8e8582ea4ec9867b/v6?style=flat-square)](https://app.codacy.com/project/jfcherng/php-diff/dashboard)
+[![Packagist](https://img.shields.io/packagist/dt/jfcherng/php-diff?style=flat-square)](https://packagist.org/packages/jfcherng/php-diff)
+[![Packagist Version](https://img.shields.io/packagist/v/jfcherng/php-diff?style=flat-square)](https://packagist.org/packages/jfcherng/php-diff)
+[![Project license](https://img.shields.io/github/license/jfcherng/php-diff?style=flat-square)](https://github.com/jfcherng/php-diff/blob/v6/LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/jfcherng/php-diff?style=flat-square&logo=github)](https://github.com/jfcherng/php-diff/stargazers)
+[![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-blue.svg?style=flat-square&logo=paypal)](https://www.paypal.me/jfcherng/5usd)
 
 A comprehensive library for generating diff between two strings.
 
