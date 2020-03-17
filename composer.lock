@@ -8,26 +8,29 @@
     "packages": [
         {
             "name": "jfcherng/php-mb-string",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-mb-string.git",
-                "reference": "7882ac80f498b03ac0837770cce28b1455ebaa87"
+                "reference": "ac2d3667bf5b859e04d195b09cf18367d57057d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jfcherng/php-mb-string/zipball/7882ac80f498b03ac0837770cce28b1455ebaa87",
-                "reference": "7882ac80f498b03ac0837770cce28b1455ebaa87",
+                "url": "https://api.github.com/repos/jfcherng/php-mb-string/zipball/ac2d3667bf5b859e04d195b09cf18367d57057d4",
+                "reference": "ac2d3667bf5b859e04d195b09cf18367d57057d4",
                 "shasum": ""
             },
             "require": {
-                "ext-iconv": "*",
-                "php": "^7.1.3"
+                "php": "^7.1.3",
+                "symfony/polyfill-iconv": "^1.14"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.15",
                 "phan/phan": "^2.0",
                 "phpunit/phpunit": "^7.2 || ^8.0"
+            },
+            "suggest": {
+                "ext-iconv": "For better performance"
             },
             "type": "library",
             "autoload": {
@@ -46,7 +49,7 @@
                 }
             ],
             "description": "A high performance multibytes sting implementation for frequently reading/writing operations.",
-            "time": "2019-09-21T02:17:44+00:00"
+            "time": "2020-03-17T22:53:46+00:00"
         },
         {
             "name": "jfcherng/php-sequence-matcher",
@@ -93,6 +96,65 @@
             ],
             "description": "A longest sequence matcher. The logic is primarily based on the Python difflib package.",
             "time": "2020-03-06T12:50:28+00:00"
+        },
+        {
+            "name": "symfony/polyfill-iconv",
+            "version": "v1.14.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/polyfill-iconv.git",
+                "reference": "926832ce51059bb58211b7b2080a88e0c3b5328e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/926832ce51059bb58211b7b2080a88e0c3b5328e",
+                "reference": "926832ce51059bb58211b7b2080a88e0c3b5328e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "suggest": {
+                "ext-iconv": "For best performance"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.14-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Polyfill\\Iconv\\": ""
+                },
+                "files": [
+                    "bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Iconv extension",
+            "homepage": "https://symfony.com",
+            "keywords": [
+                "compatibility",
+                "iconv",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "time": "2020-01-13T11:15:53+00:00"
         }
     ],
     "packages-dev": [
@@ -608,16 +670,16 @@
         },
         {
             "name": "netresearch/jsonmapper",
-            "version": "v1.6.0",
+            "version": "v2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweiske/jsonmapper.git",
-                "reference": "0d4d1b48d682a93b6bfedf60b88c7750e9cb0b06"
+                "reference": "e245890383c3ed38b6d202ee373c23ccfebc0f54"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/0d4d1b48d682a93b6bfedf60b88c7750e9cb0b06",
-                "reference": "0d4d1b48d682a93b6bfedf60b88c7750e9cb0b06",
+                "url": "https://api.github.com/repos/cweiske/jsonmapper/zipball/e245890383c3ed38b6d202ee373c23ccfebc0f54",
+                "reference": "e245890383c3ed38b6d202ee373c23ccfebc0f54",
                 "shasum": ""
             },
             "require": {
@@ -628,8 +690,8 @@
                 "php": ">=5.6"
             },
             "require-dev": {
-                "phpunit/phpunit": "~4.8.35 || ~5.7 || ~6.4",
-                "squizlabs/php_codesniffer": "~1.5"
+                "phpunit/phpunit": "~4.8.35 || ~5.7 || ~6.4 || ~7.0",
+                "squizlabs/php_codesniffer": "~3.5"
             },
             "type": "library",
             "autoload": {
@@ -650,7 +712,7 @@
                 }
             ],
             "description": "Map nested JSON structures onto PHP classes",
-            "time": "2019-08-15T19:41:25+00:00"
+            "time": "2020-03-04T17:23:33+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -699,16 +761,16 @@
         },
         {
             "name": "phan/phan",
-            "version": "2.6.0",
+            "version": "2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phan/phan.git",
-                "reference": "d082d19370ff87e6036073eaccda7c06ddc3f53e"
+                "reference": "184c591e5b31c1f98426ed8e147a61864bd0cc96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phan/phan/zipball/d082d19370ff87e6036073eaccda7c06ddc3f53e",
-                "reference": "d082d19370ff87e6036073eaccda7c06ddc3f53e",
+                "url": "https://api.github.com/repos/phan/phan/zipball/184c591e5b31c1f98426ed8e147a61864bd0cc96",
+                "reference": "184c591e5b31c1f98426ed8e147a61864bd0cc96",
                 "shasum": ""
             },
             "require": {
@@ -719,7 +781,7 @@
                 "ext-tokenizer": "*",
                 "felixfbecker/advanced-json-rpc": "^3.0.4",
                 "microsoft/tolerant-php-parser": "0.0.20",
-                "netresearch/jsonmapper": "^1.6.0",
+                "netresearch/jsonmapper": "^1.6.0|^2.0",
                 "php": "^7.1.0",
                 "sabre/event": "^5.0",
                 "symfony/console": "^2.3|^3.0|^4.0|^5.0",
@@ -768,7 +830,7 @@
                 "php",
                 "static"
             ],
-            "time": "2020-03-07T19:01:06+00:00"
+            "time": "2020-03-13T21:34:53+00:00"
         },
         {
             "name": "phar-io/manifest",
