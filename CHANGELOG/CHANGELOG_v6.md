@@ -2,6 +2,11 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.6** - Add new renderer option: wordGlues
+   * 2020-03-20 06:41  **6.6.1**  Add new language: German (deu)
+      * 00b9a03 German language file
+      * 9f1ae6b chore: update deps
+      * 92e8f25 docs: update readme badges to fit markdown style
+      * 0615509 refactor: tidy codes
    * 2020-03-12 19:53  **6.6.0**  initial release
       * 05a118a Update deps
       * 2b68ddc Update screenshots
