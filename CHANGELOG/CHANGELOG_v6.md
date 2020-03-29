@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.6** - Add new renderer option: wordGlues
+   * 2020-03-30 00:45  **6.6.2**  Fix wordGlues
+      * 7ddbb79 fix: "wordGlues" works wrongly under some circumstances (#25)
+      * 16780d3 fix(CSS): better strip alignment effect
    * 2020-03-20 06:41  **6.6.1**  Add new language: German (deu)
       * 00b9a03 German language file
       * 9f1ae6b chore: update deps
