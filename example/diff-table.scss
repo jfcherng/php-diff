@@ -33,7 +33,13 @@ $diff-bg-color-none-block: mix($diff-bg-color, $diff-table-sidebar-color, 80%) !
 $diff-bg-color-none-block-alternative: mix($diff-bg-color, $diff-table-sidebar-color, 55%) !default;
 
 .diff-wrapper.diff {
-  background-color: $diff-bg-color;
+  background: repeating-linear-gradient(
+    -45deg,
+    $diff-bg-color-none-block,
+    $diff-bg-color-none-block 0.5em,
+    $diff-bg-color-none-block-alternative 0.5em,
+    $diff-bg-color-none-block-alternative 1em
+  );
   border-collapse: collapse;
   border-spacing: 0;
   border: 1px solid $diff-border-color;
@@ -61,7 +67,7 @@ $diff-bg-color-none-block-alternative: mix($diff-bg-color, $diff-table-sidebar-c
 
     // make empty cell has height
     &:empty:after {
-      content: ' ';
+      content: " ";
       visibility: hidden;
     }
 
@@ -137,16 +143,12 @@ $diff-bg-color-none-block-alternative: mix($diff-bg-color, $diff-table-sidebar-c
         background: $diff-bg-color-rep;
       }
 
-      .old, .new, .rep {
+      .old,
+      .new,
+      .rep {
         &.none {
+          background: transparent;
           cursor: not-allowed;
-          background: repeating-linear-gradient(
-            -45deg,
-            $diff-bg-color-none-block,
-            $diff-bg-color-none-block 0.5em,
-            $diff-bg-color-none-block-alternative 0.5em,
-            $diff-bg-color-none-block-alternative 1em,
-          ) fixed;
         }
       }
 

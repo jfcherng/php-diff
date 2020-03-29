@@ -4,7 +4,7 @@
  * - dart-sass v1.18.0
  */
 .diff-wrapper.diff {
-  background-color: #fff;
+  background: repeating-linear-gradient(-45deg, whitesmoke, whitesmoke 0.5em, #e8e8e8 0.5em, #e8e8e8 1em);
   border-collapse: collapse;
   border-spacing: 0;
   border: 1px solid black;
@@ -89,8 +89,8 @@
   background: #fef6d9;
 }
 .diff-wrapper.diff.diff-html .change .old.none, .diff-wrapper.diff.diff-html .change .new.none, .diff-wrapper.diff.diff-html .change .rep.none {
+  background: transparent;
   cursor: not-allowed;
-  background: repeating-linear-gradient(-45deg, whitesmoke, whitesmoke 0.5em, #e8e8e8 0.5em, #e8e8e8 1em) fixed;
 }
 .diff-wrapper.diff.diff-html .change ins,
 .diff-wrapper.diff.diff-html .change del {
