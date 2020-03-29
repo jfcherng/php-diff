@@ -58,6 +58,7 @@ final class Word extends AbstractLineRenderer
         // insert dummy HTML closure to make sure there are always
         // the same amounts of HTML closures in $oldWords and $newWords
         // thus, this should ensure that "wordGlues" works correctly
+        // @see https://github.com/jfcherng/php-diff/pull/25
         foreach (ReverseIterator::fromArray($dummyDelIdxes) as $idx) {
             \array_splice($oldWords, $idx, 0, [$dummyHtmlClosure]);
         }
