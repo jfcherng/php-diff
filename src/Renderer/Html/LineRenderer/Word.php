@@ -20,6 +20,7 @@ final class Word extends AbstractLineRenderer
     public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
     {
         static $splitRegex = '/([' . RendererConstant::PUNCTUATIONS_RANGE . '])/uS';
+        static $dummyHtmlClosure = RendererConstant::HTML_CLOSURES[0] . RendererConstant::HTML_CLOSURES[1];
 
         // using PREG_SPLIT_NO_EMPTY will make "wordGlues" work wrongly under some rare cases
         // failure case:
@@ -33,16 +34,35 @@ final class Word extends AbstractLineRenderer
         $hunk = $this->getChangedExtentSegments($oldWords, $newWords);
 
         // reversely iterate hunk
+        $dummyDelIdxes = $dummyInsIdxes = [];
         foreach (ReverseIterator::fromArray($hunk) as [$op, $i1, $i2, $j1, $j2]) {
             if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
                 $oldWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $oldWords[$i1];
                 $oldWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];
+
+                if ($op === SequenceMatcher::OP_DEL) {
+                    $dummyInsIdxes[] = $j1;
+                }
             }
 
             if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
                 $newWords[$j1] = RendererConstant::HTML_CLOSURES[0] . $newWords[$j1];
                 $newWords[$j2 - 1] .= RendererConstant::HTML_CLOSURES[1];
+
+                if ($op === SequenceMatcher::OP_INS) {
+                    $dummyDelIdxes[] = $i1;
+                }
             }
+        }
+
+        // insert dummy HTML closure to make sure there are always
+        // the same amounts of HTML closures in $oldWords and $newWords
+        // thus, this should ensure that "wordGlues" works correctly
+        foreach (ReverseIterator::fromArray($dummyDelIdxes) as $idx) {
+            \array_splice($oldWords, $idx, 0, [$dummyHtmlClosure]);
+        }
+        foreach (ReverseIterator::fromArray($dummyInsIdxes) as $idx) {
+            \array_splice($newWords, $idx, 0, [$dummyHtmlClosure]);
         }
 
         if (!empty($hunk) && !empty($this->rendererOptions['wordGlues'])) {

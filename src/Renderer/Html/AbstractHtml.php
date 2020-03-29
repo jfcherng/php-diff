@@ -119,7 +119,9 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function renderWorker(Differ $differ): string
     {
-        return $this->redererChanges($this->getChanges($differ));
+        $rendered = $this->redererChanges($this->getChanges($differ));
+
+        return $this->cleanUpDummyHtmlClosures($rendered);
     }
 
     /**
@@ -129,7 +131,9 @@ abstract class AbstractHtml extends AbstractRenderer
     {
         $this->ensureChangesUseIntTag($differArray);
 
-        return $this->redererChanges($differArray);
+        $rendered = $this->redererChanges($differArray);
+
+        return $this->cleanUpDummyHtmlClosures($rendered);
     }
 
     /**
@@ -316,5 +320,22 @@ abstract class AbstractHtml extends AbstractRenderer
                 $block['tag'] = SequenceMatcher::opStrToInt($block['tag']);
             }
         }
+    }
+
+    /**
+     * Clean up empty HTML closures in the given string.
+     *
+     * @param string $string the string
+     */
+    protected function cleanUpDummyHtmlClosures(string $string): string
+    {
+        return \str_replace(
+            [
+                RendererConstant::HTML_CLOSURES_DEL[0] . RendererConstant::HTML_CLOSURES_DEL[1],
+                RendererConstant::HTML_CLOSURES_INS[0] . RendererConstant::HTML_CLOSURES_INS[1],
+            ],
+            '',
+            $string
+        );
     }
 }
