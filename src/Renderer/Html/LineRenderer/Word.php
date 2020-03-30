@@ -24,9 +24,9 @@ final class Word extends AbstractLineRenderer
 
         // using PREG_SPLIT_NO_EMPTY will make "wordGlues" work wrongly under some rare cases
         // failure case:
-        //     old: "good-looking-"
-        //     new: "good--"
-        // notice that after glueing, the 1st "-" in the new should be in the diff segment
+        //     old: "good-looking-x"
+        //     new: "good--y"
+        // notice that after glueing, the 2nd "-" in the new should be in the diff segment
         $pregFlag = \PREG_SPLIT_DELIM_CAPTURE;
         $oldWords = $mbOld->toArraySplit($splitRegex, -1, $pregFlag);
         $newWords = $mbNew->toArraySplit($splitRegex, -1, $pregFlag);
@@ -34,14 +34,17 @@ final class Word extends AbstractLineRenderer
         $hunk = $this->getChangedExtentSegments($oldWords, $newWords);
 
         // reversely iterate hunk
-        $dummyDelIdxes = $dummyInsIdxes = [];
         foreach (ReverseIterator::fromArray($hunk) as [$op, $i1, $i2, $j1, $j2]) {
             if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
                 $oldWords[$i1] = RendererConstant::HTML_CLOSURES[0] . $oldWords[$i1];
                 $oldWords[$i2 - 1] .= RendererConstant::HTML_CLOSURES[1];
 
+                // insert dummy HTML closure to ensure there are always
+                // the same amounts of HTML closures in $oldWords and $newWords
+                // thus, this should make that "wordGlues" work correctly
+                // @see https://github.com/jfcherng/php-diff/pull/25
                 if ($op === SequenceMatcher::OP_DEL) {
-                    $dummyInsIdxes[] = $j1;
+                    \array_splice($newWords, $j1, 0, [$dummyHtmlClosure]);
                 }
             }
 
@@ -50,20 +53,9 @@ final class Word extends AbstractLineRenderer
                 $newWords[$j2 - 1] .= RendererConstant::HTML_CLOSURES[1];
 
                 if ($op === SequenceMatcher::OP_INS) {
-                    $dummyDelIdxes[] = $i1;
+                    \array_splice($oldWords, $i1, 0, [$dummyHtmlClosure]);
                 }
             }
-        }
-
-        // insert dummy HTML closure to make sure there are always
-        // the same amounts of HTML closures in $oldWords and $newWords
-        // thus, this should ensure that "wordGlues" works correctly
-        // @see https://github.com/jfcherng/php-diff/pull/25
-        foreach (ReverseIterator::fromArray($dummyDelIdxes) as $idx) {
-            \array_splice($oldWords, $idx, 0, [$dummyHtmlClosure]);
-        }
-        foreach (ReverseIterator::fromArray($dummyInsIdxes) as $idx) {
-            \array_splice($newWords, $idx, 0, [$dummyHtmlClosure]);
         }
 
         if (!empty($hunk) && !empty($this->rendererOptions['wordGlues'])) {
