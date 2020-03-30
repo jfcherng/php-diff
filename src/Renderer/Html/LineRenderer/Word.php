@@ -22,12 +22,7 @@ final class Word extends AbstractLineRenderer
         static $splitRegex = '/([' . RendererConstant::PUNCTUATIONS_RANGE . '])/uS';
         static $dummyHtmlClosure = RendererConstant::HTML_CLOSURES[0] . RendererConstant::HTML_CLOSURES[1];
 
-        // using PREG_SPLIT_NO_EMPTY will make "wordGlues" work wrongly under some rare cases
-        // failure case:
-        //     old: "good-looking-x"
-        //     new: "good--y"
-        // notice that after glueing, the 2nd "-" in the new should be in the diff segment
-        $pregFlag = \PREG_SPLIT_DELIM_CAPTURE;
+        $pregFlag = \PREG_SPLIT_DELIM_CAPTURE | \PREG_SPLIT_NO_EMPTY;
         $oldWords = $mbOld->toArraySplit($splitRegex, -1, $pregFlag);
         $newWords = $mbNew->toArraySplit($splitRegex, -1, $pregFlag);
 
