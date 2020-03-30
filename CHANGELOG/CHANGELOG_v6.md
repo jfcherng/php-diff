@@ -2,6 +2,11 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.6** - Add new renderer option: wordGlues
+   * 2020-03-30 14:22  **6.6.3**  Just a few refactoring
+      * 29dca67 test: add tests for Word line renderer
+      * 355952f refactor: Word line renderer uses PREG_SPLIT_NO_EMPTY
+      * 68b530e refactor: tidy codes
+      * 492f53c chore: add some comments
    * 2020-03-30 00:45  **6.6.2**  Fix wordGlues
       * 7ddbb79 fix: "wordGlues" works wrongly under some circumstances (#25)
       * 16780d3 fix(CSS): better strip alignment effect
