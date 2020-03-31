@@ -2,6 +2,8 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.6** - Add new renderer option: wordGlues
+   * 2020-03-31 23:53  **6.6.4**  add Spanish translation
+      * 842b4af feat: add Spanish translation (#26)
    * 2020-03-30 14:22  **6.6.3**  Just a few refactoring
       * 29dca67 test: add tests for Word line renderer
       * 355952f refactor: Word line renderer uses PREG_SPLIT_NO_EMPTY
