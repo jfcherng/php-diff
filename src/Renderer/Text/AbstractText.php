@@ -42,9 +42,7 @@ abstract class AbstractText extends AbstractRenderer
         } elseif ($this->options['cliColorization'] === RendererConstant::CLI_COLOR_DISABLE) {
             $this->isCliColorEnabled = false;
         } else {
-            $stream = \fopen('php://stdout', 'w');
-            $this->isCliColorEnabled = \PHP_SAPI === 'cli' && $this->hasColorSupport($stream);
-            \fclose($stream);
+            $this->isCliColorEnabled = \PHP_SAPI === 'cli' && $this->hasColorSupport(\STDOUT);
         }
 
         return $this;
@@ -76,7 +74,7 @@ abstract class AbstractText extends AbstractRenderer
      *
      * @return string the (maybe) colorized string
      */
-    protected function cliColoredString(string $str, ?string $symbol = null): string
+    protected function cliColoredString(string $str, ?string $symbol): string
     {
         static $symbolToStyles = [
             '@' => ['f_purple', 'bold'], // header
@@ -85,11 +83,13 @@ abstract class AbstractText extends AbstractRenderer
             '!' => ['f_yellow', 'bold'], // replaced
         ];
 
-        if (null === $symbol || !$this->isCliColorEnabled) {
+        $styles = $symbolToStyles[$symbol] ?? [];
+
+        if (!$this->isCliColorEnabled || empty($styles)) {
             return $str;
         }
 
-        return CliColor::color($str, $symbolToStyles[$symbol] ?? []);
+        return CliColor::color($str, $styles);
     }
 
     /**
