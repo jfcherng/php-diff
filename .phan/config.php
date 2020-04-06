@@ -18,6 +18,7 @@ return [
         'src',
         'vendor/jfcherng/php-mb-string/src',
         'vendor/jfcherng/php-sequence-matcher/src',
+        'vendor/symfony/console',
     ],
 
     // A directory list that defines files that will be excluded

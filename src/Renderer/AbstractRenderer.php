@@ -63,6 +63,11 @@ abstract class AbstractRenderer implements RendererInterface
         // it determines whether a replace-type block should be merged or not
         // depending on the content changed ratio, which values between 0 and 1.
         'mergeThreshold' => 0.8,
+        // this option is currently only for the Unified and the Context renderers.
+        // RendererConstant::CLI_COLOR_AUTO = colorize the output if possible (default)
+        // RendererConstant::CLI_COLOR_ENABLE = force to colorize the output
+        // RendererConstant::CLI_COLOR_DISABLE = force not to colorize the output
+        'cliColorization' => RendererConstant::CLI_COLOR_AUTO,
         // this option is currently only for the Json renderer.
         // internally, ops (tags) are all int type but this is not good for human reading.
         // set this to "true" to convert them into string form before outputting.

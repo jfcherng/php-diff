@@ -56,7 +56,7 @@ final class Unified extends AbstractText
         $oldLinesCount = $i2 - $i1;
         $newLinesCount = $j2 - $j1;
 
-        return
+        return $this->cliColoredString(
             '@@' .
             ' -' .
                 // the line number in GNU diff is 1-based, so we add 1
@@ -68,7 +68,9 @@ final class Unified extends AbstractText
             ' +' .
                 ($j1 === $j2 ? $j1 : $j1 + 1) .
                 ($newLinesCount === 1 ? '' : ",{$newLinesCount}") .
-            " @@\n";
+            " @@\n",
+            '@' // symbol
+        );
     }
 
     /**
@@ -134,6 +136,7 @@ final class Unified extends AbstractText
         }
 
         $ret = $symbol . \implode("\n{$symbol}", $context) . "\n";
+        $ret = $this->cliColoredString($ret, $symbol);
 
         if ($noEolAtEof) {
             $ret .= self::GNU_OUTPUT_NO_EOL_AT_EOF . "\n";

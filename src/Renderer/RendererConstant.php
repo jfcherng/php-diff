@@ -92,4 +92,25 @@ final class RendererConstant
         '「」『』〈〉《》【】()（）‘’“”' .
         '．‧・･•·¿'
     );
+
+    /**
+     * Colorize the CLI output if possible.
+     *
+     * @var int
+     */
+    const CLI_COLOR_AUTO = -1;
+
+    /**
+     * Force not to colorize the CLI output.
+     *
+     * @var int
+     */
+    const CLI_COLOR_DISABLE = 0;
+
+    /**
+     * Force to colorize the CLI output if possible.
+     *
+     * @var int
+     */
+    const CLI_COLOR_ENABLE = 1;
 }
