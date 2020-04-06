@@ -166,6 +166,8 @@ abstract class AbstractText extends AbstractRenderer
      * @param resource $stream
      *
      * @return bool true if the stream supports colorization, false otherwise
+     *
+     * @suppress PhanUndeclaredFunction
      */
     protected function hasColorSupport($stream): bool
     {
