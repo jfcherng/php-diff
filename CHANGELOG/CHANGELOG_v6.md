@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.7** - feat: support colorized CLI output for text renderers
+   * 2020-04-07 02:18  **6.7.1**  refactor: colorization with jfcherng/php-color-output
+      * 9c3da80 refactor: colorization with jfcherng/php-color-output
+      * ea2d43d docs: adjust demo colors
    * 2020-04-06 20:29  **6.7.0**  initial release
       * 40f0e74 test: fix test for CLI color output
       * ba9dd9e chore: update deps
