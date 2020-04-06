@@ -1,6 +1,15 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.7** - feat: support colorized CLI output for text renderers
+   * 2020-04-06 20:29  **6.7.0**  initial release
+      * 40f0e74 test: fix test for CLI color output
+      * ba9dd9e chore: update deps
+      * 857f4b0 fix: make phan happy
+      * 129d51e docs: add example/demo_cli.php
+      * dbec4b8 feat: support colorized CLI output for text renderers
+      * 007abaf chore: update deps
+
  * Version **6.6** - Add new renderer option: wordGlues
    * 2020-03-31 23:53  **6.6.4**  add Spanish translation
       * 842b4af feat: add Spanish translation (#26)
