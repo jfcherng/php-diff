@@ -47,7 +47,7 @@ final class Context extends AbstractText
             $j2 = $hunk[$lastBlockIdx][4];
 
             $ret .=
-                "***************\n" .
+                $this->cliColoredString("***************\n", '@') .
                 $this->renderHunkHeader('*', $i1, $i2) .
                 $this->renderHunkOld($differ, $hunk) .
                 $this->renderHunkHeader('-', $j1, $j2) .
@@ -68,10 +68,12 @@ final class Context extends AbstractText
     {
         $a1x = $a1 + 1; // 1-based begin line number
 
-        return
+        return $this->cliColoredString(
             "{$symbol}{$symbol}{$symbol} " .
             ($a1x < $a2 ? "{$a1x},{$a2}" : $a2) .
-            " {$symbol}{$symbol}{$symbol}{$symbol}\n";
+            " {$symbol}{$symbol}{$symbol}{$symbol}\n",
+            '@' // symbol
+        );
     }
 
     /**
@@ -150,6 +152,7 @@ final class Context extends AbstractText
         }
 
         $ret = "{$symbol} " . \implode("\n{$symbol} ", $context) . "\n";
+        $ret = $this->cliColoredString($ret, $symbol);
 
         if ($noEolAtEof) {
             $ret .= self::GNU_OUTPUT_NO_EOL_AT_EOF . "\n";
