@@ -7,10 +7,7 @@ namespace Jfcherng\Diff\Renderer\Text;
 use Jfcherng\Diff\Exception\UnsupportedFunctionException;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Renderer\RendererConstant;
-use Symfony\Component\Console\Formatter\OutputFormatter;
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use Symfony\Component\Console\Output\BufferedOutput;
-use Symfony\Component\Console\Output\OutputInterface;
+use Jfcherng\Utility\CliColor;
 
 /**
  * Base renderer for rendering text-based diffs.
@@ -28,19 +25,9 @@ abstract class AbstractText extends AbstractRenderer
     const GNU_OUTPUT_NO_EOL_AT_EOF = '\ No newline at end of file';
 
     /**
-     * @var BufferedOutput
+     * @var bool controls whether cliColoredString() is enabled or not
      */
-    protected $bufferOutput;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct(array $options = [])
-    {
-        $this->bufferOutput = $this->getCliOutputter();
-
-        parent::__construct($options);
-    }
+    protected $isCliColorEnabled = false;
 
     /**
      * {@inheritdoc}
@@ -49,12 +36,15 @@ abstract class AbstractText extends AbstractRenderer
     {
         parent::setOptions($options);
 
+        // determine $this->isCliColorEnabled
         if ($this->options['cliColorization'] === RendererConstant::CLI_COLOR_ENABLE) {
-            $this->bufferOutput->setDecorated(true);
+            $this->isCliColorEnabled = true;
         } elseif ($this->options['cliColorization'] === RendererConstant::CLI_COLOR_DISABLE) {
-            $this->bufferOutput->setDecorated(false);
+            $this->isCliColorEnabled = false;
         } else {
-            $this->bufferOutput->setDecorated($this->isCliColorSupported());
+            $stream = \fopen('php://stdout', 'w');
+            $this->isCliColorEnabled = \PHP_SAPI === 'cli' && $this->hasColorSupport($stream);
+            \fclose($stream);
         }
 
         return $this;
@@ -79,75 +69,27 @@ abstract class AbstractText extends AbstractRenderer
     }
 
     /**
-     * Get the cli outputter object.
-     */
-    protected function getCliOutputter(): OutputInterface
-    {
-        return new BufferedOutput(
-            OutputInterface::VERBOSITY_NORMAL,
-            false,
-            new OutputFormatter(
-                false,
-                [
-                    'header' => new OutputFormatterStyle('magenta', null, []),
-                    'deleted' => new OutputFormatterStyle('red', null, ['bold']),
-                    'inserted' => new OutputFormatterStyle('green', null, ['bold']),
-                    'replaced' => new OutputFormatterStyle('yellow', null, ['bold']),
-                ]
-            )
-        );
-    }
-
-    /**
      * Colorize the string for CLI output.
      *
-     * @param string      $str   the string
-     * @param null|string $style the style
+     * @param string      $str    the string
+     * @param null|string $symbol the symbol
      *
      * @return string the (maybe) colorized string
      */
-    protected function cliColoredString(string $str, ?string $style = null): string
+    protected function cliColoredString(string $str, ?string $symbol = null): string
     {
-        static $symbolStyleMap = [
-            '@' => 'header',
-            '-' => 'deleted',
-            '+' => 'inserted',
-            '!' => 'replaced',
+        static $symbolToStyles = [
+            '@' => ['f_purple', 'bold'], // header
+            '-' => ['f_red', 'bold'], // deleted
+            '+' => ['f_green', 'bold'], // inserted
+            '!' => ['f_yellow', 'bold'], // replaced
         ];
 
-        // just to reduce the amount of function calls
-        if (!$this->bufferOutput->isDecorated()) {
+        if (null === $symbol || !$this->isCliColorEnabled) {
             return $str;
         }
 
-        // convert symbol into style
-        if (\is_string($style) && isset($style[0]) && !\ctype_alpha($style[0])) {
-            $style = $symbolStyleMap[$style] ?? null;
-        }
-
-        $str = OutputFormatter::escape($str);
-
-        $this->bufferOutput->write(isset($style) ? "<{$style}>{$str}</>" : $str);
-
-        return $this->bufferOutput->fetch();
-    }
-
-    /**
-     * Determine if cli color supported.
-     */
-    protected function isCliColorSupported(): bool
-    {
-        static $isSupported;
-
-        if (isset($isSupported)) {
-            return $isSupported;
-        }
-
-        $stream = \fopen('php://stdout', 'w');
-        $isSupported = \PHP_SAPI === 'cli' && $this->hasColorSupport($stream);
-        \fclose($stream);
-
-        return $isSupported;
+        return CliColor::color($str, $symbolToStyles[$symbol] ?? []);
     }
 
     /**

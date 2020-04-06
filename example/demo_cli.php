@@ -3,23 +3,13 @@
 include __DIR__ . '/demo_base.php';
 
 use Jfcherng\Diff\DiffHelper;
-use Symfony\Component\Console\Formatter\OutputFormatter;
-use Symfony\Component\Console\Formatter\OutputFormatterStyle;
-use Symfony\Component\Console\Output\StreamOutput;
+use Jfcherng\Utility\CliColor;
 
-$output = new StreamOutput(
-    \fopen('php://stdout', 'w'),
-    StreamOutput::VERBOSITY_NORMAL,
-    null,
-    new OutputFormatter(
-        false,
-        [
-            'section' => new OutputFormatterStyle('black', 'cyan', []),
-        ]
-    )
-);
+$colorStyles = [
+    'section' => ['f_black', 'b_cyan'],
+];
 
-$output->write("<section>Unified Diff\n============</>\n\n");
+echo CliColor::color("Unified Diff\n============", $colorStyles['section']) . "\n\n";
 
 // generate a unified diff
 $unifiedResult = DiffHelper::calculate(
@@ -32,7 +22,7 @@ $unifiedResult = DiffHelper::calculate(
 
 echo $unifiedResult . "\n\n\n\n";
 
-$output->write("<section>Context Diff\n============</>\n\n");
+echo CliColor::color("Context Diff\n============", $colorStyles['section']) . "\n\n";
 
 // generate a context diff
 $contextResult = DiffHelper::calculate(
