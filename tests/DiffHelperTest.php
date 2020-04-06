@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jfcherng\Diff\Test;
 
 use Jfcherng\Diff\DiffHelper;
+use Jfcherng\Diff\Renderer\RendererConstant;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -38,7 +39,9 @@ final class DiffHelperTest extends TestCase
         $result = DiffHelper::calculate(
             $testFiles['old']->getContents(),
             $testFiles['new']->getContents(),
-            $rendererName
+            $rendererName,
+            [],
+            ['cliColorization' => RendererConstant::CLI_COLOR_DISABLE]
         );
 
         static::assertSame(
