@@ -14,12 +14,12 @@ $output = new StreamOutput(
     new OutputFormatter(
         false,
         [
-            'section' => new OutputFormatterStyle('white', 'cyan', ['bold']),
+            'section' => new OutputFormatterStyle('black', 'cyan', []),
         ]
     )
 );
 
-$output->writeln("<section>Unified Diff\n============\n</>");
+$output->write("<section>Unified Diff\n============</>\n\n");
 
 // generate a unified diff
 $unifiedResult = DiffHelper::calculate(
@@ -32,7 +32,7 @@ $unifiedResult = DiffHelper::calculate(
 
 echo $unifiedResult . "\n\n\n\n";
 
-$output->writeln("<section>Context Diff\n============\n</>");
+$output->write("<section>Context Diff\n============</>\n\n");
 
 // generate a context diff
 $contextResult = DiffHelper::calculate(
