@@ -1,8 +1,20 @@
-To run `demo.php` on your local machine, you can follow steps below.
+# Demo
 
-In the parent folder (i.e., this project's root directory):
+Note that
 
-1. Install dependencies with `composer upgrade`.
-1. Start PHP development server with `composer run-script server`.
-1. Visit `http://localhost:12388/demo.php` with your web browser.
-1. Change `old_file.txt`, `new_file.txt` and refresh the web page to play around.
+- All `composer`-related commands are run in this project's root directory.
+- You can change differ/renderer options in `demo_base.php`.
+- Change contents of `old_file.txt` and `new_file.txt` to test different text.
+
+To run demo, you have to first install dependencies via `composer install`.
+
+## Web Environment
+
+To run `demo_web.php` on your local machine, you can follow steps below.
+
+1. Start PHP development server via `composer run-script server`.
+1. Visit `http://localhost:12388/demo_web.php` with a web browser.
+
+## Cli Environment
+
+Just run `php demo_cli.php`.
