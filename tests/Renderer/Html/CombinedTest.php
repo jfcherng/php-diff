@@ -28,6 +28,7 @@ final class CombinedTest extends TestCase
         $result = DiffHelper::calculate('<', " \nA<B", 'Combined', ['detailLevel' => 'word']);
         $result = \htmlspecialchars_decode($result);
 
+        /** @todo PHPUnit 9, static::assertStringNotContainsString() */
         static::assertThat($result, static::logicalNot(static::stringContains(';')));
     }
 }
