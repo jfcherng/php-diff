@@ -2,6 +2,11 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.7** - feat: support colorized CLI output for text renderers
+   * 2020-04-27 01:49  **6.7.2**  fix Combined internal HTML formatting
+      * 8f8d919 chore: update deps
+      * e172e4a fix: unexpected Combined output due to HTML formatting
+      * 8011802 chore: rename example/demo.php -> example/demo_web.php
+      * 444342d refactor: tidy codes
    * 2020-04-07 02:18  **6.7.1**  refactor: colorization with jfcherng/php-color-output
       * 9c3da80 refactor: colorization with jfcherng/php-color-output
       * ea2d43d docs: adjust demo colors
