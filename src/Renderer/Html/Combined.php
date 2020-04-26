@@ -28,6 +28,11 @@ final class Combined extends AbstractHtml
     /**
      * {@inheritdoc}
      */
+    const AUTO_FORMAT_CHANGES = false;
+
+    /**
+     * {@inheritdoc}
+     */
     protected function redererChanges(array $changes): string
     {
         if (empty($changes)) {
@@ -142,6 +147,11 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlockInsert(array $block): string
     {
+        $block['new']['lines'] = $this->customFormatLines(
+            $block['new']['lines'],
+            SequenceMatcher::OP_INS
+        );
+
         $ret = '';
 
         foreach ($block['new']['lines'] as $newLine) {
@@ -158,6 +168,11 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlockDelete(array $block): string
     {
+        $block['old']['lines'] = $this->customFormatLines(
+            $block['old']['lines'],
+            SequenceMatcher::OP_DEL
+        );
+
         $ret = '';
 
         foreach ($block['old']['lines'] as $oldLine) {
@@ -194,6 +209,9 @@ final class Combined extends AbstractHtml
             [$oldLines, $newLines] = $this->markReplaceBlockDiff($oldLines, $newLines);
             $oldLinesCount = $newLinesCount = 1;
         }
+
+        $oldLines = $this->customFormatLines($oldLines, SequenceMatcher::OP_DEL);
+        $newLines = $this->customFormatLines($newLines, SequenceMatcher::OP_INS);
 
         // now $oldLines must has the same line counts with $newlines
         for ($no = 0; $no < $newLinesCount; ++$no) {
@@ -376,21 +394,9 @@ final class Combined extends AbstractHtml
 
         $lineRenderer->render($mbOld, $mbNew);
 
-        $oldLine = \str_replace(
-            RendererConstant::HTML_CLOSURES,
-            RendererConstant::HTML_CLOSURES_DEL,
-            $mbOld->get()
-        );
-
-        $newLine = \str_replace(
-            RendererConstant::HTML_CLOSURES,
-            RendererConstant::HTML_CLOSURES_INS,
-            $mbNew->get()
-        );
-
         return [
-            [$oldLine], // one-line block for the old
-            [$newLine], // one-line block for the new
+            [$mbOld->get()], // one-line block for the old
+            [$mbNew->get()], // one-line block for the new
         ];
     }
 
@@ -460,5 +466,26 @@ final class Combined extends AbstractHtml
                 $part['content']
             );
         }
+    }
+
+    /**
+     * Make lines suitable for HTML output.
+     *
+     * @param string[] $lines the lines
+     * @param int      $op    the operation
+     */
+    protected function customFormatLines(array $lines, int $op): array
+    {
+        $htmlClosures = $op === SequenceMatcher::OP_DEL
+            ? RendererConstant::HTML_CLOSURES_DEL
+            : RendererConstant::HTML_CLOSURES_INS;
+
+        $lines = $this->formatLines($lines);
+
+        foreach ($lines as &$line) {
+            $line = \str_replace(RendererConstant::HTML_CLOSURES, $htmlClosures, $line);
+        }
+
+        return $lines;
     }
 }

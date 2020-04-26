@@ -35,6 +35,16 @@ abstract class AbstractHtml extends AbstractRenderer
     ];
 
     /**
+     * Auto format the content in "changes" to be suitable for HTML output.
+     *
+     * This may not be a wanted behavior for some (custom) renderers
+     * if they want to do this by themselves in a later stage.
+     *
+     * @var bool
+     */
+    const AUTO_FORMAT_CHANGES = true;
+
+    /**
      * {@inheritdoc}
      */
     public function getResultForIdenticalsDefault(): string
@@ -80,35 +90,16 @@ abstract class AbstractHtml extends AbstractRenderer
                     }
                 }
 
-                $oldLines = $this->formatLines(\array_slice($old, $i1, $i2 - $i1));
-                $newLines = $this->formatLines(\array_slice($new, $j1, $j2 - $j1));
-
-                if ($op === SequenceMatcher::OP_EQ) {
-                    $block['old']['lines'] = $oldLines;
-                    $block['new']['lines'] = $newLines;
-
-                    continue;
-                }
-
-                if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
-                    $block['old']['lines'] = \str_replace(
-                        RendererConstant::HTML_CLOSURES,
-                        RendererConstant::HTML_CLOSURES_DEL,
-                        $oldLines
-                    );
-                }
-
-                if ($op & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
-                    $block['new']['lines'] = \str_replace(
-                        RendererConstant::HTML_CLOSURES,
-                        RendererConstant::HTML_CLOSURES_INS,
-                        $newLines
-                    );
-                }
+                $block['old']['lines'] = \array_slice($old, $i1, $i2 - $i1);
+                $block['new']['lines'] = \array_slice($new, $j1, $j2 - $j1);
             }
             unset($block);
 
             $changes[] = $change;
+        }
+
+        if (static::AUTO_FORMAT_CHANGES) {
+            $this->formatChanges($changes);
         }
 
         return $changes;
@@ -192,6 +183,37 @@ abstract class AbstractHtml extends AbstractRenderer
                 'lines' => [],
             ],
         ];
+    }
+
+    /**
+     * Make the content in "changes" suitable for HTML output.
+     *
+     * @param array[][] $changes the changes
+     */
+    final protected function formatChanges(array &$changes): void
+    {
+        foreach ($changes as &$hunk) {
+            foreach ($hunk as &$block) {
+                $block['old']['lines'] = $this->formatLines($block['old']['lines']);
+                $block['new']['lines'] = $this->formatLines($block['new']['lines']);
+
+                if ($block['tag'] & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
+                    $block['old']['lines'] = \str_replace(
+                        RendererConstant::HTML_CLOSURES,
+                        RendererConstant::HTML_CLOSURES_DEL,
+                        $block['old']['lines']
+                    );
+                }
+
+                if ($block['tag'] & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
+                    $block['new']['lines'] = \str_replace(
+                        RendererConstant::HTML_CLOSURES,
+                        RendererConstant::HTML_CLOSURES_INS,
+                        $block['new']['lines']
+                    );
+                }
+            }
+        }
     }
 
     /**
