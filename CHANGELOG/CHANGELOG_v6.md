@@ -2,6 +2,10 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.7** - feat: support colorized CLI output for text renderers
+   * 2020-05-28 03:22  **6.7.3**  allow PHP 8
+      * 3ab8a9e chore: update deps
+      * 1b931eb chore: Composer PHP constrain >=7.1.3
+      * 37036c2 chore: add some comments
    * 2020-04-27 01:49  **6.7.2**  fix Combined internal HTML formatting
       * 8f8d919 chore: update deps
       * e172e4a fix: unexpected Combined output due to HTML formatting
