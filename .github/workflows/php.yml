@@ -1,0 +1,100 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - "*"
+      - "*/*"
+  pull_request:
+    branches:
+      - "*"
+      - "*/*"
+
+jobs:
+  job_analysis:
+    name: Analysis (PHP ${{ matrix.php-versions }})
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        php-versions: ["7.1", "7.2", "7.3", "7.4"]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          tools: pecl
+          extensions: ast, mbstring, curl, json, intl, gd, xml, zip, bz2, opcache, sockets
+
+      - name: Show PHP information
+        run: |
+          php -v
+          php -m
+
+      - uses: actions/checkout@v2
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ matrix.os }}-${{ matrix.php-versions }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ matrix.os }}-${{ matrix.php-versions }}-composer-
+
+      - name: Install dependencies
+        run: |
+          composer global require hirak/prestissimo --prefer-dist --no-progress
+          composer config platform.php ${{ matrix.php-versions }}.999
+          composer install --prefer-dist --no-progress --no-suggest
+          composer update
+
+      - name: Run composer script "analyze"
+        run: composer run-script analyze
+
+  job_tests:
+    name: Tests (PHP ${{ matrix.php-versions }})
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        php-versions: ["7.1", "7.2", "7.3", "7.4"]
+
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          tools: pecl
+          extensions: ast, mbstring, curl, json, intl, gd, xml, zip, bz2, opcache, sockets
+
+      - name: Show PHP information
+        run: |
+          php -v
+          php -m
+
+      - uses: actions/checkout@v2
+
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+
+      - name: Cache dependencies
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ matrix.os }}-${{ matrix.php-versions }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ matrix.os }}-${{ matrix.php-versions }}-composer-
+
+      - name: Install dependencies
+        run: |
+          composer global require hirak/prestissimo --prefer-dist --no-progress
+          composer config platform.php ${{ matrix.php-versions }}.999
+          composer install --prefer-dist --no-progress --no-suggest
+          composer update
+
+      - name: Run composer script "test"
+        run: composer run-script test
