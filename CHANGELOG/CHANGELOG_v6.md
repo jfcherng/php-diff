@@ -2,6 +2,12 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.7** - feat: support colorized CLI output for text renderers
+   * 2020-07-06 11:10  **6.7.4**  fix HTML escape for Combined renderer
+      * 762238b chore: update deps
+      * d32c7b6 fix: OP_EQ lines are not escaped in Combined renderer
+      * ef6dcb4 test: make phan happy
+      * dc2db03 chore: update readme badge
+      * d143c26 chore(ci): migrate CI from Travis to GitHub Actions
    * 2020-05-28 03:22  **6.7.3**  allow PHP 8
       * 3ab8a9e chore: update deps
       * 1b931eb chore: Composer PHP constrain >=7.1.3
