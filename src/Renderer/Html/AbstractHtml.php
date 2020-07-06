@@ -197,6 +197,7 @@ abstract class AbstractHtml extends AbstractRenderer
                 $block['old']['lines'] = $this->formatLines($block['old']['lines']);
                 $block['new']['lines'] = $this->formatLines($block['new']['lines']);
 
+                /** @phan-suppress-next-line PhanTypeInvalidLeftOperandOfBitwiseOp */
                 if ($block['tag'] & (SequenceMatcher::OP_REP | SequenceMatcher::OP_DEL)) {
                     $block['old']['lines'] = \str_replace(
                         RendererConstant::HTML_CLOSURES,
@@ -205,6 +206,7 @@ abstract class AbstractHtml extends AbstractRenderer
                     );
                 }
 
+                /** @phan-suppress-next-line PhanTypeInvalidLeftOperandOfBitwiseOp */
                 if ($block['tag'] & (SequenceMatcher::OP_REP | SequenceMatcher::OP_INS)) {
                     $block['new']['lines'] = \str_replace(
                         RendererConstant::HTML_CLOSURES,
