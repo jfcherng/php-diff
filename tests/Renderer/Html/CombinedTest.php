@@ -10,7 +10,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * Test Combined.
  *
- * @coversNothing
+ * @covers \Jfcherng\Diff\Renderer\Html\Combined
  *
  * @internal
  */
@@ -18,8 +18,6 @@ final class CombinedTest extends TestCase
 {
     /**
      * Test the internal HTML output formatting.
-     *
-     * @covers \Jfcherng\Diff\Renderer\Html\Combined
      *
      * @see https://github.com/jfcherng/php-diff/issues/30
      */
@@ -30,5 +28,23 @@ final class CombinedTest extends TestCase
 
         /** @todo PHPUnit 9, static::assertStringNotContainsString() */
         static::assertThat($result, static::logicalNot(static::stringContains(';')));
+    }
+
+    /**
+     * Test HTML escape for diff output.
+     *
+     * @see https://github.com/jfcherng/php-diff/issues/33
+     */
+    public function testHtmlEscapeForOpEq(): void
+    {
+        $result = DiffHelper::calculate(
+            "<tag>three</tag>\n<tag>four</tag>\n",
+            "one\n<tag>two</tag>\n<tag>three</tag>\n",
+            'Combined'
+        );
+
+        /** @todo PHPUnit 9, static::assertStringNotContainsString() */
+        static::assertThat($result, static::logicalNot(static::stringContains('<tag>')));
+        static::assertThat($result, static::logicalNot(static::stringContains('</tag>')));
     }
 }

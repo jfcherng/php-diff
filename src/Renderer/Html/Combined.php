@@ -126,6 +126,11 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlockEqual(array $block): string
     {
+        $block['new']['lines'] = $this->customFormatLines(
+            $block['new']['lines'],
+            SequenceMatcher::OP_EQ
+        );
+
         $ret = '';
 
         // note that although we are in a OP_EQ situation,
@@ -476,14 +481,19 @@ final class Combined extends AbstractHtml
      */
     protected function customFormatLines(array $lines, int $op): array
     {
-        $htmlClosures = $op === SequenceMatcher::OP_DEL
-            ? RendererConstant::HTML_CLOSURES_DEL
-            : RendererConstant::HTML_CLOSURES_INS;
+        static $closureMap = [
+            SequenceMatcher::OP_DEL => RendererConstant::HTML_CLOSURES_DEL,
+            SequenceMatcher::OP_INS => RendererConstant::HTML_CLOSURES_INS,
+        ];
 
         $lines = $this->formatLines($lines);
 
+        $htmlClosures = $closureMap[$op] ?? null;
+
         foreach ($lines as &$line) {
-            $line = \str_replace(RendererConstant::HTML_CLOSURES, $htmlClosures, $line);
+            if ($htmlClosures) {
+                $line = \str_replace(RendererConstant::HTML_CLOSURES, $htmlClosures, $line);
+            }
         }
 
         return $lines;
