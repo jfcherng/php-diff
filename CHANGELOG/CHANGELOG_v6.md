@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.7** - feat: support colorized CLI output for text renderers
+   * 2020-08-10 23:39  **6.7.5**  fix \r visualization in Combined renderer
+      * 35a2502 fix: \r shouldn't be visualized like a newline in Combined renderer
+      * cb2bed2 chore: update deps
    * 2020-07-06 11:10  **6.7.4**  fix HTML escape for Combined renderer
       * 762238b chore: update deps
       * d32c7b6 fix: OP_EQ lines are not escaped in Combined renderer
