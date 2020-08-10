@@ -123,6 +123,15 @@ $diff-bg-color-none-block-alternative: mix($diff-bg-color, $diff-table-sidebar-c
   &.diff-html {
     white-space: pre-wrap;
 
+    &.diff-combined {
+      .change.change-rep {
+        .rep {
+          // fixes https://github.com/jfcherng/php-diff/issues/34#issuecomment-671404456
+          white-space: normal;
+        }
+      }
+    }
+
     .change {
       &.change-eq {
         .old,

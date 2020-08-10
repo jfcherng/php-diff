@@ -75,6 +75,9 @@
 .diff-wrapper.diff.diff-html {
   white-space: pre-wrap;
 }
+.diff-wrapper.diff.diff-html.diff-combined .change.change-rep .rep {
+  white-space: normal;
+}
 .diff-wrapper.diff.diff-html .change.change-eq .old,
 .diff-wrapper.diff.diff-html .change.change-eq .new {
   background: #fff;
@@ -88,7 +91,9 @@
 .diff-wrapper.diff.diff-html .change .rep {
   background: #fef6d9;
 }
-.diff-wrapper.diff.diff-html .change .old.none, .diff-wrapper.diff.diff-html .change .new.none, .diff-wrapper.diff.diff-html .change .rep.none {
+.diff-wrapper.diff.diff-html .change .old.none,
+.diff-wrapper.diff.diff-html .change .new.none,
+.diff-wrapper.diff.diff-html .change .rep.none {
   background: transparent;
   cursor: not-allowed;
 }
