@@ -78,7 +78,7 @@ final class RendererTest extends TestCase
      */
     public function testSetOptionsWithInvalidResultForIdenticals(): void
     {
-        static::expectException(\InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
 
         $diffResult = DiffHelper::calculate(
             'we are the same',
@@ -153,7 +153,7 @@ final class RendererTest extends TestCase
      */
     public function testTextRendererRenderWithResultFromJsonRenderer(): void
     {
-        static::expectException(UnsupportedFunctionException::class);
+        $this->expectException(UnsupportedFunctionException::class);
 
         $jsonResult = DiffHelper::calculate('_TEST_MARKER_OLD_', '_TEST_MARKER_NEW_', 'Json');
 
