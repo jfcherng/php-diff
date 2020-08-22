@@ -42,6 +42,23 @@ final class Differ
     ];
 
     /**
+     * Some extra lines which will be appended to input strings to
+     * make the diff result stable about diff around the EOF...
+     *
+     * @var array
+     */
+    private const APPENDED_HELPERLINES = [
+        "\u{fcf28}\u{fc232}",
+        "\u{fcf28}\u{fc232}",
+        "\u{fcf28}\u{fc232}",
+        "\u{fcf28}\u{fc232}",
+        "\u{fcf28}\u{fc232}",
+        "\u{fcf28}\u{fc232}",
+        "\u{fcf28}\u{fc232}",
+        "\u{fcf28}\u{fc232}",
+    ];
+
+    /**
      * @var array array of the options that have been applied for generating the diff
      */
     public $options = [];
@@ -65,6 +82,16 @@ final class Differ
      * @var SequenceMatcher the sequence matcher
      */
     private $sequenceMatcher;
+
+    /**
+     * @var int
+     */
+    private $oldSrcLength = 0;
+
+    /**
+     * @var int
+     */
+    private $newSrcLength = 0;
 
     /**
      * @var int the end index for the old if the old has no EOL at EOF
@@ -271,9 +298,17 @@ final class Differ
             return $this->groupedOpcodes;
         }
 
-        return $this->groupedOpcodes = $this->sequenceMatcher
-            ->setSequences($this->old, $this->new)
+        $old = $this->old;
+        $new = $this->new;
+        $this->getGroupedOpcodesPre($old, $new);
+
+        $opcodes = $this->sequenceMatcher
+            ->setSequences($old, $new)
             ->getGroupedOpcodes($this->options['context']);
+
+        $this->getGroupedOpcodesPost($opcodes);
+
+        return $this->groupedOpcodes = $opcodes;
     }
 
     /**
@@ -289,12 +324,118 @@ final class Differ
             return $this->groupedOpcodesGnu;
         }
 
-        return $this->groupedOpcodesGnu = $this->sequenceMatcher
-            ->setSequences(
-                $this->createGnuCompatibleLines($this->old),
-                $this->createGnuCompatibleLines($this->new)
-            )
+        $old = $this->old;
+        $new = $this->new;
+        $this->getGroupedOpcodesGnuPre($old, $new);
+
+        $opcodes = $this->sequenceMatcher
+            ->setSequences($old, $new)
             ->getGroupedOpcodes($this->options['context']);
+
+        $this->getGroupedOpcodesGnuPost($opcodes);
+
+        return $this->groupedOpcodesGnu = $opcodes;
+    }
+
+    /**
+     * Triggered before getGroupedOpcodes(). May modify the $old and $new.
+     *
+     * @param string[] $old the old
+     * @param string[] $new the new
+     */
+    private function getGroupedOpcodesPre(array &$old, array &$new): void
+    {
+        $this->oldSrcLength = \count($old);
+        \array_push($old, ...self::APPENDED_HELPERLINES);
+
+        $this->newSrcLength = \count($new);
+        \array_push($new, ...self::APPENDED_HELPERLINES);
+    }
+
+    /**
+     * Triggered after getGroupedOpcodes(). May modify the $opcodes.
+     *
+     * @param int[][][] $opcodes the opcodes
+     */
+    private function getGroupedOpcodesPost(array &$opcodes): void
+    {
+        foreach ($opcodes as $hunkIdx => &$hunk) {
+            foreach ($hunk as $blockIdx => &$block) {
+                // range overflow
+                if ($block[1] > $this->oldSrcLength) {
+                    $block[1] = $this->oldSrcLength;
+                }
+                if ($block[2] > $this->oldSrcLength) {
+                    $block[2] = $this->oldSrcLength;
+                }
+                if ($block[3] > $this->newSrcLength) {
+                    $block[3] = $this->newSrcLength;
+                }
+                if ($block[4] > $this->newSrcLength) {
+                    $block[4] = $this->newSrcLength;
+                }
+                // useless extra block?
+                /** @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset */
+                if ($block[1] === $block[2] && $block[3] === $block[4]) {
+                    unset($hunk[$blockIdx]);
+                }
+            }
+
+            if (empty($hunk)) {
+                unset($opcodes[$hunkIdx]);
+            }
+        }
+    }
+
+    /**
+     * Triggered before getGroupedOpcodesGnu(). May modify the $old and $new.
+     *
+     * @param string[] $old the old
+     * @param string[] $new the new
+     */
+    private function getGroupedOpcodesGnuPre(array &$old, array &$new): void
+    {
+        /**
+         * Make the lines to be prepared for GNU-style diff.
+         *
+         * This method checks whether $lines has no EOL at EOF and append a special
+         * indicator to the last line.
+         *
+         * @param string[] $lines the lines created by simply explode("\n", $string)
+         */
+        $createGnuCompatibleLines = static function (array $lines): array {
+            // note that the $lines should not be empty at this point
+            // they have at least one element "" in the array because explode("\n", "") === [""]
+            $lastLineIdx = \count($lines) - 1;
+            $lastLine = &$lines[$lastLineIdx];
+
+            if ($lastLine === '') {
+                // remove the last plain "" line since we don't need it anymore
+                // use array_slice() to also reset the array index
+                $lines = \array_slice($lines, 0, -1);
+            } else {
+                // this means the original source has no EOL at EOF
+                // we append a special indicator to that line so it no longer matches
+                $lastLine .= self::LINE_NO_EOL;
+            }
+
+            return $lines;
+        };
+
+        $old = $createGnuCompatibleLines($old);
+        $new = $createGnuCompatibleLines($new);
+
+        $this->getGroupedOpcodesPre($old, $new);
+    }
+
+    /**
+     * Triggered after getGroupedOpcodesGnu(). May modify the $opcodes.
+     *
+     * @param int[][][] $opcodes the opcodes
+     */
+    private function getGroupedOpcodesGnuPost(array &$opcodes): void
+    {
+        $this->getGroupedOpcodesPost($opcodes);
     }
 
     /**
@@ -333,32 +474,5 @@ final class Differ
         $this->isCacheDirty = false;
 
         return $this;
-    }
-
-    /**
-     * Make the lines to be prepared for GNU-style diff.
-     *
-     * This method checks whether $lines has no EOL at EOF and append a special
-     * indicator to the last line.
-     *
-     * @param string[] $lines the lines created by simply explode("\n", $string)
-     */
-    private function createGnuCompatibleLines(array $lines): array
-    {
-        // note that the $lines should not be empty at this point
-        // they have at least one element "" in the array because explode("\n", "") === [""]
-        $lastLineIdx = \count($lines) - 1;
-        $lastLine = &$lines[$lastLineIdx];
-
-        if ($lastLine === '') {
-            // remove the last plain "" line since we don't need it anymore
-            unset($lines[$lastLineIdx]);
-        } else {
-            // this means the original source has no EOL at EOF
-            // we append a special indicator to that line so it no longer matches
-            $lastLine .= self::LINE_NO_EOL;
-        }
-
-        return $lines;
     }
 }

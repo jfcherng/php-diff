@@ -92,11 +92,11 @@ final class Unified extends AbstractText
             // because of ignoreCase, ignoreWhitespace, etc
             if ($op === SequenceMatcher::OP_EQ) {
                 // we could only pick either the old or the new to show
-                // here we pick the new one to let the user know what it is now
+                // note that the GNU diff will use the old one because it creates a patch
                 $ret .= $this->renderContext(
                     ' ',
-                    $differ->getNew($j1, $j2),
-                    $j2 === $newNoEolAtEofIdx
+                    $differ->getOld($i1, $i2),
+                    $i2 === $oldNoEolAtEofIdx
                 );
 
                 continue;
