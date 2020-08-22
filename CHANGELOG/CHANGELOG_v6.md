@@ -2,6 +2,12 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.7** - feat: support colorized CLI output for text renderers
+   * 2020-08-22 19:08  **6.7.6**  fix "ignoreWhitespaces" not working
+      * dd6a211 fix: "ignoreWhitespaces" doesn't produce the same result with GNU diff's
+      * dd96f78 chore: update deps
+      * 0fd52fb test: fixup: follow GNU's diff output
+      * f8c08d0 Failing test for ignoreWhitespace
+      * f0ed073 fix: use "static" to call non-static methods
    * 2020-08-10 23:39  **6.7.5**  fix \r visualization in Combined renderer
       * 35a2502 fix: \r shouldn't be visualized like a newline in Combined renderer
       * cb2bed2 chore: update deps
