@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "16f993e18c267cc168a56d6ecb05ad8f",
+    "content-hash": "a80a41f388349dfd1a92cecc4709b1f3",
     "packages": [
         {
             "name": "jfcherng/php-color-output",
@@ -59,29 +59,26 @@
         },
         {
             "name": "jfcherng/php-mb-string",
-            "version": "1.5.0",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-mb-string.git",
-                "reference": "ac2d3667bf5b859e04d195b09cf18367d57057d4"
+                "reference": "dd75cc5c36016222baccdbb669375a2293860dca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jfcherng/php-mb-string/zipball/ac2d3667bf5b859e04d195b09cf18367d57057d4",
-                "reference": "ac2d3667bf5b859e04d195b09cf18367d57057d4",
+                "url": "https://api.github.com/repos/jfcherng/php-mb-string/zipball/dd75cc5c36016222baccdbb669375a2293860dca",
+                "reference": "dd75cc5c36016222baccdbb669375a2293860dca",
                 "shasum": ""
             },
             "require": {
-                "php": "^7.1.3",
-                "symfony/polyfill-iconv": "^1.14"
+                "ext-iconv": "*",
+                "php": ">=7.1.3"
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.15",
                 "phan/phan": "^2.0",
                 "phpunit/phpunit": "^7.2 || ^8.0"
-            },
-            "suggest": {
-                "ext-iconv": "For better performance"
             },
             "type": "library",
             "autoload": {
@@ -100,20 +97,20 @@
                 }
             ],
             "description": "A high performance multibytes sting implementation for frequently reading/writing operations.",
-            "time": "2020-03-17T22:53:46+00:00"
+            "time": "2020-05-27T19:25:10+00:00"
         },
         {
             "name": "jfcherng/php-sequence-matcher",
-            "version": "3.2.3",
+            "version": "3.2.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-sequence-matcher.git",
-                "reference": "9468ac67348c3979fd87b779049fa941ec35b6bf"
+                "reference": "d253872a5db6d39b22ea489d88a1756766ebddcc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/9468ac67348c3979fd87b779049fa941ec35b6bf",
-                "reference": "9468ac67348c3979fd87b779049fa941ec35b6bf",
+                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/d253872a5db6d39b22ea489d88a1756766ebddcc",
+                "reference": "d253872a5db6d39b22ea489d88a1756766ebddcc",
                 "shasum": ""
             },
             "require": {
@@ -121,8 +118,8 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.16",
-                "phan/phan": "^2.4",
-                "phpunit/phpunit": "^7.2 || ^8.0",
+                "phan/phan": "^2 || ^3",
+                "phpunit/phpunit": ">=7 <10",
                 "squizlabs/php_codesniffer": "^3.5"
             },
             "type": "library",
@@ -146,84 +143,13 @@
                 }
             ],
             "description": "A longest sequence matcher. The logic is primarily based on the Python difflib package.",
-            "time": "2020-05-27T19:25:37+00:00"
-        },
-        {
-            "name": "symfony/polyfill-iconv",
-            "version": "v1.18.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/polyfill-iconv.git",
-                "reference": "6c2f78eb8f5ab8eaea98f6d414a5915f2e0fce36"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-iconv/zipball/6c2f78eb8f5ab8eaea98f6d414a5915f2e0fce36",
-                "reference": "6c2f78eb8f5ab8eaea98f6d414a5915f2e0fce36",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3"
-            },
-            "suggest": {
-                "ext-iconv": "For best performance"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.18-dev"
-                },
-                "thanks": {
-                    "name": "symfony/polyfill",
-                    "url": "https://github.com/symfony/polyfill"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Iconv\\": ""
-                },
-                "files": [
-                    "bootstrap.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Nicolas Grekas",
-                    "email": "p@tchwork.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Symfony polyfill for the Iconv extension",
-            "homepage": "https://symfony.com",
-            "keywords": [
-                "compatibility",
-                "iconv",
-                "polyfill",
-                "portable",
-                "shim"
-            ],
             "funding": [
                 {
-                    "url": "https://symfony.com/sponsor",
+                    "url": "https://www.paypal.me/jfcherng/5usd",
                     "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
                 }
             ],
-            "time": "2020-07-14T12:35:20+00:00"
+            "time": "2020-08-22T06:30:02+00:00"
         }
     ],
     "packages-dev": [
@@ -290,16 +216,16 @@
         },
         {
             "name": "composer/xdebug-handler",
-            "version": "1.4.2",
+            "version": "1.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/xdebug-handler.git",
-                "reference": "fa2aaf99e2087f013a14f7432c1cd2dd7d8f1f51"
+                "reference": "ebd27a9866ae8254e873866f795491f02418c5a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/fa2aaf99e2087f013a14f7432c1cd2dd7d8f1f51",
-                "reference": "fa2aaf99e2087f013a14f7432c1cd2dd7d8f1f51",
+                "url": "https://api.github.com/repos/composer/xdebug-handler/zipball/ebd27a9866ae8254e873866f795491f02418c5a5",
+                "reference": "ebd27a9866ae8254e873866f795491f02418c5a5",
                 "shasum": ""
             },
             "require": {
@@ -344,20 +270,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2020-06-04T11:16:35+00:00"
+            "time": "2020-08-19T10:27:58+00:00"
         },
         {
             "name": "doctrine/annotations",
-            "version": "1.10.3",
+            "version": "1.10.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/annotations.git",
-                "reference": "5db60a4969eba0e0c197a19c077780aadbc43c5d"
+                "reference": "bfe91e31984e2ba76df1c1339681770401ec262f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/5db60a4969eba0e0c197a19c077780aadbc43c5d",
-                "reference": "5db60a4969eba0e0c197a19c077780aadbc43c5d",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/bfe91e31984e2ba76df1c1339681770401ec262f",
+                "reference": "bfe91e31984e2ba76df1c1339681770401ec262f",
                 "shasum": ""
             },
             "require": {
@@ -367,7 +293,8 @@
             },
             "require-dev": {
                 "doctrine/cache": "1.*",
-                "phpunit/phpunit": "^7.5"
+                "phpstan/phpstan": "^0.12.20",
+                "phpunit/phpunit": "^7.5 || ^9.1.5"
             },
             "type": "library",
             "extra": {
@@ -413,7 +340,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2020-05-25T17:24:27+00:00"
+            "time": "2020-08-10T19:35:50+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -1557,6 +1484,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2019-09-17T06:23:10+00:00"
         },
         {
