@@ -8,9 +8,13 @@ use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Renderer\RendererConstant;
 use PHPUnit\Framework\TestCase;
 
-class IgnoreWhitespaceTest extends TestCase
+/**
+ * @internal
+ *
+ * @coversNothing
+ */
+final class IgnoreWhitespaceTest extends TestCase
 {
-
     public function testIgnoreWhitespaces(): void
     {
         $old = <<<'PHP'
@@ -24,6 +28,7 @@ function foo(\DateTimeImmutable $date)
         echo 'bar';
     }
 }
+
 PHP;
         $new = <<<'PHP'
 <?php
@@ -32,24 +37,29 @@ function foo(\DateTimeImmutable $date)
 {
     echo 'foo';
 }
+
 PHP;
+
+        $expected = <<<'DIFF'
+@@ -2,9 +2,5 @@
+ 
+ function foo(\DateTimeImmutable $date)
+ {
+-    if ($date) {
+         echo 'foo';
+-    } else {
+-        echo 'bar';
+-    }
+ }
+
+DIFF;
 
         $diff = DiffHelper::calculate($old, $new, 'Unified', [
             'ignoreWhitespace' => true,
         ], [
             'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
         ]);
-        $this->assertSame(<<<'DIFF'
-@@ -2,9 +2,5 @@
 
- function foo(\DateTimeImmutable $date)
- {
--    if ($date) {
-     echo 'foo';
--    } else {
--        echo 'bar';
--    }
- }
-DIFF, $diff);
+        static::assertSame($expected, $diff);
     }
 }
