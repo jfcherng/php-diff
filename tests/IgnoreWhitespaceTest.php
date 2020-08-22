@@ -15,9 +15,15 @@ use PHPUnit\Framework\TestCase;
  */
 final class IgnoreWhitespaceTest extends TestCase
 {
-    public function testIgnoreWhitespaces(): void
+
+    /**
+     * @return string[][]
+     */
+    public function provideIgnoreWhitespaces(): array
     {
-        $old = <<<'PHP'
+        return [
+            [
+                <<<'OLD'
 <?php
 
 function foo(\DateTimeImmutable $date)
@@ -29,8 +35,8 @@ function foo(\DateTimeImmutable $date)
     }
 }
 
-PHP;
-        $new = <<<'PHP'
+OLD,
+                <<<'NEW'
 <?php
 
 function foo(\DateTimeImmutable $date)
@@ -38,9 +44,8 @@ function foo(\DateTimeImmutable $date)
     echo 'foo';
 }
 
-PHP;
-
-        $expected = <<<'DIFF'
+NEW,
+                <<<'DIFF'
 @@ -2,9 +2,5 @@
  
  function foo(\DateTimeImmutable $date)
@@ -52,14 +57,22 @@ PHP;
 -    }
  }
 
-DIFF;
+DIFF
+            ],
+        ];
+    }
 
+    /**
+     * @dataProvider provideIgnoreWhitespaces
+     */
+    public function testIgnoreWhitespaces(string $old, string $new, string $expectedDiff): void
+    {
         $diff = DiffHelper::calculate($old, $new, 'Unified', [
             'ignoreWhitespace' => true,
         ], [
             'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
         ]);
 
-        static::assertSame($expected, $diff);
+        static::assertSame($expectedDiff, $diff);
     }
 }
