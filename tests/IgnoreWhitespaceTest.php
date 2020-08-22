@@ -59,6 +59,56 @@ NEW,
 
 DIFF
             ],
+            [
+                <<<'OLD'
+<?php
+
+class Foo
+{
+	function foo()
+	{
+		echo 'haha';
+		return;
+
+		echo 'blabla';
+		if (false) {
+
+		}
+	}
+
+}
+
+OLD,
+                <<<'NEW'
+<?php
+
+class Foo
+{
+	function foo()
+	{
+		echo 'haha';
+		return;
+	}
+
+}
+
+NEW,
+                <<<'DIFF'
+@@ -6,11 +6,6 @@
+ 	{
+ 		echo 'haha';
+ 		return;
+-
+-		echo 'blabla';
+-		if (false) {
+-
+-		}
+ 	}
+ 
+ }
+
+DIFF
+            ],
         ];
     }
 
