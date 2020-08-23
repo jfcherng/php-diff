@@ -42,23 +42,6 @@ final class Differ
     ];
 
     /**
-     * Some extra lines which will be appended to input strings to
-     * make the diff result stable about diff around the EOF...
-     *
-     * @var array
-     */
-    private const APPENDED_HELPERLINES = [
-        "\u{fcf28}\u{fc232}",
-        "\u{fcf28}\u{fc232}",
-        "\u{fcf28}\u{fc232}",
-        "\u{fcf28}\u{fc232}",
-        "\u{fcf28}\u{fc232}",
-        "\u{fcf28}\u{fc232}",
-        "\u{fcf28}\u{fc232}",
-        "\u{fcf28}\u{fc232}",
-    ];
-
-    /**
      * @var array array of the options that have been applied for generating the diff
      */
     public $options = [];
@@ -345,11 +328,19 @@ final class Differ
      */
     private function getGroupedOpcodesPre(array &$old, array &$new): void
     {
+        // append these lines to make sure the last block of the diff result is OP_EQ
+        static $eolAtEofHelperLines = [
+            SequenceMatcher::APPENDED_HELPER_LINE,
+            SequenceMatcher::APPENDED_HELPER_LINE,
+            SequenceMatcher::APPENDED_HELPER_LINE,
+            SequenceMatcher::APPENDED_HELPER_LINE,
+        ];
+
         $this->oldSrcLength = \count($old);
-        \array_push($old, ...self::APPENDED_HELPERLINES);
+        \array_push($old, ...$eolAtEofHelperLines);
 
         $this->newSrcLength = \count($new);
-        \array_push($new, ...self::APPENDED_HELPERLINES);
+        \array_push($new, ...$eolAtEofHelperLines);
     }
 
     /**
@@ -359,6 +350,7 @@ final class Differ
      */
     private function getGroupedOpcodesPost(array &$opcodes): void
     {
+        // remove those extra lines cause by adding extra SequenceMatcher::APPENDED_HELPER_LINE lines
         foreach ($opcodes as $hunkIdx => &$hunk) {
             foreach ($hunk as $blockIdx => &$block) {
                 // range overflow
@@ -374,6 +366,7 @@ final class Differ
                 if ($block[4] > $this->newSrcLength) {
                     $block[4] = $this->newSrcLength;
                 }
+
                 // useless extra block?
                 /** @phan-suppress-next-line PhanTypePossiblyInvalidDimOffset */
                 if ($block[1] === $block[2] && $block[3] === $block[4]) {
