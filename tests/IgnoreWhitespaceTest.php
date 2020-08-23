@@ -15,7 +15,6 @@ use PHPUnit\Framework\TestCase;
  */
 final class IgnoreWhitespaceTest extends TestCase
 {
-
     /**
      * @return string[][]
      */
@@ -114,8 +113,8 @@ NEW
 DIFF
             ],
             [
-                file_get_contents(__DIR__ . '/data/WorkerCommandA.php'),
-                file_get_contents(__DIR__ . '/data/WorkerCommandB.php'),
+                \file_get_contents(__DIR__ . '/data/WorkerCommandA.php'),
+                \file_get_contents(__DIR__ . '/data/WorkerCommandB.php'),
                 <<<'DIFF'
 @@ -215,11 +215,6 @@
  	{
