@@ -15,9 +15,15 @@ use PHPUnit\Framework\TestCase;
  */
 final class IgnoreWhitespaceTest extends TestCase
 {
-    public function testIgnoreWhitespaces(): void
+
+    /**
+     * @return string[][]
+     */
+    public function provideIgnoreWhitespaces(): array
     {
-        $old = <<<'PHP'
+        return [
+            [
+                <<<'OLD'
 <?php
 
 function foo(\DateTimeImmutable $date)
@@ -29,8 +35,8 @@ function foo(\DateTimeImmutable $date)
     }
 }
 
-PHP;
-        $new = <<<'PHP'
+OLD,
+                <<<'NEW'
 <?php
 
 function foo(\DateTimeImmutable $date)
@@ -38,9 +44,8 @@ function foo(\DateTimeImmutable $date)
     echo 'foo';
 }
 
-PHP;
-
-        $expected = <<<'DIFF'
+NEW,
+                <<<'DIFF'
 @@ -2,9 +2,5 @@
  
  function foo(\DateTimeImmutable $date)
@@ -52,14 +57,91 @@ PHP;
 -    }
  }
 
-DIFF;
+DIFF
+            ],
+            [
+                <<<'OLD'
+<?php
 
+class Foo
+{
+	function foo()
+	{
+		echo 'haha';
+		return;
+
+		echo 'blabla';
+		if (false) {
+
+		}
+	}
+
+}
+
+OLD,
+                <<<'NEW'
+<?php
+
+class Foo
+{
+	function foo()
+	{
+		echo 'haha';
+		return;
+	}
+
+}
+
+NEW,
+                <<<'DIFF'
+@@ -6,11 +6,6 @@
+ 	{
+ 		echo 'haha';
+ 		return;
+-
+-		echo 'blabla';
+-		if (false) {
+-
+-		}
+ 	}
+ 
+ }
+
+DIFF
+            ],
+            [
+                file_get_contents(__DIR__ . '/data/WorkerCommandA.php'),
+                file_get_contents(__DIR__ . '/data/WorkerCommandB.php'),
+                <<<'DIFF'
+@@ -215,11 +215,6 @@
+ 	{
+ 		echo 'haha';
+ 		return;
+-
+-		echo 'blabla';
+-		if (false) {
+-
+-		}
+ 	}
+ 
+ }
+
+DIFF
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider provideIgnoreWhitespaces
+     */
+    public function testIgnoreWhitespaces(string $old, string $new, string $expectedDiff): void
+    {
         $diff = DiffHelper::calculate($old, $new, 'Unified', [
             'ignoreWhitespace' => true,
         ], [
             'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
         ]);
 
-        static::assertSame($expected, $diff);
+        static::assertSame($expectedDiff, $diff);
     }
 }
