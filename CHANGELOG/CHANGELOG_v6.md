@@ -2,6 +2,13 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.7** - feat: support colorized CLI output for text renderers
+   * 2020-08-23 18:52  **6.7.7**  fix a regression about the last diff block
+      * 2ce0540 refactor: migrate to jfcherng/php-sequence-matcher 3.2.5
+      * 29115e2 chore: update deps
+      * f7f6e4d style: run php-cs-fix
+      * ba2fc9d chore: do not check/fix coding style for tests/data/
+      * 8d4c888 fix: sytnax error for PHP 7.1
+      * aa34ce3 test: add failing test (#36)
    * 2020-08-22 19:08  **6.7.6**  fix "ignoreWhitespaces" not working
       * dd6a211 fix: "ignoreWhitespaces" doesn't produce the same result with GNU diff's
       * dd96f78 chore: update deps
