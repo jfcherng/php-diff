@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a80a41f388349dfd1a92cecc4709b1f3",
+    "content-hash": "d16c6bd3658ce1406f4ddf2f1ee53471",
     "packages": [
         {
             "name": "jfcherng/php-color-output",
@@ -101,16 +101,16 @@
         },
         {
             "name": "jfcherng/php-sequence-matcher",
-            "version": "3.2.4",
+            "version": "3.2.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-sequence-matcher.git",
-                "reference": "d253872a5db6d39b22ea489d88a1756766ebddcc"
+                "reference": "119c401e5a27ca5c448cb414056f365f17e606b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/d253872a5db6d39b22ea489d88a1756766ebddcc",
-                "reference": "d253872a5db6d39b22ea489d88a1756766ebddcc",
+                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/119c401e5a27ca5c448cb414056f365f17e606b2",
+                "reference": "119c401e5a27ca5c448cb414056f365f17e606b2",
                 "shasum": ""
             },
             "require": {
@@ -149,7 +149,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2020-08-22T06:30:02+00:00"
+            "time": "2020-08-23T10:26:06+00:00"
         }
     ],
     "packages-dev": [
