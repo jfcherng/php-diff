@@ -7,6 +7,7 @@
   <file>example/</file>
   <file>src/</file>
   <file>tests/</file>
+  <exclude-pattern>tests/data/</exclude-pattern>
   <rule ref="PSR1" />
   <rule ref="PSR12" />
 </ruleset>

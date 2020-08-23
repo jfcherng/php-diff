@@ -66,6 +66,7 @@ $config = PhpCsFixer\Config::create()
         PhpCsFixer\Finder::create()
             ->notPath('/branch-\\w+/') // git worktree
             ->exclude('libs')
+            ->exclude('tests/data')
             ->exclude('tests/Fixtures')
             ->exclude('var')
             ->exclude('vendor')
