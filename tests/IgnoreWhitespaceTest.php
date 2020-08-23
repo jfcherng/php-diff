@@ -35,7 +35,8 @@ function foo(\DateTimeImmutable $date)
     }
 }
 
-OLD,
+OLD
+                ,
                 <<<'NEW'
 <?php
 
@@ -44,7 +45,8 @@ function foo(\DateTimeImmutable $date)
     echo 'foo';
 }
 
-NEW,
+NEW
+                ,
                 <<<'DIFF'
 @@ -2,9 +2,5 @@
  
@@ -78,7 +80,8 @@ class Foo
 
 }
 
-OLD,
+OLD
+                ,
                 <<<'NEW'
 <?php
 
@@ -92,7 +95,8 @@ class Foo
 
 }
 
-NEW,
+NEW
+                ,
                 <<<'DIFF'
 @@ -6,11 +6,6 @@
  	{
