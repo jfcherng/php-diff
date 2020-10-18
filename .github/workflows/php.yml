@@ -17,7 +17,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        php-versions: ["7.1", "7.2", "7.3", "7.4"]
+        php-versions: ["7.1", "7.2", "7.3", "7.4", "8.0"]
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -46,9 +46,10 @@ jobs:
           restore-keys: ${{ matrix.os }}-${{ matrix.php-versions }}-composer-
 
       - name: Install dependencies
+        # php-cs-fixer doesn't suppoert PHP 8 yet so force the max version to be 7.4.99
         run: |
-          composer config platform.php $(php -r 'preg_match("#^\d+\.\d+\.\d+#", PHP_VERSION, $v); echo $v[0];')
-          composer update --prefer-dist --no-progress --no-suggest
+          composer config platform.php $(php -r 'preg_match("#^\d+\.\d+\.\d+#", PHP_VERSION, $v); echo version_compare("8.0.0", $v[0]) > 0 ? $v[0] : "7.4.99";')
+          composer update --prefer-dist --no-progress
 
       - name: Run composer script "analyze"
         run: composer run-script analyze
@@ -59,7 +60,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        php-versions: ["7.1", "7.2", "7.3", "7.4"]
+        php-versions: ["7.1", "7.2", "7.3", "7.4", "8.0"]
 
     runs-on: ${{ matrix.os }}
     steps:
@@ -87,10 +88,11 @@ jobs:
           key: ${{ matrix.os }}-${{ matrix.php-versions }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ matrix.os }}-${{ matrix.php-versions }}-composer-
 
+        # php-cs-fixer doesn't suppoert PHP 8 yet so force the max version to be 7.4.99
       - name: Install dependencies
         run: |
-          composer config platform.php $(php -r 'preg_match("#^\d+\.\d+\.\d+#", PHP_VERSION, $v); echo $v[0];')
-          composer update --prefer-dist --no-progress --no-suggest
+          composer config platform.php $(php -r 'preg_match("#^\d+\.\d+\.\d+#", PHP_VERSION, $v); echo version_compare("8.0.0", $v[0]) > 0 ? $v[0] : "7.4.99";')
+          composer update --prefer-dist --no-progress
 
       - name: Run composer script "test"
         run: composer run-script test
