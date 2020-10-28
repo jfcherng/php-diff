@@ -47,7 +47,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer global require hirak/prestissimo --prefer-dist --no-progress
           composer config platform.php $(php -r 'preg_match("#^\d+\.\d+\.\d+#", PHP_VERSION, $v); echo $v[0];')
           composer update --prefer-dist --no-progress --no-suggest
 
@@ -90,7 +89,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          composer global require hirak/prestissimo --prefer-dist --no-progress
           composer config platform.php $(php -r 'preg_match("#^\d+\.\d+\.\d+#", PHP_VERSION, $v); echo $v[0];')
           composer update --prefer-dist --no-progress --no-suggest
 
