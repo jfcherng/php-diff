@@ -205,6 +205,8 @@ This renderer is suitable for articles and always has no line number information
 
 ### Renderer: Unified
 
+About the `Unified` diff format: https://en.wikipedia.org/wiki/Diff#Unified_format
+
 ```diff
 @@ -1,3 +1,4 @@
 -<p>Hello World!</p>
@@ -224,6 +226,8 @@ This renderer is suitable for articles and always has no line number information
 
 
 ### Renderer: Context
+
+About the `Context` diff format: https://en.wikipedia.org/wiki/Diff#Context_format
 
 <details><summary>Click to expand</summary>
 
