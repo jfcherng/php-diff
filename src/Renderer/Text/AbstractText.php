@@ -103,7 +103,7 @@ abstract class AbstractText extends AbstractRenderer
      * Reference: Composer\XdebugHandler\Process::supportsColor
      * https://github.com/composer/xdebug-handler
      *
-     * @see https://github.com/symfony/console/blob/4.4/Output/StreamOutput.php#L94
+     * @see https://github.com/symfony/console/blob/647c51ff073300a432a4a504e29323cf0d5e0571/Output/StreamOutput.php#L81-L124
      *
      * @param resource $stream
      *
