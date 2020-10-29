@@ -18,9 +18,11 @@ override(
         'Combined' => \Jfcherng\Diff\Renderer\Html\Combined::class,
         'Inline' => \Jfcherng\Diff\Renderer\Html\Inline::class,
         'Json' => \Jfcherng\Diff\Renderer\Html\Json::class,
+        'JsonHtml' => \Jfcherng\Diff\Renderer\Html\JsonHtml::class,
         'SideBySide' => \Jfcherng\Diff\Renderer\Html\SideBySide::class,
         // text
         'Context' => \Jfcherng\Diff\Renderer\Text\Context::class,
+        'JsonText' => \Jfcherng\Diff\Renderer\Text\JsonText::class,
         'Unified' => \Jfcherng\Diff\Renderer\Text\Unified::class,
     ])
 );
@@ -31,9 +33,11 @@ override(
         'Combined' => \Jfcherng\Diff\Renderer\Html\Combined::class,
         'Inline' => \Jfcherng\Diff\Renderer\Html\Inline::class,
         'Json' => \Jfcherng\Diff\Renderer\Html\Json::class,
+        'JsonHtml' => \Jfcherng\Diff\Renderer\Html\JsonHtml::class,
         'SideBySide' => \Jfcherng\Diff\Renderer\Html\SideBySide::class,
         // text
         'Context' => \Jfcherng\Diff\Renderer\Text\Context::class,
+        'JsonText' => \Jfcherng\Diff\Renderer\Text\JsonText::class,
         'Unified' => \Jfcherng\Diff\Renderer\Text\Unified::class,
     ])
 );

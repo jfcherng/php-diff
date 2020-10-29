@@ -96,7 +96,7 @@ final class RendererTest extends TestCase
      */
     public function testHtmlRendererRenderWithResultFromJsonRenderer(): void
     {
-        static $rendererNames = ['Inline', 'SideBySide', 'Json'];
+        static $rendererNames = ['Inline', 'SideBySide', 'JsonHtml'];
 
         $old = '_TEST_MARKER_OLD_';
         $new = '_TEST_MARKER_NEW_';
@@ -118,7 +118,7 @@ final class RendererTest extends TestCase
             $jsonResult = DiffHelper::calculate(
                 $old,
                 $new,
-                'Json',
+                'JsonHtml',
                 $differOptions,
                 ['outputTagAsString' => false] + $rendererOptions
             );
@@ -133,7 +133,7 @@ final class RendererTest extends TestCase
             $jsonResult = DiffHelper::calculate(
                 $old,
                 $new,
-                'Json',
+                'JsonHtml',
                 $differOptions,
                 ['outputTagAsString' => true] + $rendererOptions
             );
@@ -155,7 +155,7 @@ final class RendererTest extends TestCase
     {
         $this->expectException(UnsupportedFunctionException::class);
 
-        $jsonResult = DiffHelper::calculate('_TEST_MARKER_OLD_', '_TEST_MARKER_NEW_', 'Json');
+        $jsonResult = DiffHelper::calculate('_TEST_MARKER_OLD_', '_TEST_MARKER_NEW_', 'JsonHtml');
 
         $textRenderer = RendererFactory::make('Unified');
         $UnifiedResult = $textRenderer->renderArray(\json_decode($jsonResult, true));

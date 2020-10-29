@@ -18,13 +18,14 @@ Generated diff can be rendered in all of the standard formats including:
 **Text** renderers:
 
 - Context
-- Json
+- Json (HTML)
 - Unified
 
 **HTML** renderers:
 
 - Combined
 - Inline
+- Json (plain text)
 - Side by Side
 
 Note that for HTML rendered results, you have to add CSS for a better visualization.
@@ -70,8 +71,8 @@ $old = 'This is the old string.';
 $new = 'And this is the new one.';
 
 // renderer class name:
-//     Text renderers: Context, Json, Unified
-//     HTML renderers: Combined, Inline, SideBySide
+//     Text renderers: Context, JsonText, Unified
+//     HTML renderers: Combined, Inline, JsonHtml, SideBySide
 $rendererName = 'Unified';
 
 // the Diff class options
@@ -256,149 +257,349 @@ This renderer is suitable for articles and always has no line number information
 </details>
 
 
-### Renderer: JSON
+### Renderer: Text JSON
+
+This renderer has no detailed diff.
 
 <details><summary>Click to expand</summary>
 
 ```json
 [
-    [
-        {
-            "tag": 8,
-            "old": {
-                "offset": 0,
-                "lines": [
-                    "&lt;<del>p&gt;Hello World!&lt;/p</del>&gt;"
-                ]
-            },
-            "new": {
-                "offset": 0,
-                "lines": [
-                    "&lt;<ins>div&gt;Hello World!&lt;/div</ins>&gt;"
-                ]
-            }
-        },
-        {
-            "tag": 1,
-            "old": {
-                "offset": 1,
-                "lines": [
-                    "~~~~~~~~~~~~~~~~~~~"
-                ]
-            },
-            "new": {
-                "offset": 1,
-                "lines": [
-                    "~~~~~~~~~~~~~~~~~~~"
-                ]
-            }
-        },
-        {
-            "tag": 4,
-            "old": {
-                "offset": 2,
-                "lines": []
-            },
-            "new": {
-                "offset": 2,
-                "lines": [
-                    "Let's add a new line here."
-                ]
-            }
-        },
-        {
-            "tag": 1,
-            "old": {
-                "offset": 2,
-                "lines": [
-                    "X"
-                ]
-            },
-            "new": {
-                "offset": 3,
-                "lines": [
-                    "X"
-                ]
-            }
-        }
-    ],
-    [
-        {
-            "tag": 1,
-            "old": {
-                "offset": 6,
-                "lines": [
-                    "N"
-                ]
-            },
-            "new": {
-                "offset": 7,
-                "lines": [
-                    "N"
-                ]
-            }
-        },
-        {
-            "tag": 8,
-            "old": {
-                "offset": 7,
-                "lines": [
-                    "Do you know in <del>Chinese, \"金槍魚罐頭\" means tuna</del> can."
-                ]
-            },
-            "new": {
-                "offset": 8,
-                "lines": [
-                    "Do you know in <ins>Japanese, \"魚の缶詰\" means fish</ins> can."
-                ]
-            }
-        },
-        {
-            "tag": 1,
-            "old": {
-                "offset": 8,
-                "lines": [
-                    "This is just a useless line.",
-                    "G"
-                ]
-            },
-            "new": {
-                "offset": 9,
-                "lines": [
-                    "This is just a useless line.",
-                    "G"
-                ]
-            }
-        },
-        {
-            "tag": 2,
-            "old": {
-                "offset": 10,
-                "lines": [
-                    "// @todo Remember to delete this line"
-                ]
-            },
-            "new": {
-                "offset": 11,
-                "lines": []
-            }
-        },
-        {
-            "tag": 1,
-            "old": {
-                "offset": 11,
-                "lines": [
-                    "Say hello to my neighbors."
-                ]
-            },
-            "new": {
-                "offset": 11,
-                "lines": [
-                    "Say hello to my neighbors."
-                ]
-            }
-        }
-    ]
+  [
+    {
+      "tag": "rep",
+      "old": {
+        "offset": 0,
+        "lines": ["<p>Hello World! Good-looking.</p>"]
+      },
+      "new": {
+        "offset": 0,
+        "lines": ["<div>Hello World! Bad-tempered.</div>"]
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 1,
+        "lines": ["~~~~~~~~~~~~~~~~~~~"]
+      },
+      "new": {
+        "offset": 1,
+        "lines": ["~~~~~~~~~~~~~~~~~~~"]
+      }
+    },
+    {
+      "tag": "ins",
+      "old": {
+        "offset": 2,
+        "lines": []
+      },
+      "new": {
+        "offset": 2,
+        "lines": ["Let's add a new line here."]
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 2,
+        "lines": ["X"]
+      },
+      "new": {
+        "offset": 3,
+        "lines": ["X"]
+      }
+    }
+  ],
+  [
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 6,
+        "lines": ["N"]
+      },
+      "new": {
+        "offset": 7,
+        "lines": ["N"]
+      }
+    },
+    {
+      "tag": "rep",
+      "old": {
+        "offset": 7,
+        "lines": ["Do you know in Chinese, \"金槍魚罐頭\" means tuna can."]
+      },
+      "new": {
+        "offset": 8,
+        "lines": ["Do you know in Japanese, \"魚の缶詰\" means fish can."]
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 8,
+        "lines": ["\t  \tTab visulization test.", "G"]
+      },
+      "new": {
+        "offset": 9,
+        "lines": ["\t  \tTab visulization test.", "G"]
+      }
+    },
+    {
+      "tag": "del",
+      "old": {
+        "offset": 10,
+        "lines": ["// @todo Remember to delete this line"]
+      },
+      "new": {
+        "offset": 11,
+        "lines": []
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 11,
+        "lines": ["Say hello to my neighbors."]
+      },
+      "new": {
+        "offset": 11,
+        "lines": ["Say hello to my neighbors."]
+      }
+    }
+  ],
+  [
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 14,
+        "lines": ["B"]
+      },
+      "new": {
+        "offset": 14,
+        "lines": ["B"]
+      }
+    },
+    {
+      "tag": "rep",
+      "old": {
+        "offset": 15,
+        "lines": ["Donec rutrum."]
+      },
+      "new": {
+        "offset": 15,
+        "lines": ["Donec rutrum test.", "There is a new inserted line."]
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 16,
+        "lines": ["C"]
+      },
+      "new": {
+        "offset": 17,
+        "lines": ["C"]
+      }
+    },
+    {
+      "tag": "rep",
+      "old": {
+        "offset": 17,
+        "lines": ["Sed dictum lorem ipsum."]
+      },
+      "new": {
+        "offset": 18,
+        "lines": ["Sed dolor lorem ipsum hendrerit."]
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 18,
+        "lines": [""]
+      },
+      "new": {
+        "offset": 19,
+        "lines": [""]
+      }
+    }
+  ]
+]
+```
+
+</details>
+
+
+### Renderer: HTML JSON
+
+For a `"tag": "rep" (8)` block, this renderer has HTML-style detailed diff.
+If you don't need those detailed diff, consider using the `JsonText` renderer.
+
+<details><summary>Click to expand</summary>
+
+```json
+[
+  [
+    {
+      "tag": "rep",
+      "old": {
+        "offset": 0,
+        "lines": ["&lt;<del>p&gt;Hello World! Good-looking.&lt;/p</del>&gt;"]
+      },
+      "new": {
+        "offset": 0,
+        "lines": ["&lt;<ins>div&gt;Hello World! Bad-tempered.&lt;/div</ins>&gt;"]
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 1,
+        "lines": ["~~~~~~~~~~~~~~~~~~~"]
+      },
+      "new": {
+        "offset": 1,
+        "lines": ["~~~~~~~~~~~~~~~~~~~"]
+      }
+    },
+    {
+      "tag": "ins",
+      "old": {
+        "offset": 2,
+        "lines": [""]
+      },
+      "new": {
+        "offset": 2,
+        "lines": ["Let's add a new line here."]
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 2,
+        "lines": ["X"]
+      },
+      "new": {
+        "offset": 3,
+        "lines": ["X"]
+      }
+    }
+  ],
+  [
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 6,
+        "lines": ["N"]
+      },
+      "new": {
+        "offset": 7,
+        "lines": ["N"]
+      }
+    },
+    {
+      "tag": "rep",
+      "old": {
+        "offset": 7,
+        "lines": ["Do you know in <del>Chinese, \"金槍魚罐頭\" means tuna</del> can."]
+      },
+      "new": {
+        "offset": 8,
+        "lines": ["Do you know in <ins>Japanese, \"魚の缶詰\" means fish</ins> can."]
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 8,
+        "lines": ["\t  \tTab visulization test.", "G"]
+      },
+      "new": {
+        "offset": 9,
+        "lines": ["\t  \tTab visulization test.", "G"]
+      }
+    },
+    {
+      "tag": "del",
+      "old": {
+        "offset": 10,
+        "lines": ["// @todo Remember to delete this line"]
+      },
+      "new": {
+        "offset": 11,
+        "lines": [""]
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 11,
+        "lines": ["Say hello to my neighbors."]
+      },
+      "new": {
+        "offset": 11,
+        "lines": ["Say hello to my neighbors."]
+      }
+    }
+  ],
+  [
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 14,
+        "lines": ["B"]
+      },
+      "new": {
+        "offset": 14,
+        "lines": ["B"]
+      }
+    },
+    {
+      "tag": "rep",
+      "old": {
+        "offset": 15,
+        "lines": ["Donec rutrum."]
+      },
+      "new": {
+        "offset": 15,
+        "lines": ["Donec rutrum test.", "There is a new inserted line."]
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 16,
+        "lines": ["C"]
+      },
+      "new": {
+        "offset": 17,
+        "lines": ["C"]
+      }
+    },
+    {
+      "tag": "rep",
+      "old": {
+        "offset": 17,
+        "lines": ["Sed d<del>ictum lorem ipsum</del>."]
+      },
+      "new": {
+        "offset": 18,
+        "lines": ["Sed d<ins>olor lorem ipsum hendrerit</ins>."]
+      }
+    },
+    {
+      "tag": "eq",
+      "old": {
+        "offset": 18,
+        "lines": [""]
+      },
+      "new": {
+        "offset": 19,
+        "lines": [""]
+      }
+    }
+  ]
 ]
 ```
 

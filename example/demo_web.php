@@ -176,26 +176,43 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
         ?></code></pre>
 
-        <h1>JSON Diff</h1>
+        <?php
+
+        // change JSON output settings for better human reading
+        $rendererOptions['outputTagAsString'] = true;
+        $rendererOptions['jsonEncodeFlags'] |= \JSON_PRETTY_PRINT;
+
+        ?>
+
+        <h1>Text JSON Diff</h1>
         <pre><code class="language-json line-numbers"><?php
 
-        // generate a JSON diff
+        // generate a plain text JSON diff
         $jsonResult = DiffHelper::calculateFiles(
             $oldFile,
             $newFile,
-            'Json',
+            'JsonText',
             $diffOptions,
-            [
-                'outputTagAsString' => true,
-                'jsonEncodeFlags' => (
-                    \JSON_PRETTY_PRINT |
-                    \JSON_UNESCAPED_SLASHES |
-                    \JSON_UNESCAPED_UNICODE
-                ),
-            ] + $rendererOptions
+            $rendererOptions
         );
 
-        echo $jsonResult;
+        echo \htmlspecialchars($jsonResult);
+
+        ?></code></pre>
+
+        <h1>HTML JSON Diff</h1>
+        <pre><code class="language-json line-numbers"><?php
+
+        // generate a HTML JSON diff
+        $jsonResult = DiffHelper::calculateFiles(
+            $oldFile,
+            $newFile,
+            'JsonHtml',
+            $diffOptions,
+            $rendererOptions
+        );
+
+        echo \htmlspecialchars($jsonResult);
 
         ?></code></pre>
 
