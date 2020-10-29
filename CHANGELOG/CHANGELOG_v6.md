@@ -1,6 +1,18 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.8** - new renderer: JsonText
+   * 2020-10-29 18:49  **6.8.0**  initial release
+      * 33339b8 chore: update deps
+      * efa7217 feat: add renderer: JsonText
+      * f7dac30 chore: update frontend Prism 1.22.0
+      * 3494b40 docs: update permanent link
+      * fceef80 docs: fix typos
+      * 2cdcb6b chore: nits
+      * ef66d12 chore: udpate deps
+      * 8f765ec chore: Composer 2 no longer needs hirak/prestissimo
+      * 14fe79b chore: update deps
+
  * Version **6.7** - feat: support colorized CLI output for text renderers
    * 2020-08-23 18:52  **6.7.7**  fix a regression about the last diff block
       * 2ce0540 refactor: migrate to jfcherng/php-sequence-matcher 3.2.5
