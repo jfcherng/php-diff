@@ -116,7 +116,7 @@ $rendererOptions = [
     'outputTagAsString' => false,
     // this option is currently only for the Json renderer.
     // it controls how the output JSON is formatted.
-    // see availabe options on https://www.php.net/manual/en/function.json-encode.php
+    // see available options on https://www.php.net/manual/en/function.json-encode.php
     'jsonEncodeFlags' => \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE,
     // this option is currently effective when the "detailLevel" is "word"
     // characters listed in this array can be used to make diff segments into a whole
