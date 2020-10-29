@@ -9,6 +9,8 @@ $colorStyles = [
     'section' => ['f_black', 'b_cyan'],
 ];
 
+$manyNewlines = "\n\n\n\n";
+
 echo CliColor::color("Unified Diff\n============", $colorStyles['section']) . "\n\n";
 
 // generate a unified diff
@@ -20,7 +22,7 @@ $unifiedResult = DiffHelper::calculate(
     $rendererOptions
 );
 
-echo $unifiedResult . "\n\n\n\n";
+echo $unifiedResult . $manyNewlines;
 
 echo CliColor::color("Context Diff\n============", $colorStyles['section']) . "\n\n";
 
@@ -33,4 +35,4 @@ $contextResult = DiffHelper::calculate(
     $rendererOptions
 );
 
-echo $contextResult . "\n\n\n\n";
+echo $contextResult . $manyNewlines;
