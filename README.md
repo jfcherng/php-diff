@@ -18,14 +18,14 @@ Generated diff can be rendered in all of the standard formats including:
 **Text** renderers:
 
 - Context
-- Json (HTML)
+- Json (plain text)
 - Unified
 
 **HTML** renderers:
 
 - Combined
 - Inline
-- Json (plain text)
+- Json (HTML)
 - Side by Side
 
 Note that for HTML rendered results, you have to add CSS for a better visualization.
