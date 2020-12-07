@@ -38,7 +38,7 @@
         "jfcherng/php-sequence-matcher": "^3.2.5"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^2.16",
+        "friendsofphp/php-cs-fixer": "^2.17",
         "phan/phan": "^2.5 || ^3",
         "phpunit/phpunit": ">=7 <10",
         "squizlabs/php_codesniffer": "^3.5"
