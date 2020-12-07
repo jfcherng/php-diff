@@ -65,6 +65,7 @@ $config = PhpCsFixer\Config::create()
     ->setFinder(
         PhpCsFixer\Finder::create()
             ->notPath('/branch-\\w+/') // git worktree
+            ->notPath('tests/IgnoreWhitespaceTest.php') // bugged
             ->exclude('libs')
             ->exclude('tests/data')
             ->exclude('tests/Fixtures')
