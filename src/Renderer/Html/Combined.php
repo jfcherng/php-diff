@@ -56,6 +56,10 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableHeader(): string
     {
+        if (!$this->options['showHeader']) {
+            return '';
+        }
+
         return
             '<thead>' .
                 '<tr>' .

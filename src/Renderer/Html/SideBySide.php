@@ -45,6 +45,10 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableHeader(): string
     {
+        if (!$this->options['showHeader']) {
+            return '';
+        }
+
         $colspan = $this->options['lineNumbers'] ? ' colspan="2"' : '';
 
         return

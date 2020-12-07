@@ -33,6 +33,8 @@ $rendererOptions = [
     'lineNumbers' => true,
     // show a separator between different diff hunks in HTML renderers
     'separateBlock' => true,
+    // show the (table) header
+    'showHeader' => true,
     // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
     // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
     'spacesToNbsp' => false,
