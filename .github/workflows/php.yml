@@ -46,9 +46,8 @@ jobs:
           restore-keys: ${{ matrix.os }}-${{ matrix.php-versions }}-composer-
 
       - name: Install dependencies
-        # php-cs-fixer doesn't suppoert PHP 8 yet so force the max version to be 7.4.99
         run: |
-          composer config platform.php $(php -r 'preg_match("#^\d+\.\d+\.\d+#", PHP_VERSION, $v); echo version_compare("8.0.0", $v[0]) > 0 ? $v[0] : "7.4.99";')
+          composer config platform.php $(php -r 'preg_match("#^\d+\.\d+\.\d+#", PHP_VERSION, $v); echo $v[0];')
           composer update --prefer-dist --no-progress
 
       - name: Run composer script "analyze"
@@ -88,10 +87,9 @@ jobs:
           key: ${{ matrix.os }}-${{ matrix.php-versions }}-composer-${{ hashFiles('**/composer.lock') }}
           restore-keys: ${{ matrix.os }}-${{ matrix.php-versions }}-composer-
 
-        # php-cs-fixer doesn't suppoert PHP 8 yet so force the max version to be 7.4.99
       - name: Install dependencies
         run: |
-          composer config platform.php $(php -r 'preg_match("#^\d+\.\d+\.\d+#", PHP_VERSION, $v); echo version_compare("8.0.0", $v[0]) > 0 ? $v[0] : "7.4.99";')
+          composer config platform.php $(php -r 'preg_match("#^\d+\.\d+\.\d+#", PHP_VERSION, $v); echo $v[0];')
           composer update --prefer-dist --no-progress
 
       - name: Run composer script "test"
