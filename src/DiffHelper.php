@@ -59,9 +59,9 @@ final class DiffHelper
             // only normal class files are wanted
             function (string $fileName): bool {
                 return
-                    \substr($fileName, 0, 8) !== 'Abstract' &&
-                    \substr($fileName, -9) !== 'Interface' &&
-                    \substr($fileName, -5) !== 'Trait';
+                    \substr($fileName, 0, 8) !== 'Abstract'
+                    && \substr($fileName, -9) !== 'Interface'
+                    && \substr($fileName, -5) !== 'Trait';
             }
         );
 
