@@ -1,6 +1,19 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.9** - add option: showHeader
+   * 2020-12-08 07:55  **6.9.0**  initial release
+      * 9d98db2 chore: exclude "tests/IgnoreWhitespaceTest.php" from formatting
+      * 8f33ca2 style: php-cs-fix
+      * 5e5f038 fix: undefined index 'showHeader'
+      * 5f0dd2d feat: add option: showHeader
+      * 863fbe1 chore(ci): real test against PHP 8.0
+      * 7e830bf chore: update deps
+      * 4576720 chore: update php-cs-fixer 2.17.0
+      * 3fede5b chore(ci): test against PHP 8.0 as well
+      * a342715 docs: fix typo
+      * 6ec0dd7 docs: add description links for Unified/Context diff formats
+
  * Version **6.8** - new renderer: JsonText
    * 2020-10-29 18:49  **6.8.0**  initial release
       * 33339b8 chore: update deps
