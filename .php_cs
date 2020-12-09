@@ -1,6 +1,6 @@
 <?php
 
-$config = PhpCsFixer\Config::create()
+$config = (new PhpCsFixer\Config())
     ->setIndent("    ")
     ->setLineEnding("\n")
     ->setCacheFile(__DIR__ . '/.php_cs.cache')
