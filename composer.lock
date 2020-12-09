@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "92d1135cac001efc2c8ab89dcb5f4170",
+    "content-hash": "118fd6a47463a284a108c85832489243",
     "packages": [
         {
             "name": "jfcherng/php-color-output",
