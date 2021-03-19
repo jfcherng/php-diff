@@ -1,6 +1,17 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.10** - feat: add methods to get diff statistics
+   * 2021-03-19 17:20  **6.10.0**  initial release
+      * 56eee87 chore: add liip/rmt as a dev dependency
+      * 4b170cd feat: add methods to get diff statistics
+      * d95e0b8 chore: update deps
+      * 4c6e2ab chore: update license year
+      * f40467c chore: allow phan/phan ^4
+      * bd322af fix: deprecated method in .php_cs
+      * ab25d01 chore(ci): fix php-cs-fixer rule as of 2.17.0
+      * c0d13c5 chore: update deps
+
  * Version **6.9** - add option: showHeader
    * 2020-12-08 07:55  **6.9.0**  initial release
       * 9d98db2 chore: exclude "tests/IgnoreWhitespaceTest.php" from formatting
