@@ -105,6 +105,16 @@ final class DiffHelper
     }
 
     /**
+     * Gets the diff statistics such as inserted and deleted etc...
+     *
+     * @return array<string,float> the statistics
+     */
+    public static function getStatistics(): array
+    {
+        return Differ::getInstance()->getStatistics();
+    }
+
+    /**
      * All-in-one static method to calculate the diff between two strings (or arrays of strings).
      *
      * @param string|string[] $old             the old string (or array of lines)

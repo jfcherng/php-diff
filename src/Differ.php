@@ -266,6 +266,37 @@ final class Differ
     }
 
     /**
+     * Gets the diff statistics such as inserted and deleted etc...
+     *
+     * @return array<string,float> the statistics
+     */
+    public function getStatistics(): array
+    {
+        $ret = [
+            'inserted' => 0,
+            'deleted' => 0,
+            'unmodified' => 0,
+            'changedRatio' => 0.0,
+        ];
+
+        foreach ($this->getGroupedOpcodes() as $hunk) {
+            foreach ($hunk as [$op, $i1, $i2, $j1, $j2]) {
+                if ($op & (SequenceMatcher::OP_INS | SequenceMatcher::OP_REP)) {
+                    $ret['inserted'] += $j2 - $j1;
+                }
+                if ($op & (SequenceMatcher::OP_DEL | SequenceMatcher::OP_REP)) {
+                    $ret['deleted'] += $i2 - $i1;
+                }
+            }
+        }
+
+        $ret['unmodified'] = $this->oldSrcLength - $ret['deleted'];
+        $ret['changedRatio'] = 1 - ($ret['unmodified'] / $this->oldSrcLength);
+
+        return $ret;
+    }
+
+    /**
      * Generate a list of the compiled and grouped opcodes for the differences between the
      * two strings. Generally called by the renderer, this class instantiates the sequence
      * matcher and performs the actual diff generation and return an array of the opcodes
