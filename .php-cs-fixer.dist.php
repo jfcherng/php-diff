@@ -3,7 +3,7 @@
 $config = (new PhpCsFixer\Config())
     ->setIndent("    ")
     ->setLineEnding("\n")
-    ->setCacheFile(__DIR__ . '/.php_cs.cache')
+    ->setCacheFile(__DIR__ . '/.php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setRules([
         '@PHP71Migration' => true,
