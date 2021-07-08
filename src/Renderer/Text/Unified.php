@@ -17,7 +17,7 @@ final class Unified extends AbstractText
     /**
      * {@inheritdoc}
      */
-    const INFO = [
+    public const INFO = [
         'desc' => 'Unified',
         'type' => 'Text',
     ];

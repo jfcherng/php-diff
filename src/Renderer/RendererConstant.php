@@ -11,14 +11,14 @@ final class RendererConstant
      *
      * @var string
      */
-    const RENDERER_NAMESPACE = __NAMESPACE__;
+    public const RENDERER_NAMESPACE = __NAMESPACE__;
 
     /**
      * Available renderer types.
      *
      * @var string[]
      */
-    const RENDERER_TYPES = ['Html', 'Text'];
+    public const RENDERER_TYPES = ['Html', 'Text'];
 
     /**
      * Closures that are used to enclose different parts in string.
@@ -28,21 +28,21 @@ final class RendererConstant
      *
      * @var string[]
      */
-    const HTML_CLOSURES = ["\u{fcffc}\u{ff2fb}", "\u{fff41}\u{fcffc}"];
+    public const HTML_CLOSURES = ["\u{fcffc}\u{ff2fb}", "\u{fff41}\u{fcffc}"];
 
     /**
      * Closures that are used to enclose deleted chars in output HTML.
      *
      * @var string[]
      */
-    const HTML_CLOSURES_DEL = ['<del>', '</del>'];
+    public const HTML_CLOSURES_DEL = ['<del>', '</del>'];
 
     /**
      * Closures that are used to enclose inserted chars in output HTML.
      *
      * @var string[]
      */
-    const HTML_CLOSURES_INS = ['<ins>', '</ins>'];
+    public const HTML_CLOSURES_INS = ['<ins>', '</ins>'];
 
     /**
      * The delimiter to be used as the glue in string/array functions.
@@ -52,7 +52,7 @@ final class RendererConstant
      *
      * @var string
      */
-    const IMPLODE_DELIMITER = "\u{ff2fa}\u{fcffc}\u{fff42}";
+    public const IMPLODE_DELIMITER = "\u{ff2fa}\u{fcffc}\u{fff42}";
 
     /**
      * Regex range for punctuations.
@@ -61,7 +61,7 @@ final class RendererConstant
      *
      * @var string
      */
-    const PUNCTUATIONS_RANGE = (
+    public const PUNCTUATIONS_RANGE = (
         // Latin-1 Supplement
         // @see https://unicode-table.com/en/blocks/latin-1-supplement/
         "\u{0080}-\u{00BB}" .
@@ -98,19 +98,19 @@ final class RendererConstant
      *
      * @var int
      */
-    const CLI_COLOR_AUTO = -1;
+    public const CLI_COLOR_AUTO = -1;
 
     /**
      * Force not to colorize the CLI output.
      *
      * @var int
      */
-    const CLI_COLOR_DISABLE = 0;
+    public const CLI_COLOR_DISABLE = 0;
 
     /**
      * Force to colorize the CLI output if possible.
      *
      * @var int
      */
-    const CLI_COLOR_ENABLE = 1;
+    public const CLI_COLOR_ENABLE = 1;
 }

@@ -6,9 +6,9 @@ namespace Jfcherng\Diff\Utility;
 
 final class ReverseIterator
 {
-    const ITERATOR_GET_VALUE = 0;
-    const ITERATOR_GET_KEY = 1 << 0;
-    const ITERATOR_GET_BOTH = 1 << 1;
+    public const ITERATOR_GET_VALUE = 0;
+    public const ITERATOR_GET_KEY = 1 << 0;
+    public const ITERATOR_GET_BOTH = 1 << 1;
 
     /**
      * The constructor.

@@ -15,7 +15,7 @@ final class JsonText extends AbstractText
     /**
      * {@inheritdoc}
      */
-    const INFO = [
+    public const INFO = [
         'desc' => 'Text JSON',
         'type' => 'Text',
     ];

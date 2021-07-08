@@ -17,7 +17,7 @@ final class Context extends AbstractText
     /**
      * {@inheritdoc}
      */
-    const INFO = [
+    public const INFO = [
         'desc' => 'Context',
         'type' => 'Text',
     ];
@@ -25,7 +25,7 @@ final class Context extends AbstractText
     /**
      * @var int the union of OPs that indicate there is a change
      */
-    const OP_BLOCK_CHANGED =
+    public const OP_BLOCK_CHANGED =
         SequenceMatcher::OP_DEL |
         SequenceMatcher::OP_INS |
         SequenceMatcher::OP_REP;

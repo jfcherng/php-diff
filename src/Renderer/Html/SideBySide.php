@@ -14,7 +14,7 @@ final class SideBySide extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    const INFO = [
+    public const INFO = [
         'desc' => 'Side by side',
         'type' => 'Html',
     ];
