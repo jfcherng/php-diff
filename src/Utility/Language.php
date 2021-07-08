@@ -91,7 +91,8 @@ final class Language
         $decoded = \json_decode($fileContent, true);
 
         if (\json_last_error() !== \JSON_ERROR_NONE) {
-            throw new \Exception(\sprintf('Fail to decode JSON file (code %d): %s', \json_last_error(), \realpath($filePath)));
+            $msg = \sprintf('Fail to decode JSON file (code %d): %s', \json_last_error(), \realpath($filePath));
+            throw new \Exception($msg); // workaround single-line throw + 120-char limit
         }
 
         return (array) $decoded;
