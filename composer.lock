@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5c124ac04a05f42d52e17276ee1480d5",
+    "content-hash": "b66eae30bcd6aa986f9612be91f4410a",
     "packages": [
         {
             "name": "jfcherng/php-color-output",
@@ -115,16 +115,16 @@
         },
         {
             "name": "jfcherng/php-sequence-matcher",
-            "version": "3.2.7",
+            "version": "3.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-sequence-matcher.git",
-                "reference": "9a1fb11e3d1821391e8c92c421c623beb6129f57"
+                "reference": "410519ca07cd7989f450d6e2aa40975dbd1be048"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/9a1fb11e3d1821391e8c92c421c623beb6129f57",
-                "reference": "9a1fb11e3d1821391e8c92c421c623beb6129f57",
+                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/410519ca07cd7989f450d6e2aa40975dbd1be048",
+                "reference": "410519ca07cd7989f450d6e2aa40975dbd1be048",
                 "shasum": ""
             },
             "require": {
@@ -133,7 +133,7 @@
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^2.19",
                 "liip/rmt": "^1.6",
-                "phan/phan": "^3 || ^4 || ^5",
+                "phan/phan": "^2.5 || ^3 || ^4 || ^5",
                 "phpunit/phpunit": ">=7 <10",
                 "squizlabs/php_codesniffer": "^3.5"
             },
@@ -160,7 +160,7 @@
             "description": "A longest sequence matcher. The logic is primarily based on the Python difflib package.",
             "support": {
                 "issues": "https://github.com/jfcherng/php-sequence-matcher/issues",
-                "source": "https://github.com/jfcherng/php-sequence-matcher/tree/3.2.7"
+                "source": "https://github.com/jfcherng/php-sequence-matcher/tree/3.2.8"
             },
             "funding": [
                 {
@@ -168,7 +168,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2021-09-02T03:52:49+00:00"
+            "time": "2021-09-02T04:02:02+00:00"
         }
     ],
     "packages-dev": [
