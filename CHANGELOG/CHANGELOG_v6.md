@@ -2,6 +2,14 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2021-09-02 11:58  **6.10.1**  Bump deps
+      * 795555c chore: bump "jfcherng/php-sequence-matcher" 3.2.7
+      * 814782b chore: add RMT into ignore-export
+      * 98fbe77 chore: update demo js/css URLs
+      * 809ea0f docs: update badegs
+      * 17d912e style: fix some long lines
+      * 7e9a001 style: add visibility to public consts
+      * 2a28fe1 chore: update deps
    * 2021-03-19 17:20  **6.10.0**  initial release
       * 56eee87 chore: add liip/rmt as a dev dependency
       * 4b170cd feat: add methods to get diff statistics
