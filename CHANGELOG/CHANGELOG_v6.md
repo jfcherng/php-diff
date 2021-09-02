@@ -2,6 +2,8 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2021-09-02 12:03  **6.10.2**  Bump deps
+      * bf18634 chore: bump "jfcherng/php-sequence-matcher" 3.2.8
    * 2021-09-02 11:58  **6.10.1**  Bump deps
       * 795555c chore: bump "jfcherng/php-sequence-matcher" 3.2.7
       * 814782b chore: add RMT into ignore-export
