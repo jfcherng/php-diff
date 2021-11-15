@@ -3,6 +3,7 @@
 Note that
 
 - All `composer`-related commands are run in this project's root directory.
+  That is php-diff directory rather than this `example` directory.
 - You can change differ/renderer options in `demo_base.php`.
 - Change contents of `old_file.txt` and `new_file.txt` to test different text.
 
