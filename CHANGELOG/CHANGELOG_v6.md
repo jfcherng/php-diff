@@ -1,6 +1,14 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.11** - Bump PHP version to 7.4
+   * 2021-11-25 10:15  **6.11.0**  initial release
+      * 65610ae style: reformat with php-cs-fixer
+      * 664ff0f chore: update php-cs-fixer rules for v3
+      * 84abe9f chore: bump min PHP to 7.4.0 and update other deps
+      * d55fd28 chore: remove "@todo" in readme
+      * 8130948 docs: revise instructions for running demo
+
  * Version **6.10** - feat: add methods to get diff statistics
    * 2021-09-02 12:03  **6.10.2**  Bump deps
       * bf18634 chore: bump "jfcherng/php-sequence-matcher" 3.2.8
