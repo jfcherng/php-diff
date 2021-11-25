@@ -37,7 +37,7 @@ which can be used to get the content of the `example/diff-table.css`.
 
 ## Requirements
 
-![php](https://img.shields.io/badge/php-%E2%89%A57.1.3-blue?style=flat-square)
+![php](https://img.shields.io/badge/php-%E2%89%A57.4.0-blue?style=flat-square)
 ![ext-iconv](https://img.shields.io/badge/ext-iconv-brightgreen?style=flat-square)
 
 
