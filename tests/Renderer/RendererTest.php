@@ -37,13 +37,13 @@ final class RendererTest extends TestCase
             'bar',
             'Inline',
             [],
-            ['language' => $languageArrayTest]
+            ['language' => $languageArrayTest],
         );
 
         static::assertStringContainsString(
             $testMarker,
             $diffResult,
-            'Rederer options: "language" array should work.'
+            'Rederer options: "language" array should work.',
         );
     }
 
@@ -61,13 +61,13 @@ final class RendererTest extends TestCase
             'we are the same',
             'Inline',
             [],
-            ['resultForIdenticals' => $testMarker]
+            ['resultForIdenticals' => $testMarker],
         );
 
         static::assertSame(
             $testMarker,
             $diffResult,
-            'Rederer options: result for identicals should work.'
+            'Rederer options: result for identicals should work.',
         );
     }
 
@@ -85,7 +85,7 @@ final class RendererTest extends TestCase
             'we are the same',
             'Inline',
             [],
-            ['resultForIdenticals' => 50]
+            ['resultForIdenticals' => 50],
         );
     }
 
@@ -111,7 +111,7 @@ final class RendererTest extends TestCase
                 $new,
                 $rendererName,
                 $differOptions,
-                $rendererOptions
+                $rendererOptions,
             );
 
             // test "outputTagAsString" is false
@@ -120,13 +120,13 @@ final class RendererTest extends TestCase
                 $new,
                 'JsonHtml',
                 $differOptions,
-                ['outputTagAsString' => false] + $rendererOptions
+                ['outputTagAsString' => false] + $rendererOptions,
             );
 
             static::assertSame(
                 $goldenResult,
-                $renerer->renderArray(\json_decode($jsonResult, true)),
-                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => false)"
+                $renerer->renderArray(json_decode($jsonResult, true)),
+                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => false)",
             );
 
             // test "outputTagAsString" is true
@@ -135,13 +135,13 @@ final class RendererTest extends TestCase
                 $new,
                 'JsonHtml',
                 $differOptions,
-                ['outputTagAsString' => true] + $rendererOptions
+                ['outputTagAsString' => true] + $rendererOptions,
             );
 
             static::assertSame(
                 $goldenResult,
-                $renerer->renderArray(\json_decode($jsonResult, true)),
-                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => true)"
+                $renerer->renderArray(json_decode($jsonResult, true)),
+                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => true)",
             );
         }
     }
@@ -158,6 +158,6 @@ final class RendererTest extends TestCase
         $jsonResult = DiffHelper::calculate('_TEST_MARKER_OLD_', '_TEST_MARKER_NEW_', 'JsonHtml');
 
         $textRenderer = RendererFactory::make('Unified');
-        $UnifiedResult = $textRenderer->renderArray(\json_decode($jsonResult, true));
+        $UnifiedResult = $textRenderer->renderArray(json_decode($jsonResult, true));
     }
 }

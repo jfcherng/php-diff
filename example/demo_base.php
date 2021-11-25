@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 include __DIR__ . '/../vendor/autoload.php';
 
 use Jfcherng\Diff\Differ;
@@ -8,8 +10,8 @@ use Jfcherng\Diff\Renderer\RendererConstant;
 // the two sample files for comparison
 $oldFile = __DIR__ . '/old_file.txt';
 $newFile = __DIR__ . '/new_file.txt';
-$oldString = \file_get_contents($oldFile);
-$newString = \file_get_contents($newFile);
+$oldString = file_get_contents($oldFile);
+$newString = file_get_contents($newFile);
 
 // options for Diff class
 $diffOptions = [

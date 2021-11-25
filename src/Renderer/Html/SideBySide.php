@@ -28,13 +28,13 @@ final class SideBySide extends AbstractHtml
             return $this->getResultForIdenticals();
         }
 
-        $wrapperClasses = \array_merge(
+        $wrapperClasses = array_merge(
             $this->options['wrapperClasses'],
-            ['diff', 'diff-html', 'diff-side-by-side']
+            ['diff', 'diff-html', 'diff-side-by-side'],
         );
 
         return
-            '<table class="' . \implode(' ', $wrapperClasses) . '">' .
+            '<table class="' . implode(' ', $wrapperClasses) . '">' .
                 $this->renderTableHeader() .
                 $this->renderTableHunks($changes) .
             '</table>';
@@ -133,7 +133,7 @@ final class SideBySide extends AbstractHtml
                 $block['old']['lines'][$no],
                 $block['new']['lines'][$no],
                 $block['old']['offset'] + $no + 1,
-                $block['new']['offset'] + $no + 1
+                $block['new']['offset'] + $no + 1,
             );
         }
 
@@ -154,7 +154,7 @@ final class SideBySide extends AbstractHtml
                 null,
                 $newLine,
                 null,
-                $block['new']['offset'] + $no + 1
+                $block['new']['offset'] + $no + 1,
             );
         }
 
@@ -175,7 +175,7 @@ final class SideBySide extends AbstractHtml
                 $oldLine,
                 null,
                 $block['old']['offset'] + $no + 1,
-                null
+                null,
             );
         }
 
@@ -191,7 +191,7 @@ final class SideBySide extends AbstractHtml
     {
         $ret = '';
 
-        $lineCountMax = \max(\count($block['old']['lines']), \count($block['new']['lines']));
+        $lineCountMax = max(\count($block['old']['lines']), \count($block['new']['lines']));
 
         for ($no = 0; $no < $lineCountMax; ++$no) {
             if (isset($block['old']['lines'][$no])) {

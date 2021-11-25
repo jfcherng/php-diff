@@ -87,12 +87,10 @@ final class Language
         $file = new \SplFileObject($filePath, 'r');
         $fileContent = $file->fread($file->getSize());
 
-        /** @todo PHP ^7.3 JSON_THROW_ON_ERROR */
-        $decoded = \json_decode($fileContent, true);
-
-        if (\json_last_error() !== \JSON_ERROR_NONE) {
-            $msg = \sprintf('Fail to decode JSON file (code %d): %s', \json_last_error(), \realpath($filePath));
-            throw new \Exception($msg); // workaround single-line throw + 120-char limit
+        try {
+            $decoded = json_decode($fileContent, true, 512, \JSON_THROW_ON_ERROR);
+        } catch (\JsonException $e) {
+            throw new \Exception(sprintf('Fail to decode JSON file (%s): %s', realpath($filePath), (string) $e));
         }
 
         return (array) $decoded;
@@ -117,7 +115,7 @@ final class Language
     {
         return $this->setUpWithTranslations(
             self::getTranslationsByLanguage($language),
-            $language
+            $language,
         );
     }
 
@@ -130,7 +128,7 @@ final class Language
     private function setUpWithTranslations(array $translations, string $language = '_custom_'): self
     {
         $this->language = $language;
-        $this->translations = \array_map('strval', $translations);
+        $this->translations = array_map('strval', $translations);
 
         return $this;
     }

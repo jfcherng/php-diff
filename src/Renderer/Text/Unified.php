@@ -69,7 +69,7 @@ final class Unified extends AbstractText
                 ($j1 === $j2 ? $j1 : $j1 + 1) .
                 ($newLinesCount === 1 ? '' : ",{$newLinesCount}") .
             " @@\n",
-            '@' // symbol
+            '@', // symbol
         );
     }
 
@@ -96,7 +96,7 @@ final class Unified extends AbstractText
                 $ret .= $this->renderContext(
                     ' ',
                     $differ->getOld($i1, $i2),
-                    $i2 === $oldNoEolAtEofIdx
+                    $i2 === $oldNoEolAtEofIdx,
                 );
 
                 continue;
@@ -106,7 +106,7 @@ final class Unified extends AbstractText
                 $ret .= $this->renderContext(
                     '-',
                     $differ->getOld($i1, $i2),
-                    $i2 === $oldNoEolAtEofIdx
+                    $i2 === $oldNoEolAtEofIdx,
                 );
             }
 
@@ -114,7 +114,7 @@ final class Unified extends AbstractText
                 $ret .= $this->renderContext(
                     '+',
                     $differ->getNew($j1, $j2),
-                    $j2 === $newNoEolAtEofIdx
+                    $j2 === $newNoEolAtEofIdx,
                 );
             }
         }
@@ -135,7 +135,7 @@ final class Unified extends AbstractText
             return '';
         }
 
-        $ret = $symbol . \implode("\n{$symbol}", $context) . "\n";
+        $ret = $symbol . implode("\n{$symbol}", $context) . "\n";
         $ret = $this->cliColoredString($ret, $symbol);
 
         if ($noEolAtEof) {

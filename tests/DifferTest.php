@@ -62,12 +62,12 @@ EOT
      */
     public function testGetGroupedOpcodes(string $old, string $new, array $expected): void
     {
-        $old = \explode("\n", $old);
-        $new = \explode("\n", $new);
+        $old = explode("\n", $old);
+        $new = explode("\n", $new);
 
         static::assertSame(
             $expected,
-            (new Differ($old, $new))->getGroupedOpcodes()
+            (new Differ($old, $new))->getGroupedOpcodes(),
         );
     }
 }

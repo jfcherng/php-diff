@@ -318,7 +318,8 @@ final class Differ
 
         $opcodes = $this->sequenceMatcher
             ->setSequences($old, $new)
-            ->getGroupedOpcodes($this->options['context']);
+            ->getGroupedOpcodes($this->options['context'])
+        ;
 
         $this->getGroupedOpcodesPost($opcodes);
 
@@ -344,7 +345,8 @@ final class Differ
 
         $opcodes = $this->sequenceMatcher
             ->setSequences($old, $new)
-            ->getGroupedOpcodes($this->options['context']);
+            ->getGroupedOpcodes($this->options['context'])
+        ;
 
         $this->getGroupedOpcodesGnuPost($opcodes);
 
@@ -368,10 +370,10 @@ final class Differ
         ];
 
         $this->oldSrcLength = \count($old);
-        \array_push($old, ...$eolAtEofHelperLines);
+        array_push($old, ...$eolAtEofHelperLines);
 
         $this->newSrcLength = \count($new);
-        \array_push($new, ...$eolAtEofHelperLines);
+        array_push($new, ...$eolAtEofHelperLines);
     }
 
     /**

@@ -35,7 +35,7 @@ final class JsonText extends AbstractText
             $this->convertTagToString($ret);
         }
 
-        return \json_encode($ret, $this->options['jsonEncodeFlags']);
+        return json_encode($ret, $this->options['jsonEncodeFlags']);
     }
 
     /**

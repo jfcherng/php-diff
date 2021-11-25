@@ -24,10 +24,9 @@ final class CombinedTest extends TestCase
     public function testHtmlFormatting(): void
     {
         $result = DiffHelper::calculate('<', " \nA<B", 'Combined', ['detailLevel' => 'word']);
-        $result = \htmlspecialchars_decode($result);
+        $result = htmlspecialchars_decode($result);
 
-        /** @todo PHPUnit 9, static::assertStringNotContainsString() */
-        static::assertThat($result, static::logicalNot(static::stringContains(';')));
+        static::assertStringNotContainsString(';', $result);
     }
 
     /**
@@ -40,11 +39,10 @@ final class CombinedTest extends TestCase
         $result = DiffHelper::calculate(
             "<tag>three</tag>\n<tag>four</tag>\n",
             "one\n<tag>two</tag>\n<tag>three</tag>\n",
-            'Combined'
+            'Combined',
         );
 
-        /** @todo PHPUnit 9, static::assertStringNotContainsString() */
-        static::assertThat($result, static::logicalNot(static::stringContains('<tag>')));
-        static::assertThat($result, static::logicalNot(static::stringContains('</tag>')));
+        static::assertStringNotContainsString('<tag>', $result);
+        static::assertStringNotContainsString('</tag>', $result);
     }
 }

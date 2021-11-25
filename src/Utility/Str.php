@@ -14,7 +14,7 @@ final class Str
      */
     public static function startsWith(string $haystack, string $needle): bool
     {
-        return \substr($haystack, 0, \strlen($needle)) === $needle;
+        return substr($haystack, 0, \strlen($needle)) === $needle;
     }
 
     /**
@@ -25,6 +25,6 @@ final class Str
      */
     public static function endsWith(string $haystack, string $needle): bool
     {
-        return \substr($haystack, -\strlen($needle)) === $needle;
+        return substr($haystack, -\strlen($needle)) === $needle;
     }
 }

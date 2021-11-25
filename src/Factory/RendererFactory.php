@@ -73,7 +73,7 @@ final class RendererFactory
         foreach (RendererConstant::RENDERER_TYPES as $type) {
             $className = RendererConstant::RENDERER_NAMESPACE . "\\{$type}\\{$renderer}";
 
-            if (\class_exists($className)) {
+            if (class_exists($className)) {
                 return $cache[$renderer] = $className;
             }
         }

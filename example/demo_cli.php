@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 include __DIR__ . '/demo_base.php';
 
 use Jfcherng\Diff\DiffHelper;
@@ -19,7 +21,7 @@ $unifiedResult = DiffHelper::calculate(
     $newString,
     'Unified',
     $diffOptions,
-    $rendererOptions
+    $rendererOptions,
 );
 
 echo $unifiedResult . $manyNewlines;
@@ -32,7 +34,7 @@ $contextResult = DiffHelper::calculate(
     $newString,
     'Context',
     $diffOptions,
-    $rendererOptions
+    $rendererOptions,
 );
 
 echo $contextResult . $manyNewlines;

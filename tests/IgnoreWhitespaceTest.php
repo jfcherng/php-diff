@@ -58,7 +58,7 @@ NEW
 -    }
  }
 
-DIFF
+DIFF,
             ],
             [
                 <<<'OLD'
@@ -110,11 +110,11 @@ NEW
  
  }
 
-DIFF
+DIFF,
             ],
             [
-                \file_get_contents(__DIR__ . '/data/WorkerCommandA.php'),
-                \file_get_contents(__DIR__ . '/data/WorkerCommandB.php'),
+                file_get_contents(__DIR__ . '/data/WorkerCommandA.php'),
+                file_get_contents(__DIR__ . '/data/WorkerCommandB.php'),
                 <<<'DIFF'
 @@ -215,11 +215,6 @@
  	{
@@ -129,7 +129,7 @@ DIFF
  
  }
 
-DIFF
+DIFF,
             ],
         ];
     }

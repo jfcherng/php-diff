@@ -41,13 +41,13 @@ final class DiffHelperTest extends TestCase
             $testFiles['new']->getContents(),
             $rendererName,
             [],
-            ['cliColorization' => RendererConstant::CLI_COLOR_DISABLE]
+            ['cliColorization' => RendererConstant::CLI_COLOR_DISABLE],
         );
 
         static::assertSame(
             $testFiles['result']->getContents(),
             $result,
-            "Renderer output test '{$rendererName}' #{$idx} failed..."
+            "Renderer output test '{$rendererName}' #{$idx} failed...",
         );
     }
 
@@ -93,19 +93,20 @@ final class DiffHelperTest extends TestCase
      */
     protected function findRendererOutputTestFiles(string $rendererName): array
     {
-        $rendererNameRegex = \preg_quote($rendererName, '/');
+        $rendererNameRegex = preg_quote($rendererName, '/');
         $fileNameRegex = "/{$rendererNameRegex}-(?P<idx>[0-9]+)-(?P<name>[^.\-]+)\.txt$/u";
 
         $finder = (new Finder())
             ->files()
             ->name($fileNameRegex)
-            ->in(__DIR__ . '/data/renderer_outputs');
+            ->in(__DIR__ . '/data/renderer_outputs')
+        ;
 
         $ret = [];
 
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
-            \preg_match($fileNameRegex, $file->getFilename(), $matches);
+            preg_match($fileNameRegex, $file->getFilename(), $matches);
             $idx = (int) $matches['idx'];
             $name = $matches['name'];
 

@@ -28,13 +28,13 @@ final class Inline extends AbstractHtml
             return $this->getResultForIdenticals();
         }
 
-        $wrapperClasses = \array_merge(
+        $wrapperClasses = array_merge(
             $this->options['wrapperClasses'],
-            ['diff', 'diff-html', 'diff-inline']
+            ['diff', 'diff-html', 'diff-inline'],
         );
 
         return
-            '<table class="' . \implode(' ', $wrapperClasses) . '">' .
+            '<table class="' . implode(' ', $wrapperClasses) . '">' .
                 $this->renderTableHeader() .
                 $this->renderTableHunks($changes) .
             '</table>';
@@ -145,7 +145,7 @@ final class Inline extends AbstractHtml
                 SequenceMatcher::OP_EQ,
                 $newLine,
                 $block['old']['offset'] + $no + 1,
-                $block['new']['offset'] + $no + 1
+                $block['new']['offset'] + $no + 1,
             );
         }
 
@@ -167,7 +167,7 @@ final class Inline extends AbstractHtml
                 SequenceMatcher::OP_INS,
                 $newLine,
                 null,
-                $block['new']['offset'] + $no + 1
+                $block['new']['offset'] + $no + 1,
             );
         }
 
@@ -189,7 +189,7 @@ final class Inline extends AbstractHtml
                 SequenceMatcher::OP_DEL,
                 $oldLine,
                 $block['old']['offset'] + $no + 1,
-                null
+                null,
             );
         }
 

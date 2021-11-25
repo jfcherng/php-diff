@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 include __DIR__ . '/demo_base.php';
 
 use Jfcherng\Diff\DiffHelper;
@@ -28,7 +30,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
                 font-weight: normal;
             }
 
-            <?php echo DiffHelper::getStyleSheet(); ?>
+            <?= DiffHelper::getStyleSheet(); ?>
         </style>
     </head>
     <body>
@@ -41,7 +43,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newString,
             'Inline',
             $diffOptions,
-            ['detailLevel' => 'none'] + $rendererOptions
+            ['detailLevel' => 'none'] + $rendererOptions,
         );
 
         echo $inlineResult;
@@ -57,7 +59,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newString,
             'Inline',
             $diffOptions,
-            ['detailLevel' => 'line'] + $rendererOptions
+            ['detailLevel' => 'line'] + $rendererOptions,
         );
 
         echo $inlineResult;
@@ -73,7 +75,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newString,
             'Inline',
             $diffOptions,
-            ['detailLevel' => 'word'] + $rendererOptions
+            ['detailLevel' => 'word'] + $rendererOptions,
         );
 
         echo $inlineResult;
@@ -89,7 +91,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newString,
             'Inline',
             $diffOptions,
-            ['detailLevel' => 'char'] + $rendererOptions
+            ['detailLevel' => 'char'] + $rendererOptions,
         );
 
         echo $inlineResult;
@@ -105,7 +107,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newFile,
             'SideBySide',
             $diffOptions,
-            $rendererOptions
+            $rendererOptions,
         );
 
         echo $sideBySideResult;
@@ -121,7 +123,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newFile,
             'Inline',
             $diffOptions,
-            $rendererOptions
+            $rendererOptions,
         );
 
         echo $inlineResult;
@@ -137,7 +139,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newFile,
             'Combined',
             $diffOptions,
-            $rendererOptions
+            $rendererOptions,
         );
 
         echo $sideBySideResult;
@@ -153,10 +155,10 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newFile,
             'Unified',
             $diffOptions,
-            $rendererOptions
+            $rendererOptions,
         );
 
-        echo \htmlspecialchars($unifiedResult);
+        echo htmlspecialchars($unifiedResult);
 
         ?></code></pre>
 
@@ -169,10 +171,10 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newFile,
             'Context',
             $diffOptions,
-            $rendererOptions
+            $rendererOptions,
         );
 
-        echo \htmlspecialchars($contextResult);
+        echo htmlspecialchars($contextResult);
 
         ?></code></pre>
 
@@ -193,10 +195,10 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newFile,
             'JsonText',
             $diffOptions,
-            $rendererOptions
+            $rendererOptions,
         );
 
-        echo \htmlspecialchars($jsonResult);
+        echo htmlspecialchars($jsonResult);
 
         ?></code></pre>
 
@@ -209,17 +211,17 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newFile,
             'JsonHtml',
             $diffOptions,
-            $rendererOptions
+            $rendererOptions,
         );
 
-        echo \htmlspecialchars($jsonResult);
+        echo htmlspecialchars($jsonResult);
 
         ?></code></pre>
 
         <h1>HTML Diff from the Result of JSON Diff</h1>
         <?php
 
-        $jsonArray = \json_decode($jsonResult, true);
+        $jsonArray = json_decode($jsonResult, true);
 
         $htmlRenderer = RendererFactory::make('Inline', $rendererOptions);
         $inlineResult = $htmlRenderer->renderArray($jsonArray);

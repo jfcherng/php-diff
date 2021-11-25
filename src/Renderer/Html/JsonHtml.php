@@ -41,7 +41,7 @@ class JsonHtml extends AbstractHtml
             $this->convertTagToString($changes);
         }
 
-        return \json_encode($changes, $this->options['jsonEncodeFlags']);
+        return json_encode($changes, $this->options['jsonEncodeFlags']);
     }
 
     /**

@@ -27,12 +27,12 @@ final class Line extends AbstractLineRenderer
         $mbOld->str_enclose_i(
             RendererConstant::HTML_CLOSURES,
             $start,
-            $end + $mbOld->strlen() - $start + 1
+            $end + $mbOld->strlen() - $start + 1,
         );
         $mbNew->str_enclose_i(
             RendererConstant::HTML_CLOSURES,
             $start,
-            $end + $mbNew->strlen() - $start + 1
+            $end + $mbNew->strlen() - $start + 1,
         );
 
         return $this;
@@ -58,7 +58,7 @@ final class Line extends AbstractLineRenderer
 
         // calculate $start
         $start = 0;
-        $startMax = \min($mbOld->strlen(), $mbNew->strlen());
+        $startMax = min($mbOld->strlen(), $mbNew->strlen());
         while (
             $start < $startMax // index out of range
             && $mbOld->getAtRaw($start) === $mbNew->getAtRaw($start)
