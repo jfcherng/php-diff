@@ -8,7 +8,7 @@ N
 Do you know in Chinese, "金槍魚罐頭" means tuna can.
 	  	Tab visulization test.
 G
-// @todo Remember to delete this line
+// remember to delete this line
 Say hello to my neighbors.
 A
 Just a context separator. 2

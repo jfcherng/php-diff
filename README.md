@@ -222,7 +222,7 @@ About the `Unified` diff format: https://en.wikipedia.org/wiki/Diff#Unified_form
 +Do you know in Japanese, "魚の缶詰" means fish can.
  This is just a useless line.
  G
--// @todo Remember to delete this line
+-// remember to delete this line
  Say hello to my neighbors.
 ```
 
@@ -250,7 +250,7 @@ About the `Context` diff format: https://en.wikipedia.org/wiki/Diff#Context_form
 ! Do you know in Chinese, "金槍魚罐頭" means tuna can.
   This is just a useless line.
   G
-- // @todo Remember to delete this line
+- // remember to delete this line
   Say hello to my neighbors.
 --- 8,12 ----
   N
@@ -355,7 +355,7 @@ This renderer has no detailed diff.
       "tag": "del",
       "old": {
         "offset": 10,
-        "lines": ["// @todo Remember to delete this line"]
+        "lines": ["// remember to delete this line"]
       },
       "new": {
         "offset": 11,
@@ -530,7 +530,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       "tag": "del",
       "old": {
         "offset": 10,
-        "lines": ["// @todo Remember to delete this line"]
+        "lines": ["// remember to delete this line"]
       },
       "new": {
         "offset": 11,
