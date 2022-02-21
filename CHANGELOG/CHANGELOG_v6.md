@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.11** - Bump PHP version to 7.4
+   * 2022-02-21 13:54  **6.11.2**  Fix PHP alpine
+      * a589955 chore: update deps
+      * 1b537d5 chore: license year +1
    * 2021-11-25 10:15  **6.11.0**  initial release
       * 65610ae style: reformat with php-cs-fixer
       * 664ff0f chore: update php-cs-fixer rules for v3
