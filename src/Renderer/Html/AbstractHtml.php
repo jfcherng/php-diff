@@ -147,8 +147,8 @@ abstract class AbstractHtml extends AbstractRenderer
     {
         static $mbOld, $mbNew;
 
-        $mbOld = $mbOld ?? new MbString();
-        $mbNew = $mbNew ?? new MbString();
+        $mbOld ??= new MbString();
+        $mbNew ??= new MbString();
 
         $mbOld->set($old);
         $mbNew->set($new);

@@ -31,11 +31,7 @@ final class RendererFactory
      */
     public static function getInstance(string $renderer, ...$ctorArgs): AbstractRenderer
     {
-        if (!isset(self::$singletons[$renderer])) {
-            self::$singletons[$renderer] = self::make($renderer, ...$ctorArgs);
-        }
-
-        return self::$singletons[$renderer];
+        return self::$singletons[$renderer] ??= self::make($renderer, ...$ctorArgs);
     }
 
     /**

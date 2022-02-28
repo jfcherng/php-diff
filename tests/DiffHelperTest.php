@@ -110,7 +110,7 @@ final class DiffHelperTest extends TestCase
             $idx = (int) $matches['idx'];
             $name = $matches['name'];
 
-            $ret[$idx] = $ret[$idx] ?? [];
+            $ret[$idx] ??= [];
             $ret[$idx][$name] = $file;
         }
 

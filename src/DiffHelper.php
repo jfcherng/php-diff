@@ -23,7 +23,7 @@ final class DiffHelper
     {
         static $path;
 
-        return $path = $path ?? realpath(__DIR__ . '/..');
+        return $path ??= realpath(__DIR__ . '/..');
     }
 
     /**

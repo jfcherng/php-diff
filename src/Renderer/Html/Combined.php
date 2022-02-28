@@ -390,9 +390,9 @@ final class Combined extends AbstractHtml
     {
         static $mbOld, $mbNew, $lineRenderer;
 
-        $mbOld = $mbOld ?? new MbString();
-        $mbNew = $mbNew ?? new MbString();
-        $lineRenderer = $lineRenderer ?? LineRendererFactory::make(
+        $mbOld ??= new MbString();
+        $mbNew ??= new MbString();
+        $lineRenderer ??= LineRendererFactory::make(
             $this->options['detailLevel'],
             [], /** @todo is it possible to get the differOptions here? */
             $this->options,

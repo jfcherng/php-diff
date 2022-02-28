@@ -31,11 +31,7 @@ final class LineRendererFactory
      */
     public static function getInstance(string $type, ...$ctorArgs): AbstractLineRenderer
     {
-        if (!isset(self::$singletons[$type])) {
-            self::$singletons[$type] = self::make($type, ...$ctorArgs);
-        }
-
-        return self::$singletons[$type];
+        return self::$singletons[$type] ??= self::make($type, ...$ctorArgs);
     }
 
     /**

@@ -262,7 +262,7 @@ final class Differ
     {
         static $singleton;
 
-        return $singleton = $singleton ?? new static([], []);
+        return $singleton ??= new static([], []);
     }
 
     /**

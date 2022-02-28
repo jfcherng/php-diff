@@ -21,7 +21,7 @@ final class Arr
         $count = \count($array);
 
         // make $end set
-        $end = $end ?? $count;
+        $end ??= $count;
 
         // make $start non-negative
         if ($start < 0) {
