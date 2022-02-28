@@ -2,6 +2,13 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.11** - Bump PHP version to 7.4
+   * 2022-03-01 00:23  **6.11.3**  PHP 7.4 refactoring
+      * 27a92e4 refactor: utilize PHP 7.4 typed properties
+      * 8ec5d02 refactor: utilize PHP 7.4 array spread operator
+      * 7372b0a refactor: utilize PHP 7.4 arrow funciton
+      * 74db0b4 refactor: utilize PHP 7.4 null coalescing assignment
+      * 02c14b8 chore: update deps
+      * fafa8a8 chore: remove "todo" from test data
    * 2022-02-21 13:54  **6.11.2**  Fix PHP alpine
       * a589955 chore: update deps
       * 1b537d5 chore: license year +1
