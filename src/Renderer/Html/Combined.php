@@ -304,12 +304,15 @@ final class Combined extends AbstractHtml
 
         // create a sorted merged parts array
         $mergedParts = array_merge($delParts, $insParts);
-        usort($mergedParts, static function (array $a, array $b): int {
+        usort(
+            $mergedParts,
             // first sort by "offsetClean", "order" then by "type"
-            return $a['offsetClean'] <=> $b['offsetClean']
-                ?: $a['order'] <=> $b['order']
-                ?: ($a['type'] === SequenceMatcher::OP_DEL ? -1 : 1);
-        });
+            static fn (array $a, array $b): int => (
+                $a['offsetClean'] <=> $b['offsetClean']
+                    ?: $a['order'] <=> $b['order']
+                    ?: ($a['type'] === SequenceMatcher::OP_DEL ? -1 : 1)
+            ),
+        );
 
         // insert merged parts into the cleaned line
         foreach (ReverseIterator::fromArray($mergedParts) as $part) {

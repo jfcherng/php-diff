@@ -55,12 +55,11 @@ final class DiffHelper
         $renderers = array_filter(
             $fileNames,
             // only normal class files are wanted
-            static function (string $fileName): bool {
-                return
-                    substr($fileName, 0, 8) !== 'Abstract'
-                    && substr($fileName, -9) !== 'Interface'
-                    && substr($fileName, -5) !== 'Trait';
-            },
+            static fn (string $fileName): bool => (
+                substr($fileName, 0, 8) !== 'Abstract'
+                && substr($fileName, -9) !== 'Interface'
+                && substr($fileName, -5) !== 'Trait'
+            ),
         );
 
         $info = [];
