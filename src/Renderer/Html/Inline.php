@@ -28,10 +28,10 @@ final class Inline extends AbstractHtml
             return $this->getResultForIdenticals();
         }
 
-        $wrapperClasses = array_merge(
-            $this->options['wrapperClasses'],
-            ['diff', 'diff-html', 'diff-inline'],
-        );
+        $wrapperClasses = [
+            ...$this->options['wrapperClasses'],
+            ...['diff', 'diff-html', 'diff-inline'],
+        ];
 
         return
             '<table class="' . implode(' ', $wrapperClasses) . '">' .

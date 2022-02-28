@@ -39,10 +39,10 @@ final class Combined extends AbstractHtml
             return $this->getResultForIdenticals();
         }
 
-        $wrapperClasses = array_merge(
-            $this->options['wrapperClasses'],
-            ['diff', 'diff-html', 'diff-combined'],
-        );
+        $wrapperClasses = [
+            ...$this->options['wrapperClasses'],
+            ...['diff', 'diff-html', 'diff-combined'],
+        ];
 
         return
             '<table class="' . implode(' ', $wrapperClasses) . '">' .
@@ -303,7 +303,7 @@ final class Combined extends AbstractHtml
         $this->revisePartsForBoundaryNewlines($insParts, RendererConstant::HTML_CLOSURES_INS);
 
         // create a sorted merged parts array
-        $mergedParts = array_merge($delParts, $insParts);
+        $mergedParts = [...$delParts, ...$insParts];
         usort(
             $mergedParts,
             // first sort by "offsetClean", "order" then by "type"
