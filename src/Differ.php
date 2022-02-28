@@ -44,70 +44,64 @@ final class Differ
     /**
      * @var array array of the options that have been applied for generating the diff
      */
-    public $options = [];
+    public array $options = [];
 
     /**
      * @var string[] the old sequence
      */
-    private $old = [];
+    private array $old = [];
 
     /**
      * @var string[] the new sequence
      */
-    private $new = [];
+    private array $new = [];
 
     /**
      * @var bool is any of cached properties dirty?
      */
-    private $isCacheDirty = true;
+    private bool $isCacheDirty = true;
 
     /**
      * @var SequenceMatcher the sequence matcher
      */
-    private $sequenceMatcher;
+    private SequenceMatcher $sequenceMatcher;
 
-    /**
-     * @var int
-     */
-    private $oldSrcLength = 0;
+    private int $oldSrcLength = 0;
 
-    /**
-     * @var int
-     */
-    private $newSrcLength = 0;
+    private int $newSrcLength = 0;
 
     /**
      * @var int the end index for the old if the old has no EOL at EOF
      *          -1 means the old has an EOL at EOF
      */
-    private $oldNoEolAtEofIdx = -1;
+    private int $oldNoEolAtEofIdx = -1;
 
     /**
      * @var int the end index for the new if the new has no EOL at EOF
      *          -1 means the new has an EOL at EOF
      */
-    private $newNoEolAtEofIdx = -1;
+    private int $newNoEolAtEofIdx = -1;
 
     /**
      * @var int the result of comparing the old and the new with the spaceship operator
      *          -1 means old < new, 0 means old == new, 1 means old > new
      */
-    private $oldNewComparison = 0;
+    private int $oldNewComparison = 0;
 
     /**
      * @var int[][][] array containing the generated opcodes for the differences between the two items
      */
-    private $groupedOpcodes = [];
+    private array $groupedOpcodes = [];
 
     /**
      * @var int[][][] array containing the generated opcodes for the differences between the two items (GNU version)
      */
-    private $groupedOpcodesGnu = [];
+    private array $groupedOpcodesGnu = [];
 
     /**
      * @var array associative array of the default options available for the Differ class and their default value
      */
-    private static $defaultOptions = [
+    private static array $defaultOptions = [
         // show how many neighbor lines
         // Differ::CONTEXT_ALL can be used to show the whole file
         'context' => 3,

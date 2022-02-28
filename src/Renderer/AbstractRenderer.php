@@ -10,6 +10,8 @@ use Jfcherng\Diff\Utility\Language;
 
 /**
  * Base class for diff renderers.
+ *
+ * @todo use typed properties (BC breaking for public interface) in v7
  */
 abstract class AbstractRenderer implements RendererInterface
 {

@@ -16,10 +16,8 @@ final class LanguageTest extends TestCase
 {
     /**
      * The Language object.
-     *
-     * @var \Jfcherng\Diff\Utility\Language
      */
-    protected $languageObj;
+    protected Language $languageObj;
 
     /**
      * Set up the test environment.

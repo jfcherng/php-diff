@@ -8,6 +8,8 @@ use Jfcherng\Diff\SequenceMatcher;
 
 /**
  * Base renderer for rendering HTML-based line diffs.
+ *
+ * @todo use typed properties (BC breaking for public interface) in v7
  */
 abstract class AbstractLineRenderer implements LineRendererInterface
 {

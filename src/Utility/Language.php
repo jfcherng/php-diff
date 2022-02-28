@@ -9,12 +9,12 @@ final class Language
     /**
      * @var string[] the translation dict
      */
-    private $translations = [];
+    private array $translations = [];
 
     /**
      * @var string the language name
      */
-    private $language = '_custom_';
+    private string $language = '_custom_';
 
     /**
      * The constructor.

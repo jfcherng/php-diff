@@ -14,7 +14,7 @@ final class LineRendererFactory
      *
      * @var AbstractLineRenderer[]
      */
-    private static $singletons = [];
+    private static array $singletons = [];
 
     /**
      * The constructor.

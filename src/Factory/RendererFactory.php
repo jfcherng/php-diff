@@ -14,7 +14,7 @@ final class RendererFactory
      *
      * @var AbstractRenderer[]
      */
-    private static $singletons = [];
+    private static array $singletons = [];
 
     /**
      * The constructor.
