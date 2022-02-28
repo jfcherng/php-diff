@@ -157,7 +157,7 @@ class WorkerCommand extends Command
 		/** @var Registry $registry */
 		$registry = $container->getByType(Registry::class);
 
-		// todo collectErrors (from Analyser)
+		// collectErrors (from Analyser)
 		$in->on('data', static function (array $json) use ($fileAnalyser, $registry, $out, $analysedFiles): void {
 			$action = $json['action'];
 			if ($action !== 'analyse') {
