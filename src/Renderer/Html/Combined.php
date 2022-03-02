@@ -41,7 +41,7 @@ final class Combined extends AbstractHtml
 
         $wrapperClasses = [
             ...$this->options['wrapperClasses'],
-            ...['diff', 'diff-html', 'diff-combined'],
+            'diff', 'diff-html', 'diff-combined',
         ];
 
         return
@@ -110,16 +110,19 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlock(array $block): string
     {
-        static $callbacks = [
-            SequenceMatcher::OP_EQ => 'renderTableBlockEqual',
-            SequenceMatcher::OP_INS => 'renderTableBlockInsert',
-            SequenceMatcher::OP_DEL => 'renderTableBlockDelete',
-            SequenceMatcher::OP_REP => 'renderTableBlockReplace',
+        static $callbacks;
+
+        // @todo rewrite with "first-class callable" (PHP 8.1)
+        $callbacks ??= [
+            SequenceMatcher::OP_EQ => [$this, 'renderTableBlockEqual'],
+            SequenceMatcher::OP_INS => [$this, 'renderTableBlockInsert'],
+            SequenceMatcher::OP_DEL => [$this, 'renderTableBlockDelete'],
+            SequenceMatcher::OP_REP => [$this, 'renderTableBlockReplace'],
         ];
 
         return
             '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' .
-                $this->{$callbacks[$block['tag']]}($block) .
+                $callbacks[$block['tag']]($block) .
             '</tbody>';
     }
 
