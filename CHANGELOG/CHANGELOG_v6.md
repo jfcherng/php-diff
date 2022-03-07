@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.11** - Bump PHP version to 7.4
+   * 2022-03-07 19:24  **6.11.4**  add Italian translation
+      * 6d4b53e feat: add Italian translation (#53)
+      * f94c48f refactor: tidy codes
    * 2022-03-01 00:23  **6.11.3**  PHP 7.4 refactoring
       * 27a92e4 refactor: utilize PHP 7.4 typed properties
       * 8ec5d02 refactor: utilize PHP 7.4 array spread operator
