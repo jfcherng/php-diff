@@ -70,6 +70,7 @@ $config = (new PhpCsFixer\Config())
         'strict_param' => false,
         'string_line_ending' => true,
         'trailing_comma_in_multiline' => ['after_heredoc' => true, 'elements' => ['arrays', 'arguments']],
+        'types_spaces' => ['space_multiple_catch' => 'single'],
         'yoda_style' => false,
     ])
     ->setFinder(
