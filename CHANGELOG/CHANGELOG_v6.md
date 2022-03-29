@@ -2,6 +2,15 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2022-03-29 18:58  **6.10.3**  Port patches
+      * 27c4a0d chore: prepare for branch
+      * 5be3f5a chore: update deps
+      * d231e14 feat: add Italian translation (#53)
+      * 91bfb23 chore: remove "todo" from test data
+      * 3d54531 chore: license year +1
+      * acd2814 Ukr language (#50)
+      * d55fd28 chore: remove "@todo" in readme
+      * 8130948 docs: revise instructions for running demo
    * 2021-09-02 12:03  **6.10.2**  Bump deps
       * bf18634 chore: bump "jfcherng/php-sequence-matcher" 3.2.8
    * 2021-09-02 11:58  **6.10.1**  Bump deps
