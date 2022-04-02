@@ -2,6 +2,11 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.11** - Bump PHP version to 7.4
+   * 2022-04-03 00:35  **6.11.5**  Update upstream
+      * 52551c6 chore: update deps
+      * 4b08ef2 chore: change rules for php-cs-fixer 3.8
+      * ba4dc50 chore: update deps
+      * fc6613b chore: update deps
    * 2022-03-07 19:24  **6.11.4**  add Italian translation
       * 6d4b53e feat: add Italian translation (#53)
       * f94c48f refactor: tidy codes
