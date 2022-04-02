@@ -2,6 +2,8 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2022-04-03 00:36  **6.10.4**  Update upstream
+      * 1f6a5d3 chore: update deps
    * 2022-03-29 18:58  **6.10.3**  Port patches
       * 27c4a0d chore: prepare for branch
       * 5be3f5a chore: update deps
