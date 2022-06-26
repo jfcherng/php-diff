@@ -2,6 +2,10 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.11** - Bump PHP version to 7.4
+   * 2022-06-26 13:42  **6.11.6**  fix Combined::renderArray
+      * 710be7f test: update tests
+      * fea80b0 fix: Combined::renderArray isn't working properly
+      * a8eabe3 chore: update deps
    * 2022-04-03 00:35  **6.11.5**  Update upstream
       * 52551c6 chore: update deps
       * 4b08ef2 chore: change rules for php-cs-fixer 3.8
