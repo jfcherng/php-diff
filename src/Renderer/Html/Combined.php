@@ -110,20 +110,24 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlock(array $block): string
     {
-        static $callbacks;
+        switch ($block['tag']) {
+            case SequenceMatcher::OP_EQ:
+                $content = $this->renderTableBlockEqual($block);
+                break;
+            case SequenceMatcher::OP_INS:
+                $content = $this->renderTableBlockInsert($block);
+                break;
+            case SequenceMatcher::OP_DEL:
+                $content = $this->renderTableBlockDelete($block);
+                break;
+            case SequenceMatcher::OP_REP:
+                $content = $this->renderTableBlockReplace($block);
+                break;
+            default:
+                $content = '';
+        }
 
-        // @todo rewrite with "first-class callable" (PHP 8.1)
-        $callbacks ??= [
-            SequenceMatcher::OP_EQ => [$this, 'renderTableBlockEqual'],
-            SequenceMatcher::OP_INS => [$this, 'renderTableBlockInsert'],
-            SequenceMatcher::OP_DEL => [$this, 'renderTableBlockDelete'],
-            SequenceMatcher::OP_REP => [$this, 'renderTableBlockReplace'],
-        ];
-
-        return
-            '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' .
-                $callbacks[$block['tag']]($block) .
-            '</tbody>';
+        return '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' . $content . '</tbody>';
     }
 
     /**
@@ -491,6 +495,10 @@ final class Combined extends AbstractHtml
      */
     protected function customFormatLines(array $lines, int $op): array
     {
+        if (!$this->changesAreRaw) {
+            return $lines;
+        }
+
         static $closureMap = [
             SequenceMatcher::OP_DEL => RendererConstant::HTML_CLOSURES_DEL,
             SequenceMatcher::OP_INS => RendererConstant::HTML_CLOSURES_INS,
