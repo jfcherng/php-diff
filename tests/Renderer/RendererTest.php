@@ -85,7 +85,7 @@ final class RendererTest extends TestCase
             'we are the same',
             'Inline',
             [],
-            ['resultForIdenticals' => 50]
+            ['resultForIdenticals' => 50 /* should be string */],
         );
     }
 
@@ -96,7 +96,7 @@ final class RendererTest extends TestCase
      */
     public function testHtmlRendererRenderWithResultFromJsonRenderer(): void
     {
-        static $rendererNames = ['Inline', 'SideBySide', 'JsonHtml'];
+        static $rendererNames = ['Inline', 'SideBySide', 'Combined', 'JsonHtml'];
 
         $old = '_TEST_MARKER_OLD_';
         $new = '_TEST_MARKER_NEW_';
@@ -104,7 +104,7 @@ final class RendererTest extends TestCase
         $rendererOptions = [];
 
         foreach ($rendererNames as $rendererName) {
-            $renerer = RendererFactory::make($rendererName, $rendererOptions);
+            $renderer = RendererFactory::make($rendererName, $rendererOptions);
 
             $goldenResult = DiffHelper::calculate(
                 $old,
@@ -125,8 +125,8 @@ final class RendererTest extends TestCase
 
             static::assertSame(
                 $goldenResult,
-                $renerer->renderArray(\json_decode($jsonResult, true)),
-                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => false)"
+                $renderer->renderArray(json_decode($jsonResult, true)),
+                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => false)",
             );
 
             // test "outputTagAsString" is true
@@ -140,8 +140,8 @@ final class RendererTest extends TestCase
 
             static::assertSame(
                 $goldenResult,
-                $renerer->renderArray(\json_decode($jsonResult, true)),
-                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => true)"
+                $renderer->renderArray(json_decode($jsonResult, true)),
+                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => true)",
             );
         }
     }
