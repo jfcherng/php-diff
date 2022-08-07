@@ -2,6 +2,11 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2022-08-07 21:31  **6.10.5**  fix: Combined::renderArray isn't working properly
+      * 81e393d fix: php71 compatibility
+      * 666dc70 chore: update deps
+      * a00dc93 test: update tests
+      * 598f0f4 fix: Combined::renderArray isn't working properly
    * 2022-04-03 00:36  **6.10.4**  Update upstream
       * 1f6a5d3 chore: update deps
    * 2022-03-29 18:58  **6.10.3**  Port patches
