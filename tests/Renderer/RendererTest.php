@@ -85,7 +85,7 @@ final class RendererTest extends TestCase
             'we are the same',
             'Inline',
             [],
-            ['resultForIdenticals' => 50 /* should be string */],
+            ['resultForIdenticals' => 50 /* should be string */]
         );
     }
 
@@ -125,8 +125,8 @@ final class RendererTest extends TestCase
 
             static::assertSame(
                 $goldenResult,
-                $renderer->renderArray(json_decode($jsonResult, true)),
-                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => false)",
+                $renderer->renderArray(\json_decode($jsonResult, true)),
+                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => false)"
             );
 
             // test "outputTagAsString" is true
@@ -140,8 +140,8 @@ final class RendererTest extends TestCase
 
             static::assertSame(
                 $goldenResult,
-                $renderer->renderArray(json_decode($jsonResult, true)),
-                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => true)",
+                $renderer->renderArray(\json_decode($jsonResult, true)),
+                "HTML renderers should be able to render with JSON result. ('outputTagAsString' => true)"
             );
         }
     }
