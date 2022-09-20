@@ -344,11 +344,11 @@ This renderer has no detailed diff.
       "tag": "eq",
       "old": {
         "offset": 8,
-        "lines": ["\t  \tTab visulization test.", "G"]
+        "lines": ["\t  \tTab visualization test.", "G"]
       },
       "new": {
         "offset": 9,
-        "lines": ["\t  \tTab visulization test.", "G"]
+        "lines": ["\t  \tTab visualization test.", "G"]
       }
     },
     {
@@ -519,11 +519,11 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       "tag": "eq",
       "old": {
         "offset": 8,
-        "lines": ["\t  \tTab visulization test.", "G"]
+        "lines": ["\t  \tTab visualization test.", "G"]
       },
       "new": {
         "offset": 9,
-        "lines": ["\t  \tTab visulization test.", "G"]
+        "lines": ["\t  \tTab visualization test.", "G"]
       }
     },
     {
