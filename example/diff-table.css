@@ -1,9 +1,5 @@
-/**
- * You can compile this by https://www.sassmeister.com with
- *
- * - dart-sass v1.18.0
- */
 .diff-wrapper.diff {
+  --tab-size: 4;
   background: repeating-linear-gradient(-45deg, whitesmoke, whitesmoke 0.5em, #e8e8e8 0.5em, #e8e8e8 1em);
   border-collapse: collapse;
   border-spacing: 0;
