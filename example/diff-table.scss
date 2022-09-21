@@ -52,6 +52,9 @@ $diff-bg-color-none-block-alternative: mix($diff-bg-color, $diff-table-sidebar-c
 
   th {
     font-weight: 700;
+    cursor: default;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   td {
