@@ -104,8 +104,6 @@ $diff-bg-color-none-block-alternative: mix($diff-bg-color, $diff-table-sidebar-c
       text-align: right;
       vertical-align: top;
       width: 4em;
-      cursor: default;
-      user-select: none;
 
       &.sign {
         background: $diff-bg-color;
