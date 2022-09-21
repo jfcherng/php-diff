@@ -1,8 +1,4 @@
-/**
- * You can compile this by https://www.sassmeister.com with
- *
- * - dart-sass v1.18.0
- */
+// You can compile this with https://www.sassmeister.com
 
 $diff-bg-color: #fff !default;
 $diff-text-color: invert($diff-bg-color) !default;
@@ -70,7 +66,7 @@ $diff-bg-color-none-block-alternative: mix($diff-bg-color, $diff-table-sidebar-c
 
     // make empty cell has height
     &:empty:after {
-      content: " ";
+      content: ' ';
       visibility: hidden;
     }
 
