@@ -17,6 +17,8 @@
 }
 .diff-wrapper.diff th {
   font-weight: 700;
+  cursor: default;
+  user-select: none;
 }
 .diff-wrapper.diff td {
   vertical-align: baseline;
