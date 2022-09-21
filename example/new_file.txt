@@ -7,7 +7,7 @@ Just a context separator. 1
 M
 N
 Do you know in Japanese, "魚の缶詰" means fish can.
-	  	Tab visualization test.
+a  Tab visualization test.
 G
 Say hello to my neighbors.
 A
