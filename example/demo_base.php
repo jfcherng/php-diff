@@ -37,9 +37,9 @@ $rendererOptions = [
     'showHeader' => true,
     // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
     // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
-    'spacesToNbsp' => false,
+    'spacesToNbsp' => true,
     // HTML renderer tab width (negative = do not convert into spaces)
-    'tabSize' => 4,
+    'tabSize' => 8,
     // this option is currently only for the Combined renderer.
     // it determines whether a replace-type block should be merged or not
     // depending on the content changed ratio, which values between 0 and 1.

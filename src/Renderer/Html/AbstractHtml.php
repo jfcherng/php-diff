@@ -314,15 +314,7 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function htmlFixSpaces(string $string): string
     {
-        return \preg_replace_callback(
-            '/ {2,}/S', // only fix for more than 1 space
-            function (array $matches): string {
-                $count = \strlen($matches[0]);
-
-                return \str_repeat(' &nbsp;', $count >> 1) . ($count & 1 ? ' ' : '');
-            },
-            $string
-        );
+        return \str_replace(' ', '&nbsp;', $string);
     }
 
     /**
