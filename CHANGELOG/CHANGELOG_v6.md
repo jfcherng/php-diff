@@ -1,6 +1,16 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.12** - new rendererOption: spaceToHtmlTag
+   * 2022-09-25 21:58  **6.12.0**  initial release
+      * 97791ea feat: new rendererOption: spaceToHtmlTag (#60)
+      * 47f9e74 revert: partially revert ef08158
+      * df88798 fix: select the code only (#59)
+      * ef08158 fix: wrong visual tabSize on browser
+      * 397fb17 chore: fix typo/spelling (#57)
+      * 7da0452 chore: update deps
+      * e579d7e chore: update CI deps
+
  * Version **6.11** - Bump PHP version to 7.4
    * 2022-06-26 13:42  **6.11.6**  fix Combined::renderArray
       * 710be7f test: update tests

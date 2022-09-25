@@ -46,189 +46,189 @@ use Jfcherng\Diff\Factory\RendererFactory;
             ['detailLevel' => 'none'] + $rendererOptions,
         );
 
-        echo $inlineResult;
+echo $inlineResult;
 
-        ?>
+?>
 
         <h1>Line-level Diff (Default)</h1>
         <?php
 
-        // demo the word-level diff
-        $inlineResult = DiffHelper::calculate(
-            $oldString,
-            $newString,
-            'Inline',
-            $diffOptions,
-            ['detailLevel' => 'line'] + $rendererOptions,
-        );
+// demo the word-level diff
+$inlineResult = DiffHelper::calculate(
+    $oldString,
+    $newString,
+    'Inline',
+    $diffOptions,
+    ['detailLevel' => 'line'] + $rendererOptions,
+);
 
-        echo $inlineResult;
+echo $inlineResult;
 
-        ?>
+?>
 
         <h1>Word-level Diff</h1>
         <?php
 
-        // demo the word-level diff
-        $inlineResult = DiffHelper::calculate(
-            $oldString,
-            $newString,
-            'Inline',
-            $diffOptions,
-            ['detailLevel' => 'word'] + $rendererOptions,
-        );
+// demo the word-level diff
+$inlineResult = DiffHelper::calculate(
+    $oldString,
+    $newString,
+    'Inline',
+    $diffOptions,
+    ['detailLevel' => 'word'] + $rendererOptions,
+);
 
-        echo $inlineResult;
+echo $inlineResult;
 
-        ?>
+?>
 
         <h1>Character-level Diff</h1>
         <?php
 
-        // demo the character-level diff
-        $inlineResult = DiffHelper::calculate(
-            $oldString,
-            $newString,
-            'Inline',
-            $diffOptions,
-            ['detailLevel' => 'char'] + $rendererOptions,
-        );
+// demo the character-level diff
+$inlineResult = DiffHelper::calculate(
+    $oldString,
+    $newString,
+    'Inline',
+    $diffOptions,
+    ['detailLevel' => 'char'] + $rendererOptions,
+);
 
-        echo $inlineResult;
+echo $inlineResult;
 
-        ?>
+?>
 
         <h1>Side by Side Diff</h1>
         <?php
 
-        // generate a side by side diff
-        $sideBySideResult = DiffHelper::calculateFiles(
-            $oldFile,
-            $newFile,
-            'SideBySide',
-            $diffOptions,
-            $rendererOptions,
-        );
+// generate a side by side diff
+$sideBySideResult = DiffHelper::calculateFiles(
+    $oldFile,
+    $newFile,
+    'SideBySide',
+    $diffOptions,
+    $rendererOptions,
+);
 
-        echo $sideBySideResult;
+echo $sideBySideResult;
 
-        ?>
+?>
 
         <h1>Inline Diff</h1>
         <?php
 
-        // generate an inline diff
-        $inlineResult = DiffHelper::calculateFiles(
-            $oldFile,
-            $newFile,
-            'Inline',
-            $diffOptions,
-            $rendererOptions,
-        );
+// generate an inline diff
+$inlineResult = DiffHelper::calculateFiles(
+    $oldFile,
+    $newFile,
+    'Inline',
+    $diffOptions,
+    $rendererOptions,
+);
 
-        echo $inlineResult;
+echo $inlineResult;
 
-        ?>
+?>
 
         <h1>Combined Diff</h1>
         <?php
 
-        // generate a combined diff
-        $sideBySideResult = DiffHelper::calculateFiles(
-            $oldFile,
-            $newFile,
-            'Combined',
-            $diffOptions,
-            $rendererOptions,
-        );
+// generate a combined diff
+$sideBySideResult = DiffHelper::calculateFiles(
+    $oldFile,
+    $newFile,
+    'Combined',
+    $diffOptions,
+    $rendererOptions,
+);
 
-        echo $sideBySideResult;
+echo $sideBySideResult;
 
-        ?>
+?>
 
         <h1>Unified Diff</h1>
         <pre><code class="language-diff line-numbers"><?php
 
-        // generate a unified diff
-        $unifiedResult = DiffHelper::calculateFiles(
-            $oldFile,
-            $newFile,
-            'Unified',
-            $diffOptions,
-            $rendererOptions,
-        );
+// generate a unified diff
+$unifiedResult = DiffHelper::calculateFiles(
+    $oldFile,
+    $newFile,
+    'Unified',
+    $diffOptions,
+    $rendererOptions,
+);
 
-        echo htmlspecialchars($unifiedResult);
+echo htmlspecialchars($unifiedResult);
 
-        ?></code></pre>
+?></code></pre>
 
         <h1>Context Diff</h1>
         <pre><code class="language-diff line-numbers"><?php
 
-        // generate a context diff
-        $contextResult = DiffHelper::calculateFiles(
-            $oldFile,
-            $newFile,
-            'Context',
-            $diffOptions,
-            $rendererOptions,
-        );
+// generate a context diff
+$contextResult = DiffHelper::calculateFiles(
+    $oldFile,
+    $newFile,
+    'Context',
+    $diffOptions,
+    $rendererOptions,
+);
 
-        echo htmlspecialchars($contextResult);
+echo htmlspecialchars($contextResult);
 
-        ?></code></pre>
+?></code></pre>
 
         <?php
 
-        // change JSON output settings for better human reading
-        $rendererOptions['outputTagAsString'] = true;
-        $rendererOptions['jsonEncodeFlags'] |= \JSON_PRETTY_PRINT;
+// change JSON output settings for better human reading
+$rendererOptions['outputTagAsString'] = true;
+$rendererOptions['jsonEncodeFlags'] |= \JSON_PRETTY_PRINT;
 
-        ?>
+?>
 
         <h1>Text JSON Diff</h1>
         <pre><code class="language-json line-numbers"><?php
 
-        // generate a plain text JSON diff
-        $jsonResult = DiffHelper::calculateFiles(
-            $oldFile,
-            $newFile,
-            'JsonText',
-            $diffOptions,
-            $rendererOptions,
-        );
+// generate a plain text JSON diff
+$jsonResult = DiffHelper::calculateFiles(
+    $oldFile,
+    $newFile,
+    'JsonText',
+    $diffOptions,
+    $rendererOptions,
+);
 
-        echo htmlspecialchars($jsonResult);
+echo htmlspecialchars($jsonResult);
 
-        ?></code></pre>
+?></code></pre>
 
         <h1>HTML JSON Diff</h1>
         <pre><code class="language-json line-numbers"><?php
 
-        // generate a HTML JSON diff
-        $jsonResult = DiffHelper::calculateFiles(
-            $oldFile,
-            $newFile,
-            'JsonHtml',
-            $diffOptions,
-            $rendererOptions,
-        );
+// generate a HTML JSON diff
+$jsonResult = DiffHelper::calculateFiles(
+    $oldFile,
+    $newFile,
+    'JsonHtml',
+    $diffOptions,
+    $rendererOptions,
+);
 
-        echo htmlspecialchars($jsonResult);
+echo htmlspecialchars($jsonResult);
 
-        ?></code></pre>
+?></code></pre>
 
         <h1>HTML Diff from the Result of JSON Diff</h1>
         <?php
 
-        $jsonArray = json_decode($jsonResult, true);
+$jsonArray = json_decode($jsonResult, true);
 
-        $htmlRenderer = RendererFactory::make('Inline', $rendererOptions);
-        $inlineResult = $htmlRenderer->renderArray($jsonArray);
+$htmlRenderer = RendererFactory::make('Inline', $rendererOptions);
+$inlineResult = $htmlRenderer->renderArray($jsonArray);
 
-        echo $inlineResult;
+echo $inlineResult;
 
-        ?>
+?>
 
         <!-- Prism -->
         <script src="https://cdn.jsdelivr.net/npm/prismjs@1/prism.min.js"></script>
