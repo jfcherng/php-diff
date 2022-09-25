@@ -255,11 +255,18 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function formatStringFromLines(string $string): string
     {
-        $string = $this->expandTabs($string, $this->options['tabSize']);
+        if (!$this->options['spaceToHtmlTag']) {
+            $string = $this->expandTabs($string, $this->options['tabSize']);
+        }
+
         $string = $this->htmlSafe($string);
 
         if ($this->options['spacesToNbsp']) {
             $string = $this->htmlFixSpaces($string);
+        }
+
+        if ($this->options['spaceToHtmlTag']) {
+            $string = $this->htmlReplaceSpacesToHtmlTag($string);
         }
 
         return $string;
@@ -313,6 +320,21 @@ abstract class AbstractHtml extends AbstractRenderer
     protected function htmlFixSpaces(string $string): string
     {
         return str_replace(' ', '&nbsp;', $string);
+    }
+
+    /**
+     * Replace spaces/tabs with HTML tags, which may be styled in frontend with CSS.
+     *
+     * @param string $string the string of spaces
+     *
+     * @return string the HTML representation of the string
+     */
+    protected function htmlReplaceSpacesToHtmlTag(string $string): string
+    {
+        return strtr($string, [
+            ' ' => '<span class="ch sp"> </span>',
+            "\t" => "<span class=\"ch tab\">\t</span>",
+        ]);
     }
 
     /**
