@@ -333,7 +333,7 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function htmlReplaceSpacesToHtmlTag(string $string): string
     {
-        return strtr($string, [
+        return \strtr($string, [
             ' ' => '<span class="ch sp"> </span>',
             "\t" => "<span class=\"ch tab\">\t</span>",
         ]);

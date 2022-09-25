@@ -57,7 +57,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
             $newString,
             'Inline',
             $diffOptions,
-            ['detailLevel' => 'line'] + $rendererOptions
+            ['detailLevel' => 'line'] + $rendererOptions,
         );
 
         echo $inlineResult;
