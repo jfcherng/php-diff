@@ -2,6 +2,15 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2022-09-25 22:34  **6.10.6**  new rendererOption: spaceToHtmlTag
+      * d78904a style: make CI happy
+      * 4180e7c feat: new rendererOption: spaceToHtmlTag (#60)
+      * 702406f revert: partially revert ef08158
+      * 7ead73d fix: select the code only (#59)
+      * ca62d1d fix: wrong visual tabSize on browser
+      * 8d71a3f chore: fix typo/spelling (#57)
+      * e0b405d chore: update deps
+      * ab8403d chore: update CI deps
    * 2022-08-07 21:31  **6.10.5**  fix: Combined::renderArray isn't working properly
       * 81e393d fix: php71 compatibility
       * 666dc70 chore: update deps
