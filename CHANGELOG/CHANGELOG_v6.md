@@ -2,6 +2,8 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2022-09-26 22:31  **6.10.7**  fix: side-by-side column too narrow
+      * 8f1d423 fix: side-by-side table column may be too narrow
    * 2022-09-25 22:34  **6.10.6**  new rendererOption: spaceToHtmlTag
       * d78904a style: make CI happy
       * 4180e7c feat: new rendererOption: spaceToHtmlTag (#60)
