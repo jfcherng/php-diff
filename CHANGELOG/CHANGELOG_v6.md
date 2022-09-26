@@ -2,6 +2,8 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.12** - new rendererOption: spaceToHtmlTag
+   * 2022-09-26 22:33  **6.12.1**  fix: side-by-side column too narrow
+      * e12a477 style: make CI happy
    * 2022-09-25 21:58  **6.12.0**  initial release
       * 97791ea feat: new rendererOption: spaceToHtmlTag (#60)
       * 47f9e74 revert: partially revert ef08158
