@@ -146,6 +146,15 @@ $img-tab: 'data:image/svg+xml,%3Csvg preserveAspectRatio="xMinYMid meet" viewBox
       }
     }
 
+    &.diff-side-by-side {
+      td {
+        &.old,
+        &.new {
+          width: 45%;
+        }
+      }
+    }
+
     &.diff-combined {
       .change.change-rep {
         .rep {

@@ -90,6 +90,9 @@
   background-size: calc(var(--tab-size) * 1ch) 1.25em;
   background-position: 2px center;
 }
+.diff-wrapper.diff.diff-html.diff-side-by-side td.old, .diff-wrapper.diff.diff-html.diff-side-by-side td.new {
+  width: 45%;
+}
 .diff-wrapper.diff.diff-html.diff-combined .change.change-rep .rep {
   white-space: normal;
 }
