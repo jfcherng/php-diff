@@ -1,6 +1,6 @@
 # php-diff
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/workflow/status/jfcherng/php-diff/Main/v6?style=flat-square)](https://github.com/jfcherng/php-diff/actions)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/jfcherng/php-diff/php.yml?branch=v6&style=flat-square)](https://github.com/jfcherng/php-diff/actions)
 [![Codacy grade](https://img.shields.io/codacy/grade/5b7ab5ed613d48b99f12cd334f6489ff/v6?style=flat-square)](https://app.codacy.com/project/jfcherng/php-diff/dashboard)
 [![Packagist](https://img.shields.io/packagist/dt/jfcherng/php-diff?style=flat-square)](https://packagist.org/packages/jfcherng/php-diff)
 [![Packagist Version](https://img.shields.io/packagist/v/jfcherng/php-diff?style=flat-square)](https://packagist.org/packages/jfcherng/php-diff)
