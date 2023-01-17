@@ -51,19 +51,34 @@ final class Inline extends AbstractHtml
 
         $colspan = $this->options['lineNumbers'] ? '' : ' colspan="2"';
 
+        $old_version = '';
+        $new_version = '';
+        $differences = '';
+        foreach (
+            [
+                'old_version', 'new_version', 'differences'
+            ] as $header_string
+        ) {
+            $$header_string = $this->_($header_string);
+            if (isset($this->options['overrideHeader'][$header_string])) {
+                $$header_string =
+                    $this->options['overrideHeader'][$header_string];
+            }
+        }
+
         return
             '<thead>' .
                 '<tr>' .
                     (
                         $this->options['lineNumbers']
                         ?
-                            '<th>' . $this->_('old_version') . '</th>' .
-                            '<th>' . $this->_('new_version') . '</th>' .
+                            '<th>' . $old_version . '</th>' .
+                            '<th>' . $new_version . '</th>' .
                             '<th></th>' // diff symbol column
                         :
                             ''
                     ) .
-                    '<th' . $colspan . '>' . $this->_('differences') . '</th>' .
+                    '<th' . $colspan . '>' . $differences . '</th>' .
                 '</tr>' .
             '</thead>';
     }

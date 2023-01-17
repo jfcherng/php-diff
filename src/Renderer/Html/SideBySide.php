@@ -49,13 +49,23 @@ final class SideBySide extends AbstractHtml
             return '';
         }
 
+        $old_version = '';
+        $new_version = '';
+        foreach (['old_version', 'new_version'] as $header_string) {
+            $$header_string = $this->_($header_string);
+            if (isset($this->options['overrideHeader'][$header_string])) {
+                $$header_string =
+                    $this->options['overrideHeader'][$header_string];
+            }
+        }
+
         $colspan = $this->options['lineNumbers'] ? ' colspan="2"' : '';
 
         return
             '<thead>' .
                 '<tr>' .
-                    '<th' . $colspan . '>' . $this->_('old_version') . '</th>' .
-                    '<th' . $colspan . '>' . $this->_('new_version') . '</th>' .
+                    '<th' . $colspan . '>' . $old_version . '</th>' .
+                    '<th' . $colspan . '>' . $new_version . '</th>' .
                 '</tr>' .
             '</thead>';
     }

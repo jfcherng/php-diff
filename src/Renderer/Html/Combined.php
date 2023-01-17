@@ -60,10 +60,16 @@ final class Combined extends AbstractHtml
             return '';
         }
 
+        $differences = $this->_('differences');
+        if (isset($this->options['overrideHeader']['differences'])) {
+            $differences =
+                $this->options['overrideHeader']['differences'];
+        }
+
         return
             '<thead>' .
                 '<tr>' .
-                    '<th>' . $this->_('differences') . '</th>' .
+                    '<th>' . $differences . '</th>' .
                 '</tr>' .
             '</thead>';
     }

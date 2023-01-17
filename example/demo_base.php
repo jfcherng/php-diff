@@ -37,6 +37,14 @@ $rendererOptions = [
     'separateBlock' => true,
     // show the (table) header
     'showHeader' => true,
+    // override header info
+    // old/new_version for side by side, difference for combined views, all three for inline
+    // if set to null or not existing will fallback to default values
+    'overrideHeader' => [
+        'old_version' => null,
+        'new_version' => null,
+        'difference' => null,
+    ],
     // convert spaces/tabs into HTML codes like `<span class="ch sp"> </span>`
     // and the frontend is responsible for rendering them with CSS.
     // when using this, "spacesToNbsp" should be false and "tabSize" is not respected.

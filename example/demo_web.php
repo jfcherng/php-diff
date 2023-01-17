@@ -52,6 +52,26 @@ use Jfcherng\Diff\Factory\RendererFactory;
 
     ?>
 
+    <h1>None-level Diff / Override header</h1>
+    <?php
+
+    // demo the no-inline-detail diff
+    $inlineResult = DiffHelper::calculate(
+        $oldString,
+        $newString,
+        'Inline',
+        $diffOptions,
+        ['overrideHeader' => [
+            'old_version' => 'Orig',
+            'new_version' => 'Curr',
+            'differences' => 'Changes',
+        ]] + ['detailLevel' => 'none'] + $rendererOptions,
+    );
+
+    echo $inlineResult;
+
+    ?>
+
     <h1>Line-level Diff (Default)</h1>
     <?php
 
@@ -110,6 +130,44 @@ use Jfcherng\Diff\Factory\RendererFactory;
         'SideBySide',
         $diffOptions,
         $rendererOptions,
+    );
+
+    echo $sideBySideResult;
+
+    ?>
+
+    <h1>Side by Side Diff / Override header</h1>
+    <?php
+
+    // generate a side by side diff
+    $sideBySideResult = DiffHelper::calculateFiles(
+        $oldFile,
+        $newFile,
+        'SideBySide',
+        $diffOptions,
+        ['overrideHeader' => [
+            'old_version' => 'Original',
+            'new_version' => 'Current',
+        ]] + $rendererOptions,
+    );
+
+    echo $sideBySideResult;
+
+    ?>
+
+<h1>Side by Side Diff / Override header with HTML</h1>
+    <?php
+
+    // generate a side by side diff
+    $sideBySideResult = DiffHelper::calculateFiles(
+        $oldFile,
+        $newFile,
+        'SideBySide',
+        $diffOptions,
+        ['overrideHeader' => [
+            'old_version' => '<span style="color: red;">Original</span>',
+            'new_version' => '<span style="color: blue;">Current</span>',
+        ]] + $rendererOptions,
     );
 
     echo $sideBySideResult;
