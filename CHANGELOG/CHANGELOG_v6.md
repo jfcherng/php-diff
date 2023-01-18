@@ -2,6 +2,12 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2023-01-19 00:51  **6.10.8**  override language
+      * 3a99872 feat: provide a way to override an existing language
+      * 8ab946c chore: update deps
+      * 4f572b2 style: format readme with prettier
+      * e85c214 style: reduce indentation for the demo codes
+      * ad0751b test: test against PHP 8.1
    * 2022-09-26 22:31  **6.10.7**  fix: side-by-side column too narrow
       * 8f1d423 fix: side-by-side table column may be too narrow
    * 2022-09-25 22:34  **6.10.6**  new rendererOption: spaceToHtmlTag
