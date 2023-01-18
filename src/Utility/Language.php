@@ -19,39 +19,15 @@ final class Language
     /**
      * The constructor.
      *
-     * @param string|string[] $target the language string or translations dict
+     * @param array<int,string|string[]>|string|string[] $target the language ID or translations dict
      */
     public function __construct($target = 'eng')
     {
-        $this->setLanguageOrTranslations($target);
+        $this->load($target);
     }
 
     /**
-     * Set up this class.
-     *
-     * @param string|string[] $target the language string or translations array
-     *
-     * @throws \InvalidArgumentException
-     */
-    public function setLanguageOrTranslations($target): self
-    {
-        if (\is_string($target)) {
-            $this->setUpWithLanguage($target);
-
-            return $this;
-        }
-
-        if (\is_array($target)) {
-            $this->setUpWithTranslations($target);
-
-            return $this;
-        }
-
-        throw new \InvalidArgumentException('$target must be the type of string|string[]');
-    }
-
-    /**
-     * Get the language.
+     * Gets the language.
      *
      * @return string the language
      */
@@ -61,13 +37,34 @@ final class Language
     }
 
     /**
-     * Get the translations.
+     * Gets the translations.
      *
      * @return array the translations
      */
     public function getTranslations(): array
     {
         return $this->translations;
+    }
+
+    /**
+     * Loads the target language.
+     *
+     * @param array<int,string|string[]>|string|string[] $target the language ID or translations dict
+     */
+    public function load($target): void
+    {
+        $this->translations = $this->resolve($target);
+        $this->language = \is_string($target) ? $target : '_custom_';
+    }
+
+    /**
+     * Translates the text.
+     *
+     * @param string $text the text
+     */
+    public function translate(string $text): string
+    {
+        return $this->translations[$text] ?? "![{$text}]";
     }
 
     /**
@@ -81,7 +78,7 @@ final class Language
      *
      * @return string[]
      */
-    public static function getTranslationsByLanguage(string $language): array
+    private static function getTranslationsByLanguage(string $language): array
     {
         $filePath = __DIR__ . "/../languages/{$language}.json";
         $file = new \SplFileObject($filePath, 'r');
@@ -99,39 +96,36 @@ final class Language
     }
 
     /**
-     * Translation the text.
+     * Resolves the target language.
      *
-     * @param string $text the text
-     */
-    public function translate(string $text): string
-    {
-        return $this->translations[$text] ?? "![{$text}]";
-    }
-
-    /**
-     * Set up this class by language name.
+     * @param array<int,string|string[]>|string|string[] $target the language ID or translations array
      *
-     * @param string $language the language name
-     */
-    private function setUpWithLanguage(string $language): self
-    {
-        return $this->setUpWithTranslations(
-            self::getTranslationsByLanguage($language),
-            $language
-        );
-    }
-
-    /**
-     * Set up this class by translations.
+     * @throws \InvalidArgumentException
      *
-     * @param string[] $translations the translations dict
-     * @param string   $language     the language name
+     * @return string[] the resolved translations
      */
-    private function setUpWithTranslations(array $translations, string $language = '_custom_'): self
+    private function resolve($target): array
     {
-        $this->language = $language;
-        $this->translations = \array_map('strval', $translations);
+        if (\is_string($target)) {
+            return self::getTranslationsByLanguage($target);
+        }
 
-        return $this;
+        if (\is_array($target)) {
+            // $target is an associative array
+            if (Arr::isAssociative($target)) {
+                return $target;
+            }
+
+            // $target is a list of "key-value pairs or language ID"
+            return \array_reduce(
+                $target,
+                function ($carry, $translation) {
+                    return \array_merge($carry, $this->resolve($translation));
+                },
+                []
+            );
+        }
+
+        throw new \InvalidArgumentException('$target is not in valid form');
     }
 }

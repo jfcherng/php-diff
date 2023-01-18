@@ -28,6 +28,7 @@ $rendererOptions = [
     'detailLevel' => 'line',
     // renderer language: eng, cht, chs, jpn, ...
     // or an array which has the same keys with a language file
+    // check the "Custom Language" section in the readme for more advanced usage
     'language' => 'eng',
     // show line numbers in HTML renderers
     'lineNumbers' => true,
