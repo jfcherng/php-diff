@@ -1,6 +1,16 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.13** - override language
+   * 2023-01-19 00:29  **6.13.0**  initial release
+      * bfb89b6 feat: provide a way to override an existing language
+      * 775a043 chore: update deps
+      * c1638b3 style: format readme with prettier
+      * 5eb2dab docs: fix build status badge in readme
+      * 33b5bf5 chore: update deps
+      * 8063d63 style: reduce indentation for the demo codes
+      * 815eb0f test: test against PHP 8.2
+
  * Version **6.12** - new rendererOption: spaceToHtmlTag
    * 2022-09-26 22:33  **6.12.1**  fix: side-by-side column too narrow
       * e12a477 style: make CI happy
