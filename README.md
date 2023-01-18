@@ -10,7 +10,6 @@
 
 A comprehensive library for generating diff between two strings.
 
-
 ## Introduction
 
 Generated diff can be rendered in all of the standard formats including:
@@ -34,12 +33,10 @@ You may modify one from `example/diff-table.css` or write your own from zero.
 If you are okay with the default CSS, there is `\Jfcherng\Diff\DiffHelper::getStyleSheet()`
 which can be used to get the content of the `example/diff-table.css`.
 
-
 ## Requirements
 
 ![php](https://img.shields.io/badge/php-%E2%89%A57.4.0-blue?style=flat-square)
 ![ext-iconv](https://img.shields.io/badge/ext-iconv-brightgreen?style=flat-square)
-
 
 ## Installation
 
@@ -48,7 +45,6 @@ This package is available on `Packagist` by the name of [jfcherng/php-diff](http
 ```bash
 composer require jfcherng/php-diff
 ```
-
 
 ## Example
 
@@ -150,9 +146,7 @@ $htmlRenderer = RendererFactory::make('Inline', $rendererOptions);
 $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 ```
 
-
 ## Rendered Results
-
 
 ### HTML Diff In-line Detailed Rendering
 
@@ -175,7 +169,6 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
   </tr>
 </table>
 
-
 ### Renderer: Inline
 
 ```php
@@ -184,7 +177,6 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 
 ![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-renderer.png)
 
-
 ### Renderer: Side By Side
 
 ```php
@@ -192,7 +184,6 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 ```
 
 ![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/side-by-side-renderer.png)
-
 
 ### Renderer: Combined
 
@@ -203,7 +194,6 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 This renderer is suitable for articles and always has no line number information.
 
 ![Combined](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/combined-renderer-word-level.png)
-
 
 ### Renderer: Unified
 
@@ -225,7 +215,6 @@ About the `Unified` diff format: https://en.wikipedia.org/wiki/Diff#Unified_form
 -// remember to delete this line
  Say hello to my neighbors.
 ```
-
 
 ### Renderer: Context
 
@@ -261,7 +250,6 @@ About the `Context` diff format: https://en.wikipedia.org/wiki/Diff#Context_form
 ```
 
 </details>
-
 
 ### Renderer: Text JSON
 
@@ -435,7 +423,6 @@ This renderer has no detailed diff.
 ```
 
 </details>
-
 
 ### Renderer: HTML JSON
 
