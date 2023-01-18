@@ -24,46 +24,34 @@ final class LanguageTest extends TestCase
      */
     protected function setUp(): void
     {
-        $this->languageObj = new Language('eng');
+        $this->languageObj = new Language();
     }
 
     /**
-     * Test the Language::setLanguageOrTranslations.
+     * Test the Language::load.
      *
-     * @covers \Jfcherng\Diff\Utility\Language::setLanguageOrTranslations
+     * @covers \Jfcherng\Diff\Utility\Language::load
      */
-    public function testSetLanguageOrTranslations(): void
+    public function testLoad(): void
     {
-        $this->languageObj->setLanguageOrTranslations('eng');
-        static::assertArrayHasKey(
-            'differences',
-            $this->languageObj->getTranslations(),
-        );
+        $this->languageObj->load('eng');
+        static::assertArrayHasKey('differences', $this->languageObj->getTranslations());
 
-        $this->languageObj->setLanguageOrTranslations(['hahaha' => '哈哈哈']);
-        static::assertArrayHasKey(
-            'hahaha',
-            $this->languageObj->getTranslations(),
-        );
+        $this->languageObj->load(['hahaha' => '哈哈哈']);
+        static::assertArrayHasKey('hahaha', $this->languageObj->getTranslations());
+
+        $this->languageObj->load([
+            'eng',
+            ['hahaha_1' => '哈哈哈_1', 'hahaha_2' => '哈哈哈_2'],
+            ['hahaha_1' => '哈哈哈_999'],
+        ]);
+        $translations = $this->languageObj->getTranslations();
+        static::assertSame('Differences', $translations['differences']);
+        static::assertSame('哈哈哈_999', $translations['hahaha_1']);
+        static::assertSame('哈哈哈_2', $translations['hahaha_2']);
 
         $this->expectException(\InvalidArgumentException::class);
-        $this->languageObj->setLanguageOrTranslations(5);
-    }
-
-    /**
-     * Test the Language::getTranslationsByLanguage.
-     *
-     * @covers \Jfcherng\Diff\Utility\Language::getTranslationsByLanguage
-     */
-    public function testGetTranslationsByLanguage(): void
-    {
-        static::assertArrayHasKey(
-            'differences',
-            $this->languageObj->getTranslationsByLanguage('eng'),
-        );
-
-        $this->expectException(\RuntimeException::class);
-        $this->languageObj->getTranslationsByLanguage('a_non_existing_language');
+        $this->languageObj->load(5);
     }
 
     /**
@@ -80,7 +68,7 @@ final class LanguageTest extends TestCase
 
         static::assertStringMatchesFormat(
             '![%s]',
-            $this->languageObj->translate('a_non_existing_translation'),
+            $this->languageObj->translate('a_non_existing_key'),
         );
     }
 }

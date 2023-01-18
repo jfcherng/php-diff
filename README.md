@@ -88,6 +88,7 @@ $rendererOptions = [
     'detailLevel' => 'line',
     // renderer language: eng, cht, chs, jpn, ...
     // or an array which has the same keys with a language file
+    // check the "Custom Language" section in the readme for more advanced usage
     'language' => 'eng',
     // show line numbers in HTML renderers
     'lineNumbers' => true,
@@ -598,6 +599,26 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
 
 </details>
 
+## Custom Language
+
+### Override an Existing Language
+
+If you just want to override some translations of an existing language...
+
+```php
+$rendererOptions = [
+  'language' => [
+    // use English as the base language
+    'eng',
+    // your custom overrides
+    [
+      // use "Diff" as the new value of the "differences" key
+      'differences' => 'Diff',
+    ],
+    // maybe more overrides if you somehow need them...
+  ],
+]
+```
 
 ## Acknowledgment
 
