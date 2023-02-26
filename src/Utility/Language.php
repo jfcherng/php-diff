@@ -117,7 +117,7 @@ final class Language
             // $target is a list of "key-value pairs or language ID"
             return array_reduce(
                 $target,
-                fn ($carry, $translation) => array_merge($carry, $this->resolve($translation)),
+                fn (array $carry, $translation): array => array_merge($carry, $this->resolve($translation)),
                 [],
             );
         }
