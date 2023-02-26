@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Test;
 
+use Jfcherng\Diff\Contract\Renderer\CliColorEnum;
 use Jfcherng\Diff\DiffHelper;
-use Jfcherng\Diff\Renderer\RendererConstant;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,7 +19,7 @@ final class IgnoreWhitespaceTest extends TestCase
     /**
      * @return string[][]
      */
-    public function provideIgnoreWhitespaces(): array
+    public static function provideIgnoreWhitespaces(): array
     {
         return [
             [
@@ -134,15 +135,13 @@ DIFF,
         ];
     }
 
-    /**
-     * @dataProvider provideIgnoreWhitespaces
-     */
+    #[DataProvider('provideIgnoreWhitespaces')]
     public function testIgnoreWhitespaces(string $old, string $new, string $expectedDiff): void
     {
         $diff = DiffHelper::calculate($old, $new, 'Unified', [
             'ignoreWhitespace' => true,
         ], [
-            'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
+            'cliColorization' => CliColorEnum::Disabled,
         ]);
 
         static::assertSame($expectedDiff, $diff);

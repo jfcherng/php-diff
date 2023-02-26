@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Jfcherng\Diff;
 
 use Jfcherng\Diff\Factory\RendererFactory;
-use Jfcherng\Diff\Renderer\RendererConstant;
 
 final class DiffHelper
 {
@@ -41,7 +40,6 @@ final class DiffHelper
             static::getProjectDirectory(),
             'src',
             'Renderer',
-            '{' . implode(',', RendererConstant::RENDERER_TYPES) . '}',
             '*.php',
         ]);
 
@@ -56,15 +54,16 @@ final class DiffHelper
             $fileNames,
             // only normal class files are wanted
             static fn (string $fileName): bool => (
-                substr($fileName, 0, 8) !== 'Abstract'
-                && substr($fileName, -9) !== 'Interface'
-                && substr($fileName, -5) !== 'Trait'
+                !str_starts_with($fileName, 'Abstract')
+                && !str_ends_with($fileName, 'Enum.php')
+                && !str_ends_with($fileName, 'Interface.php')
+                && !str_ends_with($fileName, 'Trait.php')
             ),
         );
 
         $info = [];
         foreach ($renderers as $renderer) {
-            $info[$renderer] = RendererFactory::resolveRenderer($renderer)::INFO;
+            $info[$renderer] = RendererFactory::resolveFqcn($renderer)::INFO;
         }
 
         return $info;

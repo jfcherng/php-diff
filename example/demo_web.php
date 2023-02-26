@@ -183,7 +183,7 @@ use Jfcherng\Diff\Factory\RendererFactory;
     <?php
 
     // change JSON output settings for better human reading
-    $rendererOptions['outputTagAsString'] = true;
+    $rendererOptions['outputOpAsString'] = true;
     $rendererOptions['jsonEncodeFlags'] |= \JSON_PRETTY_PRINT;
 
     ?>

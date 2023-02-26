@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 include __DIR__ . '/../vendor/autoload.php';
 
+use Jfcherng\Diff\Contract\Renderer\CliColorEnum;
 use Jfcherng\Diff\Differ;
-use Jfcherng\Diff\Renderer\RendererConstant;
 
 // the two sample files for comparison
 $oldFile = __DIR__ . '/old_file.txt';
@@ -54,14 +54,14 @@ $rendererOptions = [
     // depending on the content changed ratio, which values between 0 and 1.
     'mergeThreshold' => 0.8,
     // this option is currently only for the Unified and the Context renderers.
-    // RendererConstant::CLI_COLOR_AUTO = colorize the output if possible (default)
-    // RendererConstant::CLI_COLOR_ENABLE = force to colorize the output
-    // RendererConstant::CLI_COLOR_DISABLE = force not to colorize the output
-    'cliColorization' => RendererConstant::CLI_COLOR_AUTO,
+    // CliColorEnum::Auto = colorize the output if possible (default)
+    // CliColorEnum::Enabled = force to colorize the output
+    // CliColorEnum::Disabled = force not to colorize the output
+    'cliColorization' => CliColorEnum::Auto,
     // this option is currently only for the Json renderer.
-    // internally, ops (tags) are all int type but this is not good for human reading.
+    // internally, ops are all int type but this is not good for human reading.
     // set this to "true" to convert them into string form before outputting.
-    'outputTagAsString' => false,
+    'outputOpAsString' => false,
     // this option is currently only for the Json renderer.
     // it controls how the output JSON is formatted.
     // see available options on https://www.php.net/manual/en/function.json-encode.php

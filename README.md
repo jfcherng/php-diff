@@ -55,10 +55,10 @@ See files and readme in the [example/](https://github.com/jfcherng/php-diff/blob
 
 include __DIR__ . '/vendor/autoload.php';
 
+use Jfcherng\Diff\Contract\Renderer\CliColorEnum;
 use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Factory\RendererFactory;
-use Jfcherng\Diff\Renderer\RendererConstant;
 
 $oldFile = __DIR__ . '/example/old_file.txt';
 $newFile = __DIR__ . '/example/new_file.txt';
@@ -108,14 +108,14 @@ $rendererOptions = [
     // depending on the content changed ratio, which values between 0 and 1.
     'mergeThreshold' => 0.8,
     // this option is currently only for the Unified and the Context renderers.
-    // RendererConstant::CLI_COLOR_AUTO = colorize the output if possible (default)
-    // RendererConstant::CLI_COLOR_ENABLE = force to colorize the output
-    // RendererConstant::CLI_COLOR_DISABLE = force not to colorize the output
-    'cliColorization' => RendererConstant::CLI_COLOR_AUTO,
+    // CliColorEnum::Auto = colorize the output if possible (default)
+    // CliColorEnum::Enabled = force to colorize the output
+    // CliColorEnum::Disabled = force not to colorize the output
+    'cliColorization' => CliColorEnum::Auto,
     // this option is currently only for the Json renderer.
-    // internally, ops (tags) are all int type but this is not good for human reading.
+    // internally, ops are all int type but this is not good for human reading.
     // set this to "true" to convert them into string form before outputting.
-    'outputTagAsString' => false,
+    'outputOpAsString' => false,
     // this option is currently only for the Json renderer.
     // it controls how the output JSON is formatted.
     // see available options on https://www.php.net/manual/en/function.json-encode.php
@@ -264,7 +264,7 @@ This renderer has no detailed diff.
 [
   [
     {
-      "tag": "rep",
+      "op": "rep",
       "old": {
         "offset": 0,
         "lines": ["<p>Hello World! Good-looking.</p>"]
@@ -275,7 +275,7 @@ This renderer has no detailed diff.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 1,
         "lines": ["~~~~~~~~~~~~~~~~~~~"]
@@ -286,7 +286,7 @@ This renderer has no detailed diff.
       }
     },
     {
-      "tag": "ins",
+      "op": "ins",
       "old": {
         "offset": 2,
         "lines": []
@@ -297,7 +297,7 @@ This renderer has no detailed diff.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 2,
         "lines": ["X"]
@@ -310,7 +310,7 @@ This renderer has no detailed diff.
   ],
   [
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 6,
         "lines": ["N"]
@@ -321,7 +321,7 @@ This renderer has no detailed diff.
       }
     },
     {
-      "tag": "rep",
+      "op": "rep",
       "old": {
         "offset": 7,
         "lines": ["Do you know in Chinese, \"金槍魚罐頭\" means tuna can."]
@@ -332,7 +332,7 @@ This renderer has no detailed diff.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 8,
         "lines": ["\t  \tTab visualization test.", "G"]
@@ -343,7 +343,7 @@ This renderer has no detailed diff.
       }
     },
     {
-      "tag": "del",
+      "op": "del",
       "old": {
         "offset": 10,
         "lines": ["// remember to delete this line"]
@@ -354,7 +354,7 @@ This renderer has no detailed diff.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 11,
         "lines": ["Say hello to my neighbors."]
@@ -367,7 +367,7 @@ This renderer has no detailed diff.
   ],
   [
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 14,
         "lines": ["B"]
@@ -378,7 +378,7 @@ This renderer has no detailed diff.
       }
     },
     {
-      "tag": "rep",
+      "op": "rep",
       "old": {
         "offset": 15,
         "lines": ["Donec rutrum."]
@@ -389,7 +389,7 @@ This renderer has no detailed diff.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 16,
         "lines": ["C"]
@@ -400,7 +400,7 @@ This renderer has no detailed diff.
       }
     },
     {
-      "tag": "rep",
+      "op": "rep",
       "old": {
         "offset": 17,
         "lines": ["Sed dictum lorem ipsum."]
@@ -411,7 +411,7 @@ This renderer has no detailed diff.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 18,
         "lines": [""]
@@ -429,7 +429,7 @@ This renderer has no detailed diff.
 
 ### Renderer: HTML JSON
 
-For a `"tag": "rep" (8)` block, this renderer has HTML-style detailed diff.
+For a `"op": "rep" (8)` block, this renderer has HTML-style detailed diff.
 If you don't need those detailed diff, consider using the `JsonText` renderer.
 
 <details><summary>Click to expand</summary>
@@ -438,7 +438,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
 [
   [
     {
-      "tag": "rep",
+      "op": "rep",
       "old": {
         "offset": 0,
         "lines": ["&lt;<del>p&gt;Hello World! Good-looking.&lt;/p</del>&gt;"]
@@ -449,7 +449,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 1,
         "lines": ["~~~~~~~~~~~~~~~~~~~"]
@@ -460,7 +460,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       }
     },
     {
-      "tag": "ins",
+      "op": "ins",
       "old": {
         "offset": 2,
         "lines": [""]
@@ -471,7 +471,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 2,
         "lines": ["X"]
@@ -484,7 +484,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
   ],
   [
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 6,
         "lines": ["N"]
@@ -495,7 +495,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       }
     },
     {
-      "tag": "rep",
+      "op": "rep",
       "old": {
         "offset": 7,
         "lines": ["Do you know in <del>Chinese, \"金槍魚罐頭\" means tuna</del> can."]
@@ -506,7 +506,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 8,
         "lines": ["\t  \tTab visualization test.", "G"]
@@ -517,7 +517,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       }
     },
     {
-      "tag": "del",
+      "op": "del",
       "old": {
         "offset": 10,
         "lines": ["// remember to delete this line"]
@@ -528,7 +528,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 11,
         "lines": ["Say hello to my neighbors."]
@@ -541,7 +541,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
   ],
   [
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 14,
         "lines": ["B"]
@@ -552,7 +552,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       }
     },
     {
-      "tag": "rep",
+      "op": "rep",
       "old": {
         "offset": 15,
         "lines": ["Donec rutrum."]
@@ -563,7 +563,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 16,
         "lines": ["C"]
@@ -574,7 +574,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       }
     },
     {
-      "tag": "rep",
+      "op": "rep",
       "old": {
         "offset": 17,
         "lines": ["Sed d<del>ictum lorem ipsum</del>."]
@@ -585,7 +585,7 @@ If you don't need those detailed diff, consider using the `JsonText` renderer.
       }
     },
     {
-      "tag": "eq",
+      "op": "eq",
       "old": {
         "offset": 18,
         "lines": [""]

@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Test;
 
+use Jfcherng\Diff\Contract\Renderer\CliColorEnum;
 use Jfcherng\Diff\DiffHelper;
-use Jfcherng\Diff\Renderer\RendererConstant;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -24,12 +25,11 @@ final class DiffHelperTest extends TestCase
      * @covers \Jfcherng\Diff\Renderer\Text\Context
      * @covers \Jfcherng\Diff\Renderer\Text\Unified
      *
-     * @dataProvider rendererOutputDataProvider
-     *
      * @param string        $rendererName The renderer name
      * @param int           $idx          The index
      * @param SplFileInfo[] $testFiles    The test files
      */
+    #[DataProvider('rendererOutputDataProvider')]
     public function testRendererOutput(string $rendererName, int $idx, array $testFiles): void
     {
         if (!isset($testFiles['old'], $testFiles['new'], $testFiles['result'])) {
@@ -41,7 +41,7 @@ final class DiffHelperTest extends TestCase
             $testFiles['new']->getContents(),
             $rendererName,
             [],
-            ['cliColorization' => RendererConstant::CLI_COLOR_DISABLE],
+            ['cliColorization' => CliColorEnum::Disabled],
         );
 
         static::assertSame(
@@ -64,14 +64,14 @@ final class DiffHelperTest extends TestCase
     /**
      * Data provider for self::testRendererOutput.
      */
-    public function rendererOutputDataProvider(): array
+    public static function rendererOutputDataProvider(): array
     {
         $rendererNames = DiffHelper::getAvailableRenderers();
 
         $data = [];
 
         foreach ($rendererNames as $rendererName) {
-            $tests = $this->findRendererOutputTestFiles($rendererName);
+            $tests = self::findRendererOutputTestFiles($rendererName);
 
             foreach ($tests as $idx => $files) {
                 $data[] = [$rendererName, $idx, $files];
@@ -91,7 +91,7 @@ final class DiffHelperTest extends TestCase
      *
      * @param string $rendererName The renderer name
      */
-    protected function findRendererOutputTestFiles(string $rendererName): array
+    protected static function findRendererOutputTestFiles(string $rendererName): array
     {
         $rendererNameRegex = preg_quote($rendererName, '/');
         $fileNameRegex = "/{$rendererNameRegex}-(?P<idx>[0-9]+)-(?P<name>[^.\-]+)\.txt$/u";

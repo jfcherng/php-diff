@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Factory;
 
-use Jfcherng\Diff\Renderer\AbstractRenderer;
-use Jfcherng\Diff\Renderer\RendererConstant;
+use Jfcherng\Diff\Contract\Renderer\AbstractRenderer;
 
 final class RendererFactory
 {
     /**
+     * The base namespace of renderers.
+     *
+     * @var string
+     */
+    public const BASE_NAMESPACE = '\\Jfcherng\\Diff\\Renderer';
+
+    /**
      * Instances of renderers.
      *
-     * @var AbstractRenderer[]
+     * @var array<str,AbstractRenderer>
      */
     private static array $singletons = [];
 
@@ -29,7 +35,7 @@ final class RendererFactory
      * @param string $renderer    the renderer
      * @param mixed  ...$ctorArgs the constructor arguments
      */
-    public static function getInstance(string $renderer, ...$ctorArgs): AbstractRenderer
+    public static function getInstance(string $renderer, mixed ...$ctorArgs): AbstractRenderer
     {
         return self::$singletons[$renderer] ??= self::make($renderer, ...$ctorArgs);
     }
@@ -42,11 +48,11 @@ final class RendererFactory
      *
      * @throws \InvalidArgumentException
      */
-    public static function make(string $renderer, ...$ctorArgs): AbstractRenderer
+    public static function make(string $renderer, mixed ...$ctorArgs): AbstractRenderer
     {
-        $className = self::resolveRenderer($renderer);
+        $className = self::resolveFqcn($renderer);
 
-        if (!isset($className)) {
+        if (!class_exists($className)) {
             throw new \InvalidArgumentException("Renderer not found: {$renderer}");
         }
 
@@ -58,22 +64,8 @@ final class RendererFactory
      *
      * @param string $renderer the renderer
      */
-    public static function resolveRenderer(string $renderer): ?string
+    public static function resolveFqcn(string $renderer): string
     {
-        static $cache = [];
-
-        if (isset($cache[$renderer])) {
-            return $cache[$renderer];
-        }
-
-        foreach (RendererConstant::RENDERER_TYPES as $type) {
-            $className = RendererConstant::RENDERER_NAMESPACE . "\\{$type}\\{$renderer}";
-
-            if (class_exists($className)) {
-                return $cache[$renderer] = $className;
-            }
-        }
-
-        return null;
+        return self::BASE_NAMESPACE . '\\' . ucfirst($renderer);
     }
 }

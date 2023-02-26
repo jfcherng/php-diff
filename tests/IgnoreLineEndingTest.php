@@ -4,8 +4,9 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Test;
 
+use Jfcherng\Diff\Contract\Renderer\CliColorEnum;
 use Jfcherng\Diff\DiffHelper;
-use Jfcherng\Diff\Renderer\RendererConstant;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -18,7 +19,7 @@ final class IgnoreLineEndingTest extends TestCase
     /**
      * @return string[][]
      */
-    public function provideIgnoreLineEndingTrue(): array
+    public static function provideIgnoreLineEndingTrue(): array
     {
         return [
             [
@@ -33,7 +34,7 @@ DIFF,
     /**
      * @return string[][]
      */
-    public function provideIgnoreLineEndingFalse(): array
+    public static function provideIgnoreLineEndingFalse(): array
     {
         return [
             [
@@ -51,29 +52,25 @@ DIFF,
         ];
     }
 
-    /**
-     * @dataProvider provideIgnoreLineEndingTrue
-     */
+    #[DataProvider('provideIgnoreLineEndingTrue')]
     public function testIgnoreLineEndingTrue(string $old, string $new, string $expectedDiff): void
     {
         $diff = DiffHelper::calculate($old, $new, 'Unified', [
             'ignoreLineEnding' => true,
         ], [
-            'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
+            'cliColorization' => CliColorEnum::Disabled,
         ]);
 
         static::assertSame($expectedDiff, $diff);
     }
 
-    /**
-     * @dataProvider provideIgnoreLineEndingFalse
-     */
+    #[DataProvider('provideIgnoreLineEndingFalse')]
     public function testIgnoreLineEndingFalse(string $old, string $new, string $expectedDiff): void
     {
         $diff = DiffHelper::calculate($old, $new, 'Unified', [
             'ignoreLineEnding' => false,
         ], [
-            'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
+            'cliColorization' => CliColorEnum::Disabled,
         ]);
 
         static::assertSame($expectedDiff, $diff);

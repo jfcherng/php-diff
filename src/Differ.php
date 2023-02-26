@@ -42,7 +42,7 @@ final class Differ
     ];
 
     /**
-     * @var array array of the options that have been applied for generating the diff
+     * Array of the options that have been applied for generating the diff.
      */
     public array $options = [];
 
@@ -57,34 +57,29 @@ final class Differ
     private array $new = [];
 
     /**
-     * @var bool is any of cached properties dirty?
+     * Is any of cached properties dirty?
      */
     private bool $isCacheDirty = true;
 
-    /**
-     * @var SequenceMatcher the sequence matcher
-     */
     private SequenceMatcher $sequenceMatcher;
-
     private int $oldSrcLength = 0;
-
     private int $newSrcLength = 0;
 
     /**
-     * @var int the end index for the old if the old has no EOL at EOF
-     *          -1 means the old has an EOL at EOF
+     * The end index for the old if the old has no EOL at EOF.
+     * `-1` means the old has an EOL at EOF.
      */
     private int $oldNoEolAtEofIdx = -1;
 
     /**
-     * @var int the end index for the new if the new has no EOL at EOF
-     *          -1 means the new has an EOL at EOF
+     * The end index for the new if the new has no EOL at EOF.
+     * `-1` means the new has an EOL at EOF.
      */
     private int $newNoEolAtEofIdx = -1;
 
     /**
-     * @var int the result of comparing the old and the new with the spaceship operator
-     *          -1 means old < new, 0 means old == new, 1 means old > new
+     * The result of comparing the old and the new with the spaceship operator.
+     * `-1` means `old < new`, `0` means `old == new`, `1` means `old > new`.
      */
     private int $oldNewComparison = 0;
 
@@ -99,7 +94,7 @@ final class Differ
     private array $groupedOpcodesGnu = [];
 
     /**
-     * @var array associative array of the default options available for the Differ class and their default value
+     * Associative array of the default options available for the Differ class and their default value.
      */
     private static array $defaultOptions = [
         // show how many neighbor lines
@@ -133,7 +128,7 @@ final class Differ
      * @param string[] $old the old
      * @param string[] $new the new
      */
-    public function setOldNew(array $old, array $new): self
+    public function setOldNew(array $old, array $new): static
     {
         return $this->setOld($old)->setNew($new);
     }
@@ -143,7 +138,7 @@ final class Differ
      *
      * @param string[] $old the old
      */
-    public function setOld(array $old): self
+    public function setOld(array $old): static
     {
         if ($this->old !== $old) {
             $this->old = $old;
@@ -158,7 +153,7 @@ final class Differ
      *
      * @param string[] $new the new
      */
-    public function setNew(array $new): self
+    public function setNew(array $new): static
     {
         if ($this->new !== $new) {
             $this->new = $new;
@@ -173,7 +168,7 @@ final class Differ
      *
      * @param array $options the options
      */
-    public function setOptions(array $options): self
+    public function setOptions(array $options): static
     {
         $mergedOptions = $options + static::$defaultOptions;
 
@@ -254,7 +249,7 @@ final class Differ
     /**
      * Get the singleton.
      */
-    public static function getInstance(): self
+    public static function getInstance(): static
     {
         static $singleton;
 
@@ -309,8 +304,8 @@ final class Differ
         }
 
         if ($this->options['ignoreLineEnding']) {
-            $old = array_map([$this, 'removeLineEnding'], $this->old);
-            $new = array_map([$this, 'removeLineEnding'], $this->new);
+            $old = array_map($this->removeLineEnding(...), $this->old);
+            $new = array_map($this->removeLineEnding(...), $this->new);
         } else {
             $old = $this->old;
             $new = $this->new;
@@ -342,8 +337,8 @@ final class Differ
         }
 
         if ($this->options['ignoreLineEnding']) {
-            $old = array_map([$this, 'removeLineEnding'], $this->old);
-            $new = array_map([$this, 'removeLineEnding'], $this->new);
+            $old = array_map($this->removeLineEnding(...), $this->old);
+            $new = array_map($this->removeLineEnding(...), $this->new);
         } else {
             $old = $this->old;
             $new = $this->new;
@@ -491,7 +486,7 @@ final class Differ
      *
      * @internal
      */
-    private function finalize(): self
+    private function finalize(): static
     {
         if ($this->isCacheDirty) {
             $this->resetCachedResults();
@@ -509,7 +504,7 @@ final class Differ
     /**
      * Reset cached results.
      */
-    private function resetCachedResults(): self
+    private function resetCachedResults(): static
     {
         foreach (static::CACHED_PROPERTIES as $property => $value) {
             $this->{$property} = $value;

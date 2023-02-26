@@ -7,12 +7,12 @@ namespace Jfcherng\Diff\Utility;
 final class Language
 {
     /**
-     * @var string[] the translation dict
+     * @var array<string,string> the translation dict
      */
     private array $translations = [];
 
     /**
-     * @var string the language name
+     * The language name.
      */
     private string $language = '_custom_';
 
@@ -39,7 +39,7 @@ final class Language
     /**
      * Gets the translations.
      *
-     * @return array the translations
+     * @return array<string,string> the translations
      */
     public function getTranslations(): array
     {
@@ -72,25 +72,17 @@ final class Language
      *
      * @param string $language the language
      *
-     * @throws \Exception        fail to decode the JSON file
-     * @throws \LogicException   path is a directory
-     * @throws \RuntimeException path cannot be opened
-     *
-     * @return string[]
+     * @return array<string,string>
      */
     private static function getTranslationsByLanguage(string $language): array
     {
-        $filePath = __DIR__ . "/../languages/{$language}.json";
-        $file = new \SplFileObject($filePath, 'r');
-        $fileContent = $file->fread($file->getSize());
+        static $cache = [];
 
-        try {
-            $decoded = json_decode($fileContent, true, 512, \JSON_THROW_ON_ERROR);
-        } catch (\JsonException $e) {
-            throw new \Exception(sprintf('Fail to decode JSON file (%s): %s', realpath($filePath), (string) $e));
+        if (!ctype_alpha($language)) {
+            throw new \Exception('Language ID should contain only letters.');
         }
 
-        return (array) $decoded;
+        return $cache[$language] ??= (array) require __DIR__ . "/../languages/{$language}.php";
     }
 
     /**
@@ -100,7 +92,7 @@ final class Language
      *
      * @throws \InvalidArgumentException
      *
-     * @return string[] the resolved translations
+     * @return array<string,string> the resolved translations
      */
     private function resolve($target): array
     {
@@ -110,14 +102,15 @@ final class Language
 
         if (\is_array($target)) {
             // $target is an associative array
-            if (Arr::isAssociative($target)) {
+            if (!array_is_list($target)) {
+                /** @phan-suppress-next-line PhanTypeMismatchReturn */
                 return $target;
             }
 
             // $target is a list of "key-value pairs or language ID"
             return array_reduce(
                 $target,
-                fn (array $carry, $translation): array => array_merge($carry, $this->resolve($translation)),
+                fn (array $carry, $translation): array => [...$carry, ...$this->resolve($translation)],
                 [],
             );
         }

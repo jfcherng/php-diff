@@ -4,15 +4,21 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Factory;
 
-use Jfcherng\Diff\Renderer\Html\LineRenderer\AbstractLineRenderer;
-use Jfcherng\Diff\Renderer\RendererConstant;
+use Jfcherng\Diff\Contract\LineRenderer\AbstractLineRenderer;
 
 final class LineRendererFactory
 {
     /**
+     * The base namespace of line renderers.
+     *
+     * @var string
+     */
+    public const BASE_NAMESPACE = '\\Jfcherng\\Diff\\LineRenderer';
+
+    /**
      * Instances of line renderers.
      *
-     * @var AbstractLineRenderer[]
+     * @var array<str,AbstractLineRenderer>
      */
     private static array $singletons = [];
 
@@ -26,30 +32,40 @@ final class LineRendererFactory
     /**
      * Get the singleton of a line renderer.
      *
-     * @param string $type        the type
+     * @param string $renderer    the renderer
      * @param mixed  ...$ctorArgs the constructor arguments
      */
-    public static function getInstance(string $type, ...$ctorArgs): AbstractLineRenderer
+    public static function getInstance(string $renderer, mixed ...$ctorArgs): AbstractLineRenderer
     {
-        return self::$singletons[$type] ??= self::make($type, ...$ctorArgs);
+        return self::$singletons[$renderer] ??= self::make($renderer, ...$ctorArgs);
     }
 
     /**
      * Make a new instance of a line renderer.
      *
-     * @param string $type        the type
+     * @param string $renderer    the renderer
      * @param mixed  ...$ctorArgs the constructor arguments
      *
      * @throws \InvalidArgumentException
      */
-    public static function make(string $type, ...$ctorArgs): AbstractLineRenderer
+    public static function make(string $renderer, mixed ...$ctorArgs): AbstractLineRenderer
     {
-        $className = RendererConstant::RENDERER_NAMESPACE . '\\Html\\LineRenderer\\' . ucfirst($type);
+        $className = self::resolveFqcn($renderer);
 
         if (!class_exists($className)) {
-            throw new \InvalidArgumentException("LineRenderer not found: {$type}");
+            throw new \InvalidArgumentException("LineRenderer not found: {$renderer}");
         }
 
         return new $className(...$ctorArgs);
+    }
+
+    /**
+     * Resolve the line renderer name into a FQCN.
+     *
+     * @param string $renderer the renderer
+     */
+    public static function resolveFqcn(string $renderer): string
+    {
+        return self::BASE_NAMESPACE . '\\' . ucfirst($renderer);
     }
 }

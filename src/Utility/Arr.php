@@ -44,22 +44,4 @@ final class Arr
         // make the length non-negative
         return \array_slice($array, $start, max(0, $end - $start));
     }
-
-    /**
-     * Determines whether the array is associative.
-     *
-     * @param array $arr the array
-     *
-     * @return bool `true` if the array is associative, `false` otherwise
-     */
-    public static function isAssociative($arr): bool
-    {
-        foreach ($arr as $key => $value) {
-            if (\is_string($key)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }
