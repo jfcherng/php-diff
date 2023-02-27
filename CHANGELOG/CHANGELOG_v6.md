@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.13** - override language
+   * 2023-02-27 19:28  **6.13.1**  another way to fix #34
+      * 7b89fd7 fix: another way to fix \r shouldn't be visualized like a newline in Combined renderer
+      * c069031 chore: add missing type hint
    * 2023-01-19 00:29  **6.13.0**  initial release
       * bfb89b6 feat: provide a way to override an existing language
       * 775a043 chore: update deps
