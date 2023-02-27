@@ -146,15 +146,6 @@ $img-tab: 'data:image/svg+xml,%3Csvg preserveAspectRatio="xMinYMid meet" viewBox
       }
     }
 
-    &.diff-combined {
-      .change.change-rep {
-        .rep {
-          // fixes https://github.com/jfcherng/php-diff/issues/34#issuecomment-671404456
-          white-space: normal;
-        }
-      }
-    }
-
     .change {
       &.change-eq {
         .old,

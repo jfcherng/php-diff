@@ -90,9 +90,6 @@
   background-size: calc(var(--tab-size) * 1ch) 1.25em;
   background-position: 2px center;
 }
-.diff-wrapper.diff.diff-html.diff-combined .change.change-rep .rep {
-  white-space: normal;
-}
 .diff-wrapper.diff.diff-html .change.change-eq .old,
 .diff-wrapper.diff.diff-html .change.change-eq .new {
   background: #fff;
