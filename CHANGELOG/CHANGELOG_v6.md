@@ -1,6 +1,12 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.14** - add differ option: ignoreLineEnding
+   * 2023-03-10 20:33  **6.14.0**  initial release
+      * 3b1e344 feat: add differ option: ignoreLineEnding
+      * b194161 chore: move test files
+      * 882ea1a chore: update deps
+
  * Version **6.13** - override language
    * 2023-02-27 19:28  **6.13.1**  another way to fix #34
       * 7b89fd7 fix: another way to fix \r shouldn't be visualized like a newline in Combined renderer
