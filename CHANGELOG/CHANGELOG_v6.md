@@ -2,6 +2,10 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2023-03-10 20:56  **6.10.9**  add differ option: ignoreLineEnding
+      * 9131af6 feat: add differ option: ignoreLineEnding
+      * 74e1878 chore: move test files
+      * 7b0c11c chore: update deps
    * 2023-01-19 00:51  **6.10.8**  override language
       * 3a99872 feat: provide a way to override an existing language
       * 8ab946c chore: update deps
