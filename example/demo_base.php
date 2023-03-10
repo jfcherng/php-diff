@@ -18,6 +18,8 @@ $diffOptions = [
     'context' => 1,
     // ignore case difference
     'ignoreCase' => false,
+    // ignore line ending difference
+    'ignoreLineEnding' => false,
     // ignore whitespace difference
     'ignoreWhitespace' => false,
 ];

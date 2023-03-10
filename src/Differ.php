@@ -111,10 +111,12 @@ final class Differ
         // show how many neighbor lines
         // Differ::CONTEXT_ALL can be used to show the whole file
         'context' => 3,
-        // ignore case difference
-        'ignoreWhitespace' => false,
         // ignore whitespace difference
         'ignoreCase' => false,
+        // ignore line ending difference
+        'ignoreLineEnding' => false,
+        // ignore case difference
+        'ignoreWhitespace' => false,
     ];
 
     /**
@@ -312,8 +314,14 @@ final class Differ
             return $this->groupedOpcodes;
         }
 
-        $old = $this->old;
-        $new = $this->new;
+        if ($this->options['ignoreLineEnding']) {
+            $old = array_map([$this, 'removeLineEnding'], $this->old);
+            $new = array_map([$this, 'removeLineEnding'], $this->new);
+        } else {
+            $old = $this->old;
+            $new = $this->new;
+        }
+
         $this->getGroupedOpcodesPre($old, $new);
 
         $opcodes = $this->sequenceMatcher
@@ -338,8 +346,14 @@ final class Differ
             return $this->groupedOpcodesGnu;
         }
 
-        $old = $this->old;
-        $new = $this->new;
+        if ($this->options['ignoreLineEnding']) {
+            $old = array_map([$this, 'removeLineEnding'], $this->old);
+            $new = array_map([$this, 'removeLineEnding'], $this->new);
+        } else {
+            $old = $this->old;
+            $new = $this->new;
+        }
+
         $this->getGroupedOpcodesGnuPre($old, $new);
 
         $opcodes = $this->sequenceMatcher
@@ -460,6 +474,16 @@ final class Differ
     private function getGroupedOpcodesGnuPost(array &$opcodes): void
     {
         $this->getGroupedOpcodesPost($opcodes);
+    }
+
+    /**
+     * Remove line ending characters at the end of the string.
+     *
+     * @param string $str the string
+     */
+    private function removeLineEnding(string $str): string
+    {
+        return rtrim($str, "\r\n");
     }
 
     /**
