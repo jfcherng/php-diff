@@ -111,11 +111,11 @@ final class Differ
         // show how many neighbor lines
         // Differ::CONTEXT_ALL can be used to show the whole file
         'context' => 3,
-        // ignore whitespace difference
+        // ignore case difference
         'ignoreCase' => false,
         // ignore line ending difference
         'ignoreLineEnding' => false,
-        // ignore case difference
+        // ignore whitespace difference
         'ignoreWhitespace' => false,
     ];
 
