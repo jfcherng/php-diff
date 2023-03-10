@@ -113,8 +113,8 @@ NEW
 DIFF
             ],
             [
-                \file_get_contents(__DIR__ . '/data/WorkerCommandA.php'),
-                \file_get_contents(__DIR__ . '/data/WorkerCommandB.php'),
+                \file_get_contents(__DIR__ . '/data/ignore_whitespace/old_1.php'),
+                \file_get_contents(__DIR__ . '/data/ignore_whitespace/new_1.php'),
                 <<<'DIFF'
 @@ -215,11 +215,6 @@
  	{
