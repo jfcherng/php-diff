@@ -119,16 +119,16 @@
         },
         {
             "name": "jfcherng/php-sequence-matcher",
-            "version": "4.0.1",
+            "version": "4.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-sequence-matcher.git",
-                "reference": "2cb8e66eab5889f6208d6b7dacfbc60cf215e45c"
+                "reference": "9fef36eedb5bbcb1545c0ffc414767e253f616f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/2cb8e66eab5889f6208d6b7dacfbc60cf215e45c",
-                "reference": "2cb8e66eab5889f6208d6b7dacfbc60cf215e45c",
+                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/9fef36eedb5bbcb1545c0ffc414767e253f616f0",
+                "reference": "9fef36eedb5bbcb1545c0ffc414767e253f616f0",
                 "shasum": ""
             },
             "require": {
@@ -163,7 +163,7 @@
             "description": "A longest sequence matcher. The logic is primarily based on the Python difflib package.",
             "support": {
                 "issues": "https://github.com/jfcherng/php-sequence-matcher/issues",
-                "source": "https://github.com/jfcherng/php-sequence-matcher/tree/4.0.1"
+                "source": "https://github.com/jfcherng/php-sequence-matcher/tree/4.0.2"
             },
             "funding": [
                 {
@@ -171,7 +171,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-02-27T03:54:57+00:00"
+            "time": "2023-03-11T07:03:47+00:00"
         }
     ],
     "packages-dev": [
