@@ -308,14 +308,8 @@ final class Differ
             return $this->groupedOpcodes;
         }
 
-        if ($this->options['ignoreLineEnding']) {
-            $old = array_map([$this, 'removeLineEnding'], $this->old);
-            $new = array_map([$this, 'removeLineEnding'], $this->new);
-        } else {
-            $old = $this->old;
-            $new = $this->new;
-        }
-
+        $old = $this->old;
+        $new = $this->new;
         $this->getGroupedOpcodesPre($old, $new);
 
         $opcodes = $this->sequenceMatcher
@@ -341,14 +335,8 @@ final class Differ
             return $this->groupedOpcodesGnu;
         }
 
-        if ($this->options['ignoreLineEnding']) {
-            $old = array_map([$this, 'removeLineEnding'], $this->old);
-            $new = array_map([$this, 'removeLineEnding'], $this->new);
-        } else {
-            $old = $this->old;
-            $new = $this->new;
-        }
-
+        $old = $this->old;
+        $new = $this->new;
         $this->getGroupedOpcodesGnuPre($old, $new);
 
         $opcodes = $this->sequenceMatcher
@@ -470,16 +458,6 @@ final class Differ
     private function getGroupedOpcodesGnuPost(array &$opcodes): void
     {
         $this->getGroupedOpcodesPost($opcodes);
-    }
-
-    /**
-     * Remove line ending characters at the end of the string.
-     *
-     * @param string $str the string
-     */
-    private function removeLineEnding(string $str): string
-    {
-        return rtrim($str, "\r\n");
     }
 
     /**
