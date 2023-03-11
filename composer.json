@@ -39,7 +39,6 @@
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3",
-        "liip/rmt": "^1.7",
         "phan/phan": "^5",
         "phpunit/phpunit": "^10",
         "squizlabs/php_codesniffer": "^3.7"

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ee3e28b0202a842afe7eb9de468c225c",
+    "content-hash": "5aed9a274704d26cd8acc0885e0e134f",
     "packages": [
         {
             "name": "jfcherng/php-color-output",
@@ -136,7 +136,6 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^3",
-                "liip/rmt": "^1.7",
                 "phan/phan": "^5",
                 "phpunit/phpunit": "^9 || ^10",
                 "squizlabs/php_codesniffer": "^3.7"
@@ -681,74 +680,6 @@
                 }
             ],
             "time": "2023-02-09T21:49:13+00:00"
-        },
-        {
-            "name": "liip/rmt",
-            "version": "1.7.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/liip/RMT.git",
-                "reference": "a31f08e11934a54d65faab41a1041e2049ccbabc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/liip/RMT/zipball/a31f08e11934a54d65faab41a1041e2049ccbabc",
-                "reference": "a31f08e11934a54d65faab41a1041e2049ccbabc",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^7.1|^8.0",
-                "symfony/console": "^3.4|^4.0|^5.0|^6.0",
-                "symfony/process": "^3.4|^4.0|^5.0|^6.0",
-                "symfony/yaml": "^3.4|^4.0|^5.0|^6.0",
-                "vierbergenlars/php-semver": "^3.0.2"
-            },
-            "bin": [
-                "RMT"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.3-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Liip": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jonathan Macheret",
-                    "email": "jonathan.macheret@liip.ch",
-                    "role": "Developer"
-                },
-                {
-                    "name": "David Jeanmonod",
-                    "email": "david.jeanmonod@liip.ch",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Release Management Tool: a handy tool to help releasing new version of your software",
-            "homepage": "http://github.com/liip/RMT",
-            "keywords": [
-                "post-release",
-                "pre-release",
-                "release",
-                "semantic versioning",
-                "vcs tag",
-                "version"
-            ],
-            "support": {
-                "issues": "http://github.com/liip/RMT/issues",
-                "source": "https://github.com/liip/RMT/tree/1.7.0"
-            },
-            "time": "2022-03-15T07:32:30+00:00"
         },
         {
             "name": "microsoft/tolerant-php-parser",
@@ -4273,80 +4204,6 @@
             "time": "2023-02-24T10:42:00+00:00"
         },
         {
-            "name": "symfony/yaml",
-            "version": "v6.2.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "e8e6a1d59e050525f27a1f530aa9703423cb7f57"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/e8e6a1d59e050525f27a1f530aa9703423cb7f57",
-                "reference": "e8e6a1d59e050525f27a1f530aa9703423cb7f57",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1",
-                "symfony/polyfill-ctype": "^1.8"
-            },
-            "conflict": {
-                "symfony/console": "<5.4"
-            },
-            "require-dev": {
-                "symfony/console": "^5.4|^6.0"
-            },
-            "suggest": {
-                "symfony/console": "For validating YAML files using the lint command"
-            },
-            "bin": [
-                "Resources/bin/yaml-lint"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Yaml\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Loads and dumps YAML files",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/yaml/tree/v6.2.7"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2023-02-16T09:57:23+00:00"
-        },
-        {
             "name": "theseer/tokenizer",
             "version": "1.2.1",
             "source": {
@@ -4457,62 +4314,6 @@
                 "source": "https://github.com/TysonAndre/var_representation_polyfill/tree/0.1.3"
             },
             "time": "2022-08-31T12:59:22+00:00"
-        },
-        {
-            "name": "vierbergenlars/php-semver",
-            "version": "v3.0.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vierbergenlars/php-semver.git",
-                "reference": "0db3f3147162453642bc90f611d5f5adfcedc306"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vierbergenlars/php-semver/zipball/0db3f3147162453642bc90f611d5f5adfcedc306",
-                "reference": "0db3f3147162453642bc90f611d5f5adfcedc306",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "^9.5.21"
-            },
-            "bin": [
-                "bin/semver",
-                "bin/update-versions"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "vierbergenlars\\LibJs\\": "src/",
-                    "vierbergenlars\\SemVer\\": "src/"
-                },
-                "classmap": [
-                    "src/vierbergenlars/SemVer/internal.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Lars Vierbergen",
-                    "email": "vierbergenlars@gmail.com"
-                }
-            ],
-            "description": "The Semantic Versioner for PHP",
-            "keywords": [
-                "semantic",
-                "semver",
-                "versioning"
-            ],
-            "support": {
-                "issues": "https://github.com/vierbergenlars/php-semver/issues",
-                "source": "https://github.com/vierbergenlars/php-semver/tree/v3.0.3"
-            },
-            "time": "2022-08-22T06:58:37+00:00"
         },
         {
             "name": "webmozart/assert",
