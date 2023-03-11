@@ -2,6 +2,12 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2023-03-11 15:31  **6.10.10**  tidy codes
+      * d19ffb8 refactor: move "ignoreLineEnding" implementation to sequence matcher
+      * e2c353a test: tidy codes
+      * 0492991 chore: update deps
+      * 658c9ff chore: fix typos
+      * 927f5b7 chore: only test against PHP 71/72/73
    * 2023-03-10 20:56  **6.10.9**  add differ option: ignoreLineEnding
       * 9131af6 feat: add differ option: ignoreLineEnding
       * 74e1878 chore: move test files
