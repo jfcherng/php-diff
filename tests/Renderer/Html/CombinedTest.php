@@ -47,4 +47,27 @@ final class CombinedTest extends TestCase
         static::assertThat($result, static::logicalNot(static::stringContains('<tag>')));
         static::assertThat($result, static::logicalNot(static::stringContains('</tag>')));
     }
+
+    /**
+     * Test unmerge-able block.
+     *
+     * @see https://github.com/jfcherng/php-diff/issues/69
+     */
+    public function testSimpleUnmergeableBlock(): void
+    {
+        $result = DiffHelper::calculate("111\n222\n333\n", "444\n555\n666\n", 'Combined');
+
+        static::assertSame(
+            [1, 1, 1, 1, 1, 1],
+            [
+                \substr_count($result, '111'),
+                \substr_count($result, '222'),
+                \substr_count($result, '333'),
+                \substr_count($result, '444'),
+                \substr_count($result, '555'),
+                \substr_count($result, '666'),
+            ],
+            "Unmerge-able block shouldn't be repeated."
+        );
+    }
 }
