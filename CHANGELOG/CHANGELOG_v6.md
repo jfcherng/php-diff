@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.14** - add differ option: ignoreLineEnding
+   * 2023-03-16 03:26  **6.14.2**  (Combined) fix unmerge-able block
+      * aeb1c3c fix: (Combined) unmerge-able block shouldn't be repeated
+      * 341f943 Release of new version 6.14.1
    * 2023-03-11 15:24  **6.14.1**  tidy codes
       * 71f0b0e refactor: move "ignoreLineEnding" implementation to sequence matcher
       * 77d4dbb test: tidy codes
