@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2023-03-16 03:23  **6.10.11**  (Combined) fix unmerge-able block
+      * 3582a09 fix: (Combined) unmerge-able block shouldn't be repeated
+      * 63bbde6 docs: fix readme badge
    * 2023-03-11 15:31  **6.10.10**  tidy codes
       * d19ffb8 refactor: move "ignoreLineEnding" implementation to sequence matcher
       * e2c353a test: tidy codes
