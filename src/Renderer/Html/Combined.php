@@ -239,7 +239,7 @@ final class Combined extends AbstractHtml
                     $this->renderTableBlockDelete($block) .
                     $this->renderTableBlockInsert($block);
 
-                continue;
+                break;
             }
 
             $ret .= $this->renderTableRow('rep', SequenceMatcher::OP_REP, $mergedLine);
