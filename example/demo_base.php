@@ -29,7 +29,7 @@ $diffOptions = [
 // options for renderer class
 $rendererOptions = [
     // how detailed the rendered HTML is? (none, line, word, char)
-    'detailLevel' => 'line',
+    'detailLevel' => 'char',
     // renderer language: eng, cht, chs, jpn, ...
     // or an array which has the same keys with a language file
     // check the "Custom Language" section in the readme for more advanced usage
