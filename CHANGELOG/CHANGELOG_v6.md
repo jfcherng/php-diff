@@ -1,6 +1,11 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.15** - max sequence length
+   * 2023-05-21 16:04  **6.15.0**  initial release
+      * 5089d99 feat: add new differOption: lengthLimit
+      * 9182995 chore: update deps
+
  * Version **6.14** - add differ option: ignoreLineEnding
    * 2023-03-16 03:26  **6.14.2**  (Combined) fix unmerge-able block
       * aeb1c3c fix: (Combined) unmerge-able block shouldn't be repeated
