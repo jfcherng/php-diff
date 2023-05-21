@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2023-05-21 16:10  **6.10.12**  max sequence length
+      * c71cd9f feat: add new differOption: lengthLimit
+      * 07f448f chore: update deps
    * 2023-03-16 03:23  **6.10.11**  (Combined) fix unmerge-able block
       * 3582a09 fix: (Combined) unmerge-able block shouldn't be repeated
       * 63bbde6 docs: fix readme badge
