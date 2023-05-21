@@ -111,6 +111,8 @@ final class Differ
         'ignoreLineEnding' => false,
         // ignore whitespace difference
         'ignoreWhitespace' => false,
+        // if the input sequence is too long, it will just gives up (especially for char-level diff)
+        'lengthLimit' => 2000,
     ];
 
     /**
