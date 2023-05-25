@@ -2,6 +2,8 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.15** - max sequence length
+   * 2023-05-26 00:23  **6.15.1**  update deps
+      * b73d9e8 chore: update deps
    * 2023-05-21 16:04  **6.15.0**  initial release
       * 5089d99 feat: add new differOption: lengthLimit
       * 9182995 chore: update deps
