@@ -34,8 +34,8 @@
     "require": {
         "php": ">=7.4",
         "jfcherng/php-color-output": "^3",
-        "jfcherng/php-mb-string": "^1.4.6",
-        "jfcherng/php-sequence-matcher": "^3.2.10"
+        "jfcherng/php-mb-string": "^1.4.6 || ^2",
+        "jfcherng/php-sequence-matcher": "^3.2.10 || ^4"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.8",
