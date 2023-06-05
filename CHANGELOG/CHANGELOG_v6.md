@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2023-06-05 19:44  **6.10.13**  add translation: nob
+      * 286d4ae chore: update deps
+      * 1f71299 chore: Norwegian translation (#73)
    * 2023-05-21 16:10  **6.10.12**  max sequence length
       * c71cd9f feat: add new differOption: lengthLimit
       * 07f448f chore: update deps
