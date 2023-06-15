@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2023-06-15 20:31  **6.10.14**  add translation: cze
+      * 4f27313 docs: update translation readme
+      * 163371b chore: add traslation Czech (#74)
    * 2023-06-05 19:44  **6.10.13**  add translation: nob
       * 286d4ae chore: update deps
       * 1f71299 chore: Norwegian translation (#73)
