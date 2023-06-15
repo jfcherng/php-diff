@@ -2,6 +2,9 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.15** - max sequence length
+   * 2023-06-15 20:29  **6.15.3**  add translation: cze
+      * 2335d9e docs: update translation readme
+      * d50beb0 chore: add traslation Czech (#74)
    * 2023-06-05 19:41  **6.15.2**  add translation: nob
       * 9d55d2f chore: Norwegian translation (#73)
    * 2023-05-26 00:23  **6.15.1**  update deps
