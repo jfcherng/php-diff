@@ -345,7 +345,7 @@ final class Combined extends AbstractHtml
      * @param string[] $closures the closures
      * @param int      $type     the type
      *
-     * @return array[] the closure informations
+     * @return array[] the closure information
      */
     protected function analyzeClosureParts(string $line, array $closures, int $type): array
     {
