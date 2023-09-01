@@ -338,14 +338,14 @@ final class Combined extends AbstractHtml
      * Analyze and get the closure parts information of the line.
      *
      * Such as
-     *     extract informations for "<ins>part 1</ins>" and "<ins>part 2</ins>"
+     *     extract information for "<ins>part 1</ins>" and "<ins>part 2</ins>"
      *     from "Hello <ins>part 1</ins>SOME OTHER TEXT<ins>part 2</ins> World"
      *
      * @param string   $line     the line
      * @param string[] $closures the closures
      * @param int      $type     the type
      *
-     * @return array[] the closure informations
+     * @return array[] the closure information
      */
     protected function analyzeClosureParts(string $line, array $closures, int $type): array
     {
