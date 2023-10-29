@@ -30,9 +30,6 @@ final class Combined extends AbstractHtml
      */
     public const AUTO_FORMAT_CHANGES = false;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function redererChanges(array $changes): string
     {
         if (empty($changes)) {

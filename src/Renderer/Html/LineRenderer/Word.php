@@ -13,8 +13,6 @@ use Jfcherng\Utility\MbString;
 final class Word extends AbstractLineRenderer
 {
     /**
-     * {@inheritdoc}
-     *
      * @return static
      */
     public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface

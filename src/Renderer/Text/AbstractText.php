@@ -29,9 +29,6 @@ abstract class AbstractText extends AbstractRenderer
      */
     protected $isCliColorEnabled = false;
 
-    /**
-     * {@inheritdoc}
-     */
     public function setOptions(array $options): AbstractRenderer
     {
         parent::setOptions($options);
@@ -48,17 +45,11 @@ abstract class AbstractText extends AbstractRenderer
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResultForIdenticalsDefault(): string
     {
         return '';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function renderArrayWorker(array $differArray): string
     {
         throw new UnsupportedFunctionException(__METHOD__);
@@ -139,6 +130,7 @@ abstract class AbstractText extends AbstractRenderer
         }
 
         $stat = @fstat($stream);
+
         // Check if formatted mode is S_IFCHR
         return $stat ? 0020000 === ($stat['mode'] & 0170000) : false;
     }

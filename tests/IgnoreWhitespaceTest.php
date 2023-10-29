@@ -18,7 +18,7 @@ final class IgnoreWhitespaceTest extends TestCase
     /**
      * @return string[][]
      */
-    public function provideIgnoreWhitespaces(): array
+    public function provideIgnoreWhitespacesCases(): iterable
     {
         return [
             [
@@ -135,7 +135,7 @@ DIFF,
     }
 
     /**
-     * @dataProvider provideIgnoreWhitespaces
+     * @dataProvider provideIgnoreWhitespacesCases
      */
     public function testIgnoreWhitespaces(string $old, string $new, string $expectedDiff): void
     {
@@ -145,6 +145,6 @@ DIFF,
             'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
         ]);
 
-        static::assertSame($expectedDiff, $diff);
+        self::assertSame($expectedDiff, $diff);
     }
 }

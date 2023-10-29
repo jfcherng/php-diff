@@ -19,9 +19,6 @@ final class SideBySide extends AbstractHtml
         'type' => 'Html',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected function redererChanges(array $changes): string
     {
         if (empty($changes)) {

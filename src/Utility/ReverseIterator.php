@@ -13,9 +13,7 @@ final class ReverseIterator
     /**
      * The constructor.
      */
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * Iterate the array reversely.

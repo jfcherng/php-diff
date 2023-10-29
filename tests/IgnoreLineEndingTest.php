@@ -18,7 +18,7 @@ final class IgnoreLineEndingTest extends TestCase
     /**
      * @return string[][]
      */
-    public function provideIgnoreLineEnding(): array
+    public function provideIgnoreLineEndingCases(): iterable
     {
         return [
             [
@@ -45,7 +45,7 @@ DIFF,
     }
 
     /**
-     * @dataProvider provideIgnoreLineEnding
+     * @dataProvider provideIgnoreLineEndingCases
      */
     public function testIgnoreLineEnding(
         string $old,
@@ -59,6 +59,6 @@ DIFF,
             'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
         ]);
 
-        static::assertSame($expectedDiff, $diff);
+        self::assertSame($expectedDiff, $diff);
     }
 }

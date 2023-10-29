@@ -26,7 +26,7 @@ final class CombinedTest extends TestCase
         $result = DiffHelper::calculate('<', " \nA<B", 'Combined', ['detailLevel' => 'word']);
         $result = htmlspecialchars_decode($result);
 
-        static::assertStringNotContainsString(';', $result);
+        self::assertStringNotContainsString(';', $result);
     }
 
     /**
@@ -42,8 +42,8 @@ final class CombinedTest extends TestCase
             'Combined',
         );
 
-        static::assertStringNotContainsString('<tag>', $result);
-        static::assertStringNotContainsString('</tag>', $result);
+        self::assertStringNotContainsString('<tag>', $result);
+        self::assertStringNotContainsString('</tag>', $result);
     }
 
     /**
@@ -55,7 +55,7 @@ final class CombinedTest extends TestCase
     {
         $result = DiffHelper::calculate("111\n222\n333\n", "444\n555\n666\n", 'Combined');
 
-        static::assertSame(
+        self::assertSame(
             [1, 1, 1, 1, 1, 1],
             [
                 substr_count($result, '111'),

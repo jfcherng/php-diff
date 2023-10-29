@@ -19,9 +19,7 @@ final class RendererFactory
     /**
      * The constructor.
      */
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * Get the singleton of a renderer.

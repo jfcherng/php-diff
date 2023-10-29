@@ -177,7 +177,7 @@ final class Differ
      */
     public function setOptions(array $options): self
     {
-        $mergedOptions = $options + static::$defaultOptions;
+        $mergedOptions = $options + self::$defaultOptions;
 
         if ($this->options !== $mergedOptions) {
             $this->options = $mergedOptions;
@@ -196,7 +196,7 @@ final class Differ
      *
      * @return string[] array of all of the lines between the specified range
      */
-    public function getOld(int $start = 0, ?int $end = null): array
+    public function getOld(int $start = 0, int $end = null): array
     {
         return Arr::getPartialByIndex($this->old, $start, $end);
     }
@@ -210,7 +210,7 @@ final class Differ
      *
      * @return string[] array of all of the lines between the specified range
      */
-    public function getNew(int $start = 0, ?int $end = null): array
+    public function getNew(int $start = 0, int $end = null): array
     {
         return Arr::getPartialByIndex($this->new, $start, $end);
     }
@@ -260,7 +260,7 @@ final class Differ
     {
         static $singleton;
 
-        return $singleton ??= new static([], []);
+        return $singleton ??= new self([], []);
     }
 
     /**
@@ -491,7 +491,7 @@ final class Differ
      */
     private function resetCachedResults(): self
     {
-        foreach (static::CACHED_PROPERTIES as $property => $value) {
+        foreach (self::CACHED_PROPERTIES as $property => $value) {
             $this->{$property} = $value;
         }
 

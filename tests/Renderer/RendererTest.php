@@ -40,7 +40,7 @@ final class RendererTest extends TestCase
             ['language' => $languageArrayTest],
         );
 
-        static::assertStringContainsString(
+        self::assertStringContainsString(
             $testMarker,
             $diffResult,
             'Rederer options: "language" array should work.',
@@ -64,7 +64,7 @@ final class RendererTest extends TestCase
             ['resultForIdenticals' => $testMarker],
         );
 
-        static::assertSame(
+        self::assertSame(
             $testMarker,
             $diffResult,
             'Rederer options: result for identicals should work.',
@@ -123,7 +123,7 @@ final class RendererTest extends TestCase
                 ['outputTagAsString' => false] + $rendererOptions,
             );
 
-            static::assertSame(
+            self::assertSame(
                 $goldenResult,
                 $renderer->renderArray(json_decode($jsonResult, true)),
                 "HTML renderers should be able to render with JSON result. ('outputTagAsString' => false)",
@@ -138,7 +138,7 @@ final class RendererTest extends TestCase
                 ['outputTagAsString' => true] + $rendererOptions,
             );
 
-            static::assertSame(
+            self::assertSame(
                 $goldenResult,
                 $renderer->renderArray(json_decode($jsonResult, true)),
                 "HTML renderers should be able to render with JSON result. ('outputTagAsString' => true)",

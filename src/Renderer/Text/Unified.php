@@ -22,9 +22,6 @@ final class Unified extends AbstractText
         'type' => 'Text',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected function renderWorker(Differ $differ): string
     {
         $ret = '';

@@ -19,9 +19,6 @@ final class Inline extends AbstractHtml
         'type' => 'Html',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected function redererChanges(array $changes): string
     {
         if (empty($changes)) {

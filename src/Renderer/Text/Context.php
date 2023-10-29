@@ -30,9 +30,6 @@ final class Context extends AbstractText
         SequenceMatcher::OP_INS |
         SequenceMatcher::OP_REP;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function renderWorker(Differ $differ): string
     {
         $ret = '';

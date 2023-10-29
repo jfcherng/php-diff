@@ -24,17 +24,11 @@ class JsonHtml extends AbstractHtml
      */
     public const IS_TEXT_RENDERER = true;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResultForIdenticalsDefault(): string
     {
         return '[]';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function redererChanges(array $changes): string
     {
         if ($this->options['outputTagAsString']) {
@@ -58,9 +52,6 @@ class JsonHtml extends AbstractHtml
         }
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function formatStringFromLines(string $string): string
     {
         return $this->htmlSafe($string);

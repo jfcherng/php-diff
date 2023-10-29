@@ -35,10 +35,10 @@ final class LanguageTest extends TestCase
     public function testLoad(): void
     {
         $this->languageObj->load('eng');
-        static::assertArrayHasKey('differences', $this->languageObj->getTranslations());
+        self::assertArrayHasKey('differences', $this->languageObj->getTranslations());
 
         $this->languageObj->load(['hahaha' => '哈哈哈']);
-        static::assertArrayHasKey('hahaha', $this->languageObj->getTranslations());
+        self::assertArrayHasKey('hahaha', $this->languageObj->getTranslations());
 
         $this->languageObj->load([
             'eng',
@@ -46,9 +46,9 @@ final class LanguageTest extends TestCase
             ['hahaha_1' => '哈哈哈_999'],
         ]);
         $translations = $this->languageObj->getTranslations();
-        static::assertSame('Differences', $translations['differences']);
-        static::assertSame('哈哈哈_999', $translations['hahaha_1']);
-        static::assertSame('哈哈哈_2', $translations['hahaha_2']);
+        self::assertSame('Differences', $translations['differences']);
+        self::assertSame('哈哈哈_999', $translations['hahaha_1']);
+        self::assertSame('哈哈哈_2', $translations['hahaha_2']);
 
         $this->expectException(\InvalidArgumentException::class);
         $this->languageObj->load(5);
@@ -61,12 +61,12 @@ final class LanguageTest extends TestCase
      */
     public function testTranslate(): void
     {
-        static::assertSame(
+        self::assertSame(
             'Differences',
             $this->languageObj->translate('differences'),
         );
 
-        static::assertStringMatchesFormat(
+        self::assertStringMatchesFormat(
             '![%s]',
             $this->languageObj->translate('a_non_existing_key'),
         );

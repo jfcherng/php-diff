@@ -9,6 +9,4 @@ namespace Jfcherng\Diff\Renderer\Html;
  *
  * @deprecated 6.8.0 Use the "JsonHtml" renderer instead.
  */
-final class Json extends JsonHtml
-{
-}
+final class Json extends JsonHtml {}

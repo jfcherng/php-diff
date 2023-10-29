@@ -44,9 +44,6 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     public const AUTO_FORMAT_CHANGES = true;
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResultForIdenticalsDefault(): string
     {
         return '';
@@ -105,9 +102,6 @@ abstract class AbstractHtml extends AbstractRenderer
         return $changes;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function renderWorker(Differ $differ): string
     {
         $rendered = $this->redererChanges($this->getChanges($differ));
@@ -115,9 +109,6 @@ abstract class AbstractHtml extends AbstractRenderer
         return $this->cleanUpDummyHtmlClosures($rendered);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function renderArrayWorker(array $differArray): string
     {
         $this->ensureChangesUseIntTag($differArray);

@@ -12,9 +12,7 @@ final class DiffHelper
     /**
      * The constructor.
      */
-    private function __construct()
-    {
-    }
+    private function __construct() {}
 
     /**
      * Get the absolute path of the project root directory.
@@ -38,7 +36,7 @@ final class DiffHelper
         }
 
         $glob = implode(\DIRECTORY_SEPARATOR, [
-            static::getProjectDirectory(),
+            self::getProjectDirectory(),
             'src',
             'Renderer',
             '{' . implode(',', RendererConstant::RENDERER_TYPES) . '}',
@@ -94,7 +92,7 @@ final class DiffHelper
             return $fileContent;
         }
 
-        $filePath = static::getProjectDirectory() . '/example/diff-table.css';
+        $filePath = self::getProjectDirectory() . '/example/diff-table.css';
 
         $file = new \SplFileObject($filePath, 'r');
 
@@ -170,7 +168,7 @@ final class DiffHelper
         $oldFile = new \SplFileObject($old, 'r');
         $newFile = new \SplFileObject($new, 'r');
 
-        return static::calculate(
+        return self::calculate(
             // fread() requires the length > 0 hence we plus 1 for empty files
             $oldFile->fread($oldFile->getSize() + 1),
             $newFile->fread($newFile->getSize() + 1),

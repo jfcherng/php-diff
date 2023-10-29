@@ -20,7 +20,7 @@ final class DifferTest extends TestCase
      *
      * @return array the data provider
      */
-    public function getGroupedOpcodesDataProvider(): array
+    public function provideGetGroupedOpcodesCases(): iterable
     {
         return [
             [
@@ -55,7 +55,7 @@ EOT
      *
      * @covers       \Jfcherng\Diff\Differ::getGroupedOpcodes
      *
-     * @dataProvider getGroupedOpcodesDataProvider
+     * @dataProvider provideGetGroupedOpcodesCases
      *
      * @param string $old      the old
      * @param string $new      the new
@@ -66,7 +66,7 @@ EOT
         $old = explode("\n", $old);
         $new = explode("\n", $new);
 
-        static::assertSame(
+        self::assertSame(
             $expected,
             (new Differ($old, $new))->getGroupedOpcodes(),
         );
