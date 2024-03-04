@@ -72,19 +72,19 @@ final class Differ
 
     /**
      * @var int the end index for the old if the old has no EOL at EOF
-     *          -1 means the old has an EOL at EOF
+     *          `-1` means the old has an EOL at EOF
      */
     private int $oldNoEolAtEofIdx = -1;
 
     /**
      * @var int the end index for the new if the new has no EOL at EOF
-     *          -1 means the new has an EOL at EOF
+     *          `-1` means the new has an EOL at EOF
      */
     private int $newNoEolAtEofIdx = -1;
 
     /**
      * @var int the result of comparing the old and the new with the spaceship operator
-     *          -1 means old < new, 0 means old == new, 1 means old > new
+     *          `-1` means `old < new`, `0` means `old == new`, `1` means `old > new`
      */
     private int $oldNewComparison = 0;
 
@@ -310,12 +310,10 @@ final class Differ
             return $this->groupedOpcodes;
         }
 
-        $old = $this->old;
-        $new = $this->new;
-        $this->getGroupedOpcodesPre($old, $new);
+        $this->getGroupedOpcodesPre($this->old, $this->new);
 
         $opcodes = $this->sequenceMatcher
-            ->setSequences($old, $new)
+            ->setSequences($this->old, $this->new)
             ->getGroupedOpcodes($this->options['context'])
         ;
 
@@ -337,12 +335,10 @@ final class Differ
             return $this->groupedOpcodesGnu;
         }
 
-        $old = $this->old;
-        $new = $this->new;
-        $this->getGroupedOpcodesGnuPre($old, $new);
+        $this->getGroupedOpcodesGnuPre($this->old, $this->new);
 
         $opcodes = $this->sequenceMatcher
-            ->setSequences($old, $new)
+            ->setSequences($this->old, $this->new)
             ->getGroupedOpcodes($this->options['context'])
         ;
 
