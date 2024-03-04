@@ -26,6 +26,8 @@ $diffOptions = [
     'ignoreWhitespace' => false,
     // if the input sequence is too long, it will just gives up (especially for char-level diff)
     'lengthLimit' => 2000,
+    // if truthy, when inputs are identical, the whole inputs will be rendered in the output
+    'fullContextIfIdentical' => false,
 ];
 
 // options for renderer class
