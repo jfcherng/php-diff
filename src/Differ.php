@@ -78,19 +78,19 @@ final class Differ
 
     /**
      * @var int the end index for the old if the old has no EOL at EOF
-     *          -1 means the old has an EOL at EOF
+     *          `-1` means the old has an EOL at EOF
      */
     private $oldNoEolAtEofIdx = -1;
 
     /**
      * @var int the end index for the new if the new has no EOL at EOF
-     *          -1 means the new has an EOL at EOF
+     *          `-1` means the new has an EOL at EOF
      */
     private $newNoEolAtEofIdx = -1;
 
     /**
      * @var int the result of comparing the old and the new with the spaceship operator
-     *          -1 means old < new, 0 means old == new, 1 means old > new
+     *          `-1` means `old < new`, `0` means `old == new`, `1` means `old > new`
      */
     private $oldNewComparison = 0;
 
