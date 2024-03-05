@@ -20,7 +20,7 @@ final class DifferTest extends TestCase
      *
      * @return array the data provider
      */
-    public function provideGetGroupedOpcodesCases(): iterable
+    public static function provideGetGroupedOpcodesCases(): iterable
     {
         return [
             [

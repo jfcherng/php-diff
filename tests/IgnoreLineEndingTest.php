@@ -18,7 +18,7 @@ final class IgnoreLineEndingTest extends TestCase
     /**
      * @return string[][]
      */
-    public function provideIgnoreLineEndingCases(): iterable
+    public static function provideIgnoreLineEndingCases(): iterable
     {
         return [
             [

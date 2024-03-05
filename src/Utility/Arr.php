@@ -16,7 +16,7 @@ final class Arr
      *
      * @return array array of all of the lines between the specified range
      */
-    public static function getPartialByIndex(array $array, int $start = 0, int $end = null): array
+    public static function getPartialByIndex(array $array, int $start = 0, ?int $end = null): array
     {
         $count = \count($array);
 

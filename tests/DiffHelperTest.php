@@ -64,14 +64,14 @@ final class DiffHelperTest extends TestCase
     /**
      * Data provider for self::testRendererOutput.
      */
-    public function provideRendererOutputCases(): iterable
+    public static function provideRendererOutputCases(): iterable
     {
         $rendererNames = DiffHelper::getAvailableRenderers();
 
         $data = [];
 
         foreach ($rendererNames as $rendererName) {
-            $tests = $this->findRendererOutputTestFiles($rendererName);
+            $tests = self::findRendererOutputTestFiles($rendererName);
 
             foreach ($tests as $idx => $files) {
                 $data[] = [$rendererName, $idx, $files];
@@ -91,10 +91,10 @@ final class DiffHelperTest extends TestCase
      *
      * @param string $rendererName The renderer name
      */
-    protected function findRendererOutputTestFiles(string $rendererName): array
+    protected static function findRendererOutputTestFiles(string $rendererName): array
     {
         $rendererNameRegex = preg_quote($rendererName, '/');
-        $fileNameRegex = "/{$rendererNameRegex}-(?P<idx>[0-9]+)-(?P<name>[^.\-]+)\.txt$/u";
+        $fileNameRegex = "/{$rendererNameRegex}-(?P<idx>[0-9]+)-(?P<name>[^.-]+)\\.txt$/u";
 
         $finder = (new Finder())
             ->files()

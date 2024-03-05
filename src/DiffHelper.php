@@ -12,7 +12,9 @@ final class DiffHelper
     /**
      * The constructor.
      */
-    private function __construct() {}
+    private function __construct()
+    {
+    }
 
     /**
      * Get the absolute path of the project root directory.

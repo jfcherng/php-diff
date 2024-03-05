@@ -198,7 +198,7 @@ final class Differ
      *
      * @return string[] array of all of the lines between the specified range
      */
-    public function getOld(int $start = 0, int $end = null): array
+    public function getOld(int $start = 0, ?int $end = null): array
     {
         return Arr::getPartialByIndex($this->old, $start, $end);
     }
@@ -212,7 +212,7 @@ final class Differ
      *
      * @return string[] array of all of the lines between the specified range
      */
-    public function getNew(int $start = 0, int $end = null): array
+    public function getNew(int $start = 0, ?int $end = null): array
     {
         return Arr::getPartialByIndex($this->new, $start, $end);
     }

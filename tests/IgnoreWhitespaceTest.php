@@ -18,7 +18,7 @@ final class IgnoreWhitespaceTest extends TestCase
     /**
      * @return string[][]
      */
-    public function provideIgnoreWhitespacesCases(): iterable
+    public static function provideIgnoreWhitespacesCases(): iterable
     {
         return [
             [
