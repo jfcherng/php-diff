@@ -1,6 +1,18 @@
 
 ## VERSION 6  UNIFIED
 
+ * Version **6.16** - new differ option: fullContextIfIdentical
+   * 2024-03-05 16:44  **6.16.0**  initial release
+      * 809088e chore: $ composer fix
+      * d07f241 chore: fix deprecated php-cs-fixer options
+      * 00c7a38 chore: update deps
+      * 5d094e4 feat: add new differ option: fullContextIfIdentical (#79)
+      * bf2ddb8 chore: tidy codes
+      * e0da986 style: $ composer fix
+      * 5b70504 chore: ignore example/demo_web.php from php-cs-fixer
+      * e1575a2 chore: update deps
+      * 73069e7 chore: fix typos (#75)
+
  * Version **6.15** - max sequence length
    * 2023-06-15 20:29  **6.15.3**  add translation: cze
       * 2335d9e docs: update translation readme
