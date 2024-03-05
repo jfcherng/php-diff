@@ -52,6 +52,36 @@ final class RendererTest extends TestCase
      *
      * @covers \Jfcherng\Diff\Renderer\AbstractRenderer::setOptions
      */
+    public function testSetOptionsWithFullContextIfIdentical(): void
+    {
+        $diffResult = DiffHelper::calculate(
+            "the 1st line\nthe 2nd line\nthe 3rd line",
+            "the 1st line\nthe 2nd line\nthe 3rd line",
+            'Unified',
+            ['fullContextIfIdentical' => true],
+            []
+        );
+
+        self::assertSame(
+            <<<'DIFF'
+@@ -1,3 +1,3 @@
+ the 1st line
+ the 2nd line
+ the 3rd line
+\ No newline at end of file
+
+DIFF
+            ,
+            $diffResult,
+            'Differ options: "fullContextIfIdentical" should work.'
+        );
+    }
+
+    /**
+     * Test the AbstractRenderer::setOptions with result for identicals.
+     *
+     * @covers \Jfcherng\Diff\Renderer\AbstractRenderer::setOptions
+     */
     public function testSetOptionsWithResultForIdenticals(): void
     {
         $testMarker = '_TEST_MARKER_';

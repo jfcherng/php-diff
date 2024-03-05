@@ -119,6 +119,8 @@ final class Differ
         'ignoreWhitespace' => false,
         // if the input sequence is too long, it will just gives up (especially for char-level diff)
         'lengthLimit' => 2000,
+        // if truthy, when inputs are identical, the whole inputs will be rendered in the output
+        'fullContextIfIdentical' => false,
     ];
 
     /**
@@ -318,6 +320,15 @@ final class Differ
 
         $old = $this->old;
         $new = $this->new;
+
+        if ($this->oldNewComparison === 0 && $this->options['fullContextIfIdentical']) {
+            return [
+                [
+                    [SequenceMatcher::OP_EQ, 0, \count($old), 0, \count($new)],
+                ],
+            ];
+        }
+
         $this->getGroupedOpcodesPre($old, $new);
 
         $opcodes = $this->sequenceMatcher
@@ -344,6 +355,15 @@ final class Differ
 
         $old = $this->old;
         $new = $this->new;
+
+        if ($this->oldNewComparison === 0 && $this->options['fullContextIfIdentical']) {
+            return [
+                [
+                    [SequenceMatcher::OP_EQ, 0, \count($old), 0, \count($new)],
+                ],
+            ];
+        }
+
         $this->getGroupedOpcodesGnuPre($old, $new);
 
         $opcodes = $this->sequenceMatcher

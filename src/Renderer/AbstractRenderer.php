@@ -183,7 +183,7 @@ abstract class AbstractRenderer implements RendererInterface
     {
         $this->changesAreRaw = true;
         // the "no difference" situation may happen frequently
-        return $differ->getOldNewComparison() === 0
+        return $differ->getOldNewComparison() === 0 && !$differ->options['fullContextIfIdentical']
             ? $this->getResultForIdenticals()
             : $this->renderWorker($differ);
     }
