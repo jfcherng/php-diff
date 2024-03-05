@@ -2,6 +2,13 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2024-03-05 17:05  **6.10.15**  new differ option: fullContextIfIdentical
+      * 42dd214 chore: fix php-cs-fixer deprecated options
+      * 239c68f feat: add new differ option: fullContextIfIdentical (#79)
+      * 5050622 chore: tidy codes
+      * d4e997c chore: ignore example/demo_web.php from php-cs-fixer
+      * ab98b77 chore: update deps
+      * 5a90e78 chore: fix typos (#75)
    * 2023-06-15 20:31  **6.10.14**  add translation: cze
       * 4f27313 docs: update translation readme
       * 163371b chore: add traslation Czech (#74)
