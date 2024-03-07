@@ -127,7 +127,7 @@ final class Differ
      * The constructor.
      *
      * @param string[] $old     array containing the lines of the old string to compare
-     * @param string[] $new     array containing the lines for the new string to compare
+     * @param string[] $new     array containing the lines of the new string to compare
      * @param array    $options the options
      */
     public function __construct(array $old, array $new, array $options = [])
@@ -296,6 +296,8 @@ final class Differ
             }
         }
 
+        var_dump($this->oldSrcLength);
+
         $ret['unmodified'] = $this->oldSrcLength - $ret['deleted'];
         $ret['changedRatio'] = 1 - ($ret['unmodified'] / $this->oldSrcLength);
 
@@ -321,19 +323,19 @@ final class Differ
         $old = $this->old;
         $new = $this->new;
 
+        $this->getGroupedOpcodesPre($old, $new);
+
         if ($this->oldNewComparison === 0 && $this->options['fullContextIfIdentical']) {
-            return [
+            $opcodes = [
                 [
                     [SequenceMatcher::OP_EQ, 0, \count($old), 0, \count($new)],
                 ],
             ];
+        } else {
+            $opcodes = $this->sequenceMatcher
+                ->setSequences($old, $new)
+                ->getGroupedOpcodes($this->options['context']);
         }
-
-        $this->getGroupedOpcodesPre($old, $new);
-
-        $opcodes = $this->sequenceMatcher
-            ->setSequences($old, $new)
-            ->getGroupedOpcodes($this->options['context']);
 
         $this->getGroupedOpcodesPost($opcodes);
 
@@ -356,19 +358,19 @@ final class Differ
         $old = $this->old;
         $new = $this->new;
 
+        $this->getGroupedOpcodesGnuPre($old, $new);
+
         if ($this->oldNewComparison === 0 && $this->options['fullContextIfIdentical']) {
-            return [
+            $opcodes = [
                 [
                     [SequenceMatcher::OP_EQ, 0, \count($old), 0, \count($new)],
                 ],
             ];
+        } else {
+            $opcodes = $this->sequenceMatcher
+                ->setSequences($old, $new)
+                ->getGroupedOpcodes($this->options['context']);
         }
-
-        $this->getGroupedOpcodesGnuPre($old, $new);
-
-        $opcodes = $this->sequenceMatcher
-            ->setSequences($old, $new)
-            ->getGroupedOpcodes($this->options['context']);
 
         $this->getGroupedOpcodesGnuPost($opcodes);
 
