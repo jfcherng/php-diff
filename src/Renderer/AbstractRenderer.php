@@ -152,8 +152,6 @@ abstract class AbstractRenderer implements RendererInterface
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @final
      *
      * @todo mark this method with "final" in the next major release
@@ -176,21 +174,16 @@ abstract class AbstractRenderer implements RendererInterface
      */
     abstract public function getResultForIdenticalsDefault(): string;
 
-    /**
-     * {@inheritdoc}
-     */
     final public function render(Differ $differ): string
     {
         $this->changesAreRaw = true;
+
         // the "no difference" situation may happen frequently
         return $differ->getOldNewComparison() === 0 && !$differ->options['fullContextIfIdentical']
             ? $this->getResultForIdenticals()
             : $this->renderWorker($differ);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     final public function renderArray(array $differArray): string
     {
         $this->changesAreRaw = false;
@@ -241,6 +234,6 @@ abstract class AbstractRenderer implements RendererInterface
     {
         $text = $this->t->translate($text);
 
-        return $escapeHtml ? \htmlspecialchars($text) : $text;
+        return $escapeHtml ? htmlspecialchars($text) : $text;
     }
 }

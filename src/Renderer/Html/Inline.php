@@ -19,22 +19,19 @@ final class Inline extends AbstractHtml
         'type' => 'Html',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected function redererChanges(array $changes): string
     {
         if (empty($changes)) {
             return $this->getResultForIdenticals();
         }
 
-        $wrapperClasses = \array_merge(
+        $wrapperClasses = array_merge(
             $this->options['wrapperClasses'],
             ['diff', 'diff-html', 'diff-inline']
         );
 
         return
-            '<table class="' . \implode(' ', $wrapperClasses) . '">' .
+            '<table class="' . implode(' ', $wrapperClasses) . '">' .
                 $this->renderTableHeader() .
                 $this->renderTableHunks($changes) .
             '</table>';

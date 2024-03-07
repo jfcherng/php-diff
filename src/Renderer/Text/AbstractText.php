@@ -29,9 +29,6 @@ abstract class AbstractText extends AbstractRenderer
      */
     protected $isCliColorEnabled = false;
 
-    /**
-     * {@inheritdoc}
-     */
     public function setOptions(array $options): AbstractRenderer
     {
         parent::setOptions($options);
@@ -48,17 +45,11 @@ abstract class AbstractText extends AbstractRenderer
         return $this;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function getResultForIdenticalsDefault(): string
     {
         return '';
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function renderArrayWorker(array $differArray): string
     {
         throw new UnsupportedFunctionException(__METHOD__);
@@ -114,31 +105,32 @@ abstract class AbstractText extends AbstractRenderer
     protected function hasColorSupport($stream): bool
     {
         // Follow https://no-color.org/
-        if (isset($_SERVER['NO_COLOR']) || false !== \getenv('NO_COLOR')) {
+        if (isset($_SERVER['NO_COLOR']) || false !== getenv('NO_COLOR')) {
             return false;
         }
 
-        if ('Hyper' === \getenv('TERM_PROGRAM')) {
+        if ('Hyper' === getenv('TERM_PROGRAM')) {
             return true;
         }
 
         if (\DIRECTORY_SEPARATOR === '\\') {
             return (\function_exists('sapi_windows_vt100_support')
-                && @\sapi_windows_vt100_support($stream))
-                || false !== \getenv('ANSICON')
-                || 'ON' === \getenv('ConEmuANSI')
-                || 'xterm' === \getenv('TERM');
+                && @sapi_windows_vt100_support($stream))
+                || false !== getenv('ANSICON')
+                || 'ON' === getenv('ConEmuANSI')
+                || 'xterm' === getenv('TERM');
         }
 
         if (\function_exists('stream_isatty')) {
-            return @\stream_isatty($stream);
+            return @stream_isatty($stream);
         }
 
         if (\function_exists('posix_isatty')) {
             return @posix_isatty($stream);
         }
 
-        $stat = @\fstat($stream);
+        $stat = @fstat($stream);
+
         // Check if formatted mode is S_IFCHR
         return $stat ? 0020000 === ($stat['mode'] & 0170000) : false;
     }

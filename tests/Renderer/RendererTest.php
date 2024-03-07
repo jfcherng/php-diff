@@ -40,7 +40,7 @@ final class RendererTest extends TestCase
             ['language' => $languageArrayTest]
         );
 
-        static::assertStringContainsString(
+        self::assertStringContainsString(
             $testMarker,
             $diffResult,
             'Rederer options: "language" array should work.'
@@ -94,7 +94,7 @@ DIFF
             ['resultForIdenticals' => $testMarker]
         );
 
-        static::assertSame(
+        self::assertSame(
             $testMarker,
             $diffResult,
             'Rederer options: result for identicals should work.'
@@ -153,9 +153,9 @@ DIFF
                 ['outputTagAsString' => false] + $rendererOptions
             );
 
-            static::assertSame(
+            self::assertSame(
                 $goldenResult,
-                $renderer->renderArray(\json_decode($jsonResult, true)),
+                $renderer->renderArray(json_decode($jsonResult, true)),
                 "HTML renderers should be able to render with JSON result. ('outputTagAsString' => false)"
             );
 
@@ -168,9 +168,9 @@ DIFF
                 ['outputTagAsString' => true] + $rendererOptions
             );
 
-            static::assertSame(
+            self::assertSame(
                 $goldenResult,
-                $renderer->renderArray(\json_decode($jsonResult, true)),
+                $renderer->renderArray(json_decode($jsonResult, true)),
                 "HTML renderers should be able to render with JSON result. ('outputTagAsString' => true)"
             );
         }
@@ -188,6 +188,6 @@ DIFF
         $jsonResult = DiffHelper::calculate('_TEST_MARKER_OLD_', '_TEST_MARKER_NEW_', 'JsonHtml');
 
         $textRenderer = RendererFactory::make('Unified');
-        $UnifiedResult = $textRenderer->renderArray(\json_decode($jsonResult, true));
+        $UnifiedResult = $textRenderer->renderArray(json_decode($jsonResult, true));
     }
 }

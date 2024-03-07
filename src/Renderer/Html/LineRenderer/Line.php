@@ -10,8 +10,6 @@ use Jfcherng\Utility\MbString;
 final class Line extends AbstractLineRenderer
 {
     /**
-     * {@inheritdoc}
-     *
      * @return static
      */
     public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
@@ -58,7 +56,7 @@ final class Line extends AbstractLineRenderer
 
         // calculate $start
         $start = 0;
-        $startMax = \min($mbOld->strlen(), $mbNew->strlen());
+        $startMax = min($mbOld->strlen(), $mbNew->strlen());
         while (
             $start < $startMax // index out of range
             && $mbOld->getAtRaw($start) === $mbNew->getAtRaw($start)

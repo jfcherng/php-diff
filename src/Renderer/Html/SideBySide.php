@@ -19,22 +19,19 @@ final class SideBySide extends AbstractHtml
         'type' => 'Html',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected function redererChanges(array $changes): string
     {
         if (empty($changes)) {
             return $this->getResultForIdenticals();
         }
 
-        $wrapperClasses = \array_merge(
+        $wrapperClasses = array_merge(
             $this->options['wrapperClasses'],
             ['diff', 'diff-html', 'diff-side-by-side']
         );
 
         return
-            '<table class="' . \implode(' ', $wrapperClasses) . '">' .
+            '<table class="' . implode(' ', $wrapperClasses) . '">' .
                 $this->renderTableHeader() .
                 $this->renderTableHunks($changes) .
             '</table>';
@@ -198,7 +195,7 @@ final class SideBySide extends AbstractHtml
     {
         $ret = '';
 
-        $lineCountMax = \max(\count($block['old']['lines']), \count($block['new']['lines']));
+        $lineCountMax = max(\count($block['old']['lines']), \count($block['new']['lines']));
 
         for ($no = 0; $no < $lineCountMax; ++$no) {
             if (isset($block['old']['lines'][$no])) {

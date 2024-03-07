@@ -20,9 +20,6 @@ final class JsonText extends AbstractText
         'type' => 'Text',
     ];
 
-    /**
-     * {@inheritdoc}
-     */
     protected function renderWorker(Differ $differ): string
     {
         $ret = [];
@@ -35,7 +32,7 @@ final class JsonText extends AbstractText
             $this->convertTagToString($ret);
         }
 
-        return \json_encode($ret, $this->options['jsonEncodeFlags']);
+        return json_encode($ret, $this->options['jsonEncodeFlags']);
     }
 
     /**

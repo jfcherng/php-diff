@@ -23,7 +23,7 @@ final class DiffHelper
     {
         static $path;
 
-        return $path = $path ?? \realpath(__DIR__ . '/..');
+        return $path = $path ?? realpath(__DIR__ . '/..');
     }
 
     /**
@@ -37,31 +37,31 @@ final class DiffHelper
             return $info;
         }
 
-        $glob = \implode(\DIRECTORY_SEPARATOR, [
-            static::getProjectDirectory(),
+        $glob = implode(\DIRECTORY_SEPARATOR, [
+            self::getProjectDirectory(),
             'src',
             'Renderer',
-            '{' . \implode(',', RendererConstant::RENDERER_TYPES) . '}',
+            '{' . implode(',', RendererConstant::RENDERER_TYPES) . '}',
             '*.php',
         ]);
 
-        $fileNames = \array_map(
+        $fileNames = array_map(
             // get basename without file extension
-            function (string $file): string {
-                return \pathinfo($file, \PATHINFO_FILENAME);
+            static function (string $file): string {
+                return pathinfo($file, \PATHINFO_FILENAME);
             },
             // paths of all Renderer files
-            \glob($glob, \GLOB_BRACE)
+            glob($glob, \GLOB_BRACE)
         );
 
-        $renderers = \array_filter(
+        $renderers = array_filter(
             $fileNames,
             // only normal class files are wanted
-            function (string $fileName): bool {
+            static function (string $fileName): bool {
                 return
-                    \substr($fileName, 0, 8) !== 'Abstract'
-                    && \substr($fileName, -9) !== 'Interface'
-                    && \substr($fileName, -5) !== 'Trait';
+                    substr($fileName, 0, 8) !== 'Abstract'
+                    && substr($fileName, -9) !== 'Interface'
+                    && substr($fileName, -5) !== 'Trait';
             }
         );
 
@@ -80,7 +80,7 @@ final class DiffHelper
      */
     public static function getAvailableRenderers(): array
     {
-        return \array_keys(self::getRenderersInfo());
+        return array_keys(self::getRenderersInfo());
     }
 
     /**
@@ -97,7 +97,7 @@ final class DiffHelper
             return $fileContent;
         }
 
-        $filePath = static::getProjectDirectory() . '/example/diff-table.css';
+        $filePath = self::getProjectDirectory() . '/example/diff-table.css';
 
         $file = new \SplFileObject($filePath, 'r');
 
@@ -133,8 +133,8 @@ final class DiffHelper
         array $rendererOptions = []
     ): string {
         // always convert into array form
-        \is_string($old) && ($old = \explode("\n", $old));
-        \is_string($new) && ($new = \explode("\n", $new));
+        \is_string($old) && ($old = explode("\n", $old));
+        \is_string($new) && ($new = explode("\n", $new));
 
         return RendererFactory::getInstance($renderer)
             ->setOptions($rendererOptions)
@@ -142,7 +142,8 @@ final class DiffHelper
                 Differ::getInstance()
                     ->setOldNew($old, $new)
                     ->setOptions($differOptions)
-            );
+            )
+        ;
     }
 
     /**
@@ -172,7 +173,7 @@ final class DiffHelper
         $oldFile = new \SplFileObject($old, 'r');
         $newFile = new \SplFileObject($new, 'r');
 
-        return static::calculate(
+        return self::calculate(
             // fread() requires the length > 0 hence we plus 1 for empty files
             $oldFile->fread($oldFile->getSize() + 1),
             $newFile->fread($newFile->getSize() + 1),

@@ -13,8 +13,6 @@ use Jfcherng\Utility\MbString;
 final class Word extends AbstractLineRenderer
 {
     /**
-     * {@inheritdoc}
-     *
      * @return static
      */
     public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
@@ -39,7 +37,7 @@ final class Word extends AbstractLineRenderer
                 // thus, this should make that "wordGlues" work correctly
                 // @see https://github.com/jfcherng/php-diff/pull/25
                 if ($op === SequenceMatcher::OP_DEL) {
-                    \array_splice($newWords, $j1, 0, [$dummyHtmlClosure]);
+                    array_splice($newWords, $j1, 0, [$dummyHtmlClosure]);
                 }
             }
 
@@ -48,27 +46,27 @@ final class Word extends AbstractLineRenderer
                 $newWords[$j2 - 1] .= RendererConstant::HTML_CLOSURES[1];
 
                 if ($op === SequenceMatcher::OP_INS) {
-                    \array_splice($oldWords, $i1, 0, [$dummyHtmlClosure]);
+                    array_splice($oldWords, $i1, 0, [$dummyHtmlClosure]);
                 }
             }
         }
 
         if (!empty($hunk) && !empty($this->rendererOptions['wordGlues'])) {
-            $regexGlues = \array_map(
-                function (string $glue): string {
-                    return \preg_quote($glue, '/');
+            $regexGlues = array_map(
+                static function (string $glue): string {
+                    return preg_quote($glue, '/');
                 },
                 $this->rendererOptions['wordGlues']
             );
 
-            $gluePattern = '/^(?:' . \implode('|', $regexGlues) . ')+$/uS';
+            $gluePattern = '/^(?:' . implode('|', $regexGlues) . ')+$/uS';
 
             $this->glueWordsResult($oldWords, $gluePattern);
             $this->glueWordsResult($newWords, $gluePattern);
         }
 
-        $mbOld->set(\implode('', $oldWords));
-        $mbNew->set(\implode('', $newWords));
+        $mbOld->set(implode('', $oldWords));
+        $mbNew->set(implode('', $newWords));
 
         return $this;
     }
@@ -99,10 +97,10 @@ final class Word extends AbstractLineRenderer
                     $endClosureIdx = $idx;
                 }
             } elseif (Str::startsWith($word, RendererConstant::HTML_CLOSURES[0])) {
-                $words[$endClosureIdx] = \substr($words[$endClosureIdx], 0, -\strlen(RendererConstant::HTML_CLOSURES[1]));
-                $word = \substr($word, \strlen(RendererConstant::HTML_CLOSURES[0]));
+                $words[$endClosureIdx] = substr($words[$endClosureIdx], 0, -\strlen(RendererConstant::HTML_CLOSURES[1]));
+                $word = substr($word, \strlen(RendererConstant::HTML_CLOSURES[0]));
                 $endClosureIdx = $idx;
-            } elseif (!\preg_match($gluePattern, $word)) {
+            } elseif (!preg_match($gluePattern, $word)) {
                 $endClosureIdx = -1;
             }
         }

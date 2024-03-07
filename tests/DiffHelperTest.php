@@ -24,7 +24,7 @@ final class DiffHelperTest extends TestCase
      * @covers \Jfcherng\Diff\Renderer\Text\Context
      * @covers \Jfcherng\Diff\Renderer\Text\Unified
      *
-     * @dataProvider rendererOutputDataProvider
+     * @dataProvider provideRendererOutputCases
      *
      * @param string        $rendererName The renderer name
      * @param int           $idx          The index
@@ -33,7 +33,7 @@ final class DiffHelperTest extends TestCase
     public function testRendererOutput(string $rendererName, int $idx, array $testFiles): void
     {
         if (!isset($testFiles['old'], $testFiles['new'], $testFiles['result'])) {
-            static::markTestSkipped("Renderer output test '{$rendererName}' #{$idx} is imcomplete.");
+            self::markTestSkipped("Renderer output test '{$rendererName}' #{$idx} is imcomplete.");
         }
 
         $result = DiffHelper::calculate(
@@ -44,7 +44,7 @@ final class DiffHelperTest extends TestCase
             ['cliColorization' => RendererConstant::CLI_COLOR_DISABLE]
         );
 
-        static::assertSame(
+        self::assertSame(
             $testFiles['result']->getContents(),
             $result,
             "Renderer output test '{$rendererName}' #{$idx} failed..."
@@ -58,13 +58,13 @@ final class DiffHelperTest extends TestCase
      */
     public function testGetStyleSheet(): void
     {
-        static::assertIsString(DiffHelper::getStyleSheet());
+        self::assertIsString(DiffHelper::getStyleSheet());
     }
 
     /**
      * Data provider for self::testRendererOutput.
      */
-    public function rendererOutputDataProvider(): array
+    public static function provideRendererOutputCases(): iterable
     {
         $rendererNames = DiffHelper::getAvailableRenderers();
 
@@ -93,19 +93,20 @@ final class DiffHelperTest extends TestCase
      */
     protected function findRendererOutputTestFiles(string $rendererName): array
     {
-        $rendererNameRegex = \preg_quote($rendererName, '/');
-        $fileNameRegex = "/{$rendererNameRegex}-(?P<idx>[0-9]+)-(?P<name>[^.\-]+)\.txt$/u";
+        $rendererNameRegex = preg_quote($rendererName, '/');
+        $fileNameRegex = "/{$rendererNameRegex}-(?P<idx>[0-9]+)-(?P<name>[^.\\-]+)\\.txt$/u";
 
         $finder = (new Finder())
             ->files()
             ->name($fileNameRegex)
-            ->in(__DIR__ . '/data/renderer_outputs');
+            ->in(__DIR__ . '/data/renderer_outputs')
+        ;
 
         $ret = [];
 
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
-            \preg_match($fileNameRegex, $file->getFilename(), $matches);
+            preg_match($fileNameRegex, $file->getFilename(), $matches);
             $idx = (int) $matches['idx'];
             $name = $matches['name'];
 

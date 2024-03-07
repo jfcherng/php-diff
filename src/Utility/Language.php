@@ -85,10 +85,10 @@ final class Language
         $fileContent = $file->fread($file->getSize());
 
         /** @todo PHP ^7.3 JSON_THROW_ON_ERROR */
-        $decoded = \json_decode($fileContent, true);
+        $decoded = json_decode($fileContent, true);
 
-        if (\json_last_error() !== \JSON_ERROR_NONE) {
-            $msg = \sprintf('Fail to decode JSON file (code %d): %s', \json_last_error(), \realpath($filePath));
+        if (json_last_error() !== \JSON_ERROR_NONE) {
+            $msg = sprintf('Fail to decode JSON file (code %d): %s', json_last_error(), realpath($filePath));
             throw new \Exception($msg); // workaround single-line throw + 120-char limit
         }
 
@@ -117,10 +117,10 @@ final class Language
             }
 
             // $target is a list of "key-value pairs or language ID"
-            return \array_reduce(
+            return array_reduce(
                 $target,
                 function ($carry, $translation) {
-                    return \array_merge($carry, $this->resolve($translation));
+                    return array_merge($carry, $this->resolve($translation));
                 },
                 []
             );

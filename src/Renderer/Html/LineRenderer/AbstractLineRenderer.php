@@ -38,7 +38,8 @@ abstract class AbstractLineRenderer implements LineRendererInterface
 
         $this
             ->setDifferOptions($differOptions)
-            ->setRendererOptions($rendererOptions);
+            ->setRendererOptions($rendererOptions)
+        ;
     }
 
     /**

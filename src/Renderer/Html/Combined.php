@@ -30,22 +30,19 @@ final class Combined extends AbstractHtml
      */
     public const AUTO_FORMAT_CHANGES = false;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function redererChanges(array $changes): string
     {
         if (empty($changes)) {
             return $this->getResultForIdenticals();
         }
 
-        $wrapperClasses = \array_merge(
+        $wrapperClasses = array_merge(
             $this->options['wrapperClasses'],
             ['diff', 'diff-html', 'diff-combined']
         );
 
         return
-            '<table class="' . \implode(' ', $wrapperClasses) . '">' .
+            '<table class="' . implode(' ', $wrapperClasses) . '">' .
                 $this->renderTableHeader() .
                 $this->renderTableHunks($changes) .
             '</table>';
@@ -292,7 +289,7 @@ final class Combined extends AbstractHtml
         // i.e., the new line with all "<ins>...</ins>" parts removed
         $mergedLine = $newLine;
         foreach (ReverseIterator::fromArray($insParts) as $part) {
-            $mergedLine = \substr_replace(
+            $mergedLine = substr_replace(
                 $mergedLine,
                 '', // deletion
                 $part['offset'],
@@ -310,8 +307,8 @@ final class Combined extends AbstractHtml
         $this->revisePartsForBoundaryNewlines($insParts, RendererConstant::HTML_CLOSURES_INS);
 
         // create a sorted merged parts array
-        $mergedParts = \array_merge($delParts, $insParts);
-        \usort($mergedParts, function (array $a, array $b): int {
+        $mergedParts = array_merge($delParts, $insParts);
+        usort($mergedParts, static function (array $a, array $b): int {
             // first sort by "offsetClean", "order" then by "type"
             return $a['offsetClean'] <=> $b['offsetClean']
                 ?: $a['order'] <=> $b['order']
@@ -320,7 +317,7 @@ final class Combined extends AbstractHtml
 
         // insert merged parts into the cleaned line
         foreach (ReverseIterator::fromArray($mergedParts) as $part) {
-            $mergedLine = \substr_replace(
+            $mergedLine = substr_replace(
                 $mergedLine,
                 $part['content'],
                 $part['offsetClean'],
@@ -328,7 +325,7 @@ final class Combined extends AbstractHtml
             );
         }
 
-        return \str_replace("\n", '<br>', $mergedLine);
+        return str_replace("\n", '<br>', $mergedLine);
     }
 
     /**
@@ -356,9 +353,9 @@ final class Combined extends AbstractHtml
         $partLengthSum = 0;
 
         // find the next left delimiter
-        while (false !== ($partStart = \strpos($line, $ld, $partEnd))) {
+        while (false !== ($partStart = strpos($line, $ld, $partEnd))) {
             // find the corresponding right delimiter
-            if (false === ($partEnd = \strpos($line, $rd, $partStart + $ldLength))) {
+            if (false === ($partEnd = strpos($line, $rd, $partStart + $ldLength))) {
                 break;
             }
 
@@ -374,7 +371,7 @@ final class Combined extends AbstractHtml
                 // the offset in the cleaned line (i.e., the line with closure parts removed)
                 'offsetClean' => $partStart - $partLengthSum,
                 // the content of the part
-                'content' => \substr($line, $partStart, $partLength),
+                'content' => substr($line, $partStart, $partLength),
             ];
 
             $partLengthSum += $partLength;
@@ -405,8 +402,8 @@ final class Combined extends AbstractHtml
             $this->options
         );
 
-        $mbOld->set(\implode("\n", $oldBlock));
-        $mbNew->set(\implode("\n", $newBlock));
+        $mbOld->set(implode("\n", $oldBlock));
+        $mbNew->set(implode("\n", $newBlock));
 
         $lineRenderer->render($mbOld, $mbNew);
 
@@ -425,8 +422,8 @@ final class Combined extends AbstractHtml
      */
     protected function isLinesMergeable(string $oldLine, string $newLine, string $cleanLine): bool
     {
-        $oldLine = \str_replace(RendererConstant::HTML_CLOSURES_DEL, '', $oldLine);
-        $newLine = \str_replace(RendererConstant::HTML_CLOSURES_INS, '', $newLine);
+        $oldLine = str_replace(RendererConstant::HTML_CLOSURES_DEL, '', $oldLine);
+        $newLine = str_replace(RendererConstant::HTML_CLOSURES_INS, '', $newLine);
 
         $sumLength = \strlen($oldLine) + \strlen($newLine);
 
@@ -448,16 +445,16 @@ final class Combined extends AbstractHtml
     {
         [$ld, $rd] = $closures;
 
-        $ldRegex = \preg_quote($ld, '/');
-        $rdRegex = \preg_quote($rd, '/');
+        $ldRegex = preg_quote($ld, '/');
+        $rdRegex = preg_quote($rd, '/');
 
         for ($i = \count($parts) - 1; $i >= 0; --$i) {
             $part = &$parts[$i];
 
             // deal with leading newlines
-            $part['content'] = \preg_replace_callback(
+            $part['content'] = preg_replace_callback(
                 "/(?P<closure>{$ldRegex})(?P<nl>[\r\n]++)/u",
-                function (array $matches) use (&$parts, $part, $ld, $rd): string {
+                static function (array $matches) use (&$parts, $part, $ld, $rd): string {
                     // add a new part for the extracted newlines
                     $part['order'] = -1;
                     $part['content'] = "{$ld}{$matches['nl']}{$rd}";
@@ -469,9 +466,9 @@ final class Combined extends AbstractHtml
             );
 
             // deal with trailing newlines
-            $part['content'] = \preg_replace_callback(
+            $part['content'] = preg_replace_callback(
                 "/(?P<nl>[\r\n]++)(?P<closure>{$rdRegex})/u",
-                function (array $matches) use (&$parts, $part, $ld, $rd): string {
+                static function (array $matches) use (&$parts, $part, $ld, $rd): string {
                     // add a new part for the extracted newlines
                     $part['order'] = 1;
                     $part['content'] = "{$ld}{$matches['nl']}{$rd}";
@@ -507,7 +504,7 @@ final class Combined extends AbstractHtml
 
         foreach ($lines as &$line) {
             if ($htmlClosures) {
-                $line = \str_replace(RendererConstant::HTML_CLOSURES, $htmlClosures, $line);
+                $line = str_replace(RendererConstant::HTML_CLOSURES, $htmlClosures, $line);
             }
         }
 

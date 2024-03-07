@@ -30,9 +30,6 @@ final class Context extends AbstractText
         SequenceMatcher::OP_INS |
         SequenceMatcher::OP_REP;
 
-    /**
-     * {@inheritdoc}
-     */
     protected function renderWorker(Differ $differ): string
     {
         $ret = '';
@@ -151,7 +148,7 @@ final class Context extends AbstractText
             return '';
         }
 
-        $ret = "{$symbol} " . \implode("\n{$symbol} ", $context) . "\n";
+        $ret = "{$symbol} " . implode("\n{$symbol} ", $context) . "\n";
         $ret = $this->cliColoredString($ret, $symbol);
 
         if ($noEolAtEof) {

@@ -18,20 +18,20 @@ final class IgnoreLineEndingTest extends TestCase
     /**
      * @return string[][]
      */
-    public function provideIgnoreLineEnding(): array
+    public static function provideIgnoreLineEndingCases(): iterable
     {
         return [
             [
-                \file_get_contents(__DIR__ . '/data/ignore_line_ending/old_1.txt'),
-                \file_get_contents(__DIR__ . '/data/ignore_line_ending/new_1.txt'),
+                file_get_contents(__DIR__ . '/data/ignore_line_ending/old_1.txt'),
+                file_get_contents(__DIR__ . '/data/ignore_line_ending/new_1.txt'),
                 <<<'DIFF'
 DIFF
                 ,
                 true,
             ],
             [
-                \file_get_contents(__DIR__ . '/data/ignore_line_ending/old_1.txt'),
-                \file_get_contents(__DIR__ . '/data/ignore_line_ending/new_1.txt'),
+                file_get_contents(__DIR__ . '/data/ignore_line_ending/old_1.txt'),
+                file_get_contents(__DIR__ . '/data/ignore_line_ending/new_1.txt'),
                 <<<"DIFF"
 @@ -1,2 +1,2 @@
 -line 1\r
@@ -47,7 +47,7 @@ DIFF
     }
 
     /**
-     * @dataProvider provideIgnoreLineEnding
+     * @dataProvider provideIgnoreLineEndingCases
      */
     public function testIgnoreLineEnding(
         string $old,
@@ -61,6 +61,6 @@ DIFF
             'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
         ]);
 
-        static::assertSame($expectedDiff, $diff);
+        self::assertSame($expectedDiff, $diff);
     }
 }

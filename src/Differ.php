@@ -185,7 +185,7 @@ final class Differ
      */
     public function setOptions(array $options): self
     {
-        $mergedOptions = $options + static::$defaultOptions;
+        $mergedOptions = $options + self::$defaultOptions;
 
         if ($this->options !== $mergedOptions) {
             $this->options = $mergedOptions;
@@ -268,7 +268,7 @@ final class Differ
     {
         static $singleton;
 
-        return $singleton = $singleton ?? new static([], []);
+        return $singleton = $singleton ?? new self([], []);
     }
 
     /**
@@ -334,7 +334,8 @@ final class Differ
         } else {
             $opcodes = $this->sequenceMatcher
                 ->setSequences($old, $new)
-                ->getGroupedOpcodes($this->options['context']);
+                ->getGroupedOpcodes($this->options['context'])
+            ;
         }
 
         $this->getGroupedOpcodesPost($opcodes);
@@ -369,7 +370,8 @@ final class Differ
         } else {
             $opcodes = $this->sequenceMatcher
                 ->setSequences($old, $new)
-                ->getGroupedOpcodes($this->options['context']);
+                ->getGroupedOpcodes($this->options['context'])
+            ;
         }
 
         $this->getGroupedOpcodesGnuPost($opcodes);
@@ -394,10 +396,10 @@ final class Differ
         ];
 
         $this->oldSrcLength = \count($old);
-        \array_push($old, ...$eolAtEofHelperLines);
+        array_push($old, ...$eolAtEofHelperLines);
 
         $this->newSrcLength = \count($new);
-        \array_push($new, ...$eolAtEofHelperLines);
+        array_push($new, ...$eolAtEofHelperLines);
     }
 
     /**
@@ -517,7 +519,7 @@ final class Differ
      */
     private function resetCachedResults(): self
     {
-        foreach (static::CACHED_PROPERTIES as $property => $value) {
+        foreach (self::CACHED_PROPERTIES as $property => $value) {
             $this->{$property} = $value;
         }
 
