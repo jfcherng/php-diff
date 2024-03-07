@@ -94,7 +94,7 @@ final class DiffHelperTest extends TestCase
     protected static function findRendererOutputTestFiles(string $rendererName): array
     {
         $rendererNameRegex = preg_quote($rendererName, '/');
-        $fileNameRegex = "/{$rendererNameRegex}-(?P<idx>[0-9]+)-(?P<name>[^.\\-]+)\\.txt$/u";
+        $fileNameRegex = "/{$rendererNameRegex}-(?P<idx>[0-9]+)-(?P<name>[^.-]+)\\.txt$/u";
 
         $finder = (new Finder())
             ->files()
