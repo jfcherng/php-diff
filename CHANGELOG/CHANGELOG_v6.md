@@ -2,6 +2,10 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.10** - feat: add methods to get diff statistics
+   * 2024-03-11 01:53  **6.10.17**  remove debug msg
+      * b496ddf fix: remove debug print
+      * dff8047 chore: tidy codes
+      * 6650347 fix: test case wrong PHP syntax
    * 2024-03-08 02:00  **6.10.16**  fix Differ::getStatistics()
       * 297d6a9 fix: Differ::getStatistics() not working when no difference
    * 2024-03-05 17:05  **6.10.15**  new differ option: fullContextIfIdentical
