@@ -290,8 +290,6 @@ final class Differ
             }
         }
 
-        var_dump($this->oldSrcLength);
-
         $ret['unmodified'] = $this->oldSrcLength - $ret['deleted'];
         $ret['changedRatio'] = 1 - ($ret['unmodified'] / $this->oldSrcLength);
 
