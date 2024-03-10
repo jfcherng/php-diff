@@ -2,6 +2,8 @@
 ## VERSION 6  UNIFIED
 
  * Version **6.16** - new differ option: fullContextIfIdentical
+   * 2024-03-11 01:40  **6.16.2**  remove debug msg
+      * 8bafc7b fix: remove debug print
    * 2024-03-08 01:59  **6.16.1**  fix Differ::getStatistics()
       * e6d485d fix: Differ::getStatistics() not working when no difference
       * 26f93d7 chore: update deps
