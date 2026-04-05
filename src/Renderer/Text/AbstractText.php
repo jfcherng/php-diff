@@ -17,12 +17,12 @@ abstract class AbstractText extends AbstractRenderer
     /**
      * @var bool is this renderer pure text?
      */
-    public const IS_TEXT_RENDERER = true;
+    public const bool IS_TEXT_RENDERER = true;
 
     /**
      * @var string the diff output representing there is no EOL at EOF in the GNU diff tool
      */
-    public const GNU_OUTPUT_NO_EOL_AT_EOF = '\ No newline at end of file';
+    public const string GNU_OUTPUT_NO_EOL_AT_EOF = '\ No newline at end of file';
 
     /**
      * @var bool controls whether cliColoredString() is enabled or not

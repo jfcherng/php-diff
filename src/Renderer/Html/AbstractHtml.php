@@ -20,14 +20,14 @@ abstract class AbstractHtml extends AbstractRenderer
     /**
      * @var bool is this renderer pure text?
      */
-    public const IS_TEXT_RENDERER = false;
+    public const bool IS_TEXT_RENDERER = false;
 
     /**
      * @var string[] array of the different opcodes and how they are mapped to HTML classes
      *
      * @todo rename to OP_CLASS_MAP in v7
      */
-    public const TAG_CLASS_MAP = [
+    public const array TAG_CLASS_MAP = [
         SequenceMatcher::OP_DEL => 'del',
         SequenceMatcher::OP_EQ => 'eq',
         SequenceMatcher::OP_INS => 'ins',
@@ -42,7 +42,7 @@ abstract class AbstractHtml extends AbstractRenderer
      *
      * @var bool
      */
-    public const AUTO_FORMAT_CHANGES = true;
+    public const bool AUTO_FORMAT_CHANGES = true;
 
     public function getResultForIdenticalsDefault(): string
     {

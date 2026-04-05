@@ -14,7 +14,7 @@ class JsonHtml extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public const INFO = [
+    public const array INFO = [
         'desc' => 'HTML Json',
         'type' => 'Html',
     ];
@@ -22,7 +22,7 @@ class JsonHtml extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public const IS_TEXT_RENDERER = true;
+    public const bool IS_TEXT_RENDERER = true;
 
     public function getResultForIdenticalsDefault(): string
     {

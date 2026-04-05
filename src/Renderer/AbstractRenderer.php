@@ -18,7 +18,7 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * @var array information about this renderer
      */
-    public const INFO = [
+    public const array INFO = [
         'desc' => 'default_desc',
         'type' => 'default_type',
     ];
@@ -26,12 +26,12 @@ abstract class AbstractRenderer implements RendererInterface
     /**
      * @var bool Is this renderer pure text?
      */
-    public const IS_TEXT_RENDERER = true;
+    public const bool IS_TEXT_RENDERER = true;
 
     /**
      * @var string[] array of the opcodes and their corresponding symbols
      */
-    public const SYMBOL_MAP = [
+    public const array SYMBOL_MAP = [
         SequenceMatcher::OP_DEL => '-',
         SequenceMatcher::OP_EQ => ' ',
         SequenceMatcher::OP_INS => '+',

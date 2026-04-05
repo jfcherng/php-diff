@@ -20,7 +20,7 @@ final class Combined extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public const INFO = [
+    public const array INFO = [
         'desc' => 'Combined',
         'type' => 'Html',
     ];
@@ -28,7 +28,7 @@ final class Combined extends AbstractHtml
     /**
      * {@inheritdoc}
      */
-    public const AUTO_FORMAT_CHANGES = false;
+    public const bool AUTO_FORMAT_CHANGES = false;
 
     protected function redererChanges(array $changes): string
     {

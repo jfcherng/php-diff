@@ -20,7 +20,7 @@ final class Differ
     /**
      * @var int a safe number for indicating showing all contexts
      */
-    public const CONTEXT_ALL = \PHP_INT_MAX >> 3;
+    public const int CONTEXT_ALL = \PHP_INT_MAX >> 3;
 
     /**
      * @var string used to indicate a line has no EOL
@@ -28,12 +28,12 @@ final class Differ
      * Arbitrary chars from the 15-16th Unicode reserved areas
      * and hopefully, they won't appear in source texts
      */
-    public const LINE_NO_EOL = "\u{fcf28}\u{fc231}";
+    public const string LINE_NO_EOL = "\u{fcf28}\u{fc231}";
 
     /**
      * @var array cached properties and their default values
      */
-    private const CACHED_PROPERTIES = [
+    private const array CACHED_PROPERTIES = [
         'groupedOpcodes' => [],
         'groupedOpcodesGnu' => [],
         'oldNoEolAtEofIdx' => -1,
