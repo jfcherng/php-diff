@@ -48,16 +48,6 @@ final class DiffHelperTest extends TestCase
     }
 
     /**
-     * Test the DiffHelper::getStyleSheet.
-     *
-     * @covers \Jfcherng\Diff\DiffHelper::getStyleSheet
-     */
-    public function testGetStyleSheet(): void
-    {
-        self::assertIsString(DiffHelper::getStyleSheet());
-    }
-
-    /**
      * Data provider for self::testRendererOutput.
      */
     public static function provideRendererOutputCases(): iterable
@@ -75,6 +65,16 @@ final class DiffHelperTest extends TestCase
         }
 
         return $data;
+    }
+
+    /**
+     * Test the DiffHelper::getStyleSheet.
+     *
+     * @covers \Jfcherng\Diff\DiffHelper::getStyleSheet
+     */
+    public function testGetStyleSheet(): void
+    {
+        self::assertIsString(DiffHelper::getStyleSheet());
     }
 
     /**

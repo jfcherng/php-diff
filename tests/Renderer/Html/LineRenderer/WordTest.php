@@ -1,5 +1,7 @@
 <?php
 
+// @php-cs-fixer-ignore heredoc_indentation
+
 declare(strict_types=1);
 
 namespace Jfcherng\Diff\Test\Renderer\Html\LineRenderer;

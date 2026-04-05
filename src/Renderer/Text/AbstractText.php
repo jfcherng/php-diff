@@ -132,6 +132,6 @@ abstract class AbstractText extends AbstractRenderer
         $stat = @fstat($stream);
 
         // Check if formatted mode is S_IFCHR
-        return $stat ? 0020000 === ($stat['mode'] & 0170000) : false;
+        return $stat ? 0o020000 === ($stat['mode'] & 0o170000) : false;
     }
 }

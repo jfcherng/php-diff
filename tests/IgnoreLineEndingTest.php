@@ -1,5 +1,7 @@
 <?php
 
+// @php-cs-fixer-ignore heredoc_indentation
+
 declare(strict_types=1);
 
 namespace Jfcherng\Diff\Test;
@@ -16,6 +18,22 @@ use PHPUnit\Framework\TestCase;
  */
 final class IgnoreLineEndingTest extends TestCase
 {
+    #[DataProvider('provideIgnoreLineEndingCases')]
+    public function testIgnoreLineEnding(
+        string $old,
+        string $new,
+        string $expectedDiff,
+        bool $gnoreLineEnding
+    ): void {
+        $diff = DiffHelper::calculate($old, $new, 'Unified', [
+            'ignoreLineEnding' => $gnoreLineEnding,
+        ], [
+            'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
+        ]);
+
+        self::assertSame($expectedDiff, $diff);
+    }
+
     /**
      * @return string[][]
      */
@@ -43,21 +61,5 @@ DIFF,
                 false,
             ],
         ];
-    }
-
-    #[DataProvider('provideIgnoreLineEndingCases')]
-    public function testIgnoreLineEnding(
-        string $old,
-        string $new,
-        string $expectedDiff,
-        bool $gnoreLineEnding
-    ): void {
-        $diff = DiffHelper::calculate($old, $new, 'Unified', [
-            'ignoreLineEnding' => $gnoreLineEnding,
-        ], [
-            'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
-        ]);
-
-        self::assertSame($expectedDiff, $diff);
     }
 }

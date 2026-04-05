@@ -87,7 +87,7 @@ final class Language
         try {
             $decoded = json_decode($fileContent, true, 512, \JSON_THROW_ON_ERROR);
         } catch (\JsonException $e) {
-            throw new \Exception(sprintf('Fail to decode JSON file (%s): %s', realpath($filePath), (string) $e));
+            throw new \Exception(\sprintf('Fail to decode JSON file (%s): %s', realpath($filePath), (string) $e));
         }
 
         return (array) $decoded;

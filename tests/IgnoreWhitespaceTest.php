@@ -1,5 +1,7 @@
 <?php
 
+// @php-cs-fixer-ignore heredoc_indentation
+
 declare(strict_types=1);
 
 namespace Jfcherng\Diff\Test;
@@ -16,6 +18,18 @@ use PHPUnit\Framework\TestCase;
  */
 final class IgnoreWhitespaceTest extends TestCase
 {
+    #[DataProvider('provideIgnoreWhitespacesCases')]
+    public function testIgnoreWhitespaces(string $old, string $new, string $expectedDiff): void
+    {
+        $diff = DiffHelper::calculate($old, $new, 'Unified', [
+            'ignoreWhitespace' => true,
+        ], [
+            'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
+        ]);
+
+        self::assertSame($expectedDiff, $diff);
+    }
+
     /**
      * @return string[][]
      */
@@ -35,8 +49,7 @@ function foo(\DateTimeImmutable $date)
     }
 }
 
-OLD
-                ,
+OLD,
                 <<<'NEW'
 <?php
 
@@ -45,8 +58,7 @@ function foo(\DateTimeImmutable $date)
     echo 'foo';
 }
 
-NEW
-                ,
+NEW,
                 <<<'DIFF'
 @@ -2,9 +2,5 @@
  
@@ -80,8 +92,7 @@ class Foo
 
 }
 
-OLD
-                ,
+OLD,
                 <<<'NEW'
 <?php
 
@@ -95,8 +106,7 @@ class Foo
 
 }
 
-NEW
-                ,
+NEW,
                 <<<'DIFF'
 @@ -6,11 +6,6 @@
  	{
@@ -133,17 +143,5 @@ DIFF,
 DIFF,
             ],
         ];
-    }
-
-    #[DataProvider('provideIgnoreWhitespacesCases')]
-    public function testIgnoreWhitespaces(string $old, string $new, string $expectedDiff): void
-    {
-        $diff = DiffHelper::calculate($old, $new, 'Unified', [
-            'ignoreWhitespace' => true,
-        ], [
-            'cliColorization' => RendererConstant::CLI_COLOR_DISABLE,
-        ]);
-
-        self::assertSame($expectedDiff, $diff);
     }
 }
