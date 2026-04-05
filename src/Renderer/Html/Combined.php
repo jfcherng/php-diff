@@ -107,22 +107,13 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlock(array $block): string
     {
-        switch ($block['tag']) {
-            case SequenceMatcher::OP_EQ:
-                $content = $this->renderTableBlockEqual($block);
-                break;
-            case SequenceMatcher::OP_INS:
-                $content = $this->renderTableBlockInsert($block);
-                break;
-            case SequenceMatcher::OP_DEL:
-                $content = $this->renderTableBlockDelete($block);
-                break;
-            case SequenceMatcher::OP_REP:
-                $content = $this->renderTableBlockReplace($block);
-                break;
-            default:
-                $content = '';
-        }
+        $content = match ($block['tag']) {
+            SequenceMatcher::OP_EQ => $this->renderTableBlockEqual($block),
+            SequenceMatcher::OP_INS => $this->renderTableBlockInsert($block),
+            SequenceMatcher::OP_DEL => $this->renderTableBlockDelete($block),
+            SequenceMatcher::OP_REP => $this->renderTableBlockReplace($block),
+            default => '',
+        };
 
         return '<tbody class="change change-' . self::TAG_CLASS_MAP[$block['tag']] . '">' . $content . '</tbody>';
     }
