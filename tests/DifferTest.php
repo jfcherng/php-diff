@@ -6,6 +6,7 @@ namespace Jfcherng\Diff\Test;
 
 use Jfcherng\Diff\Differ;
 use Jfcherng\Diff\SequenceMatcher;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -53,14 +54,9 @@ EOT
     /**
      * Test the Differ::getGroupedOpcodes.
      *
-     * @covers       \Jfcherng\Diff\Differ::getGroupedOpcodes
-     *
-     * @dataProvider provideGetGroupedOpcodesCases
-     *
-     * @param string $old      the old
-     * @param string $new      the new
-     * @param array  $expected the expected
+     * @covers \Jfcherng\Diff\Differ::getGroupedOpcodes
      */
+    #[DataProvider('provideGetGroupedOpcodesCases')]
     public function testGetGroupedOpcodes(string $old, string $new, array $expected): void
     {
         $old = explode("\n", $old);

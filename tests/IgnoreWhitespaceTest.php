@@ -6,6 +6,7 @@ namespace Jfcherng\Diff\Test;
 
 use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Renderer\RendererConstant;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -134,9 +135,7 @@ DIFF,
         ];
     }
 
-    /**
-     * @dataProvider provideIgnoreWhitespacesCases
-     */
+    #[DataProvider('provideIgnoreWhitespacesCases')]
     public function testIgnoreWhitespaces(string $old, string $new, string $expectedDiff): void
     {
         $diff = DiffHelper::calculate($old, $new, 'Unified', [

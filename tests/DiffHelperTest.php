@@ -6,6 +6,7 @@ namespace Jfcherng\Diff\Test;
 
 use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Renderer\RendererConstant;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Finder\SplFileInfo;
@@ -23,13 +24,8 @@ final class DiffHelperTest extends TestCase
      * @covers \Jfcherng\Diff\DiffHelper::calculate
      * @covers \Jfcherng\Diff\Renderer\Text\Context
      * @covers \Jfcherng\Diff\Renderer\Text\Unified
-     *
-     * @dataProvider provideRendererOutputCases
-     *
-     * @param string        $rendererName The renderer name
-     * @param int           $idx          The index
-     * @param SplFileInfo[] $testFiles    The test files
      */
+    #[DataProvider('provideRendererOutputCases')]
     public function testRendererOutput(string $rendererName, int $idx, array $testFiles): void
     {
         if (!isset($testFiles['old'], $testFiles['new'], $testFiles['result'])) {

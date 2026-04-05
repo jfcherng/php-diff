@@ -6,6 +6,7 @@ namespace Jfcherng\Diff\Test;
 
 use Jfcherng\Diff\DiffHelper;
 use Jfcherng\Diff\Renderer\RendererConstant;
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -44,9 +45,7 @@ DIFF,
         ];
     }
 
-    /**
-     * @dataProvider provideIgnoreLineEndingCases
-     */
+    #[DataProvider('provideIgnoreLineEndingCases')]
     public function testIgnoreLineEnding(
         string $old,
         string $new,

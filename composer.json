@@ -62,7 +62,7 @@
             "@php -S localhost:12388 -t example/"
         ],
         "test": [
-            "phpunit --verbose"
+            "phpunit --display-deprecations --display-errors --display-incomplete --display-skipped --display-warnings"
         ]
     }
 }
