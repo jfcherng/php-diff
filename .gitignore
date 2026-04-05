@@ -1,6 +1,7 @@
 # some IDE things
 *.cache
 .idea/
+.claude/
 .tags*
 /.web-server-pid
 **/oracle.sqlite
