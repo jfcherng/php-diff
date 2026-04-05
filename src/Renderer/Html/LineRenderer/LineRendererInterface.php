@@ -16,5 +16,5 @@ interface LineRendererInterface
      *
      * @return static
      */
-    public function render(MbString $mbOld, MbString $mbNew): self;
+    public function render(MbString $mbOld, MbString $mbNew): static;
 }

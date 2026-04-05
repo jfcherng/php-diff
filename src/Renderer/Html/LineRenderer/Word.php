@@ -13,7 +13,7 @@ use Jfcherng\Utility\MbString;
 final class Word extends AbstractLineRenderer
 {
     #[\Override]
-    public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
+    public function render(MbString $mbOld, MbString $mbNew): static
     {
         static $splitRegex = '/([' . RendererConstant::PUNCTUATIONS_RANGE . '])/uS';
         static $dummyHtmlClosure = RendererConstant::HTML_CLOSURES[0] . RendererConstant::HTML_CLOSURES[1];
