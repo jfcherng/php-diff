@@ -22,6 +22,7 @@ final class Unified extends AbstractText
         'type' => 'Text',
     ];
 
+    #[\Override]
     protected function renderWorker(Differ $differ): string
     {
         $ret = '';

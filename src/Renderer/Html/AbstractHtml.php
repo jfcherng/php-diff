@@ -44,6 +44,7 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     public const bool AUTO_FORMAT_CHANGES = true;
 
+    #[\Override]
     public function getResultForIdenticalsDefault(): string
     {
         return '';
@@ -102,6 +103,7 @@ abstract class AbstractHtml extends AbstractRenderer
         return $changes;
     }
 
+    #[\Override]
     protected function renderWorker(Differ $differ): string
     {
         $rendered = $this->redererChanges($this->getChanges($differ));
@@ -109,6 +111,7 @@ abstract class AbstractHtml extends AbstractRenderer
         return $this->cleanUpDummyHtmlClosures($rendered);
     }
 
+    #[\Override]
     protected function renderArrayWorker(array $differArray): string
     {
         $this->ensureChangesUseIntTag($differArray);

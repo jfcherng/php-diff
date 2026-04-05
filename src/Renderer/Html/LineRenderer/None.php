@@ -8,9 +8,7 @@ use Jfcherng\Utility\MbString;
 
 final class None extends AbstractLineRenderer
 {
-    /**
-     * @return static
-     */
+    #[\Override]
     public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
     {
         return $this;

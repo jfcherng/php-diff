@@ -12,9 +12,7 @@ use Jfcherng\Utility\MbString;
 
 final class Word extends AbstractLineRenderer
 {
-    /**
-     * @return static
-     */
+    #[\Override]
     public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
     {
         static $splitRegex = '/([' . RendererConstant::PUNCTUATIONS_RANGE . '])/uS';

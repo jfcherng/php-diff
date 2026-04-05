@@ -11,9 +11,7 @@ use Jfcherng\Utility\MbString;
 
 final class Char extends AbstractLineRenderer
 {
-    /**
-     * @return static
-     */
+    #[\Override]
     public function render(MbString $mbOld, MbString $mbNew): LineRendererInterface
     {
         $hunk = $this->getChangedExtentSegments($mbOld->toArray(), $mbNew->toArray());

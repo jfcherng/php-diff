@@ -29,6 +29,7 @@ abstract class AbstractText extends AbstractRenderer
      */
     protected $isCliColorEnabled = false;
 
+    #[\Override]
     public function setOptions(array $options): AbstractRenderer
     {
         parent::setOptions($options);
@@ -45,11 +46,13 @@ abstract class AbstractText extends AbstractRenderer
         return $this;
     }
 
+    #[\Override]
     public function getResultForIdenticalsDefault(): string
     {
         return '';
     }
 
+    #[\Override]
     protected function renderArrayWorker(array $differArray): string
     {
         throw new UnsupportedFunctionException(__METHOD__);
