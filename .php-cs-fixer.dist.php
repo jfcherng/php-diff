@@ -1,19 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 $config = (new PhpCsFixer\Config())
-    ->setIndent("    ")
+    ->setIndent('    ')
     ->setLineEnding("\n")
     ->setCacheFile(__DIR__ . '/.php-cs-fixer.cache')
     ->setRiskyAllowed(true)
     ->setRules([
-        '@PHP71Migration' => true,
-        '@PHP71Migration:risky' => true,
-        '@PHP73Migration' => true,
-        '@PHP74Migration' => true,
-        '@PHP74Migration:risky' => true,
-        '@PHP80Migration' => false,
-        '@PHP80Migration:risky' => true,
-        '@PHP81Migration' => false,
+        '@PHP7x1Migration' => true,
+        '@PHP7x1Migration:risky' => true,
+        '@PHP7x3Migration' => true,
+        '@PHP7x4Migration' => true,
+        '@PHP7x4Migration:risky' => true,
+        '@PHP8x0Migration' => true,
+        '@PHP8x0Migration:risky' => true,
+        '@PHP8x1Migration' => true,
+        '@PHP8x2Migration' => true,
+        '@PHP8x3Migration' => true,
         '@PhpCsFixer' => true,
         '@PhpCsFixer:risky' => true,
         '@PSR12' => true,
@@ -30,7 +34,6 @@ $config = (new PhpCsFixer\Config())
         'concat_space' => ['spacing' => 'one'],
         'echo_tag_syntax' => ['format' => 'short'],
         'fully_qualified_strict_types' => true,
-        'heredoc_indentation' => false, // disabling this makes test cases more readable
         'linebreak_after_opening_tag' => true,
         'list_syntax' => ['syntax' => 'short'],
         'method_argument_space' => ['on_multiline' => 'ensure_fully_multiline'],
@@ -41,8 +44,8 @@ $config = (new PhpCsFixer\Config())
         'no_alternative_syntax' => true,
         'no_null_property_initialization' => true,
         'no_superfluous_elseif' => true,
-        'no_trailing_whitespace_in_string' => false, // test cases have trailing spaces
         'no_unneeded_control_parentheses' => true,
+        'no_useless_concat_operator' => false,
         'no_useless_else' => true,
         'no_useless_return' => true,
         'not_operator_with_space' => false,
@@ -84,7 +87,7 @@ $config = (new PhpCsFixer\Config())
             ->exclude('tests/Fixtures')
             ->exclude('var')
             ->exclude('vendor')
-            ->in(__DIR__)
+            ->in(__DIR__),
     )
 ;
 

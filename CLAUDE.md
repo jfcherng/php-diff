@@ -24,14 +24,14 @@ composer run-script server    # dev server at localhost:12388
 
 ## Testing
 
-- PHPUnit 9; all test methods require `@covers` annotations
+- PHPUnit 13; all test methods require `@covers` annotations
 - `tests/data/` is excluded from linting — do not apply phpcs or php-cs-fixer there
 - Trailing whitespace in test data is **intentional** (tests whitespace handling) — never strip it
 - `no_trailing_whitespace_in_string` rule is disabled in php-cs-fixer for this reason
 
 ## Git Workflow
 
-- Active branch: `v6` — branch from it using `feat/*` or `fix/*` naming
+- Active branch: `v7` — branch from it using `feat/*` or `fix/*` naming
 - Run `composer run-script analyze && composer run-script test` before marking work done
 
 ## Approach
