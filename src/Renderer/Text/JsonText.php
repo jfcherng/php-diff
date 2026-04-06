@@ -29,11 +29,11 @@ final class JsonText extends AbstractText
             $ret[] = $this->renderHunk($differ, $hunk);
         }
 
-        if ($this->options['outputTagAsString']) {
+        if ($this->options->outputTagAsString) {
             $this->convertTagToString($ret);
         }
 
-        return json_encode($ret, $this->options['jsonEncodeFlags']);
+        return json_encode($ret, $this->options->jsonEncodeFlags);
     }
 
     /**

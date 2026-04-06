@@ -38,7 +38,7 @@ final class Combined extends AbstractHtml
         }
 
         $wrapperClasses = [
-            ...$this->options['wrapperClasses'],
+            ...$this->options->wrapperClasses,
             'diff', 'diff-html', 'diff-combined',
         ];
 
@@ -54,7 +54,7 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableHeader(): string
     {
-        if (!$this->options['showHeader']) {
+        if (!$this->options->showHeader) {
             return '';
         }
 
@@ -89,7 +89,7 @@ final class Combined extends AbstractHtml
         $ret = '';
 
         foreach ($hunks as $i => $hunk) {
-            if ($i > 0 && $this->options['separateBlock']) {
+            if ($i > 0 && $this->options->separateBlock) {
                 $ret .= $this->renderTableSeparateBlock();
             }
 
@@ -194,7 +194,7 @@ final class Combined extends AbstractHtml
      */
     protected function renderTableBlockReplace(array $block): string
     {
-        if ($this->options['detailLevel'] === 'none') {
+        if ($this->options->detailLevel === 'none') {
             return
                 $this->renderTableBlockDelete($block) .
                 $this->renderTableBlockInsert($block);
@@ -392,9 +392,9 @@ final class Combined extends AbstractHtml
         $mbOld ??= new MbString();
         $mbNew ??= new MbString();
         $lineRenderer ??= LineRendererFactory::make(
-            $this->options['detailLevel'],
+            $this->options->detailLevel,
             [], /** @todo is it possible to get the differOptions here? */
-            $this->options,
+            $this->options->toArray(),
         );
 
         $mbOld->set(implode("\n", $oldBlock));
@@ -425,7 +425,7 @@ final class Combined extends AbstractHtml
         /** @var float the changed ratio, 0 <= value < 1 */
         $changedRatio = ($sumLength - (\strlen($cleanLine) << 1)) / ($sumLength + 1);
 
-        return $changedRatio <= $this->options['mergeThreshold'];
+        return $changedRatio <= $this->options->mergeThreshold;
     }
 
     /**

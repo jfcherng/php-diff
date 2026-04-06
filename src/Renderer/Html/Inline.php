@@ -27,7 +27,7 @@ final class Inline extends AbstractHtml
         }
 
         $wrapperClasses = [
-            ...$this->options['wrapperClasses'],
+            ...$this->options->wrapperClasses,
             'diff', 'diff-html', 'diff-inline',
         ];
 
@@ -43,17 +43,17 @@ final class Inline extends AbstractHtml
      */
     protected function renderTableHeader(): string
     {
-        if (!$this->options['showHeader']) {
+        if (!$this->options->showHeader) {
             return '';
         }
 
-        $colspan = $this->options['lineNumbers'] ? '' : ' colspan="2"';
+        $colspan = $this->options->lineNumbers ? '' : ' colspan="2"';
 
         return
             '<thead>' .
                 '<tr>' .
                     (
-                        $this->options['lineNumbers']
+                        $this->options->lineNumbers
                         ?
                             '<th>' . $this->_('old_version') . '</th>' .
                             '<th>' . $this->_('new_version') . '</th>' .
@@ -71,7 +71,7 @@ final class Inline extends AbstractHtml
      */
     protected function renderTableSeparateBlock(): string
     {
-        $colspan = $this->options['lineNumbers'] ? '4' : '2';
+        $colspan = $this->options->lineNumbers ? '4' : '2';
 
         return
             '<tbody class="skipped">' .
@@ -91,7 +91,7 @@ final class Inline extends AbstractHtml
         $ret = '';
 
         foreach ($hunks as $i => $hunk) {
-            if ($i > 0 && $this->options['separateBlock']) {
+            if ($i > 0 && $this->options->separateBlock) {
                 $ret .= $this->renderTableSeparateBlock();
             }
 
@@ -223,7 +223,7 @@ final class Inline extends AbstractHtml
         return
             '<tr data-type="' . self::SYMBOL_MAP[$op] . '">' .
                 (
-                    $this->options['lineNumbers']
+                    $this->options->lineNumbers
                         ? $this->renderLineNumberColumns($oldLineNum, $newLineNum)
                         : ''
                 ) .

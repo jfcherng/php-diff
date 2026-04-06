@@ -5,13 +5,12 @@ declare(strict_types=1);
 namespace Jfcherng\Diff\Renderer;
 
 use Jfcherng\Diff\Differ;
+use Jfcherng\Diff\Options\RendererOptions;
 use Jfcherng\Diff\SequenceMatcher;
 use Jfcherng\Diff\Utility\Language;
 
 /**
  * Base class for diff renderers.
- *
- * @todo use typed properties (BC breaking for public interface) in v7
  */
 abstract class AbstractRenderer implements RendererInterface
 {
@@ -51,91 +50,35 @@ abstract class AbstractRenderer implements RendererInterface
      */
     protected $changesAreRaw = true;
 
-    /**
-     * @var array array of the default options that apply to this renderer
-     */
-    protected static $defaultOptions = [
-        // how detailed the rendered HTML in-line diff is? (none, line, word, char)
-        'detailLevel' => 'line',
-        // renderer language: eng, cht, chs, jpn, ...
-        // or an array which has the same keys with a language file
-        // check the "Custom Language" section in the readme for more advanced usage
-        'language' => 'eng',
-        // show line numbers in HTML renderers
-        'lineNumbers' => true,
-        // show a separator between different diff hunks in HTML renderers
-        'separateBlock' => true,
-        // show the (table) header
-        'showHeader' => true,
-        // convert spaces/tabs into HTML codes like `<span class="ch sp"> </span>`
-        // and the frontend is responsible for rendering them with CSS.
-        // when using this, "spacesToNbsp" should be false and "tabSize" is not respected.
-        'spaceToHtmlTag' => false,
-        // the frontend HTML could use CSS "white-space: pre;" to visualize consecutive whitespaces
-        // but if you want to visualize them in the backend with "&nbsp;", you can set this to true
-        'spacesToNbsp' => false,
-        // HTML renderer tab width (negative = do not convert into spaces)
-        'tabSize' => 4,
-        // this option is currently only for the Combined renderer.
-        // it determines whether a replace-type block should be merged or not
-        // depending on the content changed ratio, which values between 0 and 1.
-        'mergeThreshold' => 0.8,
-        // this option is currently only for the Unified and the Context renderers.
-        // RendererConstant::CLI_COLOR_AUTO = colorize the output if possible (default)
-        // RendererConstant::CLI_COLOR_ENABLE = force to colorize the output
-        // RendererConstant::CLI_COLOR_DISABLE = force not to colorize the output
-        'cliColorization' => RendererConstant::CLI_COLOR_AUTO,
-        // this option is currently only for the Json renderer.
-        // internally, ops (tags) are all int type but this is not good for human reading.
-        // set this to "true" to convert them into string form before outputting.
-        'outputTagAsString' => false,
-        // this option is currently only for the Json renderer.
-        // it controls how the output JSON is formatted.
-        // see available options on https://www.php.net/manual/en/function.json-encode.php
-        'jsonEncodeFlags' => \JSON_UNESCAPED_SLASHES | \JSON_UNESCAPED_UNICODE,
-        // this option is currently effective when the "detailLevel" is "word"
-        // characters listed in this array can be used to make diff segments into a whole
-        // for example, making "<del>good</del>-<del>looking</del>" into "<del>good-looking</del>"
-        // this should bring better readability but set this to empty array if you do not want it
-        'wordGlues' => ['-', ' '],
-        // change this value to a string as the returned diff if the two input strings are identical
-        'resultForIdenticals' => null,
-        // extra HTML classes added to the DOM of the diff container
-        'wrapperClasses' => ['diff-wrapper'],
-    ];
-
-    /**
-     * @var array array containing the user applied and merged default options for the renderer
-     */
-    protected $options = [];
+    protected RendererOptions $options;
 
     /**
      * The constructor. Instantiates the rendering engine and if options are passed,
      * sets the options for the renderer.
      *
-     * @param array $options optionally, an array of the options for the renderer
+     * @param array|RendererOptions $options optionally, the options for the renderer
      */
-    public function __construct(array $options = [])
+    public function __construct(RendererOptions|array $options = [])
     {
         $this->setOptions($options);
     }
 
     /**
-     * Set the options of the renderer to those supplied in the passed in array.
-     * Options are merged with the default to ensure that there aren't any missing
-     * options.
+     * Set the options of the renderer.
      *
-     * @param array $options the options
+     * @param array|RendererOptions $options the options
      *
      * @return static
      */
-    public function setOptions(array $options): self
+    public function setOptions(RendererOptions|array $options): self
     {
-        $newOptions = $options + static::$defaultOptions;
+        $newOptions = $options instanceof RendererOptions
+            ? $options
+            : RendererOptions::fromArray($options);
 
         $this->updateLanguage(
-            $this->options['language'] ?? '',
-            $newOptions['language'],
+            isset($this->options) ? $this->options->language : '',
+            $newOptions->language,
         );
 
         $this->options = $newOptions;
@@ -145,10 +88,8 @@ abstract class AbstractRenderer implements RendererInterface
 
     /**
      * Get the options.
-     *
-     * @return array the options
      */
-    public function getOptions(): array
+    public function getOptions(): RendererOptions
     {
         return $this->options;
     }
@@ -157,18 +98,10 @@ abstract class AbstractRenderer implements RendererInterface
      * @final
      *
      * @todo mark this method with "final" in the next major release
-     *
-     * @throws \InvalidArgumentException
      */
     public function getResultForIdenticals(): string
     {
-        $custom = $this->options['resultForIdenticals'];
-
-        if (isset($custom) && !\is_string($custom)) {
-            throw new \InvalidArgumentException('renderer option `resultForIdenticals` must be null or string.');
-        }
-
-        return $custom ?? $this->getResultForIdenticalsDefault();
+        return $this->options->resultForIdenticals ?? $this->getResultForIdenticalsDefault();
     }
 
     /**

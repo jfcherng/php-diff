@@ -27,7 +27,7 @@ final class SideBySide extends AbstractHtml
         }
 
         $wrapperClasses = [
-            ...$this->options['wrapperClasses'],
+            ...$this->options->wrapperClasses,
             'diff', 'diff-html', 'diff-side-by-side',
         ];
 
@@ -43,11 +43,11 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableHeader(): string
     {
-        if (!$this->options['showHeader']) {
+        if (!$this->options->showHeader) {
             return '';
         }
 
-        $colspan = $this->options['lineNumbers'] ? ' colspan="2"' : '';
+        $colspan = $this->options->lineNumbers ? ' colspan="2"' : '';
 
         return
             '<thead>' .
@@ -63,7 +63,7 @@ final class SideBySide extends AbstractHtml
      */
     protected function renderTableSeparateBlock(): string
     {
-        $colspan = $this->options['lineNumbers'] ? '4' : '2';
+        $colspan = $this->options->lineNumbers ? '4' : '2';
 
         return
             '<tbody class="skipped">' .
@@ -83,7 +83,7 @@ final class SideBySide extends AbstractHtml
         $ret = '';
 
         foreach ($hunks as $i => $hunk) {
-            if ($i > 0 && $this->options['separateBlock']) {
+            if ($i > 0 && $this->options->separateBlock) {
                 $ret .= $this->renderTableSeparateBlock();
             }
 
@@ -227,13 +227,13 @@ final class SideBySide extends AbstractHtml
         return
             '<tr>' .
                 (
-                    $this->options['lineNumbers']
+                    $this->options->lineNumbers
                         ? $this->renderLineNumberColumn('old', $oldLineNum)
                         : ''
                 ) .
                 $this->renderLineContentColumn('old', $oldLine) .
                 (
-                    $this->options['lineNumbers']
+                    $this->options->lineNumbers
                         ? $this->renderLineNumberColumn('new', $newLineNum)
                         : ''
                 ) .

@@ -62,9 +62,9 @@ abstract class AbstractHtml extends AbstractRenderer
     public function getChanges(Differ $differ): array
     {
         $lineRenderer = LineRendererFactory::make(
-            $this->options['detailLevel'],
+            $this->options->detailLevel,
             $differ->getOptions()->toArray(),
-            $this->options,
+            $this->options->toArray(),
         );
 
         $old = $differ->getOld();
@@ -249,17 +249,17 @@ abstract class AbstractHtml extends AbstractRenderer
      */
     protected function formatStringFromLines(string $string): string
     {
-        if (!$this->options['spaceToHtmlTag']) {
-            $string = $this->expandTabs($string, $this->options['tabSize']);
+        if (!$this->options->spaceToHtmlTag) {
+            $string = $this->expandTabs($string, $this->options->tabSize);
         }
 
         $string = $this->htmlSafe($string);
 
-        if ($this->options['spacesToNbsp']) {
+        if ($this->options->spacesToNbsp) {
             $string = $this->htmlFixSpaces($string);
         }
 
-        if ($this->options['spaceToHtmlTag']) {
+        if ($this->options->spaceToHtmlTag) {
             $string = $this->htmlReplaceSpacesToHtmlTag($string);
         }
 

@@ -33,11 +33,11 @@ class JsonHtml extends AbstractHtml
     #[\Override]
     protected function redererChanges(array $changes): string
     {
-        if ($this->options['outputTagAsString']) {
+        if ($this->options->outputTagAsString) {
             $this->convertTagToString($changes);
         }
 
-        return json_encode($changes, $this->options['jsonEncodeFlags']);
+        return json_encode($changes, $this->options->jsonEncodeFlags);
     }
 
     /**

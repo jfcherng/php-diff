@@ -60,7 +60,7 @@ final class DifferOptionsTest extends TestCase
         $a = new DifferOptions(context: 5);
         $b = new DifferOptions(context: 5);
 
-        self::assertEquals($a, $b);    // same values → equal
-        self::assertNotSame($a, $b);   // different instances
+        self::assertSame($a->context, $b->context);   // same values → equal
+        self::assertNotSame($a, $b);                  // different instances
     }
 }

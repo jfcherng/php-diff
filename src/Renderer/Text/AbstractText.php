@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jfcherng\Diff\Renderer\Text;
 
 use Jfcherng\Diff\Exception\UnsupportedFunctionException;
+use Jfcherng\Diff\Options\RendererOptions;
 use Jfcherng\Diff\Renderer\AbstractRenderer;
 use Jfcherng\Diff\Renderer\RendererConstant;
 use Jfcherng\Utility\CliColor;
@@ -30,14 +31,14 @@ abstract class AbstractText extends AbstractRenderer
     protected $isCliColorEnabled = false;
 
     #[\Override]
-    public function setOptions(array $options): AbstractRenderer
+    public function setOptions(RendererOptions|array $options): AbstractRenderer
     {
         parent::setOptions($options);
 
         // determine $this->isCliColorEnabled
-        if ($this->options['cliColorization'] === RendererConstant::CLI_COLOR_ENABLE) {
+        if ($this->options->cliColorization === RendererConstant::CLI_COLOR_ENABLE) {
             $this->isCliColorEnabled = true;
-        } elseif ($this->options['cliColorization'] === RendererConstant::CLI_COLOR_DISABLE) {
+        } elseif ($this->options->cliColorization === RendererConstant::CLI_COLOR_DISABLE) {
             $this->isCliColorEnabled = false;
         } else {
             $this->isCliColorEnabled = \PHP_SAPI === 'cli' && $this->hasColorSupport(\STDOUT);
