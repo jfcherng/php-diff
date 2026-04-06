@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Jfcherng\Diff\Renderer\Html;
 
 use Jfcherng\Diff\Factory\LineRendererFactory;
+use Jfcherng\Diff\Options\DifferOptions;
 use Jfcherng\Diff\Renderer\RendererConstant;
 use Jfcherng\Diff\SequenceMatcher;
 use Jfcherng\Diff\Utility\ReverseIterator;
@@ -393,8 +394,8 @@ final class Combined extends AbstractHtml
         $mbNew ??= new MbString();
         $lineRenderer ??= LineRendererFactory::make(
             $this->options->detailLevel,
-            [], /** @todo is it possible to get the differOptions here? */
-            $this->options->toArray(),
+            new DifferOptions(),
+            $this->options,
         );
 
         $mbOld->set(implode("\n", $oldBlock));

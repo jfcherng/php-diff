@@ -63,8 +63,8 @@ abstract class AbstractHtml extends AbstractRenderer
     {
         $lineRenderer = LineRendererFactory::make(
             $this->options->detailLevel,
-            $differ->getOptions()->toArray(),
-            $this->options->toArray(),
+            $differ->getOptions(),
+            $this->options,
         );
 
         $old = $differ->getOld();

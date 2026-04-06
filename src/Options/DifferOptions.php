@@ -7,7 +7,7 @@ namespace Jfcherng\Diff\Options;
 /**
  * Value object holding all options for the Differ.
  */
-readonly class DifferOptions
+class DifferOptions
 {
     public function __construct(
         /** Show how many neighbour lines of context. Use Differ::CONTEXT_ALL to show the whole file. */

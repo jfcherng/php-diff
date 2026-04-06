@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Renderer\Html\LineRenderer;
 
+use Jfcherng\Diff\Options\DifferOptions;
+use Jfcherng\Diff\Options\RendererOptions;
 use Jfcherng\Diff\SequenceMatcher;
 
 /**
  * Base renderer for rendering HTML-based line diffs.
- *
- * @todo use typed properties (BC breaking for public interface) in v7
  */
 abstract class AbstractLineRenderer implements LineRendererInterface
 {
@@ -18,23 +18,17 @@ abstract class AbstractLineRenderer implements LineRendererInterface
      */
     protected $sequenceMatcher;
 
-    /**
-     * @var array the differ options
-     */
-    protected $differOptions = [];
+    protected DifferOptions $differOptions;
 
-    /**
-     * @var array the renderer options
-     */
-    protected $rendererOptions = [];
+    protected RendererOptions $rendererOptions;
 
     /**
      * The constructor.
      *
-     * @param array $differOptions   the differ options
-     * @param array $rendererOptions the renderer options
+     * @param DifferOptions   $differOptions   the differ options
+     * @param RendererOptions $rendererOptions the renderer options
      */
-    public function __construct(array $differOptions, array $rendererOptions)
+    public function __construct(DifferOptions $differOptions, RendererOptions $rendererOptions)
     {
         $this->sequenceMatcher = new SequenceMatcher([], []);
 
@@ -47,14 +41,14 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     /**
      * Set the differ options.
      *
-     * @param array $differOptions the differ options
+     * @param DifferOptions $differOptions the differ options
      *
      * @return static
      */
-    public function setDifferOptions(array $differOptions): self
+    public function setDifferOptions(DifferOptions $differOptions): self
     {
         $this->differOptions = $differOptions;
-        $this->sequenceMatcher->setOptions($differOptions);
+        $this->sequenceMatcher->setOptions($differOptions->toArray());
 
         return $this;
     }
@@ -62,11 +56,11 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     /**
      * Set the renderer options.
      *
-     * @param array $rendererOptions the renderer options
+     * @param RendererOptions $rendererOptions the renderer options
      *
      * @return static
      */
-    public function setRendererOptions(array $rendererOptions): self
+    public function setRendererOptions(RendererOptions $rendererOptions): self
     {
         $this->rendererOptions = $rendererOptions;
 
@@ -76,9 +70,9 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     /**
      * Gets the differ options.
      *
-     * @return array the differ options
+     * @return DifferOptions the differ options
      */
-    public function getDifferOptions(): array
+    public function getDifferOptions(): DifferOptions
     {
         return $this->differOptions;
     }
@@ -86,9 +80,9 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     /**
      * Gets the renderer options.
      *
-     * @return array the renderer options
+     * @return RendererOptions the renderer options
      */
-    public function getRendererOptions(): array
+    public function getRendererOptions(): RendererOptions
     {
         return $this->rendererOptions;
     }

@@ -5,6 +5,8 @@ declare(strict_types=1);
 namespace Jfcherng\Diff;
 
 use Jfcherng\Diff\Factory\RendererFactory;
+use Jfcherng\Diff\Options\DifferOptions;
+use Jfcherng\Diff\Options\RendererOptions;
 use Jfcherng\Diff\Renderer\RendererConstant;
 
 final class DiffHelper
@@ -126,8 +128,8 @@ final class DiffHelper
         $old,
         $new,
         string $renderer = 'Unified',
-        array $differOptions = [],
-        array $rendererOptions = []
+        DifferOptions|array $differOptions = [],
+        RendererOptions|array $rendererOptions = []
     ): string {
         // always convert into array form
         \is_string($old) && ($old = explode("\n", $old));
@@ -161,8 +163,8 @@ final class DiffHelper
         string $old,
         string $new,
         string $renderer = 'Unified',
-        array $differOptions = [],
-        array $rendererOptions = []
+        DifferOptions|array $differOptions = [],
+        RendererOptions|array $rendererOptions = []
     ): string {
         // we want to leave the line-ending problem to static::calculate()
         // so do not set SplFileObject::DROP_NEW_LINE flag

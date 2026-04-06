@@ -6,6 +6,8 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Test\Renderer\Html\LineRenderer;
 
+use Jfcherng\Diff\Options\DifferOptions;
+use Jfcherng\Diff\Options\RendererOptions;
 use Jfcherng\Diff\Renderer\Html\LineRenderer\Word;
 use Jfcherng\Diff\Renderer\RendererConstant;
 use Jfcherng\Utility\MbString;
@@ -27,7 +29,7 @@ final class WordTest extends TestCase
      */
     public function testRenderWordGlues1(): void
     {
-        $word = new Word([], ['wordGlues' => [' ', '-']]);
+        $word = new Word(new DifferOptions(), RendererOptions::fromArray(['wordGlues' => [' ', '-']]));
         $mbOld = new MbString('good-looking-x');
         $mbNew = new MbString('good--y');
 
@@ -49,7 +51,7 @@ final class WordTest extends TestCase
      */
     public function testRenderWordGlues2(): void
     {
-        $word = new Word([], ['wordGlues' => [' ', '-']]);
+        $word = new Word(new DifferOptions(), RendererOptions::fromArray(['wordGlues' => [' ', '-']]));
         $mbOld = new MbString('of the Indo-Euopearn legguanas, Porto-Idno-Eorpuaen, did not have aieltrcs. Msot of the lanaguges in this flamiy do not hvae diiefnte or ieiinfntde atrciels: three is no actirle in Ltain or Ssknarit, nor in some meodrn Indo-Eoeapurn lgagaenus, scuh as the falmeiis of Salvic lnggaeuas (epexct for Bulraiagn and Mneiodaacn, whcih are reahtr dviiittcsne amnog the Saivlc lagauegns in thier gmrmaar), Btialc leaauggns and mnay Indo-Aaryn lgugneaas. Aluogthh Csiacslal Greek had a dtiniefe artlcie (wichh has srivvued itno Modren Gerek and wichh bears snotrg fcaiutonnl raeelmnscbe to the Gramen deiinfte arltcie, whcih it is rtealed to), the erailer Hmeoirc Geerk used this alctrie llrgeay as a prnuoon or dioravsttmnee, wareehs the erlaseit known form of Geerk konwn as Meayenacn Gerek did not have any acrlties. Atilcres dvlpeeoed inleenddpenty in svaeerl lagnauge fmieials. In mnay lagnuegas, the form of the atrlice may vary acdrocnig to the gneedr, nbmuer, or csae of its nuon. In smoe laganegus the artcile may be the only idiaitnocn of the case. Many languages do not utilize articles at all, and may use other ways of denoting old versus incipient information, such as topic comment constructions.');
         $mbNew = new MbString('of the Indo-European languages, Proto-Indo-European, did not have articles. Most of the languages in this family do not have definite or indefinite articles: there is no article in Latin or Sanskrit, nor in some modern Indo-European languages, such as the families of Slavic languages (epexct for Bulraiagn and Mneiodaacn, whcih are reahtr dviiittcsne amnog the Saivlc lagauegns in thier gmrmaar), Btialc leaauggns and mnay Indo-Aaryn lgugneaas. Aluogthh Csiacslal Greek had a dtiniefe artlcie (wichh has srivvued itno Modren Gerek and wichh bears snotrg fcaiutonnl raeelmnscbe to the Gramen deiinfte arltcie, whcih it is rtealed to), the erailer Hmeoirc Geerk used this alctrie llrgeay as a prnuoon or dioravsttmnee, wareehs the erlaseit known form of Geerk konwn as Meayenacn Gerek did not have any acrlties. Atilcres dvlpeeoed inleenddpenty in svaeerl lagnauge fmieials. In mnay lagnuegas, the form of the atrlice may vary acdrocnig to the gneedr, nbmuer, or csae of its nuon. In smoe laganegus the artcile may be the only idiaitnocn of the case. Many languages do not utilize articles at all, and may use other ways of denoting old versus incipient information, such as topic comment constructions.');
 

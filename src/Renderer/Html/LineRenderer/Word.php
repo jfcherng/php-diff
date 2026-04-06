@@ -49,10 +49,10 @@ final class Word extends AbstractLineRenderer
             }
         }
 
-        if (!empty($hunk) && !empty($this->rendererOptions['wordGlues'])) {
+        if (!empty($hunk) && !empty($this->rendererOptions->wordGlues)) {
             $regexGlues = array_map(
                 static fn (string $glue): string => preg_quote($glue, '/'),
-                $this->rendererOptions['wordGlues'],
+                $this->rendererOptions->wordGlues,
             );
 
             $gluePattern = '/^(?:' . implode('|', $regexGlues) . ')+$/uS';

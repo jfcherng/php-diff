@@ -9,7 +9,7 @@ use Jfcherng\Diff\Renderer\RendererConstant;
 /**
  * Value object holding all options for renderers.
  */
-readonly class RendererOptions
+class RendererOptions
 {
     public function __construct(
         /** Granularity of in-line diff: none|line|word|char */
