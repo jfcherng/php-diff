@@ -1,10 +1,10 @@
 # php-diff
 
-[![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/jfcherng/php-diff/php.yml?branch=v6&style=flat-square)](https://github.com/jfcherng/php-diff/actions)
-[![Codacy grade](https://img.shields.io/codacy/grade/5b7ab5ed613d48b99f12cd334f6489ff/v6?style=flat-square)](https://app.codacy.com/project/jfcherng/php-diff/dashboard)
+[![GitHub Workflow Status (branch)](https://img.shields.io/github/actions/workflow/status/jfcherng/php-diff/php.yml?branch=v7&style=flat-square)](https://github.com/jfcherng/php-diff/actions)
+[![Codacy grade](https://img.shields.io/codacy/grade/5b7ab5ed613d48b99f12cd334f6489ff/v7?style=flat-square)](https://app.codacy.com/project/jfcherng/php-diff/dashboard)
 [![Packagist](https://img.shields.io/packagist/dt/jfcherng/php-diff?style=flat-square)](https://packagist.org/packages/jfcherng/php-diff)
 [![Packagist Version](https://img.shields.io/packagist/v/jfcherng/php-diff?style=flat-square)](https://packagist.org/packages/jfcherng/php-diff)
-[![Project license](https://img.shields.io/github/license/jfcherng/php-diff?style=flat-square)](https://github.com/jfcherng/php-diff/blob/v6/LICENSE)
+[![Project license](https://img.shields.io/github/license/jfcherng/php-diff?style=flat-square)](https://github.com/jfcherng/php-diff/blob/v7/LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/jfcherng/php-diff?style=flat-square&logo=github)](https://github.com/jfcherng/php-diff/stargazers)
 [![Donate to this project using Paypal](https://img.shields.io/badge/paypal-donate-blue.svg?style=flat-square&logo=paypal)](https://www.paypal.me/jfcherng/5usd)
 
@@ -48,7 +48,7 @@ composer require jfcherng/php-diff
 
 ## Example
 
-See files and readme in the [example/](https://github.com/jfcherng/php-diff/blob/v6/example) directory.
+See files and readme in the [example/](https://github.com/jfcherng/php-diff/blob/v7/example) directory.
 
 ```php
 <?php
@@ -158,16 +158,16 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
     <th>Line-level (Default)</th>
   </tr>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-none-level-diff.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-line-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v7/example/images/inline-none-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v7/example/images/inline-line-level-diff.png"></td>
   </tr>
   <tr>
     <th>Word-level</th>
     <th>Char-level</th>
   </tr>
   <tr>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-word-level-diff.png"></td>
-    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-char-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v7/example/images/inline-word-level-diff.png"></td>
+    <td><img src="https://raw.githubusercontent.com/jfcherng/php-diff/v7/example/images/inline-char-level-diff.png"></td>
   </tr>
 </table>
 
@@ -177,7 +177,7 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 <?php $rendererOptions = ['detailLevel' => 'line'];
 ```
 
-![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/inline-renderer.png)
+![Inline](https://raw.githubusercontent.com/jfcherng/php-diff/v7/example/images/inline-renderer.png)
 
 ### Renderer: Side By Side
 
@@ -185,7 +185,7 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 <?php $rendererOptions = ['detailLevel' => 'line'];
 ```
 
-![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/side-by-side-renderer.png)
+![Side By Side](https://raw.githubusercontent.com/jfcherng/php-diff/v7/example/images/side-by-side-renderer.png)
 
 ### Renderer: Combined
 
@@ -195,7 +195,7 @@ $result = $htmlRenderer->renderArray(json_decode($jsonResult, true));
 
 This renderer is suitable for articles and always has no line number information.
 
-![Combined](https://raw.githubusercontent.com/jfcherng/php-diff/v6/example/images/combined-renderer-word-level.png)
+![Combined](https://raw.githubusercontent.com/jfcherng/php-diff/v7/example/images/combined-renderer-word-level.png)
 
 ### Renderer: Unified
 
