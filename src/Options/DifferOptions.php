@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Jfcherng\Diff\Options;
 
+use Jfcherng\Diff\SequenceMatcherOptions;
+
 /**
  * Value object holding all options for the Differ.
  */
@@ -41,7 +43,7 @@ class DifferOptions
     }
 
     /**
-     * Convert to associative array for external consumers that still expect arrays (e.g. SequenceMatcher).
+     * Convert to associative array.
      *
      * @return array{context:int,ignoreCase:bool,ignoreLineEnding:bool,ignoreWhitespace:bool,lengthLimit:int,fullContextIfIdentical:bool}
      */
@@ -55,5 +57,18 @@ class DifferOptions
             'lengthLimit' => $this->lengthLimit,
             'fullContextIfIdentical' => $this->fullContextIfIdentical,
         ];
+    }
+
+    /**
+     * Convert to a SequenceMatcherOptions object.
+     */
+    public function toSequenceMatcherOptions(): SequenceMatcherOptions
+    {
+        return new SequenceMatcherOptions(
+            ignoreCase: $this->ignoreCase,
+            ignoreLineEnding: $this->ignoreLineEnding,
+            ignoreWhitespace: $this->ignoreWhitespace,
+            lengthLimit: $this->lengthLimit,
+        );
     }
 }

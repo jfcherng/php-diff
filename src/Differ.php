@@ -485,7 +485,7 @@ final class Differ
             $this->newNoEolAtEofIdx = $this->getNew(-1) === [''] ? -1 : \count($this->new);
             $this->oldNewComparison = $this->old <=> $this->new;
 
-            $this->sequenceMatcher->setOptions($this->options->toArray());
+            $this->sequenceMatcher->setOptions($this->options->toSequenceMatcherOptions());
         }
 
         return $this;

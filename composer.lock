@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0ee893d48f397bf388ba8eb21610d52c",
+    "content-hash": "a6b55c486daae7b9800716315d47511c",
     "packages": [
         {
             "name": "jfcherng/php-color-output",
@@ -123,26 +123,26 @@
         },
         {
             "name": "jfcherng/php-sequence-matcher",
-            "version": "4.0.3",
+            "version": "5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jfcherng/php-sequence-matcher.git",
-                "reference": "d2038ac29627340a7458609072a8ba355e80ec5b"
+                "reference": "99dcf7480e4ef0a4c7a21a6aafa34c0cb2f112db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/d2038ac29627340a7458609072a8ba355e80ec5b",
-                "reference": "d2038ac29627340a7458609072a8ba355e80ec5b",
+                "url": "https://api.github.com/repos/jfcherng/php-sequence-matcher/zipball/99dcf7480e4ef0a4c7a21a6aafa34c0cb2f112db",
+                "reference": "99dcf7480e4ef0a4c7a21a6aafa34c0cb2f112db",
                 "shasum": ""
             },
             "require": {
-                "php": ">=8.1"
+                "php": ">=8.3"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3",
-                "phan/phan": "^5",
-                "phpunit/phpunit": "^9 || ^10",
-                "squizlabs/php_codesniffer": "^3.7"
+                "friendsofphp/php-cs-fixer": "^3.94",
+                "phan/phan": "^6",
+                "phpunit/phpunit": "^12",
+                "squizlabs/php_codesniffer": "^4.0"
             },
             "type": "library",
             "autoload": {
@@ -167,7 +167,7 @@
             "description": "A longest sequence matcher. The logic is primarily based on the Python difflib package.",
             "support": {
                 "issues": "https://github.com/jfcherng/php-sequence-matcher/issues",
-                "source": "https://github.com/jfcherng/php-sequence-matcher/tree/4.0.3"
+                "source": "https://github.com/jfcherng/php-sequence-matcher/tree/5.0.0"
             },
             "funding": [
                 {
@@ -175,7 +175,7 @@
                     "type": "custom"
                 }
             ],
-            "time": "2023-05-21T07:57:08+00:00"
+            "time": "2026-04-06T14:59:12+00:00"
         }
     ],
     "packages-dev": [

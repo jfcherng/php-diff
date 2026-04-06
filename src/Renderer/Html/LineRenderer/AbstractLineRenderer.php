@@ -45,7 +45,7 @@ abstract class AbstractLineRenderer implements LineRendererInterface
     public function setDifferOptions(DifferOptions $differOptions): self
     {
         $this->differOptions = $differOptions;
-        $this->sequenceMatcher->setOptions($differOptions->toArray());
+        $this->sequenceMatcher->setOptions($differOptions->toSequenceMatcherOptions());
 
         return $this;
     }
