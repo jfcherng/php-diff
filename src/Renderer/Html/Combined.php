@@ -394,7 +394,7 @@ final class Combined extends AbstractHtml
         $mbNew ??= new MbString();
         $lineRenderer ??= LineRendererFactory::make(
             $this->options->detailLevel,
-            new DifferOptions(),
+            new DifferOptions(), // Combined has no access to the Differ's options in this code path
             $this->options,
         );
 

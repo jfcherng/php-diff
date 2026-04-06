@@ -13,10 +13,7 @@ use Jfcherng\Diff\SequenceMatcher;
  */
 abstract class AbstractLineRenderer implements LineRendererInterface
 {
-    /**
-     * @var SequenceMatcher the sequence matcher
-     */
-    protected $sequenceMatcher;
+    protected SequenceMatcher $sequenceMatcher;
 
     protected DifferOptions $differOptions;
 

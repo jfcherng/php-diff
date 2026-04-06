@@ -119,8 +119,8 @@ final class DiffHelper
      * @param string|string[] $old             the old string (or array of lines)
      * @param string|string[] $new             the new string (or array of lines)
      * @param string          $renderer        the renderer name
-     * @param array           $differOptions   the options for Differ object
-     * @param array           $rendererOptions the options for renderer object
+     * @param DifferOptions|array   $differOptions   the options for Differ object
+     * @param RendererOptions|array $rendererOptions the options for renderer object
      *
      * @return string the rendered differences
      */
@@ -151,8 +151,8 @@ final class DiffHelper
      * @param string $old             the path of the old file
      * @param string $new             the path of the new file
      * @param string $renderer        the renderer name
-     * @param array  $differOptions   the options for Differ object
-     * @param array  $rendererOptions the options for renderer object
+     * @param DifferOptions|array   $differOptions   the options for Differ object
+     * @param RendererOptions|array $rendererOptions the options for renderer object
      *
      * @throws \LogicException   path is a directory
      * @throws \RuntimeException path cannot be opened
