@@ -104,7 +104,7 @@ final class Differ
      *
      * @param string[]            $old     array containing the lines of the old string to compare
      * @param string[]            $new     array containing the lines of the new string to compare
-     * @param DifferOptions|array $options the options
+     * @param array|DifferOptions $options the options
      */
     public function __construct(array $old, array $new, DifferOptions|array $options = [])
     {
@@ -158,7 +158,7 @@ final class Differ
     /**
      * Set the options.
      *
-     * @param DifferOptions|array $options the options
+     * @param array|DifferOptions $options the options
      */
     public function setOptions(DifferOptions|array $options): self
     {
