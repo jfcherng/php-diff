@@ -116,11 +116,11 @@ final class DiffHelper
     /**
      * All-in-one static method to calculate the diff between two strings (or arrays of strings).
      *
-     * @param string|string[] $old             the old string (or array of lines)
-     * @param string|string[] $new             the new string (or array of lines)
-     * @param string          $renderer        the renderer name
-     * @param DifferOptions|array   $differOptions   the options for Differ object
-     * @param RendererOptions|array $rendererOptions the options for renderer object
+     * @param string|string[]       $old             the old string (or array of lines)
+     * @param string|string[]       $new             the new string (or array of lines)
+     * @param string                $renderer        the renderer name
+     * @param array|DifferOptions   $differOptions   the options for Differ object
+     * @param array|RendererOptions $rendererOptions the options for renderer object
      *
      * @return string the rendered differences
      */
@@ -148,11 +148,11 @@ final class DiffHelper
     /**
      * All-in-one static method to calculate the diff between two files.
      *
-     * @param string $old             the path of the old file
-     * @param string $new             the path of the new file
-     * @param string $renderer        the renderer name
-     * @param DifferOptions|array   $differOptions   the options for Differ object
-     * @param RendererOptions|array $rendererOptions the options for renderer object
+     * @param string                $old             the path of the old file
+     * @param string                $new             the path of the new file
+     * @param string                $renderer        the renderer name
+     * @param array|DifferOptions   $differOptions   the options for Differ object
+     * @param array|RendererOptions $rendererOptions the options for renderer object
      *
      * @throws \LogicException   path is a directory
      * @throws \RuntimeException path cannot be opened
