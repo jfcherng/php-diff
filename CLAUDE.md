@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project
 
-`php-diff` is a PHP library for generating diffs between strings in multiple output formats (unified, side-by-side HTML, context, JSON, etc.). Minimum PHP 8.4.
+`php-diff` is a PHP library for generating diffs between strings in multiple output formats (unified, side-by-side HTML, context, JSON, etc.). Minimum PHP 8.3.
 
 ## Commands
 

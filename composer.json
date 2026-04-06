@@ -32,7 +32,7 @@
         }
     },
     "require": {
-        "php": ">=8.4",
+        "php": ">=8.3",
         "jfcherng/php-color-output": "^3",
         "jfcherng/php-mb-string": "^1.4.6 || ^2",
         "jfcherng/php-sequence-matcher": "^3.2.10 || ^4"
@@ -40,12 +40,12 @@
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.94",
         "phan/phan": "^6",
-        "phpunit/phpunit": "^13",
+        "phpunit/phpunit": "^12",
         "squizlabs/php_codesniffer": "^4.0"
     },
     "config": {
         "platform": {
-            "php": "8.4.99"
+            "php": "8.3.99"
         },
         "sort-packages": true
     },
