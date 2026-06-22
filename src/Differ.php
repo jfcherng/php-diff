@@ -498,7 +498,7 @@ final class Differ
 
             $this->oldNoEolAtEofIdx = $this->getOld(-1) === [''] ? -1 : \count($this->old);
             $this->newNoEolAtEofIdx = $this->getNew(-1) === [''] ? -1 : \count($this->new);
-            $this->oldNewComparison = $this->old <=> $this->new;
+            $this->oldNewComparison = $this->old === $this->new ? 0 : ($this->old <=> $this->new ?: 1);
 
             $this->sequenceMatcher->setOptions($this->options);
         }
