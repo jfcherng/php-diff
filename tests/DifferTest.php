@@ -19,6 +19,19 @@ use PHPUnit\Framework\TestCase;
 final class DifferTest extends TestCase
 {
     /**
+     * Test that numeric strings that are equal numerically but not identical
+     * (e.g. "00" vs "0") are correctly detected as different.
+     *
+     * @covers \Jfcherng\Diff\Differ::getOldNewComparison
+     */
+    public function testNumericStringComparisonIsStrict(): void
+    {
+        $differ = new Differ(['00'], ['0']);
+
+        self::assertNotSame(0, $differ->getOldNewComparison());
+    }
+
+    /**
      * Test the Differ::getGroupedOpcodes.
      *
      * @covers \Jfcherng\Diff\Differ::getGroupedOpcodes
