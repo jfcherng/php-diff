@@ -39,7 +39,7 @@ final class Differ
         'groupedOpcodesGnu' => [],
         'oldNoEolAtEofIdx' => -1,
         'newNoEolAtEofIdx' => -1,
-        'oldNewComparison' => 0,
+        'oldNewAreSame' => false,
     ];
 
     /**
@@ -84,10 +84,9 @@ final class Differ
     private int $newNoEolAtEofIdx = -1;
 
     /**
-     * @var int the result of comparing the old and the new with the spaceship operator
-     *          `-1` means `old < new`, `0` means `old == new`, `1` means `old > new`
+     * @var bool the result of spaceship operator comparing old and new (0 if they are the same, 1 if they are different)
      */
-    private int $oldNewComparison = 0;
+    private bool $oldNewAreSame = false;
 
     /**
      * @var int[][][] array containing the generated opcodes for the differences between the two items
@@ -233,11 +232,21 @@ final class Differ
     }
 
     /**
+     * Check whether the old and the new are the same.
+     */
+    public function getOldNewAreSame(): bool
+    {
+        return $this->finalize()->oldNewAreSame;
+    }
+
+    /**
      * Compare the old and the new with the spaceship operator.
+     *
+     * @deprecated Use getOldNewAreSame() instead
      */
     public function getOldNewComparison(): int
     {
-        return $this->finalize()->oldNewComparison;
+        return $this->getOldNewAreSame() ? 0 : 1;
     }
 
     /**
@@ -302,7 +311,7 @@ final class Differ
 
         $this->getGroupedOpcodesPre($old, $new);
 
-        if ($this->oldNewComparison === 0 && $this->options->fullContextIfIdentical) {
+        if ($this->oldNewAreSame && $this->options->fullContextIfIdentical) {
             $opcodes = [
                 [
                     [SequenceMatcher::OP_EQ, 0, \count($old), 0, \count($new)],
@@ -338,7 +347,7 @@ final class Differ
 
         $this->getGroupedOpcodesGnuPre($old, $new);
 
-        if ($this->oldNewComparison === 0 && $this->options->fullContextIfIdentical) {
+        if ($this->oldNewAreSame && $this->options->fullContextIfIdentical) {
             $opcodes = [
                 [
                     [SequenceMatcher::OP_EQ, 0, \count($old), 0, \count($new)],
@@ -483,7 +492,7 @@ final class Differ
 
             $this->oldNoEolAtEofIdx = $this->getOld(-1) === [''] ? -1 : \count($this->old);
             $this->newNoEolAtEofIdx = $this->getNew(-1) === [''] ? -1 : \count($this->new);
-            $this->oldNewComparison = $this->old <=> $this->new;
+            $this->oldNewAreSame = $this->old === $this->new;
 
             $this->sequenceMatcher->setOptions($this->options->toSequenceMatcherOptions());
         }

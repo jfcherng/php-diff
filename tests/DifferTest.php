@@ -67,4 +67,32 @@ EOT,
             ],
         ];
     }
+
+    /**
+     * Test that numeric strings are compared as strings, not numbers.
+     *
+     * @covers \Jfcherng\Diff\Differ::getOldNewAreSame
+     *
+     * @see https://github.com/jfcherng/php-diff/issues/94
+     */
+    #[DataProvider('provideNumericStringComparisonCases')]
+    public function testNumericStringComparison(string $old, string $new, bool $expectedAreSame): void
+    {
+        $differ = new Differ(explode("\n", $old), explode("\n", $new));
+
+        self::assertSame($expectedAreSame, $differ->getOldNewAreSame());
+    }
+
+    /**
+     * Data provider for testNumericStringComparison.
+     */
+    public static function provideNumericStringComparisonCases(): iterable
+    {
+        return [
+            'zero vs multiple zeros' => ['0', '00000', false],
+            'identical zeros' => ['0', '0', true],
+            'numeric strings with different values' => ['1', '01', false],
+            'leading zeros' => ['007', '7', false],
+        ];
+    }
 }
