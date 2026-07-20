@@ -2,6 +2,7 @@
 *.cache
 .idea/
 .claude/
+.codegraph/
 .tags*
 /.web-server-pid
 **/oracle.sqlite
